@@ -1,0 +1,19 @@
+1. 그룹웨어(협업툴)
+    - 플로우(https://flow.team/kr/index)
+    - 카카오워크(https://www.kakaowork.com/)
+    - 슬랙(https://slack.com/intl/ko-kr/blog/productivity/integration_with_slack)
+2. ERP (전사적 자원 관리 시스템)
+    - 더존ERP(http://www.douzonerp.com/sub/?p=sub1)
+    - 이카운트ERP(https://www.ecount.com/kr/)
+3. 프렌차이즈 관리 시스템
+    - 요기요(https://www.yogiyo.co.kr/mobile/#/)
+    - 배달의민족(https://www.baemin.com/)
+    - 쿠팡이츠(https://www.coupangeats.com/)
+4. 구인구직 관리 시스템
+    - 사람인(https://www.saramin.co.kr/zf_user/)
+    - 잡코리아(https://www.jobkorea.co.kr/)
+5. 유물관리시스템
+    - 국립중앙박물관(https://www.museum.go.kr/site/main/home)
+    - 대한민국역사박물관(https://www.much.go.kr/)
+    - 전쟁기념관(https://www.warmemo.or.kr/)
+    - 국립극장(https://www.ntok.go.kr/kr/Main/Index)
