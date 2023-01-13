@@ -13,6 +13,16 @@ http://112.220.114.130:10001/svn/projects/202208F/team2
 아이디 : 202208_CKS
 비밀번호 : java
 
+[Eclipse - SVN연결방법]
+http://112.220.114.130:10001/svn/projects/202208F/team2/source
+1. 우측 상단 Open Perspactive 선택
+2. SVN Repository Exploring 선택
+3. 좌측 아이콘 중 New Repository Location 클릭
+4. URL(카카오톡), USER(202208_이니셜), PASSWORD(java) 작성 후 Save 체크하고 Finish
+5. 좌측 Repositories에서 SVN 우클릭 후 CheckOut
+6. JavaEE로 돌아가서 'team2_ALBA' 존재하는지 확인
+7. 우클릭후 team-update 및 commit
+
 3. 오라클
 접속 이름 : TEAM2_202208F
 사용자 이름 : TEAM2_202208F

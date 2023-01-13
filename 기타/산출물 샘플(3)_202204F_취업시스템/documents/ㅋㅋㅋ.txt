@@ -1,0 +1,26 @@
+인공지능의 월리를 찾아라
+
+<사용되는 패키지>
+numpy
+matplotlib :그래프 패키지 /그래프=>seborn
+keras: 딥러닝 중 cnn
+이미지 로드와 리사이즈하기위한 PIL(pillow), skimage
+
+<load dataset>
+데이터셋의 모양
+트레닝셋에 이미지는 18개 있고 이미지사이즈, 3(컬러이미지 의미)
+라벨:마스크이미지 월리 있으면 255, 없으면 0으로 표시되는 numpy array
+
+
+data generator
+랜덤으로 자르고 랜덤으로 좌우반전시키는 코드들을 작성해놓음
+
+
+ Keras에서 학습을 시킬 때 fit()과 fit_generator()의 차이점
+
+- fit()은 sklearn의 fit method와 비슷하다. 전체 dataset을 한번에 fit method로 통과시킨다. 따라서 전체 dataset을 메모리에 로드할 수 있는, 작은 크기의 dataset으로 학습을 시킬때 사용한다.
+- fit_generator()는 x와 y를 직접적으로 통과시키지 않고, generator를 통해 데이터를 불러온다. kears 공식 문서를 보면, generator는 Multiprocessing을 진행할 때 데이터 중복을 막기 위해서 사용한다. 이것은 practical purpose를 위한 것이며, 큰 크기의 dataset으로 학습을 시킬때 사용한다.
+
+​산출물
+엑터와 행위가 있음 그 것을 정의함
+정의사항을 다이어그램으로 표현한것
