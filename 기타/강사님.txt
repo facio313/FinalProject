@@ -1,0 +1,42 @@
+
+
+
+
+
+첨부파일ID, 파일순번, 파일명
+1002,  1, abc.txt
+1002,  2, c.jpg
+1003,  3, d.doc
+
+N100, 
+B100|1|2
+B100
+
+
+공지사항일련번호, 제목, 첨부파일ID
+100, dsfdasfd, 1002
+
+
+일련번호 제목, 첨부파일ID
+100,1, dsfdasfd, 
+
+
+
+where 첨부파일Id = 'B100|1'
+
+
+회원아이디, 비밀, ....,  첨부파일ID
+
+
+abc.txt 20kb, 3
+
+
+<img src='/a/b/ab.jpg'
+
+
+<img src='/notice/20230101/aaaaaa.jpg    100kb
+<img src='/notice/20230101/thumb/aaaaaa.jpg  5kb
+
+
+
+
