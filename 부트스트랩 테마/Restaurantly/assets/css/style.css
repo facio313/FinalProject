@@ -1,5 +1,5 @@
 /**
-* Template Name: Restaurantly - v3.10.0
+* Template Name: Restaurantly - v3.1.0
 * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
@@ -24,12 +24,7 @@ a:hover {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", serif;
 }
 
@@ -66,7 +61,6 @@ h6 {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
@@ -76,7 +70,6 @@ h6 {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
@@ -165,11 +158,11 @@ h6 {
   color: white;
 }
 
-#topbar .languages ul li+li {
+#topbar .languages ul li + li {
   padding-left: 10px;
 }
 
-#topbar .languages ul li+li::before {
+#topbar .languages ul li + li::before {
   display: inline-block;
   padding-right: 10px;
   color: rgba(255, 255, 255, 0.5);
@@ -263,8 +256,7 @@ h6 {
   position: relative;
 }
 
-.navbar a,
-.navbar a:focus {
+.navbar a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -275,17 +267,13 @@ h6 {
   font-size: 14px;
 }
 
-.navbar a i,
-.navbar a:focus i {
+.navbar a i {
   font-size: 12px;
   line-height: 0;
   margin-left: 5px;
 }
 
-.navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
-.navbar li:hover>a {
+.navbar a:hover, .navbar .active, .navbar li:hover > a {
   color: #d9ba85;
 }
 
@@ -318,13 +306,11 @@ h6 {
   font-size: 12px;
 }
 
-.navbar .dropdown ul a:hover,
-.navbar .dropdown ul .active:hover,
-.navbar .dropdown ul li:hover>a {
+.navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
   color: #cda45e;
 }
 
-.navbar .dropdown:hover>ul {
+.navbar .dropdown:hover > ul {
   opacity: 1;
   top: 100%;
   visibility: visible;
@@ -336,7 +322,7 @@ h6 {
   visibility: hidden;
 }
 
-.navbar .dropdown .dropdown:hover>ul {
+.navbar .dropdown .dropdown:hover > ul {
   opacity: 1;
   top: 0;
   left: 100%;
@@ -347,8 +333,7 @@ h6 {
   .navbar .dropdown .dropdown ul {
     left: -90%;
   }
-
-  .navbar .dropdown .dropdown:hover>ul {
+  .navbar .dropdown .dropdown:hover > ul {
     left: -100%;
   }
 }
@@ -369,7 +354,6 @@ h6 {
   .mobile-nav-toggle {
     display: block;
   }
-
   .navbar ul {
     display: none;
   }
@@ -407,21 +391,17 @@ h6 {
   transition: 0.3s;
 }
 
-.navbar-mobile a,
-.navbar-mobile a:focus {
+.navbar-mobile a {
   padding: 10px 20px;
   font-size: 15px;
   color: #1a1814;
 }
 
-.navbar-mobile a:hover,
-.navbar-mobile .active,
-.navbar-mobile li:hover>a {
+.navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
   color: #cda45e;
 }
 
-.navbar-mobile .getstarted,
-.navbar-mobile .getstarted:focus {
+.navbar-mobile .getstarted {
   margin: 15px;
 }
 
@@ -449,13 +429,11 @@ h6 {
   font-size: 12px;
 }
 
-.navbar-mobile .dropdown ul a:hover,
-.navbar-mobile .dropdown ul .active:hover,
-.navbar-mobile .dropdown ul li:hover>a {
+.navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {
   color: #cda45e;
 }
 
-.navbar-mobile .dropdown>.dropdown-active {
+.navbar-mobile .dropdown > .dropdown-active {
   display: block;
 }
 
@@ -514,8 +492,7 @@ h6 {
   margin-top: 30px;
 }
 
-#hero .btn-menu,
-#hero .btn-book {
+#hero .btn-menu, #hero .btn-book {
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.5px;
@@ -529,8 +506,7 @@ h6 {
   border: 2px solid #cda45e;
 }
 
-#hero .btn-menu:hover,
-#hero .btn-book:hover {
+#hero .btn-menu:hover, #hero .btn-book:hover {
   background: #cda45e;
   color: #fff;
 }
@@ -550,7 +526,7 @@ h6 {
 }
 
 #hero .play-btn::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
@@ -565,7 +541,7 @@ h6 {
 }
 
 #hero .play-btn::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 120px;
   height: 120px;
@@ -593,7 +569,7 @@ h6 {
 }
 
 #hero .play-btn:hover::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
@@ -626,7 +602,6 @@ h6 {
   #hero {
     height: auto;
   }
-
   #hero .container {
     padding-top: 130px;
     padding-bottom: 60px;
@@ -638,7 +613,6 @@ h6 {
     font-size: 28px;
     line-height: 36px;
   }
-
   #hero h2 {
     font-size: 18px;
     line-height: 24px;
@@ -650,7 +624,6 @@ h6 {
     transform: scale(0.6, 0.6);
     opacity: 1;
   }
-
   100% {
     transform: scale(1, 1);
     opacity: 0;
@@ -662,7 +635,6 @@ h6 {
     transform: scale(0.6, 0.6);
     opacity: 1;
   }
-
   100% {
     transform: scale(1, 1);
     opacity: 0;
@@ -744,11 +716,11 @@ section {
   font-size: 14px;
 }
 
-.breadcrumbs ol li+li {
+.breadcrumbs ol li + li {
   padding-left: 10px;
 }
 
-.breadcrumbs ol li+li::before {
+.breadcrumbs ol li + li::before {
   display: inline-block;
   padding-right: 10px;
   color: #37332a;
@@ -759,11 +731,9 @@ section {
   .breadcrumbs .d-flex {
     display: block !important;
   }
-
   .breadcrumbs ol {
     display: block;
   }
-
   .breadcrumbs ol li {
     display: inline-block;
   }
@@ -791,7 +761,7 @@ section {
 
 .about .about-img {
   position: relative;
-  transition: 0.5s;
+  transition: .5s;
 }
 
 .about .about-img img {
@@ -807,10 +777,10 @@ section {
   width: 60px;
   height: 60px;
   z-index: 1;
-  content: "";
+  content: '';
   border-left: 5px solid #cda45e;
   border-top: 5px solid #cda45e;
-  transition: 0.5s;
+  transition: .5s;
 }
 
 .about .about-img::after {
@@ -820,10 +790,10 @@ section {
   width: 60px;
   height: 60px;
   z-index: 2;
-  content: "";
+  content: '';
   border-right: 5px solid #cda45e;
   border-bottom: 5px solid #cda45e;
-  transition: 0.5s;
+  transition: .5s;
 }
 
 .about .about-img:hover {
@@ -908,9 +878,7 @@ section {
   box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.18);
 }
 
-.why-us .box:hover span,
-.why-us .box:hover h4,
-.why-us .box:hover p {
+.why-us .box:hover span, .why-us .box:hover h4, .why-us .box:hover p {
   color: #fff;
 }
 
@@ -939,8 +907,7 @@ section {
   font-family: "Playfair Display", serif;
 }
 
-.menu #menu-flters li:hover,
-.menu #menu-flters li.filter-active {
+.menu #menu-flters li:hover, .menu #menu-flters li.filter-active {
   color: #cda45e;
 }
 
@@ -968,7 +935,7 @@ section {
 }
 
 .menu .menu-content::after {
-  content: "......................................................................""....................................................................""....................................................................";
+  content: "......................................................................" "...................................................................." "....................................................................";
   position: absolute;
   left: 20px;
   right: 0;
@@ -1082,7 +1049,7 @@ section {
 }
 
 .events::before {
-  content: "";
+  content: '';
   background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
   top: 0;
@@ -1194,7 +1161,7 @@ section {
   font-weight: 600;
 }
 
-.book-a-table .php-email-form .error-message br+br {
+.book-a-table .php-email-form .error-message br + br {
   margin-top: 25px;
 }
 
@@ -1226,8 +1193,7 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-.book-a-table .php-email-form input,
-.book-a-table .php-email-form textarea {
+.book-a-table .php-email-form input, .book-a-table .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1236,18 +1202,19 @@ section {
   color: white;
 }
 
-.book-a-table .php-email-form input::-moz-placeholder,
-.book-a-table .php-email-form textarea::-moz-placeholder {
+.book-a-table .php-email-form input::-webkit-input-placeholder, .book-a-table .php-email-form textarea::-webkit-input-placeholder {
   color: #a49b89;
 }
 
-.book-a-table .php-email-form input::placeholder,
-.book-a-table .php-email-form textarea::placeholder {
+.book-a-table .php-email-form input::-moz-placeholder, .book-a-table .php-email-form textarea::-moz-placeholder {
   color: #a49b89;
 }
 
-.book-a-table .php-email-form input:focus,
-.book-a-table .php-email-form textarea:focus {
+.book-a-table .php-email-form input::placeholder, .book-a-table .php-email-form textarea::placeholder {
+  color: #a49b89;
+}
+
+.book-a-table .php-email-form input:focus, .book-a-table .php-email-form textarea:focus {
   border-color: #cda45e;
 }
 
@@ -1259,7 +1226,7 @@ section {
   padding: 10px 12px;
 }
 
-.book-a-table .php-email-form button[type=submit] {
+.book-a-table .php-email-form button[type="submit"] {
   background: #cda45e;
   border: 0;
   padding: 10px 35px;
@@ -1268,18 +1235,13 @@ section {
   border-radius: 50px;
 }
 
-.book-a-table .php-email-form button[type=submit]:hover {
+.book-a-table .php-email-form button[type="submit"]:hover {
   background: #d3af71;
 }
 
 /*--------------------------------------------------------------
 # Testimonials
 --------------------------------------------------------------*/
-.testimonials .testimonials-carousel,
-.testimonials .testimonials-slider {
-  overflow: hidden;
-}
-
 .testimonials .testimonial-item {
   box-sizing: content-box;
   min-height: 320px;
@@ -1307,8 +1269,7 @@ section {
   margin: 0 0 0 45px;
 }
 
-.testimonials .testimonial-item .quote-icon-left,
-.testimonials .testimonial-item .quote-icon-right {
+.testimonials .testimonial-item .quote-icon-left, .testimonials .testimonial-item .quote-icon-right {
   color: #d3af71;
   font-size: 26px;
 }
@@ -1490,9 +1451,7 @@ section {
   color: #bab3a6;
 }
 
-.contact .info .open-hours,
-.contact .info .email,
-.contact .info .phone {
+.contact .info .open-hours, .contact .info .email, .contact .info .phone {
   margin-top: 40px;
 }
 
@@ -1549,8 +1508,7 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input,
-.contact .php-email-form textarea {
+.contact .php-email-form input, .contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1559,18 +1517,19 @@ section {
   color: white;
 }
 
-.contact .php-email-form input::-moz-placeholder,
-.contact .php-email-form textarea::-moz-placeholder {
+.contact .php-email-form input::-webkit-input-placeholder, .contact .php-email-form textarea::-webkit-input-placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input::placeholder,
-.contact .php-email-form textarea::placeholder {
+.contact .php-email-form input::-moz-placeholder, .contact .php-email-form textarea::-moz-placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
+.contact .php-email-form input::placeholder, .contact .php-email-form textarea::placeholder {
+  color: #a49b89;
+}
+
+.contact .php-email-form input:focus, .contact .php-email-form textarea:focus {
   border-color: #cda45e;
 }
 
@@ -1582,7 +1541,7 @@ section {
   padding: 10px 12px;
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type="submit"] {
   background: #cda45e;
   border: 0;
   padding: 10px 35px;
@@ -1591,7 +1550,7 @@ section {
   border-radius: 50px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type="submit"]:hover {
   background: #d3af71;
 }
 
@@ -1599,7 +1558,6 @@ section {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
@@ -1609,7 +1567,6 @@ section {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
@@ -1730,7 +1687,7 @@ section {
   border: 1px solid #454035;
 }
 
-#footer .footer-top .footer-newsletter form input[type=email] {
+#footer .footer-top .footer-newsletter form input[type="email"] {
   border: 0;
   padding: 4px;
   width: calc(100% - 110px);
@@ -1738,7 +1695,7 @@ section {
   color: white;
 }
 
-#footer .footer-top .footer-newsletter form input[type=submit] {
+#footer .footer-top .footer-newsletter form input[type="submit"] {
   position: absolute;
   top: -1px;
   right: -1px;
@@ -1753,7 +1710,7 @@ section {
   border-radius: 50px;
 }
 
-#footer .footer-top .footer-newsletter form input[type=submit]:hover {
+#footer .footer-top .footer-newsletter form input[type="submit"]:hover {
   background: #d3af71;
 }
 
