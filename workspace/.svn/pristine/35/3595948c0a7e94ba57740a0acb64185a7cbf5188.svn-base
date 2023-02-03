@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.member.dao.MemberDAO">
+	
+	<select id="selectMember" parameterType="string" resultType="MemberVO">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_ID=#{memId}
+	</select>
+	
+	<insert id="insertMember" parameterType="SeekerVO">
+	INSERT INTO member (
+    mem_id,
+    mem_pass,
+    mem_name,
+    mem_use,
+    mem_auth_cd
+	) VALUES (
+	 #{memId,jdbcType=VARCHAR}
+	, #{memPass,jdbcType=VARCHAR}
+	, #{memName,jdbcType=VARCHAR}
+	, 'use'
+	, #{memAuthCd,jdbcType=VARCHAR}
+	)
+	</insert>
+	<insert id="insertSeeker" parameterType="SeekerVO">
+	INSERT INTO seeker (
+    mem_id,
+    mem_nickname,
+    mem_birth,
+    mem_gender,
+    mem_zip,
+    mem_addr1,
+    mem_addr2,
+    mem_email,
+    mem_tel,
+<!--     mem_certification, 추가해야함 -->
+	) VALUES (
+	 #{memId,jdbcType=VARCHAR}
+	, #{memNickname,jdbcType=VARCHAR}
+	, #{memBirth,jdbcType=DATE}
+	, #{memGender,jdbcType=VARCHAR}
+	, #{memZip,jdbcType=VARCHAR}
+	, #{memAddr1,jdbcType=VARCHAR}
+	, #{memAddr2,jdbcType=VARCHAR}
+	, #{memEmail,jdbcType=VARCHAR}
+	, #{memTel,jdbcType=VARCHAR}
+<!-- 	, #{memCertification,jdbcType=VARCHAR} -->
+	);
+	</insert>
+	<insert id="insertIncruiter">
+	</insert>
+</mapper>
+

@@ -1,0 +1,57 @@
+2.3(금)
+
+
+
+SELECT DISTINCT(COLUMN_NAME)
+FROM COLS
+WHERE TABLE_NAME IN ('INCRUITER', 'COMPANY');
+
+
+저희 일반 게시판 ID는 각자 시퀀스로 만들되 알파벳 두글자 + number 여섯자리 (ex) AB000001)로 할게요.
+ 이력서쪽은 알파벳 세글자, 회사 아이디는 C로 시작할 것 같습니다. 
+중복되는거 싫으시면 카톡으로 알려주시면 좋을 것 같아요
+
+
+
+
+
+--계층형 쿼리 코드조각
+--전체코드출력
+SELECT CODE,CODE_NAME,REF_CODE,CODE_DESC
+FROM COMMON_CODE
+START WITH REF_CODE IS NULL
+CONNECT BY PRIOR CODE = REF_CODE;
+
+--계층구조출력
+SELECT LEVEL
+        , LPAD(' ',2*(LEVEL-1)) || CODE_NAME NAME
+        , SYS_CONNECT_BY_PATH(CODE_NAME,'/') PATH
+        , CODE
+        , REF_CODE
+        , CODE_DESC
+FROM COMMON_CODE
+START WITH REF_CODE IS NULL
+CONNECT BY PRIOR CODE = REF_CODE;
+
+--최상위코드출력
+SELECT CODE,CODE_NAME, REF_CODE
+FROM COMMON_CODE
+WHERE REF_CODE IS NULL
+ORDER BY CODE;
+
+--레벨 조건별 코드출력 (LEVEL = ?)
+SELECT LEVEL, CODE,CODE_NAME, REF_CODE, CODE_DESC
+FROM COMMON_CODE
+WHERE LEVEL = 2
+START WITH REF_CODE IS NULL
+CONNECT BY PRIOR CODE = REF_CODE;
+
+--CONNECT_BY_ISLEAF  --현재 행이 마지막 계층의 데이터인지 확인하는 기능
+
+--ORDER SIBLINGS BY -- 계층구조를 그대로 유지하면서 동일 상위계층을 가진 하위계층들 끼리의 정렬기준을 줌.
+                           -- 즉, 계층내에서 정렬 할 수 있는 방법
+
+-- CONNECT BY의 실행 순서는 다음과 같다.
+-- 첫째START WITH절
+-- 둘째CONNECT BY절
+-- 셋째WHERE절 순서로 풀리게 되어있다.
