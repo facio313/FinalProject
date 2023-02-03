@@ -1,4 +1,8 @@
 .project
 .classpath
 *.mp4
+<<<<<<< HEAD
 .DS_store
+=======
+.DS_Store
+>>>>>>> f28bce65f42cd7e3f8ea882845ce0821815a27ac
