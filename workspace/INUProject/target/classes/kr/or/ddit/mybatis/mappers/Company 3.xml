@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.company.dao.CompanyDAO">
+
+<sql id="searchFrag">
+	<where>
+		<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+			INSTR(CMP_NAME, #{simpleCondition.searchWord}) > 0 		
+		</if>
+	</where>
+</sql>
+	
+<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+	select count(*)
+	from company
+	<include refid="searchFrag"/>
+</select>	
+
+<select id="selectCompanyList" parameterType="PagingVO" resultType="kr.or.ddit.company.vo.CompanyVO">
+	WITH ORDEREDCOMPANY AS (
+		SELECT CMP_ID, CMP_NO, CMP_NAME, CMP_REP_NAME, CMP_BSNS_NO, CMP_ADDR1, CMP_ADDR2, CMP_ZIP, CMP_PHONE, CMP_EMAIL, CMP_URL, CMP_ESTBL_DATE, CMP_SMENP, CMP_EMP_NO, CMP_AVR_WORK, CMP_AVR_SALARY, CMP_MB_NAME, CMP_CHECK, CMP_CONTENT, CMP_LOGO, ATT_ID
+		FROM COMPANY
+		<include refid="searchFrag"/>
+		ORDER BY CMP_ID DESC
+	 )
+	 SELECT A.*
+	 FROM (
+	 	SELECT ROWNUM AS RNUM, ORDEREDCOMPANY.*
+	 	FROM ORDEREDCOMPANY
+	 	)A
+	 WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+</select>	
+	 
+<select id="selectCompany" parameterType="String" resultType="kr.or.ddit.company.vo.CompanyVO">
+	select *
+	from company
+	where 
+    instr(cmp_name, #{cmpName, jdbcType=VARCHAR})>0
+
+</select>
+
+
+</mapper>
