@@ -1,0 +1,324 @@
+--RESUME
+INSERT INTO RESUME (
+    RESUME_SN,
+    MEM_ID,
+    RESUME_INSERT_DATE,
+    RESUME_DELETE_DATE,
+    RESUME_NAME,
+    RESUME_GENDER,
+    RESUME_ADDR1,
+    RESUME_EMAIL,
+    RESUME_TEL
+) VALUES (
+    'RSM000001',
+    'cks1111',
+    SYSDATE,
+    NULL,
+    '최경수',
+    '남',
+    '대전광역시 대덕구',
+    'aaa@aaa.com',
+    '010-8888-8888'
+);
+
+--RESUME_ITEM
+INSERT INTO resume_item VALUES ('RSM000001', 'EDU000001');
+INSERT INTO resume_item VALUES ('RSM000001', 'EDU000002');
+INSERT INTO resume_item VALUES ('RSM000001', 'CRR000001');
+INSERT INTO resume_item VALUES ('RSM000001', 'CRR000002');
+INSERT INTO resume_item VALUES ('RSM000001', 'CRT000001');
+INSERT INTO resume_item VALUES ('RSM000001', 'CRT000002');
+INSERT INTO resume_item VALUES ('RSM000001', 'CRT000003');
+INSERT INTO resume_item VALUES ('RSM000001', 'FAC000001');
+INSERT INTO resume_item VALUES ('RSM000001', 'ACT000001');
+INSERT INTO resume_item VALUES ('RSM000001', 'CRS000001');
+INSERT INTO resume_item VALUES ('RSM000001', 'AWD000001');
+
+--EDUCATION
+INSERT INTO EDUCATION (
+    EDU_SN,
+    MEM_ID,
+    EDU_NAME,
+    EDU_DEPARTMENT,
+    EDU_MAJOR,
+    EDU_ENTERED,
+    EDU_GRADUATE,
+    EDU_STATUS,
+    EDU_SCORE,
+    EDU_STANDARD,
+    EDU_INSERT_DATE,
+    EDU_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'EDU000001',
+    'cks1111',
+    '부산대학교',
+    '사회과학',
+    '심리학',
+    TO_DATE('201403', 'YYYYMM'),
+    TO_DATE('202108', 'YYYYMM'),
+    '졸업',
+    4.1,
+    4.5,
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+INSERT INTO EDUCATION (
+    EDU_SN,
+    MEM_ID,
+    EDU_NAME,
+    EDU_DEPARTMENT,
+    EDU_MAJOR,
+    EDU_ENTERED,
+    EDU_GRADUATE,
+    EDU_STATUS,
+    EDU_SCORE,
+    EDU_STANDARD,
+    EDU_INSERT_DATE,
+    EDU_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'EDU000002',
+    'cks1111',
+    '대덕고등학교',
+    NULL,
+    NULL,
+    TO_DATE('201103', 'YYYYMM'),
+    TO_DATE('201402', 'YYYYMM'),
+    '졸업',
+    NULL,
+    NULL,
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+--CAREER
+INSERT INTO CAREER (
+    CAREER_SN,
+    MEM_ID,
+    CAREER_CATEGORY,
+    CAREER_COMPANY,
+    CAREER_TASK,
+    CAREER_CLASS,
+    CAREER_JOIN,
+    CAREER_RESIGN,
+    CAREER_SALARY,
+    CAREER_ANNUAL,
+    CAREER_INSERT_DATE,
+    CAREER_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'CRR000001',
+    'cks1111',
+    '교육',
+    '21세기어학원',
+    '영어강사',
+    '사원',
+    TO_DATE('20191201', 'YYYYMMDD'),
+    TO_DATE('20211101', 'YYYYMMDD'),
+    '240만원',
+    2,
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+INSERT INTO CAREER (
+    CAREER_SN,
+    MEM_ID,
+    CAREER_CATEGORY,
+    CAREER_COMPANY,
+    CAREER_TASK,
+    CAREER_CLASS,
+    CAREER_JOIN,
+    CAREER_RESIGN,
+    CAREER_SALARY,
+    CAREER_ANNUAL,
+    CAREER_INSERT_DATE,
+    CAREER_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'CRR000002',
+    'cks1111',
+    DEFAULT,
+    '삼성',
+    '영어강사',
+    NULL,
+    TO_DATE('20170701', 'YYYYMMDD'),
+    TO_DATE('20210201', 'YYYYMMDD'),
+    NULL,
+    NULL,
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+--CERTIFICATION
+INSERT INTO CERTIFICATION (
+    CERT_SN,
+    MEM_ID,
+    CERT_NO,
+    CERT_NAME,
+    CERT_DATE,
+    CERT_INSTITUTION,
+    CERT_INSERT_DATE,
+    CERT_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'CRT000001',
+    'cks1111',
+    '190490-8123',
+    '임상심리사 2급',
+    TO_DATE('20200801', 'YYYYMMDD'),
+    '한국임상심리학회',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+INSERT INTO CERTIFICATION (
+    CERT_SN,
+    MEM_ID,
+    CERT_NO,
+    CERT_NAME,
+    CERT_DATE,
+    CERT_INSTITUTION,
+    CERT_INSERT_DATE,
+    CERT_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'CRT000002',
+    'cks1111',
+    '190490-8123',
+    '상담심리사 2급',
+    TO_DATE('20200801', 'YYYYMMDD'),
+    '한국상담심리학회',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+INSERT INTO CERTIFICATION (
+    CERT_SN,
+    MEM_ID,
+    CERT_NO,
+    CERT_NAME,
+    CERT_DATE,
+    CERT_INSTITUTION,
+    CERT_INSERT_DATE,
+    CERT_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'CRT000003',
+    'cks1111',
+    '190490-8144423',
+    '정보처리기사',
+    TO_DATE('20230601', 'YYYYMMDD'),
+    '한국전산학회',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+INSERT INTO FACILITY (
+    FACILITY_SN,
+    MEM_ID,
+    FACILITY_NAME,
+    FACILITY_CATEGORY,
+    FACILITY_LEVEL,
+    FACILITY_GETDATE,
+    FACILITY_PERIOD,
+    FACILITY_INSERT_DATE,
+    FACILITY_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'FAC000001',
+    'cks1111',
+    '자바',
+    '정보통신',
+    '중급',
+    TO_DATE('20230206', 'YYYYMMDD'),
+    '6개월',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+--ACTIVITY
+INSERT INTO ACTIVITY (
+    ACT_SN,
+    MEM_ID,
+    ACT_NAME,
+    ACT_CATEGORY,
+    ACT_INSTITUTION,
+    ACT_PERIOD,
+    ACT_INSERT_DATE,
+    ACT_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'ACT000001',
+    'cks1111',
+    'BCPO(부산시민교향악단)',
+    '예술',
+    'BCPO',
+    '6개월',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+--COURSE
+INSERT INTO COURSE (
+    COURSE_SN,
+    MEM_ID,
+    COURSE_NAME,
+    COURSE_CATEGORY,
+    COURSE_INSTITUTION,
+    COURSE_PERIOD,
+    COURSE_INSERT_DATE,
+    COURSE_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'CRS00001',
+    'cks1111',
+    '전자정부프레임워크 풀스택 개발자 양성과정',
+    '정보통신',
+    '대덕인재개발원',
+    '202208 ~ 202303',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+--AWARD
+INSERT INTO AWARD (
+    AWARD_SN,
+    MEM_ID,
+    AWARD_COMPETITION,
+    AWARD_NAME,
+    AWARD_CATEGORY,
+    AWARD_DATE,
+    AWARD_INSTITUTION,
+    AWARD_INSERT_DATE,
+    AWARD_DELETE_DATE,
+    ATT_ID
+) VALUES (
+    'AWD000001',
+    'cks1111',
+    '아마추어 음악 경연 대회',
+    '대상',
+    '현악기-바이올린',
+    TO_DATE('20210927', 'YYYYMMDD'),
+    '한국음악협회',
+    SYSDATE,
+    NULL,
+    NULL
+);
+
+SELECT COLUMN_NAME, NULLABLE
+FROM COLS
+WHERE TABLE_NAME = 'RESUME_ITEM';
+
