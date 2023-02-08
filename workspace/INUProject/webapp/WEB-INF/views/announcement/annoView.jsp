@@ -20,7 +20,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     
 <div class="site-wrap">
-	
 
 	<!-- HOME -->
 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg')" id="home-section">
@@ -64,9 +63,6 @@
 			<div class="row align-items-center mb-5">
 				<div class="col-lg-8 mb-4 mb-lg-0">
 					<div class="d-flex align-items-center">
-						<div class="border p-2 d-inline-block mr-3 rounded">
-							<img src="images/job_logo_5.jpg" alt="Image">
-						</div>
 						<div>
 							<h2>디자이너 모집?</h2>
 								<h3 class="mb-4">모집할게</h3>
@@ -92,10 +88,59 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="mb-5">
-						<figure class="mb-5"><img src="images/job_single_img_1.jpg" alt="Image" class="img-fluid rounded"></figure>
 						<h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>공통사항</h3>
+						<table class="table table-bordered">
+							<tr style="color: blue"><th>공고아이디</th><td>${anno.annoNo}</td></tr>
+							<tr><th>회사아이디</th><td>${anno.cmpId}</td></tr>
+							<tr><th>회원아이디</th><td>${anno.memId}</td></tr>
+							<tr><th>제목</th><td>${anno.annoTitle}</td></tr>
+							<tr><th>내용</th><td>${anno.annoContent}</td></tr>
+							<tr><th>공고시작날짜</th><td>${anno.annoStartdate}</td></tr>
+							<tr><th>공고종료날짜</th><td>${anno.annoEnddate}</td></tr>
+							<tr><th>조회수</th><td>${anno.annoHit}</td></tr>
+							<tr><th>작성일</th><td>${anno.annoDate}</td></tr>
+							<tr><th>공고글상태</th><td>${anno.annoStateCd}</td></tr>
+							<tr><th>근무환경</th><td>${anno.annoWorkenv}</td></tr>
+							<tr><th>수습기간</th><td>${anno.annoProbation}</td></tr>
+							<tr><th>연봉급여</th><td>${anno.annoSalary}</td></tr>
+							<tr><th>공고첨부파일아이디</th><td>${anno.attId}</td></tr>
+							<tr><th>업종</th><td>${anno.industryName}</td></tr>
+							<tr><th>공통학력</th><td>${anno.eduName}</td></tr>
+						</table>
+						<table class="table table-bordered">
+							<tbody>
+								<c:set var="detailList" value="${anno.detailList}"/>
+								<c:choose>
+									<c:when test="${not empty detailList}">
+										<c:forEach items="${detailList}" var="detail">
+											<tr style="color: red;"><th>세부공고번호</th><td>${detail.daNo}</td></tr>
+											<tr><th>공고번호</th><td>${detail.annoNo}</td></tr>
+											<tr><th>모집분야</th><td>${detail.daFd}</td></tr>
+											<tr><th>모집인원</th><td>${detail.daCount}</td></tr>
+											<tr><th>담당업무</th><td>${detail.daTask}</td></tr>
+											<tr><th>근무부서</th><td>${detail.daDepartment}</td></tr>
+											<tr><th>지원조건</th><td>${detail.daCondition}</td></tr>
+											<tr><th>우대사항</th><td>${detail.daPrefer}</td></tr>
+											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr>
+											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr>
+											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr>
+											<tr><th>지역</th><td>${detail.regionName}</td></tr>
+											<tr><th>고용형태</th><td>${detail.empltypeName}</td></tr>
+											<tr><th>직무코드</th><td>${detail.jobName}</td></tr>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<tr><td colspan="7"> 공고 없음. </td></tr>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
+						
+						
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet. Deleniti asperiores, commodi quae ipsum quas est itaque, ipsa, dolore beatae voluptates nemo blanditiis iste eius officia minus.</p>
 						<p>Velit unde aliquam et voluptas reiciendis non sapiente labore, deleniti asperiores blanditiis nihil quia officiis dolor vero iste dolore vel molestiae saepe. Id nisi, consequuntur sunt impedit quidem, vitae mollitia!</p>
+						
+						
 					</div>
 					<div class="mb-5">
 						<h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>모집분야</h3>
@@ -127,6 +172,39 @@
 			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span></li>
 			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span></li>
 						</ul>
+						<table class="table table-bordered">
+							<tbody>
+								<c:set var="walfareList" value="${anno.walfareList}"/>
+								<c:choose>
+									<c:when test="${not empty walfareList}">
+										<c:forEach items="${walfareList}" var="walfare">
+											<c:choose>
+												<c:when test="${walfare.refName eq detailList}">
+													<tr>
+<!-- 														<th>중분류</th> -->
+														<td>${walfare.walfareName}</td>
+													</tr>
+												</c:when>
+												<c:otherwise>
+													<tr style="color: blue;">
+<!-- 														<th>대분류</th> -->
+														<td>${walfare.refName}</td>
+													</tr>
+													<tr>
+<!-- 														<th>중분류</th> -->
+														<td>${walfare.walfareName}</td>
+													</tr>
+												</c:otherwise>
+											</c:choose>
+											<c:set var="detailList" value="${walfare.refName}"/>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<tr><td colspan="7"> 복지 없음. </td></tr>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
 					</div>
 		
 		            <div class="mb-5">
@@ -151,19 +229,19 @@
 				</div>
 				<div class="col-lg-4 ml-auto h-100 jm-sticky-top" style="top: 100px">
 					<div class="bg-light p-3 border rounded mb-4">
-						<h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">기업 정보</h3>
+						<h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">${company.cmpName}</h3>
 						<ul class="list-unstyled pl-3 mb-0">
-			                <li class="mb-2"><strong class="text-black">업종:</strong> Full-time</li>
-							<li class="mb-2"><strong class="text-black">사원수:</strong> 20</li>
-							<li class="mb-2"><strong class="text-black">설립일자:</strong> April 14, 2019</li>
-							<li class="mb-2"><strong class="text-black">기업형태:</strong> 2 to 3 year(s)</li>
-							<li class="mb-2"><strong class="text-black">회사 주소:</strong> New ork City</li>
-							<li class="mb-2"><strong class="text-black">투명도:</strong> $60k - $100k</li>
-							<li class="mb-2"><strong class="text-black">이메일:</strong> Any</li>
-							<li class="mb-2"><strong class="text-black">홈페이지:</strong> April 28, 2019</li>
+							<c:set var="company" value="${anno.company}"/>
+			                <li class="mb-2"><strong class="text-black">업종: </strong>${company.cmpMbName}</li>
+							<li class="mb-2"><strong class="text-black">사원수: </strong>${company.cmpEmpNo}</li>
+							<li class="mb-2"><strong class="text-black">설립일자: </strong>${company.cmpEstblDate}</li>
+							<li class="mb-2"><strong class="text-black">기업형태: </strong>${company.cmpSmenp}</li>
+							<li class="mb-2"><strong class="text-black">회사 주소: </strong>${company.cmpAddr1}</li>
+							<li class="mb-2"><strong class="text-black">투명도: </strong>굿</li>
+							<li class="mb-2"><strong class="text-black">이메일: </strong>${company.cmpEmail}</li>
+							<li class="mb-2"><strong class="text-black">홈페이지: </strong>${company.cmpUrl}</li>
 						</ul>
 					</div>
-	
 					<div class="bg-light p-3 border rounded">
 						<h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Share</h3>
 						<div class="px-3">

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.lab.dao.NewsDAO">
+<!-- 	<sql id="searchFrag"> -->
+<!-- 		  <where> -->
+<!-- 	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)"> -->
+<!-- 	    		<choose> -->
+<!-- 	    			<when test="simpleCondition.searchType eq 'name'"> -->
+<!-- 	    				INSTR(NEWS_NAME, #{simpleCondition.searchWord}) > 0 -->
+<!-- 	    			</when> -->
+<!-- 	    			<otherwise> -->
+<!-- 	    				INSTR(NEWS_NAME, #{simpleCondition.searchWord}) > 0 -->
+<!-- 	    			</otherwise> -->
+<!-- 	    		</choose> -->
+<!-- 	    	</if> -->
+<!-- 	    </where> -->
+<!-- 	</sql> -->
+
+	<select id="selectNewsList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.NewsVO">
+		SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO
+		FROM NEWS
+<!-- 		<include refid="searchFrag"/> -->
+	</select>	
+	
+	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+		SELECT COUNT(*)
+		FROM NEWS
+	</select>
+	
+	<select id="selectNews" parameterType="int" resultType="NewsVO">
+		SELECT NEWS_NO, NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_CONTENT, NEWS_IMG
+		FROM NEWS
+		WHERE NEWS_NO = #{newsNo}
+	</select>
+	
+	<insert id="insertNews" parameterType="NewsVO">
+		<selectKey order="BEFORE" resultType="int" keyProperty="newsNo">
+			SELECT NEWS_SEQ.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		INSERT INTO NEWS (
+		    NEWS_NO,
+		    NEWS_NAME,
+		    NEWS_DATE,
+		    NEWS_FIELD,
+		    NEWS_HIT,
+		    NEWS_CONTENT,
+		    MEM_ID,
+		    NEWS_IMG
+		) VALUES (
+			#{newsNo,jdbcType=NUMERIC}
+			, #{newsName,jdbcType=VARCHAR}
+			, SYSDATE
+			, #{newsField,jdbcType=VARCHAR}
+			, #{newsHit,jdbcType=NUMERIC}
+			, #{newsContent,jdbcType=VARCHAR}
+			, #{memId,jdbcType=VARCHAR}
+			, #{newsImg,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="incrementHit" parameterType="int">
+		UPDATE NEWS
+		SET
+		NEWS_HIT = NEWS_HIT + 1
+		WHERE NEWS_NO = #{newsNo}
+	</update>
+	
+	
+</mapper>

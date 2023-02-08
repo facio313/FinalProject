@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.announcement.dao.AnnoSearchDAO">
+   <select id="selectRegionList" resultType="hashmap">
+      SELECT REGION_CODE "regionCode", REGION_NAME "regionName", REGION_REF "regionRef" 
+      FROM CD_REGION
+      <where>
+         <choose>
+            <when test="@org.apache.commons.lang3.StringUtils@isNotBlank(regionRef)">
+               REGION_REF = #{regionRef}
+            </when>
+            <otherwise>
+               REGION_REF IS NULL
+            </otherwise>
+         </choose>
+      </where>
+      ORDER BY 1
+   </select>
+   <select id="selectIndustry" resultType="hashmap">
+      SELECT INDUSTRY_CODE "industryCode", INDUSTRY_NAME "industryName", INDUSTRY_REF "industryRef" 
+      FROM CD_INDUSTRY
+      <where>
+         <choose>
+            <when test="@org.apache.commons.lang3.StringUtils@isNotBlank(industryRef)">
+               INDUSTRY_REF = #{industryRef}
+            </when>
+            <otherwise>
+               INDUSTRY_REF IS NULL
+            </otherwise>
+         </choose>
+      </where>
+      ORDER BY 1
+   </select>
+   <select id="selectJob" resultType="hashmap">
+      SELECT JOB_CODE "jobCode", JOB_NAME "jobName", JOB_REF "jobRef" 
+      FROM CD_JOB
+      <where>
+         <choose>
+            <when test="@org.apache.commons.lang3.StringUtils@isNotBlank(jobRef)">
+               JOB_REF = #{jobRef}
+            </when>
+            <otherwise>
+               JOB_REF IS NULL
+            </otherwise>
+         </choose>
+      </where>
+      ORDER BY 1
+   </select>
+</mapper>

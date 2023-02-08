@@ -22,4 +22,6 @@ public class SeekerVO extends MemberVO{
 	private String memDate;
 	
 	private String memProfile; // 임시(경수) 
+	
+	
 }

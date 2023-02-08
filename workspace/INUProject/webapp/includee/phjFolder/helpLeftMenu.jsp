@@ -16,10 +16,10 @@
 				<a href="${pageContext.request.contextPath}/"><span class="fa fa-home"></span>홈</a>
 			</li>
 			<li>
-			    <a href="${pageContext.request.contextPath}/help/helpList"><span class="fa fa-user"></span>도움말</a>
+			    <a href="${pageContext.request.contextPath}/help"><span class="fa fa-user"></span>도움말</a>
 			</li>
 			<li>
-			  	<a href="${pageContext.request.contextPath}/help/noticeList"><span class="fa fa-sticky-note"></span>공지사항</a>
+			  	<a href="${pageContext.request.contextPath}/help/notice"><span class="fa fa-sticky-note"></span>공지사항</a>
 			</li>
 			<li>
 			  	<a href="${pageContext.request.contextPath}/ask"><span class="fa fa-cogs"></span>문의하기</a>

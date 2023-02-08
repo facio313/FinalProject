@@ -52,7 +52,6 @@ public class BootstrapPaginationRender implements PaginationRenderer {
 			)	
 		);
 		
-		
 		html.append("</ul>");
 		html.append("</nav>");
 		

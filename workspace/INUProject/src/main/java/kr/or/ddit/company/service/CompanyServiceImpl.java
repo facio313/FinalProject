@@ -48,6 +48,12 @@ public class CompanyServiceImpl implements CompanyService {
 		pagingVO.setDataList(companyList);
 		companyList.stream().forEach(System.out::println);
 	}
+
+	@Override
+	public int createCompany(CompanyVO company) {
+		int rowcnt = companyDAO.insertCompany(company);
+		return rowcnt;
+	}
 	
 	
 }

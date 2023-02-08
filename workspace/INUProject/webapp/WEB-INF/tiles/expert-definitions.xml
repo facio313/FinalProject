@@ -33,4 +33,7 @@
   <definition name="mypage/*" extends="mypage">
   	<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"/>
   </definition>
+    <definition name="join/*" extends="join">
+  	<put-attribute name="content" value="/WEB-INF/views/join/{1}.jsp"/>
+  </definition>
 </tiles-definitions>

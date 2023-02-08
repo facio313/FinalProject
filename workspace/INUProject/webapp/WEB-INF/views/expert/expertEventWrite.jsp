@@ -7,80 +7,104 @@
  --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>	
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>	
+	
 
 <div class="site-wrap">
 
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
-    
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close mt-3">
+				<span class="icon-close2 js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+	<!-- .site-mobile-menu -->
 
-    <section class="site-section">
-      <div class="container">
 
-        <div class="row align-items-center mb-5">
-          <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <div>
-                <h2>이벤트등록</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-5">
-          <div class="col-lg-12">
-            <form class="p-4 p-md-5 border rounded" method="post">
-             
-              <div class="form-group">
-                <label for="job-title">제목</label>
-                <input type="text" class="form-control" id="job-title" placeholder="" cssClass="form-control">
-              </div>
-              <div class="form-group">
-                <label for="job-title">첨부파일</label>
-                <input type="file" class="form-control" id="job-title" placeholder="" cssClass="form-control">
-              </div>
-              <div class="form-group">
-                <label for="job-title">첨부파일</label>
-                <input type="file" class="form-control" id="job-title" placeholder="" cssClass="form-control">
-              </div>
-              <div class="form-group">
-                <label for="job-title">시작일</label>
-                <input type="date" class="form-control" id="job-title" placeholder="" cssClass="form-control">
-              </div>
-              <div class="form-group">
-                <label for="job-title">종료일</label>
-                <input type="date" class="form-control" id="job-title" placeholder="" cssClass="form-control">
-              </div>
-              <div class="form-group">
-                <label for="job-title">내용</label>
-                <textarea name="message" id="message" cols="30" rows="7" class="form-control"></textarea>
-              </div>
-              <br>
-              
-            </form>
-          </div>
+	<section class="site-section">
+		<div class="container">
 
-         
-        </div>
-        <div class="row align-items-center mb-5">
-          
-          <div class="col-lg-4 ml-auto">
-            <div class="row">
-              <div class="col-6">
-                <a href="#" class="btn btn-block btn-light btn-md" style="border: 1px solid; ">이전</a>
-              </div>
-              <div class="col-6">
-                <a href="#" class="btn btn-block btn-primary btn-md">등록</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+			<div class="row align-items-center mb-5">
+				<div class="col-lg-8 mb-4 mb-lg-0">
+					<div class="d-flex align-items-center">
+						<div>
+							<h2>이벤트등록</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-5">
+				<div class="col-lg-12">
+					<form:form modelAttribute="exevent" method="post" enctype="multipart/form-data">
+
+						<%-- <div class="form-group">
+							<label for="job-title">이벤트ID</label>
+							<form:input path="exeventId" type="text" cssClass="form-control" />
+							<form:errors path="exeventId" element="span"
+								cssClass="text-danger" />
+						</div> --%>
+						<div class="form-group">
+							<label for="job-title">작성자</label>
+							<form:input path="exeventName" type="text"
+								cssClass="form-control" />
+							<form:errors path="exeventName" element="span"
+								cssClass="text-danger" />
+						</div>
+						<div class="form-group">
+							<label for="job-title">이벤트시작일</label>
+							<form:input path="exeventStart" type="date"
+								cssClass="form-control" />
+							<form:errors path="exeventStart" element="span"
+								cssClass="text-danger" />
+						</div>
+						<div class="form-group">
+							<label for="job-title">이벤트종료일</label>
+							<form:input path="exeventEnd" type="date" cssClass="form-control" />
+							<form:errors path="exeventEnd" element="span"
+								cssClass="text-danger" />
+						</div>
+
+						<div class="form-group">
+							<label for="job-title">첨부파일</label>
+							<input type="file" name="exeventFiles" class="form-control"/>
+							<input type="file" name="exeventFiles" class="form-control"/>
+							<input type="file" name="exeventFiles" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label for="job-title">이벤트내용</label>
+							<form:textarea path="exeventContent" type="text"
+								cssClass="form-control" />
+							<form:errors path="exeventContent" element="span"
+								cssClass="text-danger" />
+						</div>
+						<br>
+		              <div class="col-6">
+		                <input type="submit" class="btn btn-block btn-primary btn-md" value="가입">
+		              </div>
+					</form:form>
+				</div>
+
+
+			</div>
+			<div class="row align-items-center mb-5">
+
+				<div class="col-lg-4 ml-auto">
+					<div class="row">
+						<div class="col-6">
+							<a href="#" class="btn btn-block btn-light btn-md"
+								style="border: 1px solid;">이전</a>
+						</div>
+						<div class="col-6">
+							<a href="#" class="btn btn-block btn-primary btn-md">등록</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

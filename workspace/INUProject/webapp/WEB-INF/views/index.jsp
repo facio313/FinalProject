@@ -5,74 +5,9 @@
 
 <!-- gridstack -->
 <link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
+<link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
 <script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
-<style type="text/css">
-	.grid-stack {
-		background: transparent;
-	}
-	.grid-stack-item-content {
-		background-color: rgb(255, 255, 255, 0.5);
-		border-radius: 16px;
-		transition:0.5s;
-		box-shadow: 17px 20px 40px rgb(0 0 0 / 21%);
-		width:200px;
-		
-	}
-	
-	.grid-stack-item-content:hover {
-		box-shadow: 17px 20px 50px rgb(0 0 0 / 50%);
-	}
-	
-	.grid-stack-item[gs-w="1"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="2"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="3"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="4"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="5"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="6"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="7"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="8"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="9"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="10"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="11"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	.grid-stack-item[gs-w="12"]:hover {
-		transition:0.5s;
-		transform:scale(1.02);
-	}
-	
-</style>
+
 <div class="grid-stack">
 <!-- ============================================프로필=================================================== -->
 <!-- spring security용 -->
@@ -93,7 +28,10 @@
 				<div id="profile" style="padding: 3%; height: 70%;"></div>
 				<div style="height: 30%; background-color: rgb(0, 0, 0, 0.4); color: white;">
 					<a href="<c:url value='/login'/>"><h1 style="color: white;">로그인</h1></a>
-					<a href="<c:url value='/join/seeker'/>">회원가입</a>
+					<a href="<c:url value='/join/incruiter'/>">기업회원가입</a>
+					<a href="<c:url value='/join/seeker'/>">일반회원가입</a>
+					
+					<a href="<c:url value='/help/find'/>">아이디/비밀번호 찾기</a>
 				</div>
 			</div>
 		</security:authorize>
@@ -135,8 +73,15 @@
 				<span style="position:absolute; left: 68px; top: 5px; font-size: 1.3em;">빠른 메뉴</span><br><span style="position:absolute; left: 68px; top: 40px"><a>설정하러 가지</a></span>
 			</div>
 			<div class="down bg-white" style="height: 100%;">
-			<a href="${pageContext.request.contextPath}/process/apply"><h1 style="color: black;">지원</h1></a>
-			<a href="${pageContext.request.contextPath}/resume"><h1 style="color: black;">이력서</h1></a>
+				<a href="${pageContext.request.contextPath}/process/apply"><h6 style="color: black;">지원</h6></a>
+				<a href="${pageContext.request.contextPath}/resume"><h6 style="color: black;">이력서</h6></a>
+				<a href="${pageContext.request.contextPath}/activity"><h6 style="color: black;">주요활동</h6></a>
+				<a href="${pageContext.request.contextPath}/award"><h6 style="color: black;">수상내역</h6></a>
+				<a href="${pageContext.request.contextPath}/career"><h6 style="color: black;">경력</h6></a>
+				<a href="${pageContext.request.contextPath}/certification"><h6 style="color: black;">자격증</h6></a>
+				<a href="${pageContext.request.contextPath}/course"><h6 style="color: black;">교육이수</h6></a>
+				<a href="${pageContext.request.contextPath}/education"><h6 style="color: black;">학력</h6></a>
+				<a href="${pageContext.request.contextPath}/facility"><h6 style="color: black;">기능</h6></a>
 			</div>
 		</div>
     </div>

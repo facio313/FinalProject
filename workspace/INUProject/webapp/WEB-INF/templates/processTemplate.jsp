@@ -7,10 +7,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-		<meta name="generator" content="Hugo 0.88.1">
-		<meta name="theme-color" content="#7952b3">
+		
+		<!-- MAIN CSS -->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+		<!-- gridstack -->
+		<link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
+		<link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
+		<script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
+
+		
 
 		<title>INU</title>
 		
@@ -35,9 +41,15 @@
  				top: 50px;
  				left: 25px;
 				background: white;
-				
-				
 			}
+			footer {
+				position: relative;
+ 				z-index:1;
+ 				height:80px;
+ 				background-color:red;
+ 				bottom:-1500px;
+ 				left:0;
+			}			
 		</style>
 	</head>
 	<body>
@@ -50,7 +62,7 @@
 		</div>
 	
 	
-		<footer class="footer mt-auto py-3 bg-dark col-md-12 ms-sm-auto col-lg-12">
+		<footer class="footer">
 			<tiles:insertAttribute  name="footer" ignore="true"/>
 		</footer>
 		

@@ -153,6 +153,28 @@
 								</div>
 							</div>
 						</div>
+						<!-- 급여 -->
+						<div class="container">
+							<div class="row pp">
+								<div class="col-6 col-md-2">
+									급여
+									<div class="ref">
+										※필수
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<select class="selectpicker border rounded" data-style="btn-black" data-width="100%" data-live-search="true" title="학력 구분">
+										<option>면접 후 결정</option>
+										<option>연봉</option>
+									</select>
+								</div>
+							</div>
+							<div style="font-size: 13px">	
+								※ 2023년 최저시급 9,620원, 주 40시간 기준 최저연봉 약 24,126,960원 입니다.
+								2023년 최저임금에 부합한 급여를 입력해주세요. 위 최저임금은 기본소정 근로시간 기준의 급여이므로, 그 외 수당 발생시 추가 지급되어야 합니다. 
+								당사는 본 채용건과 관련하여 '최저임금법'을 준수합니다, 최저임금을 준수하지 않는 경우, 공고 강제 마감 및 행정처분을 받을 수 있습니다.
+							</div>
+						</div>
 					</div>
 					
 					<!-- 세부 페이지 추가 버튼 만들기, 세부voList -->
@@ -197,12 +219,12 @@
 								<div id="career_year" style="display: none">
 									<div class="form-group col-md-6">
 										<select class="selectpicker border rounded select_year" id="select_year" data-style="btn-black" data-width="100%" data-live-search="true" title="연차">
-											<option>1년 이상</option>
-											<option>4년 이상</option>
-											<option>7년 이상</option>
-											<option>10년 이상</option>
-											<option>15년 이상</option>
-											<option>20년 이상</option>
+											<option value="1년 이상">1년 이상</option>
+											<option value="4년 이상">4년 이상</option>
+											<option value="7년 이상">7년 이상</option>
+											<option value="10년 이상">10년 이상</option>
+											<option value="15년 이상">15년 이상</option>
+											<option value="20년 이상">20년 이상</option>
 										</select>
 									</div>
 								</div>
@@ -228,7 +250,6 @@
 					</div>
 					
 					<!-- 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
-					
 					<div class="container">
 						<div class="row pp">
 							<div class="col-6 col-md-2">지원 조건</div>
@@ -249,25 +270,18 @@
 					</div>
 					<!-- 3. 자격/조건 : 지원자 학력*, 지원자 성별(성차별금지 남녀고용평등에 관한 법률), 지원자 연령(연령차별 금지에 관한 법률), 연봉/급여, 고용형태*, 수습기간, 근무요일, 근무시간 -->
 					
-					
-					
-					
 					<div class="container">
 						<div class="row pp">
 							<div class="col-6 col-md-2">내용작성</div>
 						</div>
 						<textarea name="text" id="editor" ></textarea>
 					</div>
-
-
 	            </form>
 	          </div>
           </div>
 		</div>        
     </section>
 </div>
-
-
 <h1>공고 등록 폼임</h1>
 <h1>공고 등록 폼임</h1>
 <h1>공고 등록 폼임</h1>

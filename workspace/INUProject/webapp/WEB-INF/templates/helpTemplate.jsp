@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.2</title>
+		<title>INU : Thank You Very Match!</title>
 		
 		<tiles:insertAttribute name="preScript" />
 		<c:if test="${not empty message }">
@@ -34,7 +34,7 @@
  				position: abosolute;
  				top: 50px;
  				left: 25px;
-				background: #eaffff;
+				background: #ffffff;
 			}
 		</style>
 		
@@ -44,7 +44,7 @@
 		<div id="main_div" class="row">
 			<tiles:insertAttribute name="leftMenu" ignore="true"/>
 			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
-				<tiles:insertAttribute  name="content"/>
+				<tiles:insertAttribute  name="content" />
 			</main>
 		</div>
 	

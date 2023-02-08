@@ -28,8 +28,7 @@
 				background-size: auto;
 			}
 			</style>
-			<tiles:insertAttribute  name="postScript"/>
-			<tiles:insertAttribute  name="scriptSource"/>
+			
 	</head>
 	<body id="top" class="d-flex flex-column">
 	
@@ -45,6 +44,8 @@
 		
 
 	</body>
+	<tiles:insertAttribute  name="postScript"/>
+	<tiles:insertAttribute  name="scriptSource"/>
 </html>
 
 

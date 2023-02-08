@@ -21,35 +21,41 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
 	    
 	    <!-- MAIN CSS -->
-	    <link rel="stylesheet" href="css/style.css">    
+	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
 	</head>
+	
+		<!-- HOME -->
+	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
+		<div class="container">
+	        <div class="row">
+				<div class="col-md-7">
+		            <h1 class="text-white font-weight-bold">취업랩</h1>
+		            <div class="custom-breadcrumbs">
+						<a href="${pageContext.request.contextPath}/lab">Lab</a> <span class="mx-2 slash">/</span>
+						<span class="text-white"><strong>Main</strong></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <div id="overlayer"></div>
-      <div class="loader">
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    
 
-    <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
-          
-          <section class="site-section services-section block__62849" id="next-section">
+          <section class="site-section block__62849" id="next-section">
             <div class="container">
-              
               <div class="row">
 
-                <div class="col-sm-1"></div>
+
+              <hr>
+              <div style="height: 25px"></div>
+                <div class="col-sm-2"></div>
+                
 
                 <!-- 뉴스 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
       
-                  <a href="" class="block__16443 text-center d-block">
-                    <span class="custom-icon mx-auto"><span class="icon-magnet d-block"></span></span>
-                    <h3>뉴스</h3>
+                  <a href="${pageContext.request.contextPath}/lab/News" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
+                    <span class="custom-icon mx-auto"><span class="icon-line-newspaper d-block"></span></span>
+                    <h3>NEWS</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
                   </a>
       
@@ -59,23 +65,23 @@
                 <!-- 공모전 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
                   
-                  <a href="" class="block__16443 text-center d-block">
+                  <a href="${pageContext.request.contextPath}/lab/Contest" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
                     <span class="custom-icon mx-auto"><span class="icon-trophy d-block"></span></span>
-                    <h3>공모전</h3>
+                    <h3>CONTEST</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
                   </a> 
 
                 </div>
 
-                <div class="col-sm-3"></div>
-                <div class="col-sm-1"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
 
                 <!-- 1:1 상담 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
                   
-                  <a href="" class="block__16443 text-center d-block">
-                    <span class="custom-icon mx-auto"><span class="icon-laptop d-block"></span></span>
-                    <h3>1 : 1 상담</h3>
+                  <a href="${pageContext.request.contextPath}/lab/counseling" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
+                    <span class="custom-icon mx-auto"><span class="icon-supervisor_account d-block"></span></span>
+                    <h3>1 : 1 COUNSEL</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
                   </a>            
       
@@ -84,20 +90,19 @@
                 <!-- 취업지원 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
                   
-                  <a href="" class="block__16443 text-center d-block">
-                    <span class="custom-icon mx-auto"><span class="icon-search d-block"></span></span>
-                    <h3>취업 지원</h3>
+                  <a href="${pageContext.request.contextPath}/lab/support" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
+                    <span class="custom-icon mx-auto"><span class="icon-object-group d-block"></span></span>
+                    <h3>EMPLOYMENT SUPPORT</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
                   </a>
       
                 </div>
+                <div class="col-sm-2"></div>
 
+			 </div>
             </div>
+          <hr>
           </section>
-          
-        </div>
-      </div>
-    </section>
     
  	<!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

@@ -1,19 +1,32 @@
 package kr.or.ddit.resume.vo;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
+import kr.or.ddit.vo.CommonsAttachVO;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Data
-@NoArgsConstructor
-public class ActivityVO {
-
+@EqualsAndHashCode(of="actSn")
+public class ActivityVO extends CommonsAttachVO {
+	
 	private String actSn;
 	private String memId;
+	@NotBlank
 	private String actName;
+	@NotBlank
 	private String actCategory;
 	private String actInstitution;
-	private Integer actPeriod;
+	@NotBlank
+	@Min(0)
+	private String actPeriod;
 	private String actInsertDate;
 	private String actDeleteDate;
-	private Integer attId;
+	
+	@Override
+	public String getTblId() {
+		
+		return this.actSn;
+	}
 }

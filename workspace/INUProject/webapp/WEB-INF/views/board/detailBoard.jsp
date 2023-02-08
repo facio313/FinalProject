@@ -10,20 +10,22 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Free-Template.co" />
-    <link rel="shortcut icon" href="ftco-32x32.png">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/ftco-32x32.png">
 
-<!--     <link rel="stylesheet" href="css/custom-bs.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link rel="stylesheet" href="fonts/line-icons/style.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/animate.min.css"> -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 
     <!-- MAIN CSS -->
-<%-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> --%>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/totalBoard.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <!-- layout CSS -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+    <!-- board CSS -->
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
 
 <style type="text/css">
 
@@ -32,8 +34,8 @@
   </head>
 
   <body id="top">
-    <div id="overlayer"></div>
-    <div class="site-wrap">
+   <!--  <div id="overlayer"></div>
+    <div class="site-wrap"> -->
 
       <!-- HOME -->
       <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');"
@@ -58,13 +60,13 @@
 				<div id="content">
 					<div class="company_honest_qna">
 						<div class="contents_container detail_wrap">
-							<a href="#" class="btn_back_list" onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'resume_total')">전체 게시글</a>
+							<a href="${pageContext.request.contextPath }/board/totalBoard" class="btn_back_list" onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'resume_total')">전체 게시글</a>
 
 							<!-- 게시글 보기 -->
 							<div class="post_view_wrap">
 								<!-- 게시글 상단 -->
 								<div class="post_top">
-									<h1 class="qna_subject">면접 볼 때 엑셀 가능하냐 물어보잖아요</h1>
+									<h1 class="qna_subject">${board.boardTitle }</h1>
 									<div class="post_btns">
 										<button type="button" class="btns btnSizeXS colorGrayReverse" onclick="window.login()">신고</button>
 									</div>
@@ -77,8 +79,8 @@
 										<div class="profile_pic_wrap" onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'profile')">
 											<a href="#" target="_blank"><div class="profile_pic profile1"></div></a>
 										</div>
-										<a href="#" target="_blank"> <span class="nickname">닉네임</span></a>
-											<span class="post_date">2020.12.01 작성</span>
+										<a href="#" target="_blank"> <span class="nickname">${board.memId }</span></a>
+											<span class="post_date">${board.boardDate } 작성</span>
 									</div>
 									<div class="post_data_wrap">
 										<span class="qna_info qna_like likeTotalCount">8</span>
@@ -91,8 +93,7 @@
 								<!-- 게시글 내용 -->
 								<div class="post_cont">
 									<div>
-										그래도 요즘 엑셀 공부하면서 표 활용이나 함수는 사용할 줄 아는데요<br> 기업에서 정확히 이런거 할
-										줄 알아요?(제가 못하는거)라고 물어보면 뭐라고 대답하는게 좋을까요?
+										${board.boardContent }
 									</div>
 								</div>
 								<!-- // 게시글 내용 -->
@@ -101,22 +102,22 @@
 								<ul class="post_emoticon">
 									<li>
 										<button type="button" class="like " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'like')">
-											<span class="sympathy_result">좋아요<br> <strong>1</strong></span>
+											<span class="sympathy_result">좋아요<br> <strong>${board.boardLike }</strong></span>
 										</button>
 									</li>
 									<li>
 										<button type="button" class="fun " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'fun')">
-											<span class="sympathy_result">재밌어요<br> <strong>0</strong></span>
+											<span class="sympathy_result">재밌어요<br> <strong>${board.boardFun }</strong></span>
 										</button>
 									</li>
 									<li>
 										<button type="button" class="help " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'help')">
-											<span class="sympathy_result">도움돼요<br> <strong>2</strong></span>
+											<span class="sympathy_result">도움돼요<br> <strong>${board.boardHelp }</strong></span>
 										</button>
 									</li>
 									<li>
 										<button type="button" class="cheer " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'cheer')">
-											<span class="sympathy_result">힘내요<br> <strong>5</strong></span>
+											<span class="sympathy_result">힘내요<br> <strong>${board.boardCheer }</strong></span>
 										</button>
 									</li>
 								</ul>
@@ -283,19 +284,19 @@
 		</div>
 
 		<!-- SCRIPTS -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/stickyfill.min.js"></script>
-    <script src="js/jquery.fancybox.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 
-    <script src="js/bootstrap-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 
-    <script src="js/custom.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
   </body>
 </html>

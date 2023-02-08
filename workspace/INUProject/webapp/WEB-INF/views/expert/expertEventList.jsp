@@ -5,7 +5,10 @@
 * 2023. 2. 2.      작성자명      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <section class="site-section">
@@ -21,56 +24,49 @@
           </div>
         </div>
         <div class="row mb-5">
-          <div class="col-md-6 col-lg-4 mb-5">
-            <a href="blog-single.html"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="<%=request.getContextPath() %>/expert/event/detail" class="text-black">이벤트1</a></h3>
-            <div>April 15, 2019 <span class="mx-2">|</span> 조회수</div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <a href="blog-single.html"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="blog-single.html" class="text-black">이벤트2</a></h3>
-            <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <a href="blog-single.html"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="blog-single.html" class="text-black">이벤트3</a></h3>
-            <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <a href="blog-single.html"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="blog-single.html" class="text-black">이벤트4</a></h3>
-            <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <a href="blog-single.html"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="blog-single.html" class="text-black">How to Write a Creative Cover Letter</a></h3>
-            <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5">
-            <a href="blog-single.html"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
-            <h3><a href="blog-single.html" class="text-black">The Right Way to Quit a Job You Started</a></h3>
-            <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-          </div>
-        </div>
+        <c:set var="exeventList" value="${pagingVO.dataList }"></c:set>
+        <c:choose>
+        	<c:when test="${not empty exeventList }">
+        		<c:forEach items="${exeventList }" var="exevent">
+        		<div class="col-md-6 col-lg-4 mb-5">
+	            	<a href="${pageContext.request.contextPath}/expert/event/detail/${exevent.exeventId }"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid rounded mb-4"></a>
+	            	<h3><a href="${pageContext.request.contextPath}/expert/event/detail/${exevent.exeventId }" class="text-black">${exevent.exeventName }</a></h3>
+	            <div>시작일 : ${exevent.exeventStart } <span class="mx-2">|</span>조회수 : ${exevent.exeventHits }</div>
+	         	</div>
+        		</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="3">검색된 회사가 없음.</td>
+				</tr>
+			</c:otherwise>
+        </c:choose>
+		</div>
         <!-- 운영자로 로그인했을 때만 보여야함 -->
         <a href="<%=request.getContextPath()%>/expert/event/write"><label class="btn btn-primary btn-md btn-file" style="margin-left: 950px;">
           이벤트등록
         </label></a>
-        <div class="row pagination-wrap mt-5">
-          
-          <div class="col-md-12 text-center ">
-            <div class="custom-pagination ml-auto">
-              <a href="#" class="prev">Prev</a>
-              <div class="d-inline-block">
-              <a href="#" class="active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              </div>
-              <a href="#" class="next">Next</a>
-            </div>
-          </div>
-        </div>
-
+		<div id="pagingArea">
+		<%--                ${pagingVO } --%>
+		<%--                <%=new BootstrapPaginationRender().renderPagination((PagingVO)request.getAttribute("pagingVO")) %> --%>
+		<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/>
+		</div>
       </div>
     </section>
+<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+<form:hidden path="searchType"/>
+<form:hidden path="searchWord"/>
+<input type="hidden" name="page" />
+</form:form>
+<script type="text/javascript">
+$("a.paging").on("click", function(event){
+    event.preventDefault();
+    let page =  $(this).data("page");
+    if(!page){
+       return false;
+    }
+    searchForm.find("[name=page]").val(page);
+    searchForm.submit();
+    return false;
+ });
+</script>

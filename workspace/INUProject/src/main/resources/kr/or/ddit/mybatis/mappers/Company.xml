@@ -35,9 +35,55 @@
 	select *
 	from company
 	where 
-    instr(cmp_name, #{cmpName, jdbcType=VARCHAR})>0
+    <include refid="searchFrag"/>
 
 </select>
+
+<insert id="insertCompany" parameterType="CompanyVO">
+	<selectKey order="BEFORE" resultType="string" keyProperty="cmpId">
+		SELECT 'CMP' || LPAD(COMPANY_SEQ.NEXTVAL,6,0) FROM DUAL
+	</selectKey>
+	INSERT INTO COMPANY	
+	(
+		CMP_ID, 
+		CMP_NO, 
+		CMP_NAME, 
+		CMP_REP_NAME, 
+		CMP_BSNS_NO, 
+		CMP_ADDR1, 
+		CMP_ADDR2, 
+		CMP_ZIP, 
+		CMP_PHONE, 
+		CMP_EMAIL, 
+		CMP_URL,
+		CMP_ESTBL_DATE, 
+		CMP_SMENP, 
+		CMP_EMP_NO,
+		CMP_AVR_WORK,
+		CMP_AVR_SALARY,
+		CMP_MB_NAME, 
+		CMP_CONTENT
+	)VALUES (
+		#{cmpId,jdbcType=VARCHAR}
+		, #{cmpNo,jdbcType=VARCHAR}
+		, #{cmpName,jdbcType=VARCHAR}
+		, #{cmpRepName,jdbcType=VARCHAR}
+		, #{cmpBsnsNo,jdbcType=VARCHAR}
+		, #{cmpAddr1,jdbcType=VARCHAR}
+		, #{cmpAddr2,jdbcType=VARCHAR}
+		, #{cmpZip,jdbcType=VARCHAR}
+		, #{cmpPhone,jdbcType=VARCHAR}
+		, #{cmpEmail,jdbcType=VARCHAR}
+		, #{cmpUrl,jdbcType=VARCHAR}
+		, #{cmpEstblDate,jdbcType=DATE}
+		, #{cmpSmenp,jdbcType=VARCHAR}
+		, #{cmpEmpNo,jdbcType=VARCHAR}
+		, #{cmpAvrWork,jdbcType=VARCHAR}
+		, #{cmpAvrSalary,jdbcType=VARCHAR}
+		, #{cmpMbName,jdbcType=VARCHAR}
+		, #{cmpContent,jdbcType=CLOB}
+	)
+</insert>
 
 
 </mapper>
