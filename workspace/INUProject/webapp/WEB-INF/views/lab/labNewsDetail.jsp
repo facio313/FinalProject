@@ -7,6 +7,8 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
 <html>
 	<head>
@@ -21,60 +23,62 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
 	    
 	    <!-- MAIN CSS -->
-	    <link rel="stylesheet" href="css/style.css">    
+	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
 	</head>
 
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
+	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
+		<div class="container">
+	        <div class="row">
+				<div class="col-md-7">
+		            <h1 class="text-white font-weight-bold">뉴스</h1>
+		            <div class="custom-breadcrumbs">
+						<a href="${pageContext.request.contextPath}/lab">Lab</a> <span class="mx-2 slash">/</span>
+						<span class="text-white"><strong>NewsDetail</strong></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-
-
-          
-        </div>
-      </div>
-    </section>
-
+	<!-- 뉴스 본문 -->
     <section class="site-section" id="next-section">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 blog-content">
-            <h3 class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit</h3>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda nihil aspernatur nemo sunt, qui, harum repudiandae quisquam eaque dolore itaque quod tenetur quo quos labore?</p>
-            <p><img src="images/job_single_img_1.jpg" alt="Image" class="img-fluid rounded"></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae expedita cumque necessitatibus ducimus debitis totam, quasi praesentium eveniet tempore possimus illo esse, facilis? Corrupti possimus quae ipsa pariatur cumque, accusantium tenetur voluptatibus incidunt reprehenderit, quidem repellat sapiente, id, earum obcaecati.</p>
-
-            <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident vero tempora aliquam excepturi labore, ad soluta voluptate necessitatibus. Nulla error beatae, quam, facilis suscipit quaerat aperiam minima eveniet quis placeat.</p></blockquote>
-
-            <p>Eveniet deleniti accusantium nulla natus nobis nam asperiores ipsa minima laudantium vero cumque cupiditate ipsum ratione dicta, expedita quae, officiis provident harum nisi! Esse eligendi ab molestias, quod nostrum hic saepe repudiandae non. Suscipit reiciendis tempora ut, saepe temporibus nemo.</p>
-            <h4 class="mt-5 mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit</h4>
-            <p>Accusamus, temporibus, ullam. Voluptate consectetur laborum totam sunt culpa repellat, dolore voluptas. Quaerat cum ducimus aut distinctio sit, facilis corporis ab vel alias, voluptas aliquam, expedita molestias quisquam sequi eligendi nobis ea error omnis consequatur iste deleniti illum, dolorum odit.</p>
-            <p>In adipisci corporis at delectus! Cupiditate, voluptas, in architecto odit id error reprehenderit quam quibusdam excepturi distinctio dicta laborum deserunt qui labore dignissimos necessitatibus reiciendis tenetur corporis quas explicabo exercitationem suscipit. Nisi quo nulla, nihil harum obcaecati vel atque quos.</p>
-            <p>Amet sint explicabo maxime accusantium qui dicta enim quia, nostrum id libero voluptates quae suscipit dolor quam tenetur dolores inventore illo laborum, corporis non ex, debitis quidem obcaecati! Praesentium maiores illo atque error! Earum, et, fugit. Sint, delectus molestiae. Totam.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa iste, repudiandae facere aperiam sapiente, officia delectus soluta molestiae nihil corporis animi quos ratione qui labore? Sint eaque perspiciatis minus illum.</p>
-            <p>Consectetur porro odio quod iure quaerat cupiditate similique, dolor reprehenderit molestias provident, esse dolorum omnis architecto magni amet corrupti neque ratione sunt beatae perspiciatis? Iste pariatur omnis sed ut itaque.</p>
-            <p>Id similique, rem ipsam accusantium iusto dolores sit velit ex quas ea atque, molestiae. Sint, sed. Quisquam, suscipit! Quisquam quibusdam maiores fugiat eligendi eius consequuntur, molestiae saepe commodi expedita nemo!</p>
+          	<hr>
+            <h3 class="mb-4">${news.newsName }</h3>
+            <hr>
+            <p style="text-align: right;">기사 조회수 : ${news.newsHit }</p>
+            <p><img src="<%=request.getContextPath() %>/resources/images/Dobby.png" alt="Image" class="img-fluid rounded"></p>
+            <p>${news.newsContent }</p>
             <br>
+            <hr>
             <div>
-              <p>작성일 : sysdate</p>
-            </div>
-
-              
-
-          </div>
-          <div class="col-lg-4 sidebar pl-lg-5">
-            <div class="sidebar-box">
-              <div class="categories">
-                <h3>Categories</h3>
-                <li><a href="#">기업 <span>(12)</span></a></li>
-                <li><a href="#">취업 <span>(22)</span></a></li>
-              </div>
+              <p>작성일 : ${news.newsDate }</p>
             </div>
           </div>
+          
+	<!-- 오른쪽 Categories -->
+	  <div class="col-lg-3">
+	    <div class="sidebar-box sidebar-category" style="border: 1px solid #dae791; border-radius: 15px;">
+	      <div class="categories">
+	        <h3>Categories</h3>
+	        <br>
+	        <li><a href="#">취업 뉴스 <span>(1)</span></a></li>
+	        <li><a href="#">기업 뉴스 <span>(1)</span></a></li>
+	        <li><a href="#">공채 뉴스 <span>(1)</span></a></li>
+	      </div>
+	    </div>
+	  </div>
         </div>
       </div>
+      
+       <div class="col-lg-3" style="left: 135px">
+         <button type="submit" class="btn btn-primary text-white" style="width: 100px;" onclick="location.href='<%=request.getContextPath() %>/lab/News'">
+         	<span class="icon-database d-block"></span>목록으로</button>
+       </div>
+       
     </section>
     
     
@@ -96,6 +100,7 @@
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>
 </html>

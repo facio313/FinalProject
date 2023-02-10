@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
     
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom-bs.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.fancybox.min.css">
@@ -34,23 +37,6 @@
       	<div class="container">
         	<div class="row mb-5 justify-content-center">
           		<div class="col-md-7 text-center">
-            		<ul class="tabList">
-              			<li class="select">
-                			<button type="button" class="inTab" data-mem_type="a">
-                  				<span>전체</span>
-                			</button>
-              			</li>
-              			<li>
-                			<button type="button" class="inTab" data-mem_type="p">
-                  				<span>개인회원</span>
-                			</button>
-              			</li>
-              			<li>
-                			<button type="button" class="inTab" data-mem_type="c">
-                  				<span>기업회원</span>
-                			</button>
-              			</li>
-            		</ul>
             		<form method="post" class="search-jobs-form">
               			<div class="row mb-5">
                 			<div class="col-12 col-sm-6 col-md-6 col-lg-8 mb-4 mb-lg-0">
@@ -64,187 +50,96 @@
           		</div>
         	</div>
         	<table>
-          		<caption class="blind">
-             		 공지사항 게시판
-          		</caption>
           		<colgroup>
             		<col width="64">
-            		<col width="">
+            		<col width="600">
             		<col width="107">
           		</colgroup>
+          		<thead>
+          			<tr>
+          				<th>구분</th>
+          				<th>제목</th>
+          				<th>날짜</th>
+          				<th>조회수</th>
+          			</tr>
+          		</thead>
           		<tbody>
-		            <tr class="notice">
-		              	<td class="category">
-		               		 공지
-		              	</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108949&amp;list_idx=0&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="[이벤트] 뉴스레터 '위클리 리딧' 구독하고 아메리카노 겟잇!">
-                  				[이벤트] 뉴스레터 '위클리 리딧' 구독하고 아메리카노 겟잇!                            
-                  			</a>
-              			</td>
-              			<td class="date">
-                			2023.02.02        
-              			</td>
-            		</tr>
-            		<tr class="notice">
-              			<td class="category">
-                			공지                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108941&amp;list_idx=1&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="[이벤트]이력서 완성하고 네이버페이 포인트 받자!">
-                  				[이벤트]이력서 완성하고 네이버페이 포인트 받자!                            
-                  			</a>
-              			</td>
-              			<td class="date">
-                			2023.01.27
-             			</td>
-            		</tr>
-            		<tr class="notice">
-              			<td class="category">
-                			공지
-             	 		</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108938&amp;list_idx=2&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="[이벤트] 김나이의 커리어 전략 A to Z">
-                  				[이벤트] 김나이의 커리어 전략 A to Z
-                			</a>
-              			</td>
-              			<td class="date">
-                			2023.01.19                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-               		 		안내                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108944&amp;list_idx=4&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-               	 			title="⭐LIVE 현직잡담⭐ 공기업 취뽀 어렵지? 현직 공기업 채용컨설턴트가 알려줄게✨">
-                  				⭐LIVE 현직잡담⭐ 공기업 취뽀 어렵지? 현직 공기업 채용컨설턴트가 알려줄게✨                            </a>
-              			</td>
-              			<td class="date">
-                			2023.01.27                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-                			안내                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108931&amp;list_idx=8&amp;
-               	 			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="2022 커리어 매치 어워드 (우수 활동 기업 발표)">
-                  				2022 커리어 매치 어워드 (우수 활동 기업 발표)                            
-                  			</a>
-              			</td>
-              			<td class="date">
-                			2023.01.18                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-               	 			안내                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108928&amp;list_idx=9&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="2023 설 연휴, 유료서비스 무료 기간 연장 안내 (최대 4일)">
-                  				2023 설 연휴, 유료서비스 무료 기간 연장 안내 (최대 4일)                            
-                  			</a>
-              			</td>
-              			<td class="date">
-                			2023.01.11                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-                			기타                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108914&amp;list_idx=12&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="[당첨자 발표] HR연구소 22년 12월 설문조사 당첨자 안내">
-                  				[당첨자 발표] HR연구소 22년 12월 설문조사 당첨자 안내                            
-                  			</a>
-              			</td>
-              			<td class="date">
-                			2022.12.15                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-               				 안내                            
-              			</td>
-             			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108909&amp;list_idx=13&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-               	 			title="[당첨자발표]신입도, 경력도 '직무경험'이 생겼습니다!✨ 현직자와 함께하는 실무경험 쌓기 프로젝트">
-                				[당첨자발표]신입도, 경력도 '직무경험'이 생겼습니다!✨ 현직자와 함께하는 실무경험 쌓기 프로젝트                            </a>
-              			</td>
-              			<td class="date">
-                			2022.12.09                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-                			오픈                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108891&amp;list_idx=18&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="사람인의 새로운 커리어 MATCH, 땡큐베리 MATCH!">
-                  				사람인의 새로운 커리어 MATCH, 땡큐베리 MATCH!                            
-                  			</a>
-              			</td>
-              			<td class="date">
-                			2022.11.24                        
-              			</td>
-            		</tr>
-            		<tr>
-              			<td class="category">
-                			오픈                            
-              			</td>
-              			<td class="content_tit">
-                			<a href="/zf_user/help/live/view?idx=108889&amp;list_idx=19&amp;
-                			listType=notice&amp;keyword=&amp;menu=1&amp;page=1" 
-                			title="이젠, 딱 맞는 공고와 포지션 제안으로 내 커리어 UP!">
-                 	 			이젠, 딱 맞는 공고와 포지션 제안으로 내 커리어 UP!                            
-               	 			</a>
-              			</td>
-              			<td class="date">
-                			2022.11.22                        
-              			</td>
-            		</tr>
+          			<c:set var="noticeList" value="${pagingVO.dataList}"/>
+          			<c:choose>
+          				<c:when test="${not empty noticeList}">
+          					<c:forEach items="${noticeList }" var="notice">
+          						<tr>
+          							<td>${notice.noticeSort }</td>
+          							<td>
+          								<c:url value="/help/notice/noticeView" var="viewURL">
+          									<c:param name="what" value="${notice.noticeSn }"/>
+          								</c:url>
+          								<a href="${viewURL }">${notice.noticeTitle }</a>
+          							</td>
+          							<td>${notice.noticeDate }</td>
+          							<td>${notice.noticeHit }</td>
+          						</tr>
+          					</c:forEach>
+          				</c:when>
+          				<c:otherwise>
+          					<tr>
+          						<td colspan="5">게시글 없음.</td>
+          					</tr>
+          				</c:otherwise>
+          			</c:choose>
           		</tbody>
+          		<tfoot>
+          			<tr>
+          				<td colspan="5">
+          					<div id = "pagingArea">
+          						<ui:pagination pagingVO="${pagingVO }" type="default"/>
+          					</div>
+          					<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;">
+          						<form:select path="searchType">
+									<option value>전체</option>
+									<form:option value="announcement" label="알림" />
+									<form:option value="open" label="오픈" />
+									<form:option value="etc" label="기타" />
+								</form:select>
+								<form:input path="searchWord"/>
+								<input type="button" value="검색" id="searchBtn"/>
+          					</form:form>
+          				</td>
+          			</tr>
+          		</tfoot>
         	</table>
-
-			<!-- ============페이징, 싹 다 바꿀 부분============= -->
-        	<div class="row pagination-wrap">
-          		<div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
-            		<span>Showing 1-7 Of 43,167 Jobs</span>
-          		</div>
-	          	<div class="col-md-6 text-center text-md-right">
-	            	<div class="custom-pagination ml-auto">
-	              		<a href="#" class="prev">Prev</a>
-	              		<div class="d-inline-block">
-	              			<a href="#" class="active">1</a>
-	              			<a href="#">2</a>
-	              			<a href="#">3</a>
-	              			<a href="#">4</a>
-	              		</div>
-	              		<a href="#" class="next">Next</a>
-	            	</div>
-	          	</div>
-        	</div>
-        	<!-- ============================================== -->
+        	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+				<form:hidden path="searchType"/>
+				<form:hidden path="searchWord"/>
+				<input type="hidden" name="page" />
+			</form:form>
+			<div>
+				<input type="button" value="등록" onclick="location.href='<c:url value=""/>'">
+			</div>
       	</div>
 	</section>
+<script>
+let searchForm = $("#searchForm");
+let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
+	let inputs = searchUI.find(":input[name]");
+	$.each(inputs, function(index, input){
+		let name = this.name;
+		let value = $(this).val();
+		searchForm.find("[name="+name+"]").val(value);
+	});
+	searchForm.submit();
+});
+
+$("a.paging").on("click", function(event){
+	event.preventDefault();
+	let page = $(this).data("page");
+	if(!page) return false;
+	searchForm.find("[name=page]").val(page);
+	searchForm.submit();
+	return false;
+});
+</script>
+
 
 <!-- SCRIPTS -->
 <script src="<%=request.getContextPath()%>/resources/js/jquery.min.js"></script>

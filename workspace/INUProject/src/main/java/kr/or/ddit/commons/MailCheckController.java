@@ -1,5 +1,7 @@
 package kr.or.ddit.commons;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,7 @@ public class MailCheckController {
 	//이메일 인증
 	@GetMapping("/mailCheck")
 	@ResponseBody
-	public String mailCheck(String email) {
+	public String mailCheck(String email) throws UnsupportedEncodingException {
 		log.info("이메일 인증 요청 이메일 : {}",email);
 		return mailService.joinEmail(email);
 	}

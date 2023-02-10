@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.board.dao.BoardDAO">
+
+	<select id="selectBoard" parameterType="String" resultType="BoardVO">
+		SELECT *
+		FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+
+	<select id="selectBoardList" resultType="BoardVO">
+		SELECT *
+		FROM BOARD
+	</select>
+
+	<insert id="insertBoard" parameterType="BoardVO">
+		<selectKey order="BEFORE" resultType="String" keyProperty="boardNo">
+			SELECT 'BOD'||LPAD(BOARD_SEQ.NEXTVAL, 6, 0)
+			FROM DUAL
+		</selectKey>
+		INSERT INTO BOARD(
+			BOARD_NO
+			, MEM_ID
+			, ATT_SN
+			, BOARD_SUB
+			, JOB_NAME
+			, BOARD_TITLE
+			, BOARD_CONTENT
+			, BOARD_DATE
+			, BOARD_HIT
+		) VALUES (
+			#{boardNo,jdbcType=VARCHAR}
+			, #{memId,jdbcType=VARCHAR}
+			, #{attSn,jdbcType=NUMERIC}
+			, #{boardSub,jdbcType=VARCHAR}
+			, #{jobName,jdbcType=VARCHAR}
+			, #{boardTitle,jdbcType=VARCHAR}
+			, #{boardContent,jdbcType=CLOB}
+			, SYSDATE
+			, 0
+		)
+	</insert>
+
+</mapper>
+

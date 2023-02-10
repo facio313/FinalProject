@@ -17,6 +17,8 @@ public interface CompanyService {
 	 * @return 존재하지 않는 경우, {@link UserNotFoundException} 발생.
 	 */
 	public CompanyVO retrieveCompany(String cmpName);
+	
+	public int createCompany(CompanyVO company);
 }
 
 

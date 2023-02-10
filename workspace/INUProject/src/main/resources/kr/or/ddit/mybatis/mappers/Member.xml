@@ -7,7 +7,6 @@
 		FROM MEMBER
 		WHERE MEM_ID=#{memId}
 	</select>
-	
 	<insert id="insertMember" parameterType="SeekerVO">
 	INSERT INTO member (
     mem_id,
@@ -19,10 +18,27 @@
 	 #{memId,jdbcType=VARCHAR}
 	, #{memPass,jdbcType=VARCHAR}
 	, #{memName,jdbcType=VARCHAR}
-	, 'use'
-	, 'seeker'
+	, 'Y'
+	, 'SEEKER'
 	)
 	</insert>
+	
+	<insert id="insertMemberIN" parameterType="SeekerVO">
+	INSERT INTO member (
+    mem_id,
+    mem_pass,
+    mem_name,
+    mem_use,
+    mem_auth_cd
+	) VALUES (
+	 #{memId,jdbcType=VARCHAR}
+	, #{memPass,jdbcType=VARCHAR}
+	, #{memName,jdbcType=VARCHAR}
+	, 'Y'
+	, 'INCRUITER'
+	)
+	</insert>
+	
 	
 	<insert id="insertSeeker" parameterType="SeekerVO">
 	INSERT INTO seeker (
@@ -54,15 +70,81 @@
 	    mem_id,
 	    cmp_id,
 	    mem_email,
-	    mem_tel,
+	    mem_tel
 	) VALUES (
 	 #{memId,jdbcType=VARCHAR}
 	, #{cmpId,jdbcType=VARCHAR}
 	, #{memEmail,jdbcType=VARCHAR}
 	, #{memTel,jdbcType=VARCHAR}
-	);
+	)
 
 	
 	</insert>
+	
+	
+	
+	
+	
+	
+	<!-- ===========================아이디, 비번 찾기 부분 ================================ -->
+	<!-- 일반회원 아이디 찾기 -->
+	<select id="seekerFindId" parameterType="SeekerVO" resultType="SeekerVO">
+		SELECT A.MEM_ID
+		FROM MEMBER A
+		INNER JOIN SEEKER B ON (A.MEM_ID = B.MEM_ID)
+		WHERE A.MEM_NAME = #{memName}
+		AND B.MEM_EMAIL = #{memEmail}
+	</select>
+	<!-- 기업회원 아이디 찾기 -->
+	<select id="incruiterFindId" parameterType="IncruiterVO" resultType="MemberVO">
+		SELECT A.MEM_ID
+		FROM MEMBER A
+		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
+		INNER JOIN COMPANY C ON (B.CMP_ID = C.CMP_ID)
+		WHERE A.MEM_NAME=#{memName}
+		AND C.CMP_BSNS_NO=#{cmpBsnsNo}
+	</select>
+	<!-- 비밀번호를 찾기위한 일반회원 존재여부 -->
+	<select id="getSeekerFindResult" parameterType="SeekerVO" resultType="int">
+		SELECT count(*) 
+		FROM MEMBER A
+		INNER JOIN SEEKER B ON (A.MEM_ID = B.MEM_ID)
+		WHERE A.MEM_ID = #{memId}
+		AND A.MEM_NAME = #{memName}
+		AND B.MEM_EMAIL = #{memEmail}
+	</select>
+	<!-- 비밀번호를 찾기위한 기업회원 존재여부 -->
+	<select id="getIncruiterFindResult" parameterType="IncruiterVO" resultType="int">
+		SELECT count(*)
+		FROM MEMBER A
+		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
+		WHERE A.MEM_ID = #{memId}
+		AND A.MEM_NAME = #{memName}
+		AND B.MEM_EMAIL = #{memEmail}
+	</select>
+	<!-- 비밀번호 수정 -->
+	<update id="updatePw" parameterType="MemberVO">
+		UPDATE MEMBER
+		SET MEM_PASS = #{memPass}
+		WHERE MEM_ID = #{memId}
+	</update>
+	<!-- =============================================================================== -->
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

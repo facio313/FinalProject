@@ -18,26 +18,26 @@
 
 <section class="site-section" style="display:flex; justify-content : center;">
 	<div class="container" style="width:600px;">
-		<div class="">
+		<form action="<c:url value='incruiterFindIdResult'/>" method="post">
            	<h2 class="mb-4">기업회원 아이디 찾기</h2>
-				<div class="row form-group">
-	                <div class="col-md-12 mb-3 mb-md-0">
-	                  <label class="text-black" for="fname">담당자명(이름)</label>
-	                  <input type="text" id="memId" class="form-control" >
-	                </div>
-              	</div>
-				<div class="row form-group">
-					<div class="col-md-12 mb-3 mb-md-0">
-						<label class="text-black" for="fname">사업자등록번호</label>
-	                  	<input type="text" id="memEmail" class="form-control" >
-	                </div>
-				</div>
-              	<div class="row form-group">
-               		<div class="col-md-12">
-                  		<input type="submit" value="다음" class="btn px-4 btn-primary text-white">
-                	</div>
-              	</div>
-         	</div>
+			<div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                	<label class="text-black" for="fname">담당자명(이름)</label>
+                  	<input type="text" id="memName" name="memName" class="form-control" >
+                </div>
+           	</div>
+			<div class="row form-group">
+				<div class="col-md-12 mb-3 mb-md-0">
+					<label class="text-black" for="fname">사업자등록번호</label>
+                  	<input type="text" id="cmpBsnsNo" name="cmpBsnsNo" class="form-control" >
+                </div>
+			</div>
+           	<div class="row form-group">
+           		<div class="col-md-12">
+               		<input type="submit" value="확인" class="btn px-4 btn-primary text-white">
+             	</div>
+           	</div>
+       	</form>
    	</div>
 </section>
 

@@ -10,7 +10,18 @@ import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SeekerVO;
 
 /**
- * 회원관리(CRUD)를 위한 Business Logic Layer
+ * 
+ * @author 공통
+ * @since 2023. 2. 6.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일              수정자               수정내용
+ * --------     --------    ----------------------
+ * 2023. 2. 6.    박형준            아이디 찾기 추가
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
  */
 public interface MemberService {
 
@@ -46,6 +57,44 @@ public interface MemberService {
 	 * @return 존재 부(NOTEXIST), 비번 인증 실패(INVALIDPASSWORD), 성공(OK), 실패(FAIL)
 	 */
 	public ServiceResult removeMember(MemberVO member);
+	
+	
+	
+	/*=======================================아이디,비번 찾기 부분======================================*/
+	/**
+	 * 일반회원 아이디 찾기
+	 * @param seeker
+	 * @return
+	 */
+	public List<SeekerVO> searchSeekerId(SeekerVO seeker);
+	
+	/**
+	 * 일반회원의 비밀번호를 찾기위한 회원존재 확인
+	 * @param seeker
+	 * @return
+	 */
+	public int retrieveGetSeekerResult(SeekerVO seeker);
+	
+	/**
+	 * 기업회원 아이디 찾기
+	 * @param incruiter
+	 * @return
+	 */
+	public MemberVO retrieveIncruiterId(IncruiterVO incruiter);
+	
+	/**
+	 * 기업회원의 비밀번호를 찾기위한 회원존재 확인
+	 * @param incruiter
+	 * @return
+	 */
+	public int retrieveGetIncruiterResult(IncruiterVO incruiter);
+	
+	/**
+	 * 비밀번호 수정
+	 * @param seeker
+	 * @return
+	 */
+	public int modifyPw(MemberVO member);
 }
 
 

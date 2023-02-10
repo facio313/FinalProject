@@ -10,16 +10,19 @@ let comBtn = $("#insertComBtn").on("click",function(){
 let btn = $("#searchBtn").on("click",function(){
 	var inner ="";
 	var tbody = document.getElementById('companyList');
+	var data = $("form[name=myform]").serialize();
 	$.ajax({
 	    url: '/INUProject/company',
 	    method: "post",
 	    cache : "false",
-	    data :  $("form[name=myform]").serialize()
+	    data :  data
 	    ,
 	    datatype: "json",
-	    success: (data) =>{
-	             var companyList = data.dataList
-	             console.log(companyList[0]);
+	    success: (resp) =>{
+	    		console.log(data);
+	    		console.log($("form[name=myform]"));
+	    		console.log(resp)
+	             var companyList = resp.dataList;
 	             if(companyList.length>0){
 	            	 for(let i=0; i<companyList.length;i++){
 	            		 console.log(companyList[i].cmpId)
@@ -45,12 +48,51 @@ let btn = $("#searchBtn").on("click",function(){
 
 function companyClick(company){
 	var clickText = $(company).text();
-	$(companyName).val(clickText);
+	var data ={
+			searchType : "company",
+			searchWord : clickText
+	}
+	$.ajax({
+		url: '/INUProject/company',
+		method:"post",
+		cache:"false",
+		data : data,
+		datatype: "json",
+		success : (resp)=>{
+			var inputText = resp.dataList[0];
+			console.log(inputText)
+			$(companyName).val(inputText.cmpName);
+			$(companyId).val(inputText.cmpId);
+		},
+		error : (err)=>{
+			console.log(err);
+		}
+			
+	})
+	
 }
 
+//회사등록 ajax 전송 
 
-
-
-
-
+let companyInsert = $("#insertCompanyBtn").on("click", function(){
+	var companyForm = $("form[name=companyForm]").serialize();
+	
+	console.log(companyForm);
+	$.ajax({
+		url : '/INUProject/company/new',
+		type : 'post',
+		data : companyForm,
+		dataType : 'json',
+		success: function(res){
+			console.log(res);
+			$("#companyInsert").hide();
+			$(companyName).val(res.cmpName);
+			$(companyId).val(res.cmpId);
+		},
+		error : function(error){
+            console.log("실패원인 :"+error );
+        },
+	});
+})
+	 
 

@@ -62,7 +62,7 @@
 	                  	<p>
 	                   		<a href="<c:url value='/join/seeker'/>" class="noneunderline">회원가입</a>
 	                    	|
-	                    	<a href="<c:url value='/help/find/idpwFind'/>" class="noneunderline">아이디/비밀번호 찾기</a>
+	                    	<a href="<c:url value='/help/find'/>" class="noneunderline">아이디/비밀번호 찾기</a>
 	                  	</p>
                 	</div>
               	</div>

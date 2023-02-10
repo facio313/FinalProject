@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.ddit.company.service.CompanyService;
 import kr.or.ddit.company.vo.CompanyVO;
+import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
 import oracle.jdbc.proxy.annotation.Post;
@@ -50,4 +53,32 @@ public class CompanyController {
 		String companyJson = mapper.writeValueAsString(pagingVO);
 		return companyJson;
 	}
+	@ResponseBody
+	@PostMapping(value = "/new", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String companyCreate(
+			@Validated(InsertGroup.class) @ModelAttribute("company") CompanyVO company
+			,Errors errors
+			, Model model
+			) throws JsonProcessingException {
+		boolean valid = !errors.hasErrors();
+		ObjectMapper mapper = new ObjectMapper();
+		String message ="";
+		if(valid) {
+			int result = service.createCompany(company);
+			if(result > 0) {
+				message = "성공적으로 입력되었습니다.";
+			}
+			else {
+				message = "서버 오류";
+			}
+		}
+		else {
+			message = "오류났음.";
+		}
+		model.addAttribute("message", message);
+		model.addAttribute("company", company);
+		String companyJson = mapper.writeValueAsString(company);
+		return companyJson;
+	}
+	
 }

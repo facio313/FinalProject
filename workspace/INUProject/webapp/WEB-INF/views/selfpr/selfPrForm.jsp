@@ -40,7 +40,6 @@
 	</section>
 	
 	
-	
 	<!-- 입력 폼 -->
     <section class="site-section">
       <div class="container">

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.expert.dao.ExeventDAO">
+	<sql id="searchFrag">
+		<where>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				INSTR(exevent_name, #{simpleCondition.searchWord}) > 0 		
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+		select count(*)
+		from exevent
+		<include refid="searchFrag"/>
+	</select>
+	
+	<select id="selectEventList" parameterType="PagingVO" resultType="ExeventVO">
+	WITH ORDEREDEVENT AS (
+	SELECT
+	    exevent_id,
+	    exevent_name,
+	    exevent_content,
+	    TO_CHAR(exevent_start,'YYYY-MM-DD') as exevent_start,
+	    TO_CHAR(exevent_end,'YYYY-MM-DD') as exevent_end,
+	    exevent_hits
+	FROM
+	    exevent
+	<include refid="searchFrag"/>
+	ORDER BY EXEVENT_ID DESC
+	)
+	SELECT A.*
+	FROM (
+		SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		FROM ORDEREDEVENT
+		)A
+	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
+	</select>
+	
+	<select id="selectEvent" parameterType="String" resultType="ExeventVO">
+		select 
+		exevent_id,
+	    exevent_name,
+	    exevent_content,
+	    TO_CHAR(exevent_start,'YYYY-MM-DD') as exevent_start,
+	    TO_CHAR(exevent_end,'YYYY-MM-DD') as exevent_end
+		from exevent
+		where exevent_id = #{exeventId}
+	</select>
+	
+	<insert id="insertExevent" parameterType="kr.or.ddit.expert.vo.ExeventVO">
+	<selectKey order="BEFORE"  resultType="String" keyProperty="exeventId">
+		SELECT 'EXE' || LPAD(EXEVENT_SEQ.NEXTVAL,6,0) FROM DUAL
+	</selectKey>
+	INSERT INTO exevent (
+	    exevent_id,
+	    exevent_name,
+	    exevent_content,
+	    exevent_start,
+	    exevent_end
+	) VALUES (
+		 #{exeventId,jdbcType=VARCHAR}
+		, #{exeventName,jdbcType=VARCHAR}
+		, #{exeventContent,jdbcType=VARCHAR}
+		, #{exeventStart,jdbcType=DATE}
+		, #{exeventEnd,jdbcType=DATE}
+	)
+	</insert>
+
+	<update id="updateHits" parameterType="String">
+	UPDATE exevent
+	SET
+	    exevent_hits = exevent_hits+1
+	WHERE
+	    exevent_id = #{exeventId,jdbcType=VARCHAR}	
+	</update>
+</mapper>

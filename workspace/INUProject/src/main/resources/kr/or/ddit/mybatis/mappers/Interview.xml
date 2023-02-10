@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.board.dao.InterviewDAO">
+
+	<select id="selectInterview" parameterType="String" resultType="kr.or.ddit.board.vo.InterviewVO">
+		SELECT *
+		FROM INCUM_INTERVIEW
+		WHERE INCUM_NO = #{incumNo}
+	</select>
+
+	<select id="selectInterviewList" resultType="kr.or.ddit.board.vo.InterviewVO">
+		SELECT *
+		FROM INCUM_INTERVIEW
+	</select>
+
+	<insert id="insertInterview" parameterType="InterviewVO">
+		<selectKey order="BEFORE" resultType="String" keyProperty="incumNo">
+			SELECT 'INT'||LPAD(INTERVIEW_SEQ.NEXTVAL, 6, 0)
+			FROM DUAL
+		</selectKey>
+		INSERT INTO INCUM_INTERVIEW(
+			DEPARTMENT
+			, INCUM_NO
+			, CMP_ID
+			, JOB_NAME
+			, INCUM_TITLE
+			, INCUM_CONTENT
+			, INCUM_NAME
+			, INCUM_DATE
+			, INCUM_HIT
+		)VALUES(
+			#{department,jdbcType=VARCHAR}
+			, #{incumNo,jdbcType=VARCHAR}
+			, #{cmpId,jdbcType=VARCHAR}
+			, #{jobName,jdbcType=VARCHAR}
+			, #{incumTitle,jdbcType=VARCHAR}
+			, #{incumContent,jdbcType=CLOB}
+			, #{incumName,jdbcType=VARCHAR}
+			, SYSDATE
+			, 0
+		)
+	</insert>
+
+</mapper>
+

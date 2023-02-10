@@ -60,7 +60,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of="memId")
 @Data
 @NoArgsConstructor
-public class MemberVO implements Serializable{
+public class MemberVO extends CommonsAttachVO implements Serializable{
 	
 	@NotBlank
 	private String memId;
@@ -72,6 +72,11 @@ public class MemberVO implements Serializable{
 	private String memUse;
 	private String memAuthCd;
 	private String memJoinDate;
+	@Override
+	public String getTblId() {
+		// TODO Auto-generated method stub
+		return memId;
+	}
 }
 
 

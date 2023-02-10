@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.help.dao.AskDAO">
+
+	<select id="selectAsk" parameterType="String" resultType="kr.or.ddit.help.vo.AskVO">
+		SELECT *
+		FROM ASK
+		WHERE ASK_NO = #{askNo}
+	</select>
+
+	<select id="selectAskList" resultType="kr.or.ddit.help.vo.AskVO">
+		SELECT ASK_NO, MEM_ID, ASK_CATE, ASK_TITLE, ASK_CONTENT, ATT_SN, ASK_DATE, REF_CONTENT, CONSENT, ASK_TYPE, ASK_STATUS
+		FROM ASK
+	</select>
+
+</mapper>
+

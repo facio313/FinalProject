@@ -1,8 +1,10 @@
 package kr.or.ddit.commons;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,9 @@ public class MailSendService {
 		
 		
 	//이메일 보낼 양식! 
-	public String joinEmail(String email) {
+	public String joinEmail(String email) throws UnsupportedEncodingException {
 		makeRandomNumber();
-		String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+		String setFrom = "hjpark9833@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
 		String toMail = email;
 		String title = "[INU] 이메일 인증번호가 도착하였습니다."; // 이메일 제목 
 		String content = 
@@ -41,12 +43,12 @@ public class MailSendService {
 	}
 		
 	//이메일 전송 메소드
-	public void mailSend(String setFrom, String toMail, String title, String content) { 
+	public void mailSend(String setFrom, String toMail, String title, String content) throws UnsupportedEncodingException { 
 		MimeMessage message = mailSender.createMimeMessage();
 		// true 매개값을 전달하면 multipart 형식의 메세지 전달이 가능.문자 인코딩 설정도 가능하다.
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");
-			helper.setFrom(setFrom);
+			helper.setFrom(new InternetAddress(setFrom,"INU"));
 			helper.setTo(toMail);
 			helper.setSubject(title);
 			// true 전달 > html 형식으로 전송 , 작성하지 않으면 단순 텍스트로 전달.

@@ -33,8 +33,9 @@
               <div class="form-group">
                 <label for="company-website-tw d-block">프로필사진</label> <br>
                 <label class="btn btn-primary btn-md btn-file">
-<!--                   사진선택<input type="file" hidden> -->
+                  사진선택
                 </label>
+                  <input type="file"  name="attachFiles" />
               </div>
               <div class="form-group">
                 <label for="job-title">아이디</label>
@@ -42,7 +43,7 @@
               </div>
               <div class="form-group">
                 <label for="job-title">비밀번호</label>
-                <input type="text" class="form-control" id="job-title" name="memPass" placeholder="">
+                <input type="password" class="form-control" id="job-title" name="memPass" placeholder="">
               </div>
               <div class="form-group">
                 <label for="job-title">이름</label>
@@ -62,13 +63,13 @@
               <div class="form-group">
                 <label for="job-title"></label>
                 <input type="text" class="form-control"id="sample3_postcode" placeholder="우편번호" name="memZip">
-                <input type="button" class="form-control"onclick="sample3_execDaumPostcode()" value="우편번호 찾기" ">
+                <input type="button" class="form-control"onclick="sample3_execDaumPostcode()" value="우편번호 찾기" >
                 <br>
                 <input type="text" class="form-control"id="sample3_address" placeholder="주소" name="memAddr1"><br>
                 <input type="text" class="form-control"id="sample3_detailAddress" placeholder="상세주소" name="memAddr2">
                 <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-                  <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-                  </div>
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+				</div>
                 </div>
               <div class="form-group">
                 <label for="email">Email</label>

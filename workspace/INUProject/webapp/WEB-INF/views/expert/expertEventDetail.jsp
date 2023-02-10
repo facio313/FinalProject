@@ -5,9 +5,9 @@
 * 2023. 2. 2.      작성자명      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
@@ -19,12 +19,8 @@
       <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
     
-
-
    
-
     <section class="site-section pb-0 portfolio-single" id="next-section" style="margin-left: 200px;">
-
       <div class="container">
         <div class="row align-items-center mb-5">
           <div class="col-lg-8 mb-4 mb-lg-0">
@@ -33,10 +29,11 @@
                 <img src="images/job_logo_5.jpg" alt="Image">
               </div>
               <div>
-                <h2>이벤트명</h2>
+                <h2>${exevent.exeventName }</h2>
                 <div>
                   <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>작성자</span>
-                  <span class="m-2"><span class="icon-room mr-2"></span>작성일</span>
+                  <span class="m-2"><span class="icon-room mr-2"></span>시작일</span>
+                  <span class="m-2"><span class="icon-room mr-2"></span>종료일</span>
                 </div>
               </div>
             </div>
@@ -50,35 +47,18 @@
           </div>
         </div>
         <div class="container">
-
-            <h2>상세설명</h2>
+            <h2>이벤트 내용</h2>
             <figure>
-              <a href="images/sq_img_6.jpg" data-fancybox="gallery"><img src="images/sq_img_6.jpg" alt="Image" class="img-fluid" ></a>
+           	 <c:if test="${not empty exevent.attatchList }">
+            	<c:forEach items="${exevent.attatchList }" var="attatch" varStatus="vs">
+              <img src="${attatch.attStreCours }/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" />
+              </c:forEach>
+              </c:if>
             </figure>
-            <h2>판매자 정보</h2>
-            <figure>
-              <a href="images/sq_img_2.jpg" data-fancybox="gallery"><img src="images/sq_img_2.jpg" alt="Image" class="img-fluid"></a>
-            </figure>
-            <h2>상품정보 제공 고시</h2>
-            <figure>
-              <a href="images/sq_img_7.jpg" data-fancybox="gallery"><img src="images/sq_img_7.jpg" alt="Image" class="img-fluid"></a>
-            </figure>
-            <figure class="mb-0">
-              <a href="images/sq_img_8.jpg" data-fancybox="gallery"><img src="images/sq_img_8.jpg" alt="Image" class="img-fluid"></a>
-            </figure>
-
-         
         </div>
-
-        
-
-        
       </div>
     </section>
 
-
-
-   
     <section class=" py-3 site-section mb-5">
       <div class="container">
         <div class="row">

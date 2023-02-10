@@ -20,5 +20,7 @@ public interface CompanyDAO{
 	public List<CompanyVO> selectCompanyList(PagingVO<CompanyVO> panginVo);
 	
 	public CompanyVO selectCompany(String cmpName);
+	
+	public int insertCompany(CompanyVO company);
 
 }
