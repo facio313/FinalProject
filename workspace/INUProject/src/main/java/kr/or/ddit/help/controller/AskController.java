@@ -22,7 +22,7 @@ public class AskController {
 
 	@GetMapping
 	public String ask() {
-		return "ask/ask";
+		return "ask/askForm";
 	}
 
 	@GetMapping("/askList")

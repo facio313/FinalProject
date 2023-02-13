@@ -31,7 +31,6 @@ public class ExeventVO extends CommonsAttachVO implements Serializable{
 	private String exeventContent;
 	private String exeventStart;
 	private String exeventEnd;
-	private int exeventAttId;
 	private int exeventHits;
 	
 	

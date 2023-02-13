@@ -264,7 +264,7 @@
 
         <div id="posts" class="row no-gutter">
           <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a href="<%=request.getContextPath() %>/expert/category" class="item-wrap">
+            <a href="<%=request.getContextPath() %>/expert/prod/EXP000104" class="item-wrap">
               <span class="icon-add"></span>
               <img class="img-fluid" src="<%=request.getContextPath() %>/resources/images/우기1.jfif" />
             </a>

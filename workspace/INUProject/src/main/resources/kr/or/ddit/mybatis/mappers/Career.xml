@@ -75,5 +75,17 @@
 			CAREER_SN = #{careerSn,jdbcType=VARCHAR}
 		
 	</delete>
+	
+	<select id="selectCareerForResume" parameterType="String" resultType="CareerVO">
+		SELECT *
+		FROM CAREER
+		WHERE MEM_ID = #{memId}
+		AND CAREER_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
+		FROM CAREER A
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.CAREER_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
+	</select>
 </mapper>
 

@@ -2,15 +2,18 @@ package kr.or.ddit.expert.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.expert.dao.ExeventDAO;
 import kr.or.ddit.expert.vo.ExeventVO;
@@ -80,7 +83,7 @@ public class ExeventServiceImpl implements ExeventService {
 	@Override
 	public ExeventVO retrieveExevent(String exeventId) {
 		ExeventVO exevent = exeventDAO.selectEvent(exeventId);
-		exevent.setAttatchList(attachDAO.selectAttatchList(exeventId));
+//		exevent.setAttatchList(attachDAO.selectAttatchList(exeventId));
 		if(exevent==null)
 			throw new UsernameNotFoundException(String.format(exeventId+"에 해당하는 이벤트 없음."));
 		return exevent;
@@ -89,6 +92,35 @@ public class ExeventServiceImpl implements ExeventService {
 	@Override
 	public int updateHits(String exeventId) {
 		int rowcnt = exeventDAO.updateHits(exeventId);
+		return rowcnt;
+	}
+
+	@Override
+	public int updateExevent(ExeventVO exevent) {
+		ExeventVO savedExevent = exeventDAO.selectEvent(exevent.getExeventId());
+		int rowcnt = exeventDAO.updateExevent(exevent);
+		rowcnt += processAttatchList(exevent);
+		int[] delAttonos = exevent.getDelAttNos();
+		if(delAttonos!=null && delAttonos.length>0) {
+			Arrays.sort(delAttonos);
+			rowcnt += attachDAO.deleteAttatchs(exevent);
+			String[] delAttSavenames = savedExevent.getAttatchList().stream()
+													.filter(attach->{
+														return Arrays.binarySearch(delAttonos, attach.getAttno())>=0;
+													}).map(AttachVO::getAttSavename)
+													.toArray(String[]::new);
+			for(String saveName : delAttSavenames) {
+				FileUtils.deleteQuietly(new File(saveFiles,saveName));
+			}
+		}
+		
+		return rowcnt;
+	}
+
+	@Override
+	public int deleteExevent(String exeventId) {
+		int rowcnt = exeventDAO.deleteExevent(exeventId);
+		rowcnt += attachDAO.deleteAttatch(exeventId);
 		return rowcnt;
 	}
 

@@ -65,6 +65,18 @@
 		WHERE	
 				FACILITY_SN = #{facilitySn,jdbcType=VARCHAR}
 		
-	</delete>	
+	</delete>
+	
+	<select id="selectFacilityForResume" parameterType="String" resultType="FacilityVO">
+		SELECT *
+		FROM FACILITY
+		WHERE MEM_ID = #{memId}
+		AND FACILITY_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
+		FROM FACILITY A
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.FACILITY_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
+	</select>	
 </mapper>
 

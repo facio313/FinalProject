@@ -9,6 +9,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!doctype html>
 <html>
 	<head>
@@ -63,24 +64,33 @@
 	  <div class="col-lg-3">
 	    <div class="sidebar-box sidebar-category" style="border: 1px solid #dae791; border-radius: 15px;">
 	      <div class="categories">
-	        <h3>Categories</h3>
+	        <h3>Categories<span>(${pagingVO.totalRecord })</span></h3>
 	        <br>
-	        <li><a href="#">취업 뉴스 <span>(1)</span></a></li>
-	        <li><a href="#">기업 뉴스 <span>(1)</span></a></li>
-	        <li><a href="#">공채 뉴스 <span>(1)</span></a></li>
+	        <li><a href="<%=request.getContextPath()%>/lab/News?searchWord=&newsField=취업">취업 뉴스 <span>${searchVO.newsField }</span></a></li>
+	        <li><a href="<%=request.getContextPath()%>/lab/News?searchWord=&newsField=기업">기업 뉴스 <span>(1)</span></a></li>
+	        <li><a href="<%=request.getContextPath()%>/lab/News?searchWord=&newsField=공채">공채 뉴스 <span>(1)</span></a></li>
 	      </div>
 	    </div>
 	  </div>
-        </div>
-      </div>
+	  
       
-       <div class="col-lg-3" style="left: 135px">
-         <button type="submit" class="btn btn-primary text-white" style="width: 100px;" onclick="location.href='<%=request.getContextPath() %>/lab/News'">
-         	<span class="icon-database d-block"></span>목록으로</button>
+      </div>
+      </div>
+       <div class="col-lg-10" style="text-align:center; left: 100px;">
+	    <div class="col-lg-3" style="float: left;">
+    	  <button type="submit" class="btn btn-primary text-white" style="width: 95px; background: #7676e952;"
+    	  		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Update?no=${news.newsNo}'">
+         	<span class="icon-file-text-o d-block"></span>뉴스 수정</button>
+          <button type="submit" class="btn btn-primary text-white" style="width: 95px; background: #f92d2d6e;"
+           		 onclick="location.href='<%=request.getContextPath() %>/lab/News/Delete?no=${news.newsNo}'">
+         	<span class="icon-file-excel-o d-block"></span>뉴스 삭제</button>
+        </div>	 	
+          <button type="button" class="btn btn-primary text-white" style="width: 95px;"
+          		 onclick="location.href='<%=request.getContextPath() %>/lab/News'">
+            <span class="icon-database d-block"></span>목록으로</button>
        </div>
        
     </section>
-    
     
 
    <!-- SCRIPTS -->
@@ -90,15 +100,12 @@
     <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

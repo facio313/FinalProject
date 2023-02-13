@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="${pageContext.request.contextPath }/resources/ckeditorEasyimage/ckeditor.js"></script>
 <div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
@@ -42,19 +43,34 @@
             <div class="row">
               <div class="col-6">
                 <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>조회수</a>
+                <a href="<%=request.getContextPath()%>/expert/event/update/${exevent.exeventId }" class="btn btn-block btn-light btn-md">
+                 이벤트수정
+                </a>
+              <form id="delete_form" action="<%=request.getContextPath()%>/expert/event/delete/${exevent.exeventId }" method="post">
+			    <input type="hidden" name="_method" value="delete"/>
+			    <a onclick="if (confirm('정말로 삭제하시겠습니까?')) document.getElementById('delete_form').submit();" class="btn btn-danger">삭제</a>
+			</form>
               </div>
             </div>
           </div>
+        <div class="container">
+        <c:if test="${not empty exevent.attatchList }">
+			첨부파일 : <br>
+            <c:forEach items="${exevent.attatchList }" var="attatch" varStatus="vs">
+             <%--  <img src="${attatch.attStreCours }/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" /> --%>
+             <a>${attatch.attFilename }</a><br>
+            </c:forEach>
+       </c:if>
+        </div>      
         </div>
         <div class="container">
             <h2>이벤트 내용</h2>
-            <figure>
-           	 <c:if test="${not empty exevent.attatchList }">
-            	<c:forEach items="${exevent.attatchList }" var="attatch" varStatus="vs">
-              <img src="${attatch.attStreCours }/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" />
-              </c:forEach>
-              </c:if>
-            </figure>
+ <%--            <figure>
+           	 
+            </figure> --%>
+            <div>
+           	 ${exevent.exeventContent }
+            </div>
         </div>
       </div>
     </section>

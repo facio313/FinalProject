@@ -1,37 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <head>
-  <title>INY &mdash; I Need You</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
-
-  <!-- MAIN CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans2.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/trans2.css">
 </head>
 
 <body id="top">
   <div id="overlayer"></div>
   <div class="site-wrap">
-
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');"
-      id="home-section">
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
@@ -44,10 +35,9 @@
       </div>
     </section>
 
-
+<!-- 작성 -->
     <section class="site-section">
       <div class="container">
-
         <div class="row align-items-center mb-5">
           <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="d-flex align-items-center">
@@ -59,14 +49,14 @@
           </div>
         </div>
 
+<!-- 작성 폼 -->
         <div class="row mb-5">
           <div class="col-lg-12">
             <form class="p-4 p-md-5 border rounded" method="post">
               <h3 class="text-black mb-5 border-bottom pb-2">작성하기</h3>
-
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">채용횟수</label>
+                  <label class="terms_agree" style="font-weight:bold">채용횟수</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                     	<!-- id 나중에 입력해야하고 for는 id와 묶기 위함 -->
@@ -91,9 +81,8 @@
                 </div>
               </div>
 
-              <div class="cont_division">
-                <label class="terms_agree">근무형태</label>
-
+              <div class="cont_division form-group">
+                <label class="terms_agree" style="font-weight:bold">근무형태</label>
                 <div class="agree_desc">
                   <span class="inpChk">
                     	<!-- id 나중에 입력해야하고 for는 id와 묶기 위함 -->
@@ -144,7 +133,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">내일채움공제여부</label>
+                  <label class="terms_agree" style="font-weight:bold">내일채움공제여부</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inpRdo" value="1" name="benefit">
@@ -160,7 +149,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">면접통보유무</label>
+                  <label class="terms_agree" style="font-weight:bold">면접통보유무</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" value="1" name="inform">
@@ -177,7 +166,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">근속연수</label>
+                  <label class="terms_agree" style="font-weight:bold">근속연수</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="years" value="1">
@@ -202,7 +191,7 @@
               </div>
 
               <div class="form-group">
-                <div class="cont_division">
+                <div class="cont_division" style="font-weight:bold">
                   <label class="terms_agree">연령구성</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
@@ -229,7 +218,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">야근빈도</label>
+                  <label class="terms_agree" style="font-weight:bold">야근빈도</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="overtime" value="1">
@@ -255,7 +244,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">업력</label>
+                  <label class="terms_agree" style="font-weight:bold">업력</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="history" value="1">
@@ -281,7 +270,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">기업형태</label>
+                  <label class="terms_agree" style="font-weight:bold">기업형태</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="type" value="1">
@@ -307,7 +296,7 @@
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">직원 수</label>
+                  <label class="terms_agree" style="font-weight:bold">직원 수</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="emp" value="1">
@@ -332,10 +321,10 @@
               </div>
 
               <div class="form-group">
-                <label class="terms_agree">복리후생</label>
+                <label class="terms_agree" style="font-weight:bold">복리후생</label>
                   <div class="row">
-                <div class="agree_desc col-md-6">
-                  <label style="display: block; margin: 10px 0px 0px 10px;" >의료/건강</label>
+                <div class="agree_desc col-md-12">
+                  <label style="display: block; margin: 10px 0px 0px 10px;">의료/건강</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule2">
                     <label class="lbl check_custom check_off" for="rule2">
@@ -381,7 +370,7 @@
                 </div>
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 7px 0px 0px 10px;" >지원제도</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule3">
@@ -413,12 +402,7 @@
                       <span>자사제품 직원할인</span>
                     </label>
                   </span>
-                  <span class="inpChk" style="margin: 16px 0px 0px 10px;">
-                    <input type="checkbox" id="rule3">
-                    <label class="lbl check_custom check_off" for="rule3">
-                      <span>주택 지원 대출</span>
-                    </label>
-                  </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule3">
                     <label class="lbl check_custom check_off" for="rule3">
@@ -459,7 +443,7 @@
 
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >교통/출퇴근</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule4">
@@ -491,6 +475,7 @@
                       <span>주차장 및 주차비 지원</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule4">
                     <label class="lbl check_custom check_off" for="rule4">
@@ -518,7 +503,7 @@
                 </div>
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >급여/보상</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule5">
@@ -550,6 +535,7 @@
                       <span>인센티브 및 성과급</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule5">
                     <label class="lbl check_custom check_off" for="rule5">
@@ -577,7 +563,7 @@
                 </div>
 
 
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >연차/휴가</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule6">
@@ -608,6 +594,7 @@
                     <label class="lbl check_custom check_off" for="rule6">
                       <span>병가 (유급/무급)</span>
                     </label>
+                    <br>
                   </span>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule6">
@@ -645,6 +632,7 @@
                       <span>생일 조기퇴근직원 등록</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule6">
                     <label class="lbl check_custom check_off" for="rule6">
@@ -660,8 +648,7 @@
                 </div>
 
 
-
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >근무환경</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule7">
@@ -687,6 +674,7 @@
                       <span>최고 성능 PC/노트북 지원</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule7">
                     <label class="lbl check_custom check_off" for="rule7">
@@ -717,6 +705,7 @@
                       <span>안마실 및 안마 의자 운영</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule7">
                     <label class="lbl check_custom check_off" for="rule7">
@@ -726,8 +715,7 @@
                 </div>
 
 
-
-                <div class="agree_desc col-md-6">
+                <div class="agree_desc col-md-12">
                   <label style="display: block; margin: 20px 0px 0px 10px;" >교육/자기개발</label>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule8">
@@ -765,6 +753,7 @@
                       <span>자격증 취득 지원</span>
                     </label>
                   </span>
+                  <br>
                   <span class="inpChk" style="margin: 16px 0px 0px 10px;">
                     <input type="checkbox" id="rule8">
                     <label class="lbl check_custom check_off" for="rule8">
@@ -784,13 +773,13 @@
                     </label>
                   </span>
                 </div>
+              </div>
+              </div>
 
-              </div>
-              </div>
 
               <div class="form-group">
                 <div class="cont_division">
-                  <label class="terms_agree">회식빈도</label>
+                  <label class="terms_agree" style="font-weight:bold">회식빈도</label>
                   <div class="sri_radio_wrap">
                     <span class="inpRdo">
                       <input type="radio" class="inp_check" name="dining" value="1">
@@ -813,7 +802,6 @@
                   </div>
                 </div>
               </div>
-
             </form>
           </div>
         </div>
@@ -834,33 +822,23 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
-
   </div>
 
 
-  <!-- SCRIPTS -->
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
-
-
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
-
-  <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
-
-
+<!-- SCRIPTS -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </body>
-
 </html>

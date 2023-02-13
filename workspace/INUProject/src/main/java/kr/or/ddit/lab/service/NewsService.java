@@ -1,6 +1,5 @@
 package kr.or.ddit.lab.service;
 
-import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.lab.vo.NewsVO;
 import kr.or.ddit.vo.PagingVO;
 
@@ -12,4 +11,7 @@ public interface NewsService {
 	
 	public int createNews(NewsVO news);
 	
+	public int modifyNews(NewsVO news);
+	
+	public int removeNews(int newsNo);	
 }

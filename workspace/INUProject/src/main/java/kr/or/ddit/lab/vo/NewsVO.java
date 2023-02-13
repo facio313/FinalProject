@@ -21,9 +21,9 @@ public class NewsVO {
 	@NotNull
 	private String newsDate;
 	private String newsContent;
-	private String newsImg;
 	@NotNull
 	private String memId;
 	
+	private int newsFieldSum;
 	
-}
+	}

@@ -1,13 +1,24 @@
 package kr.or.ddit.help.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.exception.NotExistNoticeException;
+import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.help.dao.NoticeDAO;
 import kr.or.ddit.help.vo.NoticeVO;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.PagingVO;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -23,10 +34,38 @@ import kr.or.ddit.vo.PagingVO;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+@Slf4j
 @Service
 public class NoticeServiceImpl implements NoticeService{
 	@Inject
 	private NoticeDAO noticeDAO;
+	@Inject
+	private AttachDAO attachDAO;
+	
+	@Value("#{appInfo.saveFiles}")
+	private File saveFiles;
+	
+	@PostConstruct
+	public void init() throws IOException{
+		log.info("첨부파일 저장 경로 : {}", saveFiles.getCanonicalPath());
+	}
+	
+	private int processAttachList(NoticeVO notice) {
+		List<AttachVO> attachList = notice.getAttatchList();
+		if(attachList==null || attachList.isEmpty()) 
+			return 0;
+		//1. meatadata 저장 - DB (ATTATCH)
+		int rowcnt = attachDAO.insertAttatches(notice);
+		//2. binary 저장 - Middle Tier (D:\saveFiles)
+		try {
+			for(AttachVO attach : attachList) {
+				attach.saveTo(saveFiles);
+			}
+			return rowcnt;
+		}catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	//공지사항 목록
 	@Override
@@ -49,6 +88,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int createNotice(NoticeVO notice) {
 		int rowcnt = noticeDAO.insertNotice(notice);
+		rowcnt += processAttachList(notice);
 		return rowcnt;
 	}
 
@@ -59,7 +99,20 @@ public class NoticeServiceImpl implements NoticeService{
 		if(savedNotice==null)
 			throw new NotExistNoticeException(notice.getNoticeSn());
 		int rowcnt = noticeDAO.updateNotice(notice);
-		
+		rowcnt += processAttachList(notice);
+//		int[] delAttNos = notice.getDelAttNos();
+		/*Arrays.sort(delAttNos);
+		if(delAttNos!=null && delAttNos.length>0) {
+			rowcnt += attachDAO.deleteAttatchs(notice);
+			String[] delAttSavenames = savedNotice.getAttatchList().stream()
+					.filter(attach->{
+ 						return Arrays.binarySearch(delAttNos, attach.getAttno()) >= 0;
+ 					}).map(AttachVO::getAttSavename)
+ 					.toArray(String[]::new);
+			for(String saveName : delAttSavenames) {
+				FileUtils.deleteQuietly(new File(saveFiles, saveName));
+			}
+		}*/
 		return rowcnt;
 	}
 

@@ -3,7 +3,9 @@ package kr.or.ddit.resume.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import kr.or.ddit.resume.vo.CareerVO;
 import kr.or.ddit.resume.vo.FacilityVO;
 
 /**
@@ -56,4 +58,11 @@ public interface FacilityDAO {
 	 * @return 삭제된 기능 수 
 	 */
 	public int deleteFacility(String facilitySn);	
+	
+	/**
+	 * 특정 이력서에 선택되지 않은 항목 목록 
+	 * @param memId, resumeSn
+	 * @return 이력서에서 쓰지 않은 사항 목록
+	 */
+	public List<FacilityVO> selectFacilityForResume(@Param("memId") String memId, @Param("resumeSn") String resumeSn);	
 }

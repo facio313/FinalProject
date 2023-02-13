@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.resume.dao.EducationDAO;
+import kr.or.ddit.resume.dao.ResumeDAO;
 import kr.or.ddit.resume.vo.EducationVO;
 
 /**
@@ -29,6 +30,8 @@ public class EducationServiceImpl implements EducationService {
 
 	@Inject
 	private EducationDAO dao;
+	@Inject
+	private ResumeDAO resumeDAO;
 	
 	@Override
 	public EducationVO retrieveEducation(String eduSn) {
@@ -57,6 +60,7 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ServiceResult removeEducation(String eduSn) {
 		int rowcnt = dao.deleteEducation(eduSn);
+		rowcnt += resumeDAO.deleteItem(eduSn);
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 

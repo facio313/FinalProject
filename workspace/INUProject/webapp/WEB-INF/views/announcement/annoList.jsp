@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
 <style>
-#temp{
+#temp {
 	display: inline-block;
 	width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -44,10 +44,10 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;   
 }
-.t_center{
+.t_center {
 	text-align : center;
 }
-.t_button{
+.t_button {
 	background-color:transparent;
 	border: 0px solid white;
 	font-size: 13px;
@@ -55,7 +55,7 @@
 }
 .close {display:inline-block;*display:inline;  text-shadow: 0px}
 .close:after {display: inline-block;content: "\00d7"; font-size:15pt;}
-
+.selectBox {width: 320px; display: inline-block; margin: 2px}
 </style>
 
 <!-- NAVBAR -->
@@ -73,58 +73,45 @@
 					<p>조건 걸어서 검색해보자</p>
             	</div>
 	            <form method="post" class="search-jobs-form" id="searchUI" >
-					<div>
+					<div class="container">
 						지역 : 
-						<select name="metro">
+						<select name="metro" class="form-select form-select-sm selectBox">
 							<option value>광역</option>
 						</select>
-						<select name="basic">
+						<select name="regionCode" class="form-select form-select-sm selectBox">
+<!-- 						<select name="detailList[0].regionCode"> -->
 							<option value>기초</option>
-							<c:forEach items="${regionList }" var="region">
-								<option value="${region.regionCode }" class="${region.regionRef}">${region.regionName }</option>
-							</c:forEach>
 						</select>
 					</div>
-					<div>
+					<div class="container">
 						업종 : 
-						<select name="industry0">
+						<select name="industry0" class="form-select form-select-sm selectBox">
 							<option value>상위</option>
 						</select>
-						<select name="industry1">
+						<select name="industry1" class="form-select form-select-sm selectBox">
 							<option value>중위</option>
-							<c:forEach items="${industryList }" var="industry">
-								<option value="${industry.industryCode }" class="${industry.industryRef}">${industry.industryName }</option>
-							</c:forEach>
 						</select>
-						<select name="industryCode">
+						<select name="industryCode" class="form-select form-select-sm selectBox">
 							<option value>하위</option>
-							<c:forEach items="${industryList }" var="industry">
-								<option value="${industry.industryCode }" class="${industry.industryRef}">${industry.industryName }</option>
-							</c:forEach>
 						</select>
 					</div>
-					<div>
+					<div class="container">
 						직종 : 
-						<select name="job0">
+						<select name="job0" class="form-select form-select-sm selectBox">
 							<option value>상위</option>
 						</select>
-						<select name="job1">
+						<select name="job1" class="form-select form-select-sm selectBox">
 							<option value>중위</option>
-							<c:forEach items="${jobList }" var="job">
-								<option value="${job.jobCode }" class="${job.jobRef}">${job.jobName }</option>
-							</c:forEach>
 						</select>
-						<select name="job2">
+						<select name="job" class="form-select form-select-sm selectBox">
 							<option value>하위</option>
-							<c:forEach items="${jobList }" var="job">
-								<option value="${job.jobCode }" class="${job.jobRef}">${job.jobName }</option>
-							</c:forEach>
 						</select>
 					</div>
-					<div>
+					<div class="container">
 						경력 : 
-						<select name="career">
-							<option value="경력무관">경력무관</option>
+						<select name="careerName" class="form-select form-select-sm selectBox">
+							<option value>경력사항</option>
+							<option value="관계없음">경력무관</option>
 							<option value="신입">신입</option>
 							<option value="경력">경력</option>
 						</select>
@@ -169,7 +156,7 @@
 						</div>
 					</div>
 					<div>
-						<input id="temp" type="text" class="form-control" name="searchWord0" placeholder="검색어 입력" style="width: 200px; margin-right: 30px">
+						<input id="temp" type="text" class="form-control" name="searchWord" placeholder="검색어 입력" style="width: 200px; margin-right: 30px">
 						<input type="button" id="searchBtn" class="btn btn-primary" value="searchJob" />
 <!-- 						<button type="submit" id="searchBtn" class="btn btn-primary" >Search Job</button> -->
 					</div>
@@ -215,11 +202,11 @@
 <!-- hidden form -->
 <form id="searchForm">
 	<input type="hidden" name="page" />
-	<input type="hidden" name="regionName" />
+	<input type="hidden" name="regionCode" />
 	<input type="hidden" name="industryCode" />
-	<input type="hidden" name="job2" />
-	<input type="hidden" name="career" />
-	<input type="hidden" name="searchWord0"/>
+	<input type="hidden" name="job" />
+	<input type="hidden" name="careerName" />
+	<input type="hidden" name="searchWord"/>
 </form>
 
 <!-- SCRIPTS -->
@@ -313,22 +300,22 @@ let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
 // 		console.log("value : ",value);
 // 		searchForm[0][name].value = value;
 // 	});
-	console.log($("[name=industryCode]").val());
+	searchForm[0]['regionCode'].value=$("[name=regionCode]").val();
 	searchForm[0]['industryCode'].value=$("[name=industryCode]").val();
+	searchForm[0]['job'].value=$("[name=job]").val();
+	searchForm[0]['careerName'].value=$("[name=careerName]").val();
+	searchForm[0]['searchWord'].value=$("[name=searchWord]").val();
 	
 	searchForm.submit();
 });
 
 
 /* 보내자... */
-
-// let tagBody = $("#tagBody");
-
 /* 하위 지역 셀렉트... */
 
 $("[name=metro]").on("change", function(){
-	$("[name='basic'] option").remove();  
-	$("[name='job2']").append("<option>기초</option>");
+	$("[name='regionCode'] option").remove();   
+	$("[name='regionCode']").append("<option>기초</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'region',code:ref}];
@@ -349,7 +336,7 @@ $("[name=metro]").on("change", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.regionCode).html(val.regionName);
 				regionOption.push(tr);
 			})
-			$("select[name=basic]").append(regionOption);
+			$("select[name=regionCode]").append(regionOption);
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -367,8 +354,8 @@ $("[name=industry0]").on("change", function(){
 	
 	$("[name='industry1'] option").remove();   
 	$("[name='industry1']").append("<option>중위</option>");
-	$("[name='industry2'] option").remove();   
-	$("[name='industry2']").append("<option>하위</option>");
+	$("[name='industryCode'] option").remove();   
+	$("[name='industryCode']").append("<option>하위</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
@@ -435,8 +422,8 @@ $("[name=industry1]").on("change", function(){
 $("[name=job0]").on("change", function(){
 	$("[name='job1'] option").remove();  
 	$("[name='job1']").append("<option>중위</option>");
-	$("[name='job2'] option").remove();   
-	$("[name='job2']").append("<option>하위</option>");
+	$("[name='job'] option").remove();   
+	$("[name='job']").append("<option>하위</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'job',code:ref}];
@@ -487,7 +474,7 @@ $("[name=job1]").on("change", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
 				jobOption.push(tr);
 			})
-			$("select[name=job2]").append(jobOption);
+			$("select[name=job]").append(jobOption);
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);

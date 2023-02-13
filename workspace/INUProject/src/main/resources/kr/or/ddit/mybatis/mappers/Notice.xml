@@ -13,20 +13,34 @@
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 				<choose>
 					<when test="simpleCondition.searchType eq 'announcement'">
-						NOTICE_SORT= '안내' AND NOTICE_TITLE LIKE '%#{simpleCondition.searchWord}%' 
+						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '안내' 
 					</when>
-					<when test="simpleCondition.searchType eq 'open'">
-						NOTICE_SORT= '오픈' AND NOTICE_TITLE LIKE '%#{simpleCondition.searchWord}%'
+					<when test="simpleCondition.searchType eq 'open'"> 
+						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '오픈'
 					</when>
 					<when test="simpleCondition.searchType eq 'etc'">
-						NOTICE_SORT= '기타' AND NOTICE_TITLE LIKE '%#{simpleCondition.searchWord}%'
+						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '기타' 
 					</when>
 					<otherwise>
-						NOTICE_TITLE LIKE '%#{simpleCondition.searchWord}%'
+						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 
 					</otherwise>
 				</choose>
 			</if>
 		</where>
+		
+		<!-- <trim prefix=" WHERE " prefixOverrides="AND">
+		    <if test="simpleCondition neq null">
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+		    		AND INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '안내'
+		    	</if>
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodBuyer)">
+		    		AND PROD_BUYER = #{detailCondition.prodBuyer}
+		    	</if>
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodName)">
+		    		AND INSTR(PROD_NAME, #{detailCondition.prodName}) > 0
+		    	</if>
+		    </if>
+	    </trim> -->
 	</sql>
 	<!-- 검색 -->
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
@@ -40,7 +54,7 @@
 		WITH ORDEREDNOTICE AS (
 		    SELECT NOTICE_SN, MEM_ID, NOTICE_SORT
 				, NOTICE_TITLE, NOTICE_CONTENT
-				, NOTICE_DATE, NOTICE_HIT		           
+				, NOTICE_DATE, NOTICE_HIT, NOTICE_DEL_DATE		           
 		    FROM NOTICE
 			<include refid="searchFrag" />
 		    ORDER BY NOTICE_SN DESC
@@ -76,7 +90,7 @@
 
 	<!-- 공지사항 생성 -->
 	<insert id="insertNotice" parameterType="NoticeVO">
-		<selectKey>
+		<selectKey order="BEFORE" resultType="string" keyProperty="noticeSn">
 			SELECT 'N' || LPAD(NOTICE_SEQ.NEXTVAL,6,0) FROM DUAL
 		</selectKey>
 		INSERT INTO notice (
@@ -107,7 +121,12 @@
 	</update>
 	
 	<!-- 공지사항 삭제 -->
-	
+	<delete id="deleteNotice" parameterType="string">
+		UPDATE NOTICE
+		SET
+		NOTICE_DEL_DATE = SYSDATE
+		WHERE NOTICE_SN = #{noticeSn}
+	</delete>
 </mapper>
 
 

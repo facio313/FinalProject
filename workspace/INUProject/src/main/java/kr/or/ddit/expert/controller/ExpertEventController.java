@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.ddit.expert.service.ExeventService;
 import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/expert/event")
 public class ExpertEventController {
@@ -32,9 +37,10 @@ public class ExpertEventController {
 		,@ModelAttribute("simpleCondition") SearchVO searchVO
 		,Model model	
 		) {
-		PagingVO<ExeventVO> pagingVO = new PagingVO<ExeventVO>();
+		PagingVO<ExeventVO> pagingVO = new PagingVO<ExeventVO>(9,5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
+		
 		service.retrieveExeventList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		return "expert/expertEventList";
@@ -49,6 +55,16 @@ public class ExpertEventController {
 		service.updateHits(exeventId);
 		model.addAttribute("exevent", exevent);
 		return "expert/expertEventDetail";
+	}
+	@GetMapping("/update/{exeventId}")
+	public String expertEventUpdate(
+			@PathVariable("exeventId") String exeventId
+			,Model model
+			) {
+		ExeventVO exevent = service.retrieveExevent(exeventId);
+		log.info("exevent.getAttatchList 들어간 값들 : {}",exevent.getAttatchList());
+		model.addAttribute("exevent", exevent);
+		return "expert/expertEventWrite";
 	}
 	
 	@GetMapping("/write")
@@ -81,5 +97,37 @@ public class ExpertEventController {
 	      return viewName;
 	}
 	
-	
+	@PostMapping("/update/{exeventId}")
+	public String updateExevent(
+		@PathVariable("exeventId") String exeventId
+		,@Validated(UpdateGroup.class) @ModelAttribute("exevent") ExeventVO event
+		, Errors errors
+		, Model model
+		) {
+		{
+		      boolean valid = !errors.hasErrors();
+		      String viewName = "";
+		      if(valid) {
+		         int result = service.updateExevent(event);
+		         if(result > 0) {
+		            viewName = "expert/event";
+		         }
+		         else {
+		            model.addAttribute("message","서버 오류, 쫌다 다시");
+		            viewName = "expert/event/update";
+		         }
+		      }
+		      else {
+		         viewName = "expert/event/update";
+		      }
+		      return viewName;
+		}
+	}
+	@PostMapping("/delete/{exeventId}")
+	public String deleteExevent(
+		@PathVariable("exeventId") String exeventId
+		) {
+		service.deleteExevent(exeventId);
+		return "redirect:/expert/event";
+	}
 }

@@ -1,11 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.member.dao.MemberDAO">
-	
-	<select id="selectMember" parameterType="string" resultType="MemberVO">
-		SELECT *
-		FROM MEMBER
-		WHERE MEM_ID=#{memId}
+<!--  [[개정이력(Modification Information)]]       -->
+<!--  수정일                수정자     수정내용               -->
+<!--  ==========   ======    ==============        -->
+<!--  2023. 2. 7.   박형준     최초작성               -->
+<!--  2023. 2. 10.  양서연     selectMember 수정               -->
+<!--  Copyright (c) 2023 by DDIT All right reserved -->	
+
+	<resultMap type="memberVO" id="MemberMap">
+		<result property="memId" column="MEM_ID" /> 
+		<result property="memPass" column="MEM_PASS" /> 
+		<result property="memName" column="MEM_NAME" /> 
+		<result property="memDelete" column="MEM_DELETE" /> 
+		<result property="memUse" column="MEM_USE" /> 
+		<result property="memAuthCd" column="MEM_AUTH_CD" /> 
+		<result property="memJoinDate" column="MEM_JOINDATE" /> 
+		<association property="incruiterVO" resultMap="incruiterMap"></association>
+		<association property="seekerVO" resultMap="seekerMap"></association>
+		<association property="expertVO" resultMap="expertMap"></association>
+	</resultMap>
+	<resultMap type="incruiterVO" id="incruiterMap">
+		<result property="cmpId" column="CMP_ID"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memTel" column="MEM_TEL"/>
+		<result property="memApproval" column="MEM_APPROVAL"/>
+		<result property="memDate" column="MEM_DATE"/>
+		<result property="memDelete" column="MEM_DELETE"/>
+	</resultMap>
+	<resultMap type="seekerVO" id="seekerMap">
+		<result property="memNickname" column="MEM_NICKNAME"/>
+		<result property="memBirth" column="MEM_BIRTH"/>
+		<result property="memGender" column="MEM_GENDER"/>
+		<result property="memZip" column="MEM_ZIP"/>
+		<result property="memAddr1" column="MEM_ADDR1"/>
+		<result property="memAddr2" column="MEM_ADDR2"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="memTel" column="MEM_TEL"/>
+		<result property="memCertification" column="MEM_CERTIFICATION"/>
+		<result property="memCarttotal" column="MEM_CARTTOTAL"/>
+		<result property="memScore" column="MEM_SCORE"/>
+	</resultMap>
+	<resultMap type="expertVO" id="expertMap">
+		<result property="expertApproval" column="EXPERT_APPROVAL"/>
+		<result property="expertApprovalDate" column="EXPERT_APPROVAL_DATE"/>
+		<result property="expertIntroduction" column="EXPERT_INTRODUCTION"/>
+		<result property="expertJoinpath" column="EXPERT_JOINPATH"/>
+		<result property="expertField" column="EXPERT_FIELD"/>
+		<result property="expertTag" column="EXPERT_TAG"/>
+		<result property="expertZip" column="EXPERT_ZIP"/>
+		<result property="expertAddr" column="EXPERT_ADDR"/>
+		<result property="expertAddr2" column="EXPERT_ADDR2"/>
+		<result property="expertTel" column="EXPERT_TEL"/>
+		<result property="expertEmail" column="EXPERT_EMAIL"/>
+		<result property="expertBank" column="EXPERT_BANK"/>
+		<result property="expertAccount" column="EXPERT_ACCOUNT"/>
+		<result property="expertHolder" column="EXPERT_HOLDER"/>
+		<result property="exfieldId" column="EXFIELD_ID"/>
+		<result property="exjobId" column="EXJOB_ID"/>
+	</resultMap>
+	<select id="selectMember" parameterType="string" resultMap="MemberMap">
+		SELECT A.MEM_ID, A.MEM_PASS, A.MEM_NAME, A.MEM_DELETE, A.MEM_USE, A.MEM_AUTH_CD, A.MEM_JOINDATE
+		     , B.CMP_ID, B.MEM_EMAIL, B.MEM_TEL, B.MEM_APPROVAL, B.MEM_DATE, B.MEM_DELETE
+		     , C.MEM_NICKNAME, C.MEM_BIRTH, C.MEM_GENDER, C.MEM_ZIP, C.MEM_ADDR1, C.MEM_ADDR2, C.MEM_EMAIL, C.MEM_TEL, C.MEM_CERTIFICATION, C.MEM_CARTTOTAL, C.MEM_SCORE
+		     , E.EXPERT_APPROVAL, E.EXPERT_APPROVAL_DATE, E.EXPERT_INTRODUCTION, E.EXPERT_JOINPATH, E.EXPERT_FIELD, E.EXPERT_TAG, E.EXPERT_ZIP, E.EXPERT_ADDR, E.EXPERT_ADDR2
+		        , E.EXPERT_TEL, E.EXPERT_EMAIL, E.EXPERT_BANK, E.EXPERT_ACCOUNT, E.EXPERT_HOLDER, E.EXFIELD_ID, E.EXJOB_ID
+		FROM (SELECT * FROM MEMBER WHERE MEM_ID = #{memId}) A LEFT OUTER JOIN INCRUITER B ON(A.MEM_ID = B.MEM_ID)
+		              LEFT OUTER JOIN SEEKER C ON(A.MEM_ID = C.MEM_ID)
+		              LEFT OUTER JOIN EXPERT E ON(A.MEM_ID = E.MEM_ID)
 	</select>
 	<insert id="insertMember" parameterType="SeekerVO">
 	INSERT INTO member (
@@ -102,6 +164,7 @@
 		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
 		INNER JOIN COMPANY C ON (B.CMP_ID = C.CMP_ID)
 		WHERE A.MEM_NAME=#{memName}
+		AND B.MEM_APPROVAL = 'Y'
 		AND C.CMP_BSNS_NO=#{cmpBsnsNo}
 	</select>
 	<!-- 비밀번호를 찾기위한 일반회원 존재여부 -->

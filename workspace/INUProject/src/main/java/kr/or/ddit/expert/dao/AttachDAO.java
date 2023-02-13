@@ -14,4 +14,5 @@ public interface AttachDAO {
 	public AttachVO selectAttatch(int attNo);
 	public <T>int deleteAttatchs(T vo);
 	public <T>int updateAttatch(T vo);
+	public <T>int deleteAttatch(String tblId);
 }

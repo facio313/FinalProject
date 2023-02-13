@@ -1,10 +1,13 @@
 package kr.or.ddit.resume.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.or.ddit.vo.SeekerVO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +33,5 @@ public class ResumeVO {
 	private List<ActivityVO> activityList;
 	private List<CourseVO> courseList;
 	private List<AwardVO> awardList;
+	
 }

@@ -63,5 +63,17 @@
 			CERT_SN = #{certSn,jdbcType=VARCHAR}
 		
 	</delete>
+	
+	<select id="selectCertificationForResume" parameterType="String" resultType="CertificationVO">
+		SELECT *
+		FROM CERTIFICATION
+		WHERE MEM_ID = #{memId}
+		AND CERT_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
+		FROM CERTIFICATION A
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.CERT_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
+	</select>
 </mapper>
 

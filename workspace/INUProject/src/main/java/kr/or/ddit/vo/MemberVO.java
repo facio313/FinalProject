@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.validate.DeleteGroup;
 import kr.or.ddit.validate.InsertGroup;
 import lombok.Data;
@@ -57,14 +58,25 @@ import lombok.ToString;
 //@Getter
 //@Setter
 //@ToString(exclude= {"memPass", "memRegno1", "memRegno2", "memImage", "memImg"})
+@ToString(exclude= {"memPass"})
 @EqualsAndHashCode(of="memId")
 @Data
 @NoArgsConstructor
 public class MemberVO extends CommonsAttachVO implements Serializable{
 	
-	@NotBlank
+	public MemberVO(@NotBlank(groups = { Default.class, DeleteGroup.class }) String memId,
+			@NotBlank(groups = { Default.class, DeleteGroup.class }) @Size(min = 4, max = 8, groups = { Default.class,
+					DeleteGroup.class }) String memPass) {
+		super();
+		this.memId = memId;
+		this.memPass = memPass;
+	}	
+	
+	@NotBlank(groups= {Default.class, DeleteGroup.class})
 	private String memId;
-	@NotBlank
+	@NotBlank(groups= {Default.class, DeleteGroup.class})
+	@Size(min=4, max=8, groups= {Default.class, DeleteGroup.class})
+	@JsonIgnore
 	private String memPass;
 	@NotBlank
 	private String memName;
@@ -72,6 +84,12 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 	private String memUse;
 	private String memAuthCd;
 	private String memJoinDate;
+	
+	//member : incruiter = 1 : 1
+	private IncruiterVO incruiterVO;
+	private SeekerVO seekerVO;
+	private ExpertVO expertVO;
+	
 	@Override
 	public String getTblId() {
 		// TODO Auto-generated method stub

@@ -123,6 +123,13 @@
 											<tr><th>우대사항</th><td>${detail.daPrefer}</td></tr>
 											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr>
 											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr>
+											<tr><th>경력</th>
+													<td>
+												<c:forEach items="${detail.careerName}" var="career">
+														· ${career} 
+												</c:forEach>
+													</td>
+											</tr>
 											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr>
 											<tr><th>지역</th><td>${detail.regionName}</td></tr>
 											<tr><th>고용형태</th><td>${detail.empltypeName}</td></tr>

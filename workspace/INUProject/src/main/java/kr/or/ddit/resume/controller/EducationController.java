@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.resume.service.EducationService;
+import kr.or.ddit.resume.service.ResumeService;
 import kr.or.ddit.resume.vo.ActivityVO;
 import kr.or.ddit.resume.vo.EducationVO;
 import kr.or.ddit.security.AuthMember;
@@ -72,7 +73,8 @@ public class EducationController {
 		MemberVO authMember = principal.getRealMember();
 		education.setMemId(authMember.getMemId());
 		service.createEducation(education);
-		return "redirect:" + education.getEduSn();
+//		return "redirect:" + education.getEduSn(); // 동기
+		return "jsonView"; // 비동기
 	}
 	
 	@GetMapping("/update")

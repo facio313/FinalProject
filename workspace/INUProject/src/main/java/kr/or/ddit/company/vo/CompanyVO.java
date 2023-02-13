@@ -1,11 +1,12 @@
 package kr.or.ddit.company.vo;
 
+import kr.or.ddit.vo.CommonsAttachVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CompanyVO {
+public class CompanyVO extends CommonsAttachVO {
 	
 	private String cmpId;
 	private String cmpNo;
@@ -28,4 +29,8 @@ public class CompanyVO {
 	private String cmpContent;
 	private int cmpLogo;
 	private int attId;
+	@Override
+	public String getTblId() {
+		return cmpId;
+	}
 }

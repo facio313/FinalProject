@@ -1,57 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-<title>INY &mdash; I Need You</title>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="author" content="Free-Template.co" />
-<link rel="shortcut icon" href="ftco-32x32.png" />
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/custom-bs.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animate.min.css" />
 
 <!-- MAIN CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
-<!-- layout CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<!-- components CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+<link rel="shortcut icon" href="ftco-32x32.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 </head>
 
 <body id="top">
 	<div class="site-wrap">
 		<!-- HOME -->
-		<section class="section-hero overlay inner-page bg-image"
-			style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg')"
-			id="home-section">
+		<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg')" id="home-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7">
 						<h1 class="text-white font-weight-bold">내 문의 내역</h1>
 						<div class="custom-breadcrumbs">
-							<a href="#">Help</a> <span class="mx-2 slash">/</span><span
-								class="text-white"><strong>My Ask</strong></span>
+							<a href="${pageContext.request.contextPath}/help/notice">Help</a>
+								<span class="mx-2 slash">/</span>
+								<span class="text-white"><strong>My Ask</strong></span>
 						</div>
 					</div>
 				</div>
@@ -73,7 +55,7 @@
 						<div class="tblType">
 							<table>
 								<colgroup>
-									<col style="width: 60px">
+									<col style="width: 100px">
 									<col style="width: 210px">
 									<col>
 									<col style="width: 100px">
@@ -116,40 +98,22 @@
 						</div>
 						<!-- 페이지 -->
 					</div>
-					<!-- // WMG-20130 -->
 				</div>
 			</div>
-
-
 		</div>
-
-
 	</div>
 
-	<!-- SCRIPTS -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
-
-	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<!-- SCRIPTS -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </body>
 </html>

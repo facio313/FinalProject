@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.announcement.vo.AnnoWalfareVO;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -42,4 +44,39 @@ public interface AnnoDAO {
 	 * @return 존재하지 않으면, null 반환
 	 */
 	public AnnoVO selectAnno(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 공고 신규 등록
+	 * @param anno
+	 * @return
+	 */
+	public int insertAnno(AnnoVO anno);
+	
+	/**
+	 * 세부공고 신규 등록
+	 * @param detail
+	 * @return
+	 */
+	public int insertAnnoDetail(List<AnnoDetailVO> detail);
+	
+	/**
+	 * 공고당 복지 리스트 등록
+	 * @param walfare
+	 * @return
+	 */
+	public int insertWalfareList(List<AnnoWalfareVO> walfare);
+	
+	/**
+	 * 세부공고당 경력 등록
+	 * @param careerName
+	 * @return
+	 */
+	public int insertAnnoCareer(List<String> careerName);
+
+	/**
+	 * 세부공고당 직급직책조건 등록
+	 * @param positionName
+	 * @return
+	 */
+	public int insertAnnoPosition(List<String> positionCode);
 }

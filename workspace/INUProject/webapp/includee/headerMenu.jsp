@@ -45,7 +45,7 @@
                 <a href="${pageContext.request.contextPath}/board/boardMain" class="nav-item nav-link active">커뮤니티</a>
                 <div class="dropdown-menu rounded-0 m-0">
                     <a href="<c:url value='/board/boardMain'/>" class="dropdown-item">홈</a>
-                    <a href="<c:url value='/board/totalBoard'/>" class="dropdown-item">글 전체</a>
+                    <a href="<c:url value='/board/boardTotal'/>" class="dropdown-item">글 전체</a>
                     <a href="<c:url value='/interview/interviewList'/>" class="dropdown-item">현직자인터뷰</a>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <div class="dropdown-menu rounded-0 m-0">
                     <a href="<c:url value='/help'/>" class="dropdown-item">도움말</a>
                     <a href="<c:url value='/help/notice'/>" class="dropdown-item">공지사항</a>
-                    <a href="<c:url value='/ask'/>" class="dropdown-item">문의하기</a>
+                    <a href="<c:url value='/ask/askForm'/>" class="dropdown-item">문의하기</a>
                     <a href="<c:url value='/ask/askList'/>" class="dropdown-item">내문의내역</a>
                 </div>
             </div>

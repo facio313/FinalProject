@@ -8,4 +8,5 @@ public interface AskService {
 
 	public AskVO retrieveAsk(String askNo);
 	public List<AskVO> retrieveAskList();
+	public int createAsk(AskVO ask);
 }

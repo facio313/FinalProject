@@ -23,7 +23,8 @@
 				width:100%;
  				height:100%;
  				overflow-x:hidden;
-				background-image: url("<%=request.getContextPath()%>/resources/background/3.jpg");
+<%-- 				background-image: url("<%=request.getContextPath()%>/resources/background/3.jpg"); --%>
+				background-color: rgb(220,225,233);
 				position:relative;
 				z-index:1;
 			}

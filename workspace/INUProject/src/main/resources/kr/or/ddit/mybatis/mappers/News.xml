@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.lab.dao.NewsDAO">
-<!-- 	<sql id="searchFrag"> -->
-<!-- 		  <where> -->
-<!-- 	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)"> -->
-<!-- 	    		<choose> -->
-<!-- 	    			<when test="simpleCondition.searchType eq 'name'"> -->
-<!-- 	    				INSTR(NEWS_NAME, #{simpleCondition.searchWord}) > 0 -->
-<!-- 	    			</when> -->
-<!-- 	    			<otherwise> -->
-<!-- 	    				INSTR(NEWS_NAME, #{simpleCondition.searchWord}) > 0 -->
-<!-- 	    			</otherwise> -->
-<!-- 	    		</choose> -->
-<!-- 	    	</if> -->
-<!-- 	    </where> -->
-<!-- 	</sql> -->
-
+	
+	<sql id="searchFrag">
+		<where>
+	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+	    		AND INSTR(UPPER(NEWS_NAME), UPPER(#{simpleCondition.searchWord})) > 0
+	    	</if>
+	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.newsField)">
+	    		AND INSTR(NEWS_FIELD, #{simpleCondition.newsField}) > 0
+	    	</if>
+	    </where>
+	</sql>
+	
 	<select id="selectNewsList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.NewsVO">
-		SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO
-		FROM NEWS
-<!-- 		<include refid="searchFrag"/> -->
+		WITH ORDEREDNEWS AS (
+		    SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO		           
+            FROM NEWS
+			<include refid="searchFrag"/>
+		    ORDER BY NEWS_NO DESC
+		)
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM RNUM, ORDEREDNEWS.*
+		    FROM ORDEREDNEWS
+		) A
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>	
 	
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
 		FROM NEWS
+		<include refid="searchFrag"/>
 	</select>
 	
+<!-- 	<select id="selectCateRecord" parameterType="PagingVO" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM NEWS -->
+<!-- 		WHERE NEWS_FIELD = #{newsField} -->
+<!-- 	</select> -->
+	
 	<select id="selectNews" parameterType="int" resultType="NewsVO">
-		SELECT NEWS_NO, NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_CONTENT, NEWS_IMG
+		SELECT NEWS_NO, NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_CONTENT
 		FROM NEWS
 		WHERE NEWS_NO = #{newsNo}
 	</select>
@@ -45,8 +58,7 @@
 		    NEWS_FIELD,
 		    NEWS_HIT,
 		    NEWS_CONTENT,
-		    MEM_ID,
-		    NEWS_IMG
+		    MEM_ID
 		) VALUES (
 			#{newsNo,jdbcType=NUMERIC}
 			, #{newsName,jdbcType=VARCHAR}
@@ -55,7 +67,6 @@
 			, #{newsHit,jdbcType=NUMERIC}
 			, #{newsContent,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
-			, #{newsImg,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -66,5 +77,19 @@
 		WHERE NEWS_NO = #{newsNo}
 	</update>
 	
+	<update id="updateNews" parameterType="NewsVO">
+		UPDATE NEWS
+		SET
+		    NEWS_NAME = #{newsName,jdbcType=VARCHAR}
+		    , NEWS_FIELD = #{newsField,jdbcType=VARCHAR}
+		    , NEWS_CONTENT = #{newsContent,jdbcType=VARCHAR}
+		WHERE NEWS_NO = #{newsNo}
+	</update>
+	
+	<delete id="deleteNews" parameterType="int">
+		DELETE 
+		FROM NEWS
+		WHERE NEWS_NO = #{newsNo}
+	</delete>
 	
 </mapper>

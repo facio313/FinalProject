@@ -23,6 +23,11 @@
 				<c:param name="what" value="${notice.noticeSn }"/>
 			</c:url>
 			<input type="button" onclick="location.href='${updateURL}'" value="수정">
+			<form action='<c:url value="/help/notice/noticeDelete"/>' method="post">
+				<input name="noticeSn" value="${notice.noticeSn }" hidden/>
+				<button type="submit">삭제하기</button>
+			</form>
+			<input type="button" onclick="location.href='<c:url value="/help/notice"/>'" value="목록으로"/>
 		</td>
 	</tr>
 </table>

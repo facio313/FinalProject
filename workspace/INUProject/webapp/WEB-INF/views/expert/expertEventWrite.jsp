@@ -11,8 +11,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>	
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>	
-	
-
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <div class="site-wrap">
 
 	<div class="site-mobile-menu site-navbar-target">
@@ -51,7 +51,7 @@
 						<div class="form-group">
 							<label for="job-title">작성자</label>
 							<form:input path="exeventName" type="text"
-								cssClass="form-control" />
+								cssClass="form-control" readonly="true"/>
 							<form:errors path="exeventName" element="span"
 								cssClass="text-danger" />
 						</div>
@@ -71,20 +71,18 @@
 
 						<div class="form-group">
 							<label for="job-title">첨부파일</label>
-							<input type="file" name="exeventFiles" class="form-control"/>
-							<input type="file" name="exeventFiles" class="form-control"/>
-							<input type="file" name="exeventFiles" class="form-control"/>
+							<input type="file" name="attachFiles" class="form-control" multiple="multiple"/>
 						</div>
 						<div class="form-group">
 							<label for="job-title">이벤트내용</label>
 							<form:textarea path="exeventContent" type="text"
-								cssClass="form-control" />
+								cssClass="form-control"  id="summernote"  />
 							<form:errors path="exeventContent" element="span"
 								cssClass="text-danger" />
 						</div>
 						<br>
 		              <div class="col-6">
-		                <input type="submit" class="btn btn-block btn-primary btn-md" value="가입">
+		                <input type="submit" class="btn btn-block btn-primary btn-md" value="등록">
 		              </div>
 					</form:form>
 				</div>
@@ -108,3 +106,19 @@
 		</div>
 	</section>
 </div>
+    <script>
+      $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 500,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+    </script>

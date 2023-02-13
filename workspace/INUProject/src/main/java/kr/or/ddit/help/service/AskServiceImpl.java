@@ -27,4 +27,10 @@ public class AskServiceImpl implements AskService {
 		return askList;
 	}
 
+	@Override
+	public int createAsk(AskVO ask) {
+		int rowcnt = dao.insertAsk(ask);
+		return rowcnt;
+	}
+
 }

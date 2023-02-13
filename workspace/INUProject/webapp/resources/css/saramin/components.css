@@ -109,7 +109,7 @@ span.sri_btn_insatong {border:1px solid #aeb7dc;color:#8692c8;background:none}
 .btn_smaller_type01 {display:inline-block;padding:1px 9px 3px 9px;height:23px;border:1px solid #e4e4e4;box-sizing:border-box;color:#444;font-size:12px;letter-spacing:-1px;line-height:17px;background-color:#fff}
 .btn_smaller_type01:hover {color:#444}
 .btn_smaller_type01.btn_more:after {display:inline-block;margin-left:8px;width:4px;height:7px;background:url(//www.saraminimage.co.kr/ui/layout/person_mypage_2017/ico_resume_manage01.png) no-repeat -1px -241px;content:""}
-.btn_biggest_type01 {display:inline-block;padding:13px 8px 14px;width:200px;height:50px;border:1px solid #5f75eb;box-sizing:border-box;color:#fff;font-size:16px;line-height:normal;text-align:center;vertical-align:top;background-color:#6b80f1}/* WMG-17554 */
+.btn_biggest_type01 {display:inline-block;padding:13px 8px 14px;width:200px;height:50px;border:1px solid #045738;box-sizing:border-box;color:#fff;font-size:16px;line-height:normal;text-align:center;vertical-align:top;background-color:#045738}/* WMG-17554 */
 .btn_biggest_type02 {display:inline-block;padding:13px 10px 14px;height:50px;border:1px solid #555;box-sizing:border-box;color:#fff;font-size:16px;line-height:normal;text-align:center;vertical-align:top;background-color:#555}/* WMG-17554 */
 .btn_biggest_type03 {display:inline-block;padding:13px 10px 14px;height:50px;border:1px solid #ababab;box-sizing:border-box;color:#fff;color:#666;font-size:16px;line-height:normal;text-align:center;vertical-align:top;background-color:#fff}/* WMG-17554 */
 .btn_biggest_type04 {display:inline-block;padding:13px 10px 14px;height:50px;border:1px solid #707070;box-sizing:border-box;color:#fff;color:#fff;font-size:16px;line-height:normal;text-align:center;vertical-align:top;background-color:#707070}/* WMG-17554 */
@@ -440,7 +440,7 @@ _:-ms-fullscreen, :root .inpSel select {padding:5px 11px 6px} /* ie11 */
 .searchTypoBox .inpTypo {display:inline-block;padding-left:10px;width:187px;border:1px solid #ddd;border-right:0 none;-webkit-box-sizing:border-box;box-sizing:border-box;color:#888;letter-spacing:-1px}
 .searchTypoBox .btnTypoSearch ,
 .searchTypoBox .btnTypoReset {padding-bottom:4px;height:32px;border:0;cursor:pointer}
-.searchTypoBox .btnTypoSearch {width:52px;-webkit-box-sizing:border-box;box-sizing:border-box;background-color:#6d82f3;color:#fff;font-size:13px;font-weight:bold;vertical-align:top}
+.searchTypoBox .btnTypoSearch {width:52px;-webkit-box-sizing:border-box;box-sizing:border-box;background-color:#045738;color:#fff;font-size:13px;font-weight:bold;vertical-align:top}
 .searchTypoBox .btnTypoReset {margin-left:5px;width:32px;font-size:0;vertical-align:middle;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_search_btn_reset.png) no-repeat -2px -2px}
 .dataTypoBox {padding-right:39px;position:relative;display:inline-block;box-sizing:border-box}
 .dataTypoBox .inpTypo {padding:6px 0 8px 0;height:40px;border:1px solid #dbdbdb;font-weight:normal;text-align:center;background:#fff;font-size:15px}
@@ -624,8 +624,8 @@ textarea.inpTarea:read-only {background-color:#ccc;opacity:0.3}
 .inpChkSw .lbl {position:relative;padding-left:51px;color:#666;font-size:13px;line-height:17px}
 .inpChkSw .lbl:before {position:absolute;left:0;top:50%;margin-top:-9px;width:42px;height:17px;border-radius:9px;background:#9c9c9c;transition:background .15s linear;content:""}
 .inpChkSw .lbl:after {position:absolute;left:-1px;top:50%;margin-top:-12px;width:23px;height:23px;border:1px solid #9c9c9c;box-sizing:border-box;background:#fff;border-radius:50%;transition:left .15s linear;content:""}
-.inpChkSw input:checked+.lbl:before{background:#4876ef}
-.inpChkSw input:checked+.lbl:after {left:19px;border-color:#4876ef}
+.inpChkSw input:checked+.lbl:before{background:#045738}
+.inpChkSw input:checked+.lbl:after {left:19px;border-color:#045738}
 
 
 /* toggle - 선택 */
@@ -637,8 +637,8 @@ textarea.inpTarea:read-only {background-color:#ccc;opacity:0.3}
 .inpRdoSw .inOption>.lbl {display:inline-block;padding:5px 14px 6px;height:32px;border:1px solid #dbdbdb;box-sizing:border-box;color:#666;font-size:13px;letter-spacing:-1px;line-height:19px;text-align:center;vertical-align:top;background-color:#fff;cursor:pointer;user-select:none}
 .inpRdoSw .inOption:nth-child(n + 2):after {position:absolute;top:0;left:-1px;z-index:2;width:2px;height:100%;content:""}
 .inpRdoSw .inOption>input:focus-visible+.lbl {outline:5px auto -webkit-focus-ring-color;outline:1px dotted invert}
-.inpRdoSw .inOption>input:checked+.lbl {position:relative;z-index:2;border-color:#4876ef;background-color:#4876ef;color:#fff}
-.inpRdoSw.colorWhite .inOption>input:checked+.lbl {background-color:#fff;color:#4876ef}
+.inpRdoSw .inOption>input:checked+.lbl {position:relative;z-index:2;border-color:#045738;background-color:#045738;color:#fff}
+.inpRdoSw.colorWhite .inOption>input:checked+.lbl {background-color:#fff;color:#045738}
 .inpRdoSw.colorGray .inOption>input:checked+.lbl {background-color:#555;color:#fff;border-color:#444}
 .inpRdoSw.colorWhite .inOption>input:checked:disabled+.lbl,
 .inpRdoSw.colorGray .inOption>input:checked:disabled+.lbl,
@@ -692,7 +692,7 @@ textarea.inpTarea:read-only {background-color:#ccc;opacity:0.3}
 .tool_tip_wrap .tool_tip .tail {position:absolute;z-index:2;width:32px;height:32px}
 .tool_tip_wrap .tool_tip .tool_tip_cont {color:#5c667b;font-size:14px;letter-spacing:-1px;line-height:20px;white-space:nowrap}
 .tool_tip_wrap .tool_tip .tool_tip_cont .toolTip_tit {display:block;margin-bottom:4px;font-size:15px;line-height:22px}
-.tool_tip_wrap .tool_tip.colorBlue {background:#4876ef}
+.tool_tip_wrap .tool_tip.colorBlue {background:#045738}
 .tool_tip_wrap .tool_tip.colorBlue .tool_tip_cont {color:#fff}
 .tool_tip_wrap .tool_tip .tool_tip_badge {display:inline-block;margin-bottom:4px;padding:3px 10px;border-radius:27px;color:#fff;font-size:13px;font-weight:bold;letter-spacing:-0.5px;line-height:20px;background:#00d3ab}
 .tool_tip_wrap .tool_tip.top_center .tail,

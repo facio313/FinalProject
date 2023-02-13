@@ -7,15 +7,14 @@
 
 <div class="site-wrap">
 
-	<div class="site-mobile-menu site-navbar-target">
-		<div class="site-mobile-menu-header">
-			<div class="site-mobile-menu-close mt-3">
-				<span class="icon-close2 js-menu-toggle"></span>
-			</div>
-		</div>
-		<div class="site-mobile-menu-body"></div>
-	</div>
-	<!-- .site-mobile-menu -->
+<!--     <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> .site-mobile-menu -->
 
 
 	<section class="site-section">
@@ -41,13 +40,19 @@
 					</div>
 					<div id=companyInsert>
 						<form:form id="companyForm" name="companyForm"
-							modelAttribute="company" method="post" onclick="return false;">
+							modelAttribute="company" method="post" class="p-4 p-md-5 border rounded" enctype="multipart/form-data">
 
 							<!-- 						<div class="form-group"> -->
 							<!-- 							<label for="job-title">회사아이디</label> -->
 							<%-- 							<form:input path="cmpId" type="text" cssClass="form-control" /> --%>
 							<%-- 							<form:errors path="cmpId" element="span" cssClass="text-danger" /> --%>
 							<!-- 						</div> -->
+							<div class="form-group">
+							<!--                   <label for="company-website-tw d-block">프로필사진</label> <br> -->
+							<label class="btn btn-primary btn-md btn-file"> 회사로고
+							<form:input type="file"  path ="attachFiles"  />
+							</label>
+							</div>
 							<div class="form-group">
 								<label for="job-title">법인등록번호</label>
 								<form:input path="cmpNo" type="text" cssClass="form-control" />
@@ -175,13 +180,20 @@
 						</form:form>
 					</div>
 					<br>
+					
+					
 					<form:form id="insertIncruiter" name="insertIncruiter"
-						modelAttribute="incruiter" method="post" onclick="return false;">
+						modelAttribute="incruiter" method="post" class="p-4 p-md-5 border rounded">
 						<h3 class="text-black mb-5 border-bottom pb-2">인사 담당자 정보</h3>
 						<!-- 회사 아이디 담을 히든폼 -->
+					<!-- 	<div class="form-group">
+	                    <label for="company-website-tw d-block">보유자격증</label> <br>
+	                    <label class="btn btn-primary btn-md btn-file">
+	                      자격증선택<input type="file" hidden>
+	                    </label>
+                  		</div> -->
 						<div class="form-group">
-							<form:input path="cmpId" type="text" id="companyId" cssClass="form-control" />
-							<form:errors path="cmpId" element="span" cssClass="text-danger" />
+							<form:input path="cmpId" type="hidden" id="companyId" cssClass="form-control" />
 						</div>
 						<div class="form-group">
 							<label for="job-title">회사명</label> <input type="text"
@@ -242,105 +254,7 @@
 	</section>
 </div>
 
-<!-- 모달창 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true"
-	style="top: 100px">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">회사검색</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<!-- 검색영역 시작 -->
-				<form:form id="searchUI" name="myform"
-					modelAttribute="simpleCondition" method="post"
-					onclick="return false;">
-					<fieldset>
-						<legend>통합검색</legend>
-						<table class="tb wrt_tb2 mb10">
-							<caption>회사검색 테이블</caption>
-							<colgroup>
-								<col style="width: 120px;">
-								<col>
-								<col style="width: 100px;">
-							</colgroup>
-							<tr>
-								<th>회사명</th>
-								<form:input path="searchType" type="hidden" value="company" />
-								<td>
-								<form:input path="searchWord" type="text"
-										style="width: 100%;" value="" id="searchWord" /> <!--                   	<input type="text" id=searchWord  style="width: 100%;"> -->
-								</td>
-								<td class="tc">
-									<button type="button" class="btn btn-black btn-sm"
-										id="searchBtn">검색</button>
-								</td>
-							</tr>
-						</table>
-					</fieldset>
-				</form:form>
-				<!-- 검색영역 끝 -->
-				<!-- 검색결과 시작 -->
-			</div>
-			<div class="well well-gray group_srch_result">
-				<!-- <span class="clr-red">검색된 결과가 없습니다.<span> -->
-				<table border="1" style="width: 100%;">
-					<thead>
-						<tr>
-							<th style="font-weight: border:">회사이름</th>
-							<th style="font-weight: border:">대표자</th>
-							<th style="font-weight: bolder;">회사위치</th>
-						</tr>
-					</thead>
-					<tbody name="companyList" id="companyList">
-						<c:set var="companyList" value="${pagingVO.dataList }"></c:set>
-						<c:choose>
-							<c:when test="${not empty companyList }">
-								<c:forEach items="${companyList }" var="company">
-									<tr>
-										<td><a href="" onclick="companyClick(this)"
-											data-dismiss="modal" style="color: black; font-weight: bold;">${company.cmpName }</a></td>
-										<td>${company.cmpRepName }</td>
-										<td>${company.cmpAddr2 }</td>
-									</tr>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td colspan="3">검색된 회사가 없음.</td>
-								</tr>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-				</table>
-<!-- 			페이지 네이션 소스 -->
-				<div id="pagination">
-<%-- 		       	<ui:pagination pagingVO="${pagingVO }" type="bootstrap"/> --%>
-				</div>
-			</div>
-			<form:form id="searchForm" modelAttribute="simpleCondition" >
-				<input type="hidden" name="page" />
-				<form:hidden path="searchType" />
-				<form:hidden path="searchWord" />
-			</form:form>
-			
-			<!-- 검색결과 끝 -->
-			
-			<div class="modal-footer">
-				<button type="button" class="btn btn-dark" id="insertComBtn"
-					data-dismiss="modal">회사등록</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary">확인</button>
-			</div>
-		</div>
-	</div>
-</div>
-
+<jsp:include page="incruiterModal.jsp"></jsp:include> 
 
 <script
-	src="<%=request.getContextPath()%>/resources/js/company/incruiterJoin.js"></script>
+	src="<%=request.getContextPath()%>/resources/js/company/incruiterJoin.js"></script> 

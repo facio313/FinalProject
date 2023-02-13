@@ -1,9 +1,13 @@
 package kr.or.ddit.announcement.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.announcement.dao.AnnoDAO;
+import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.announcement.vo.AnnoWalfareVO;
 import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +43,25 @@ public class AnnoServiceImpl implements AnnoService {
 		if(anno==null)
 			throw new NotExistBoardException(annoNo);
 		return anno;
+	}
+	
+	public int createAnno(AnnoVO anno) {
+		//공고등록
+		int rowcnt = annoDAO.insertAnno(anno);
+		//세부공고등록
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		rowcnt += annoDAO.insertAnnoDetail(detailList);
+		//복지등록
+		List<AnnoWalfareVO> walfareList = anno.getWalfareList();
+		rowcnt += annoDAO.insertWalfareList(walfareList);
+		//경력등록
+		for(AnnoDetailVO i : detailList) {
+			rowcnt += annoDAO.insertAnnoCareer(i.getCareerName());
+		}
+		//직무직책등록
+		for(AnnoDetailVO i : detailList) {
+			rowcnt += annoDAO.insertAnnoPosition(i.getPositionCode());
+		}
+		return rowcnt;
 	}
 }

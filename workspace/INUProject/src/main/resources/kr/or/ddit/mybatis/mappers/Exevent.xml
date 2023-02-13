@@ -23,9 +23,12 @@
 	    exevent_content,
 	    TO_CHAR(exevent_start,'YYYY-MM-DD') as exevent_start,
 	    TO_CHAR(exevent_end,'YYYY-MM-DD') as exevent_end,
-	    exevent_hits
+	    exevent_hits,(
+        select count(tbl_id)
+        from attach
+        where ATTACH.TBL_ID = exevent_attach.tbl_id) att_count
 	FROM
-	    exevent
+	    exevent_attach
 	<include refid="searchFrag"/>
 	ORDER BY EXEVENT_ID DESC
 	)
@@ -37,14 +40,28 @@
 	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
 	</select>
 	
-	<select id="selectEvent" parameterType="String" resultType="ExeventVO">
+	<resultMap type="ExeventVO" id="exeventMap" autoMapping="true">
+		<id property="exeventId" column="exevent_id" />
+		<collection property="attatchList" ofType="AttachVO" autoMapping="true" />
+	</resultMap> 
+		
+	<select id="selectEvent" parameterType="String" resultMap="exeventMap">
 		select 
 		exevent_id,
 	    exevent_name,
 	    exevent_content,
 	    TO_CHAR(exevent_start,'YYYY-MM-DD') as exevent_start,
-	    TO_CHAR(exevent_end,'YYYY-MM-DD') as exevent_end
-		from exevent
+	    TO_CHAR(exevent_end,'YYYY-MM-DD') as exevent_end,
+        tbl_id,
+	    att_no,
+	    att_stre_cours,
+	    att_savename,
+	    att_filename,
+	    att_mime,
+	    att_filesize,
+	    att_fancysize,
+	    att_download
+		from exevent_attach 
 		where exevent_id = #{exeventId}
 	</select>
 	
@@ -74,4 +91,19 @@
 	WHERE
 	    exevent_id = #{exeventId,jdbcType=VARCHAR}	
 	</update>
-</mapper>
+	
+	<update id="updateExevent" parameterType="ExeventVO">
+	UPDATE exevent
+	SET
+		exevent_start = #{exeventStart,jdbcType=DATE}
+		, exevent_end = #{exeventEnd,jdbcType=DATE}
+		, exevent_content = #{exeventContent,jdbcType=VARCHAR}
+	WHERE
+	 	exevent_id = #{exeventId,jdbcType=VARCHAR}	
+	</update>
+	
+	<delete id="deleteExevent" parameterType="String">
+	    DELETE FROM EXEVENT
+   		WHERE  exevent_id = #{exeventId,jdbcType=VARCHAR}	
+	</delete>
+</mapper> 

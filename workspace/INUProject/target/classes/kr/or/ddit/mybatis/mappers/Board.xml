@@ -3,14 +3,55 @@
 <mapper namespace="kr.or.ddit.board.dao.BoardDAO">
 
 	<select id="selectBoard" parameterType="String" resultType="BoardVO">
-		SELECT *
-		FROM BOARD
-		WHERE BOARD_NO = #{boardNo}
+		SELECT BOARD_NO,
+			   MEM_ID,
+			   BOARD_SUB,
+			   JOB_NAME,
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
+			   BOARD_HITS,
+			   TOTAL_LIKE,
+			   BOARD_LIKE,
+			   BOARD_FUN,
+			   BOARD_HELP,
+			   BOARD_CHEER
+		  FROM BOARD
+		 WHERE BOARD_NO = #{boardNo}
 	</select>
 
-	<select id="selectBoardList" resultType="BoardVO">
-		SELECT *
-		FROM BOARD
+	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM BOARD
+	</select>
+
+	<select id="selectBoardList" parameterType="PagingVO" resultType="BoardVO">
+		WITH ORDEREDBOARD AS(
+		SELECT BOARD_NO,
+			   MEM_ID,
+			   BOARD_SUB,
+			   JOB_NAME,
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
+			   BOARD_HITS,
+			   TOTAL_LIKE,
+			   BOARD_LIKE,
+			   BOARD_FUN,
+			   BOARD_HELP,
+			   BOARD_CHEER
+		  FROM BOARD
+	  ORDER BY BOARD_NO DESC
+	  ) SELECT A.*
+	      FROM (
+	      	SELECT ROWNUM RNUM, ORDEREDBOARD.*
+	      	FROM ORDEREDBOARD
+	      ) A
+	      <where>
+	      	<if test="_parameter neq null">
+	      		RNUM BETWEEN #{startRow} AND #{endRow}
+	      	</if>
+	      </where>
 	</select>
 
 	<insert id="insertBoard" parameterType="BoardVO">
@@ -19,19 +60,17 @@
 			FROM DUAL
 		</selectKey>
 		INSERT INTO BOARD(
-			BOARD_NO
+			  BOARD_NO
 			, MEM_ID
-			, ATT_SN
 			, BOARD_SUB
 			, JOB_NAME
 			, BOARD_TITLE
 			, BOARD_CONTENT
 			, BOARD_DATE
-			, BOARD_HIT
+			, BOARD_HITS
 		) VALUES (
 			#{boardNo,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
-			, #{attSn,jdbcType=NUMERIC}
 			, #{boardSub,jdbcType=VARCHAR}
 			, #{jobName,jdbcType=VARCHAR}
 			, #{boardTitle,jdbcType=VARCHAR}
@@ -41,5 +80,26 @@
 		)
 	</insert>
 
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE BOARD
+		   SET
+			   BOARD_TITLE   = #{boardTitle,jdbcType=VARCHAR},
+			   BOARD_CONTENT = #{boardContent,jdbcType=CLOB}
+		 WHERE BOARD_NO      = #{boardNo}
+	</update>
+
+	<delete id="deleteBoard" parameterType="BoardVO">
+		UPDATE BOARD
+		   SET BOARD_DEL_DATE  = SYSDATE
+		       , BOARD_TITLE   = #{boardTitle,jdbcType=VARCHAR}
+		       , BOARD_CONTENT = #{boardContent,jdbcType=VARCHAR}
+		 WHERE BOARD_NO        = #{boardNo}
+	</delete>
+
+	<update id="updateHits" parameterType="String">
+		UPDATE BOARD
+		   SET BOARD_HITS = BOARD_HITS+1
+		 WHERE BOARD_NO   = #{boardNo,jdbcType=VARCHAR}
+	</update>
 </mapper>
 

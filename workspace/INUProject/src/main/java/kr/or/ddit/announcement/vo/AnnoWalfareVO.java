@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class AnnoWalfareVO {
 	private String annowalNo;
+	private String walfare0;
 	private String walfareCode;
 	private String annoId;
 	

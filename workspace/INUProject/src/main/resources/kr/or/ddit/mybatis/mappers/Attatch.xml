@@ -35,8 +35,13 @@
       SELECT * FROM DUAL
    </insert> -->
    
-   <insert id="insertAttatches" parameterType="CommonsAttachVO">
-      INSERT ALL
+   <insert id="insertAttatches" parameterType="kr.or.ddit.vo.CommonsAttachVO">
+	   <selectKey order="BEFORE" resultType="int" keyProperty="startAttNo">
+	    SELECT NVL(MAX(ATT_NO),0)+1
+	    FROM ATTACH
+	    WHERE TBL_ID = #{tblId,jdbcType=VARCHAR}
+	    </selectKey>
+    	  INSERT ALL
       	<foreach collection="attatchList" item="attach" index="idx">
 		INTO attach (
 		    tbl_id,
@@ -49,7 +54,7 @@
 		    att_fancysize
 		) VALUES (
 		    #{tblId,jdbcType=VARCHAR}
-		    , #{idx}
+		    , #{startAttNo}+#{idx}
 		    , #{attach.attSavename,jdbcType=VARCHAR}
 		    , #{attach.attStreCours,jdbcType=VARCHAR}
 		    , #{attach.attFilename,jdbcType=VARCHAR}
@@ -78,13 +83,18 @@
 		    attach
 		WHERE tbl_id = #{tblId}   	
    </select>
-   
-   <!-- 
-   <delete id="deleteAttatchs" parameterType="">
-   		DELETE FROM ATTATCH
-   		WHERE ATT_NO IN 
+
+
+   <delete id="deleteAttatchs" parameterType="kr.or.ddit.vo.CommonsAttachVO">
+   		DELETE FROM ATTACH
+   		WHERE tbl_id IN 
    		<foreach collection="delAttNos" item="attNo" open="(" close=")" separator=",">
-   			#{attNo}
+   			#{att_no}
    		</foreach>
-   </delete> -->
+   </delete> 
+   
+   <delete id="deleteAttatch" parameterType="String">
+    DELETE FROM ATTACH
+   		WHERE tbl_id = #{tblId}  
+   </delete>
 </mapper>

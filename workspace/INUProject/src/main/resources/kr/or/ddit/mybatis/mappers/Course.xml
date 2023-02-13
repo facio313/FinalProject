@@ -62,6 +62,18 @@
 		WHERE	
 			COURSE_SN = #{courseSn,jdbcType=VARCHAR}
 		
-	</delete>	
+	</delete>
+	
+	<select id="selectCourseForResume" parameterType="String" resultType="CourseVO">
+		SELECT *
+		FROM COURSE
+		WHERE MEM_ID = #{memId}
+		AND COURSE_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
+		FROM COURSE A
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.COURSE_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
+	</select>	
 </mapper>
 

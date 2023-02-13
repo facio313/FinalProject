@@ -1,20 +1,27 @@
 package kr.or.ddit.help.controller;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.help.service.NoticeService;
 import kr.or.ddit.help.vo.NoticeVO;
+import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -30,34 +37,59 @@ import kr.or.ddit.vo.SearchVO;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+@Slf4j
 @Controller
 @RequestMapping("/help/notice")
 public class NoticeController {
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
+	
 	@Inject
 	private NoticeService service;
 	
+	@PostConstruct
+	public void init() {
+		log.info("주입된 service객체 : {}", service.getClass().getName());
+	}
+	
+	@ModelAttribute("notice")
+	public NoticeVO notice() {
+		return new NoticeVO();
+	}
 	
 	//공지사항 목록
+	/*@GetMapping
+	public String noticeListUI() {
+		return "help/notice/noticeList";
+	}*/
+	
+	//공지사항 목록 페이징
+//	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE) 
 	@GetMapping
-	public String noticeList(
-		@RequestParam(value="page", required=false, defaultValue="1") int currentPage
-		, @ModelAttribute("simpleCondition") SearchVO searchVO
+	public String noticeListData(
+		@RequestParam(value="page", required=false, defaultValue="1") int currentPage	//요청된 파라미터(page)를 currentpage에 넣음
 		, Model model
+//		, @ModelAttribute("detailCondition") NoticeVO detailCondition
+		, @ModelAttribute("simpleCondition") SearchVO searchVO
 	) {
-		PagingVO<NoticeVO> pagingVO = new PagingVO<>();
-		pagingVO.setCurrentPage(currentPage);
-		pagingVO.setSimpleCondition(searchVO);
+		PagingVO<NoticeVO> pagingVO = new PagingVO<>(10, 10);
+		pagingVO.setCurrentPage(currentPage); //현재페이지
+		pagingVO.setSimpleCondition(searchVO); // 검색 키워드
+//		pagingVO.setDetailCondition(detailCondition);
 		
 		service.retrieveNoticeList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
-		
+		/*if(!pagingVO.getDataList().isEmpty())  //의심이 됨
+			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
+		*/
+//		return "jsonView";
 		return "help/notice/noticeList";
 	}
 	
-	@RequestMapping("/noticeView")
+	@RequestMapping("/{noticeSn}")
 	public String noticeView(
-		@RequestParam("what") String noticeSn,
+		@PathVariable String noticeSn,
 		Model model
 	) {
 		NoticeVO notice = service.retrieveNotice(noticeSn);
@@ -66,10 +98,30 @@ public class NoticeController {
 	}
 	
 	
-	//공지사항 생성
+	//나중에 등록, 수정폼 같게하기
+	//공지사항 등록폼
+	@GetMapping("/noticeInsert")
+	public String insertForm() {
+		return "help/notice/noticeForm";
+	}
+	
+	//공지사항 등록
 	@PostMapping("/noticeInsert")
-	public String noticeInsert() {
-		return "";
+	public String noticeInsert(
+		@ModelAttribute("notice") NoticeVO notice
+		, @AuthMember MemberVO authMember
+		, Model model
+	) {
+		String viewName = null;
+		notice.setMemId(authMember.getMemId());
+		int rowcnt = service.createNotice(notice);
+		if(rowcnt>0) {
+			viewName = "redirect:/help/notice";
+		}else {
+			model.addAttribute("message","서버 오류");
+			viewName = "help/notice/noticeForm";
+		}
+		return viewName;
 	}
 
 	//공지사항 수정폼
@@ -80,7 +132,7 @@ public class NoticeController {
 	) {
 		NoticeVO notice = service.retrieveNotice(noticeSn);
 		model.addAttribute("notice", notice);
-		return "help/notice/noticeUpdate";
+		return "help/notice/noticeForm";
 	}
 	
 	//공지사항 수정
@@ -92,14 +144,23 @@ public class NoticeController {
 		String viewName = null;
 		int rowcnt = service.modifyNotice(notice);
 		if(rowcnt>0) {
-			viewName = "redirect:/help/notice/noticeView?what="+notice.getNoticeSn();
+			viewName = "redirect:/help/notice/"+notice.getNoticeSn();
 		}else {
 			model.addAttribute("message", "서버 오류");
-			viewName = "help/notice/noticeUpdate";
+			viewName = "help/notice/noticeForm";
 		}
 		return viewName;
 	}
 	
+	//공지사항 삭제
+	@PostMapping("/noticeDelete")
+	public String noticeDelete(
+		@RequestParam("noticeSn") String noticeSn
+		, Model model
+	) {
+		service.removeNotice(noticeSn);
+		return "redirect:/help/notice";
+	}
 	
 }
 

@@ -99,7 +99,8 @@ public class MemberServiceImpl implements MemberService {
 		}catch (UserNotFoundException e) {
 			String encoded = encoder.encode(member.getMemPass());
 			member.setMemPass(encoded);
-			int rowcnt = memberDAO.insertMemberIN(member);
+			int rowcnt = processAttatchList(member);
+			rowcnt = memberDAO.insertMemberIN(member);
 			rowcnt = memberDAO.insertIncruiter(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}

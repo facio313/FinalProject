@@ -59,7 +59,7 @@ public class MemberInsertController{
 	
 	@GetMapping("/seeker")
 	public String seekerForm(
-		@ModelAttribute("seeker") SeekerVO seeker	
+		@ModelAttribute("member") SeekerVO seeker	
 		){
 		return "join/seekerJoin";
 	}

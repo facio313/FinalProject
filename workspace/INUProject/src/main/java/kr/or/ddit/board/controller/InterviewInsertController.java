@@ -15,7 +15,7 @@ import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 
 @Controller
-@RequestMapping("/interview/writeInterview")
+@RequestMapping("/interview/interviewInsert")
 public class InterviewInsertController {
 
 	@Inject
@@ -28,18 +28,20 @@ public class InterviewInsertController {
 
 	@GetMapping
 	public String interviewForm() {
-		return "interview/writeInterview";
+		return "interview/interviewInsert";
 	}
 
+//	@AuthMember MemberVO authMember
 	@PostMapping
-	public String writeInterview(Model model, @AuthMember MemberVO authMember,
+	public String writeInterview(Model model,
 			@ModelAttribute("interview") InterviewVO interview) {
 		String viewName = null;
+
 		int rowcnt = service.createInterview(interview);
 		if (rowcnt > 0) {
 			viewName = "redirect:interviewList";
 		} else {
-			viewName = "interview/writeInterview";
+			viewName = "interview/interviewInsert";
 		}
 		return viewName;
 

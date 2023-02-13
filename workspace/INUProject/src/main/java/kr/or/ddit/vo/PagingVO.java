@@ -1,6 +1,7 @@
 package kr.or.ddit.vo;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.ToString;
 
 /**
  * 페이징과 관련한 모든 데이터를 가진 객체
- *
  */
 @Getter
 @NoArgsConstructor
@@ -37,6 +37,7 @@ public class PagingVO<T> {
 	
 	private SearchVO simpleCondition; // 단순 키워드 검색용
 	private T detailCondition; // 상세 검색용.
+	private Map<String, Object> flexibleCondition;
 	
 	public void setDetailCondition(T detailCondition) {
 		this.detailCondition = detailCondition;
@@ -44,6 +45,10 @@ public class PagingVO<T> {
 
 	public void setSimpleCondition(SearchVO simpleCondition) {
 		this.simpleCondition = simpleCondition;
+	}
+	
+	public void setFlexibleCondition(Map<String, Object> flexibleCondition) {
+		this.flexibleCondition = flexibleCondition;
 	}
 	
 	public void setDataList(List<T> dataList) {

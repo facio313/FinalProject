@@ -1,5 +1,6 @@
 package kr.or.ddit.help.vo;
 
+import kr.or.ddit.vo.CommonsAttachVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +21,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(of="noticeSn")
-public class NoticeVO {
+public class NoticeVO extends CommonsAttachVO{
 	private int rnum;				//행번호
 	private String noticeSn;		//공지사항일련번호
 	private String memId;           //회원아이디
@@ -29,12 +30,19 @@ public class NoticeVO {
 	private String noticeContent;   //내용
 	private String noticeDate;      //작성일
 	private int noticeHit;       //조회수
+	private String noticeDelDate; //삭제일자
+	
+	private int[] delAttNos; //게시글 수정시 삭제할 첨부파일 번호 유지
 	
 	public String getNoticeDate() {
 		return noticeDate;
 	}
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate.substring(0, 10);
+	}
+	@Override
+	public String getTblId() {
+		return noticeSn;
 	}
 	
 	

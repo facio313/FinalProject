@@ -10,4 +10,5 @@ import kr.or.ddit.help.vo.AskVO;
 public interface AskDAO {
 	public AskVO selectAsk(String askNo);
 	public List<AskVO> selectAskList();
+	public int insertAsk(AskVO ask);
 }

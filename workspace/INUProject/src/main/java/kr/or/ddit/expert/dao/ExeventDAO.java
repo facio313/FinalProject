@@ -20,5 +20,7 @@ public interface ExeventDAO {
 	
 	public int updateHits(String exeventId);
 	
+	public int updateExevent(ExeventVO exevent);
 	
+	public int deleteExevent(String exeventId);
 }

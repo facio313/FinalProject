@@ -73,6 +73,18 @@
 				EDU_DELETE_DATE = SYSDATE
 		WHERE	
 			EDU_SN = #{eduSn,jdbcType=VARCHAR}
-	</delete>	
+	</delete>
+	
+	<select id="selectEducationForResume" parameterType="String" resultType="EducationVO">
+		SELECT *
+		FROM EDUCATION
+		WHERE MEM_ID = #{memId}
+		AND EDU_DELETE_DATE IS NULL
+		MINUS
+		SELECT A.*
+		FROM EDUCATION A
+		RIGHT OUTER JOIN RESUME_ITEM B ON A.EDU_SN = B.RESUME_ITEM_SN
+		WHERE RESUME_SN = #{resumeSn}
+	</select>
 </mapper>
 

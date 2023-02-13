@@ -128,7 +128,7 @@
 .wrap_company_guide .list_guide_type li {height:211px}
 .wrap_company_guide .list_guide_type strong {font-weight:bold}
 .wrap_company_guide .list_guide_type .headcopy {color:#444;font-size:28px;line-height:39px}
-.wrap_company_guide .list_guide_type .btn_detail {background-color:#4876ef}
+.wrap_company_guide .list_guide_type .btn_detail {background-color:#045738}
 .wrap_company_guide .list_guide_type .btn_detail:hover {background-color:#2558de}
 .wrap_company_guide .list_guide_type .type_recruit {margin-top:40px;background-image:url(//www.saraminimage.co.kr/sri/common/ico/ico_guide_recruit.png)}
 .wrap_company_guide .list_guide_type .type_talent {float:right;margin-top:40px;background-image:url(//www.saraminimage.co.kr/sri/common/ico/ico_guide_talent.png)}
@@ -136,16 +136,16 @@
 .wrap_company_guide .content_guide .tabpanel {padding:0;border:1px solid #000;border-top:0;box-sizing:border-box}
 .wrap_company_guide .content_guide .wrap_detail {padding-bottom:90px;background:#fff}
 .wrap_company_guide .content_guide .subtit {padding-top:90px}
-.wrap_company_guide .wrap_button .btn_link {background-color:#4876ef}
+.wrap_company_guide .wrap_button .btn_link {background-color:#045738}
 .wrap_company_guide .wrap_button .btn_android:before {display:inline-block;margin:12px 9px 0 0;width:30px;height:36px;vertical-align:top;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_android.png);content:""}
 .wrap_company_guide .wrap_button .btn_ios:before {display:inline-block;margin:12px 9px 0 0;width:28px;height:33px;vertical-align:top;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_ios.png);content:""}
 .wrap_company_guide .desc_wrap {margin-bottom:60px}
 .wrap_company_guide .desc_wrap:after {display:table;table-layout:fixed;clear:both;content:""}
 .wrap_company_guide .desc_wrap .desc_list {border:1px solid #e2e2e2}
 .wrap_company_guide .desc_wrap .desc_list li {padding:2px 0}
-.content_guide .wrap_detail .emph {color:#4876ef;font-size:18px}
+.content_guide .wrap_detail .emph {color:#045738;font-size:18px}
 .content_guide .wrap_detail .txt_sup {font-size:15px;color:#949494}
-.content_guide .wrap_detail .tit_round {display:block;margin:60px auto 11px;width:106px;height:32px;border:1px solid #4876ef;border-radius:16px;box-sizing:border-box;color:#4876ef;font-weight:normal;letter-spacing:-1px;text-align:center}
+.content_guide .wrap_detail .tit_round {display:block;margin:60px auto 11px;width:106px;height:32px;border:1px solid #045738;border-radius:16px;box-sizing:border-box;color:#045738;font-weight:normal;letter-spacing:-1px;text-align:center}
 .content_guide .wrap_detail .tit_round + .txt {margin-bottom:16px}
 .content_guide .box_product {margin:0 auto 18px;padding:35px 50px 40px;width:680px;box-sizing:border-box;text-align:left;color:#333;letter-spacing:-1px;background:#f6f6f6}
 .content_guide .box_product .tit_product {display:block;font-size:21px}
@@ -177,7 +177,7 @@
 .content_guide .desc_wrap .desc_info dd {overflow:hidden;padding:2px 0 0 10px;font-size:14px;line-height:20px;text-align:left}
 .content_guide .wrap_question {padding:21px 40px 23px;background:#f8f8f8;text-align:left}
 .content_guide .wrap_question .question {color:#666;font-size:14px;letter-spacing:-1px;line-height:30px}
-.content_guide .wrap_question .question .txt_q {padding-right:5px;color:#4876ef}
+.content_guide .wrap_question .question .txt_q {padding-right:5px;color:#045738}
 .content_guide .wrap_question .link_answer {padding:7px 4px;font-weight:bold;text-decoration:underline}
 .wrap_related_btn {overflow:hidden;margin:18px 0 90px}
 .wrap_related_btn .btn_guide:before {display:inline-block;margin:2px 8px 0 0;width:13px;height:16px;vertical-align:top;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_guide.png) no-repeat;content:""}
@@ -790,7 +790,7 @@ input[type=number] {-moz-appearance:textfield}
 .wrap_board .btn_search {float:left;padding-bottom:4px;width:52px;height:32px;box-sizing:border-box;color:#fff;font-size:13px;background:#666;cursor:pointer}
 .wrap_board .search_right .btn_research {overflow:hidden;float:left;margin-left:8px;width:32px;height:32px;border:0 none;text-indent:100%;white-space:nowrap;background:url(//www.saraminimage.co.kr/ui/open_recruit/btn_research.png) no-repeat center center;cursor:pointer}
 .wrap_board .tblType tbody td {height:60px}
-.wrap_board .tblType tbody td.category {color:#4876ef}
+.wrap_board .tblType tbody td.category {color:#045738}
 .wrap_board .tblType tbody td.content_tit {text-align:left}
 .wrap_board .tblType tbody td.content_tit a {display:inline-block;overflow:hidden;padding-right:3px;max-width:95%;color:#222;line-height:18px;text-overflow:ellipsis;vertical-align:middle;white-space:nowrap}
 .wrap_board .tblType tbody td.content_tit .icon_new {display:inline-block;width:13px;height:12px;vertical-align:-4px;background:url(//www.saraminimage.co.kr/sri/common/layout/sri_lnb_icon.png) no-repeat -200px -50px}
@@ -868,8 +868,8 @@ input[type=number] {-moz-appearance:textfield}
 .wrap_help .tabList>li {width:50%}
 .search_help {position:relative;margin-bottom:30px;padding:32px 45px 32px 397px;font-size:0;letter-spacing:-1px;background:#fbfbfb}
 .search_help .copy {position:absolute;top:50%;left:136px;margin:-27px 0 0 0;font-size:20px;line-height:27px}
-.search_help .copy:after {display:block;position:absolute;top:50%;left:-80px;margin:-35px 0 0 0;width:70px;height:70px;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_help.png) 0 0 no-repeat;content:""}
-.search_help .copy strong {color:#4876ef;font-weight:bold}
+/* .search_help .copy:after {display:block;position:absolute;top:50%;left:-80px;margin:-35px 0 0 0;width:70px;height:70px;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_help.png) 0 0 no-repeat;content:""} */
+.search_help .copy strong {color:#045738;font-weight:bold}
 .search_help .input_search_help {display:inline-block;padding:10px 15px;width:431px;height:28px;border:1px solid #dadada;border-right:0;font-size:15px;vertical-align:top}
 .search_help .input_search_help::placeholder {color:#949494}
 .search_help .btn_search_help {display:inline-block;position:relative;width:56px;height:50px;vertical-align:top;background:#626262}
@@ -883,7 +883,7 @@ input[type=number] {-moz-appearance:textfield}
 .wrap_help .tab_help.tab_help_company {width:840px}
 .wrap_help .tab_help>li {display:inline-block;margin:0 7px 0 8px;vertical-align:top}
 .wrap_help .tab_help>li>.inTab {display:block;padding:0 25px;height:35px;border:1px solid #e1e1e1;border-radius:35px;color:#222;font-size:14px;letter-spacing:-1px;line-height:33px;background:#fff}
-.wrap_help .tab_help>li.select>.inTab {border:1px solid #4876ef;color:#fff;background:#4876ef}
+.wrap_help .tab_help>li.select>.inTab {border:1px solid #045738;color:#fff;background:#045738}
 .wrap_help .wrap_list_help {padding-top:11px}
 .wrap_help .wrap_list_help .tit_list_help {position:relative;margin-top:62px;color:#666;font-size:18px;letter-spacing:-1px;line-height:53px}
 .wrap_help .wrap_list_help .tit_list_help strong {color:#444}
@@ -958,7 +958,7 @@ input[type=number] {-moz-appearance:textfield}
 .wrap_board.wrap_help .tblType tbody td.count {color:#949494;letter-spacing:0}
 .wrap_board.wrap_help .tblType tbody td.category {color:#666;text-align:left}
 .wrap_board.wrap_help .tblType tbody td.date {letter-spacing:0}
-.wrap_board.wrap_help .tblType tbody td.status {color:#4876ef}
+.wrap_board.wrap_help .tblType tbody td.status {color:#045738}
 .wrap_board.wrap_help .tblType tbody td.status.ing {color:#ff4340}
 .wrap_board.wrap_help .tblType tbody td.status.end {color:#888}
 .wrap_board.wrap_help .tblType tbody td.content_tit {line-height:44px}
@@ -1026,9 +1026,9 @@ input[type=number] {-moz-appearance:textfield}
 .principle .lh22 {line-height:22px}
 
 /* WMG-26788 이메일 인증(code from /css/join/member_join.css) */
-.btn_back {display:inline-block;width:80px;height:40px;margin-left:10px;border:1px solid #4876ef;box-sizing:border-box;background-color:#fff;font-size:14px;color:#4876ef;letter-spacing:-1px;font-weight:bold}
+.btn_back {display:inline-block;width:80px;height:40px;margin-left:10px;border:1px solid #045738;box-sizing:border-box;background-color:#fff;font-size:14px;color:#045738;letter-spacing:-1px;font-weight:bold}
 .btn_back span {display:inline-block;padding-left:20px;line-height:30px;background:url(//www.saraminimage.co.kr/sri/common/spr/spr_check2.png) 0 -10px no-repeat}
-.btn_back.on {background-color:#4876ef;color:#fff}
+.btn_back.on {background-color:#045738;color:#fff}
 .btn_back.on span {background-position:0 10px}
 .layer_identify {box-sizing:border-box;padding:35px 30px 30px;width:456px;border:1px solid #444;position:absolute;top:60px;left:20px;display:none;box-shadow:0 1px 1px 1px rgba(0,0,0,0.12);background:#fff;z-index:999}
 .layer_identify.open{display:block}
@@ -1080,7 +1080,7 @@ input[type=number] {-moz-appearance:textfield}
 .modal_recruit_tester .modal_btns .btn_cancel,
 .modal_recruit_tester .modal_btns .btn_finish {min-width:160px;height:46px;letter-spacing:-1px;font-weight:bold;text-align:center}
 .modal_recruit_tester .modal_btns .btn_cancel {background-color:#fff;color:#444;border:1px solid #dfdfdf}
-.modal_recruit_tester .modal_btns .btn_finish {margin-left:6px;background-color:#4876ef;color:#fff;border:1px solid #4876ef}
+.modal_recruit_tester .modal_btns .btn_finish {margin-left:6px;background-color:#045738;color:#fff;border:1px solid #045738}
 .modal_recruit_tester .btn_close {position:absolute;right:-47px;top:-47px;width:33px;height:33px;}
 .modal_recruit_tester .btn_close:after {display:block;margin:0 auto;width:33px;height:33px;background: url(//www.saraminimage.co.kr/sri/event/WMG-27679/notice/btn_close.png) no-repeat 0 0;background-position:0 0;content:""}
 .modal_dimmed.on{display:block}

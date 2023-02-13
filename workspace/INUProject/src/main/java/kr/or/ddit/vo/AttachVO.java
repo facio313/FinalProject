@@ -3,6 +3,8 @@ package kr.or.ddit.vo;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -46,8 +48,10 @@ public class AttachVO implements Serializable{
 	
 	public void saveTo(File saveFolder) throws IOException {
 		if(realFile==null || realFile.isEmpty()) return;
-		realFile.transferTo(new File(saveFolder, attSavename));
-		setAttStreCours(saveFolder.getPath());
+		String fullFilePath = saveFolder + File.separator + attSavename;
+		Path path = Paths.get(fullFilePath).toAbsolutePath();
+		realFile.transferTo(path.toFile());
+		setAttStreCours(saveFolder + File.separator);
 	}
 
 	

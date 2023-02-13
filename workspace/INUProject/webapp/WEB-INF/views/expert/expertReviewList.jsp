@@ -7,6 +7,10 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
  	<!-- 바디 영역 -->
     <section class="site-section" id="next-section">
       <div class="container">
@@ -14,152 +18,65 @@
         <a href="<%=request.getContextPath() %>/expert/review/write"><label class="btn btn-primary btn-md btn-file" style="margin-left: 1000px;">
           후기등록
         </label></a>
-        <div class="row">
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <a href="<%=request.getContextPath() %>/expert/review/detail"><h4>상품명</h4></a>
-                <span>별점</span>
-                <p>후기내용을 입력합니다</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>사용자1</h3>
-                  <span class="position">Creative Director</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <h4>상품명</h4>
-                <span>별점</span>
-                <p>후기내용을 입력합니다</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>사용자1</h3>
-                  <span class="position">Creative Director</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <h4>상품명</h4>
-                <span>별점</span>
-                <p>후기내용을 입력합니다</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>사용자1</h3>
-                  <span class="position">Creative Director</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <a><h4>상품명</h4></a>
-                <span>별점</span>
-                <p>후기내용을 입력합니다</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>사용자1</h3>
-                  <span class="position">Creative Director</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          
-
-          <div class="col-lg-12 mb-4">
-            <div class="block__87154 bg-primary">
-              <blockquote>
-                <p class="text-white">&ldquo;Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit&rdquo;</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_4.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3 class="text-white">Pippa Cooper</h3>
-                  <span class="position position-2">Web Designer</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <p>&ldquo;Ipsum harum assumenda in eum vel eveniet numquam cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit&rdquo;</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>Elisabeth Smith</h3>
-                  <span class="position">Creative Director</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <p>&ldquo;Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit&rdquo;</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_2.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>Chris Peter</h3>
-                  <span class="position">Web Designer</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <p>&ldquo;Ipsum harum assumenda in eum vel eveniet numquam cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit&rdquo;</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_3.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>Benjamin Lewis</h3>
-                  <span class="position">Creative Director</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mb-4">
-            <div class="block__87154">
-              <blockquote>
-                <p>&ldquo;Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit&rdquo;</p>
-              </blockquote>
-              <div class="block__91147 d-flex align-items-center">
-                <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_4.jpg" alt="Image" class="img-fluid"></figure>
-                <div>
-                  <h3>Pippa Cooper</h3>
-                  <span class="position">Web Designer</span>
-                </div>
-              </div>
-            </div>
-          </div>
+	     <div class="row">
+          <c:set var="exreviewList" value="${pagingVO.dataList }"></c:set>
+          <c:choose>
+          	<c:when test="${not empty exreviewList }">
+          		<c:forEach items="${exreviewList }" var="exreview">
+			       <div class="col-lg-6 mb-4">
+			         <div class="block__87154">
+			           <blockquote>
+			             <a href="<%=request.getContextPath() %>/expert/review/detail"><h4>상품명 : ${exreview.exprodName }</h4></a>
+			             <span>별점 : ${exreview.exreviewScore }</span>
+			             <p>내용 : ${exreview.exreviewContent }</p>
+			           	</blockquote>
+			           	<div class="block__91147 d-flex align-items-center">
+			             <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
+			             <div>
+			               <h3>사용자1</h3>
+			               <span class="position">Creative Director</span>
+			             </div>
+			           </div>
+			         </div>
+			       </div>
+      			</c:forEach>
+	      	</c:when>
+	      </c:choose>
 
         </div>
       </div>
     </section>
+	<div id="pagingArea">
+		<%--                ${pagingVO } --%>
+		<%--                <%=new BootstrapPaginationRender().renderPagination((PagingVO)request.getAttribute("pagingVO")) %> --%>
+		<ui:pagination pagingVO="${pagingVO }" type="bootstrap" />
+	</div>
+	<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+		<form:hidden path="searchType" />
+		<form:hidden path="searchWord" />
+		<input type="hidden" name="page" />
+	</form:form>
+	
+<script type="text/javascript">
+	let searchForm = $("#searchForm");
+	let searchUI = $("#searchUI").on("click", "#searchBtn", function() {
+		let inputs = searchUI.find(":input[name]");
+		$.each(inputs, function(index, input) {
+			let name = this.name;
+			let value = $(this).val();
+			searchForm.find("[name=" + name + "]").val(value);
+		});
+		searchForm.submit();
+	});
 
-	<!-- /바디 영역 -->
+	$("a.paging").on("click", function(event) {
+		event.preventDefault();
+		let page = $(this).data("page");
+		if (!page)
+			return false;
+		searchForm.find("[name=page]").val(page);
+		searchForm.submit();
+		return false;
+	});
+</script>	
 	

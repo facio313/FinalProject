@@ -50,7 +50,7 @@ label {cursor:pointer}
 .toolTipWrap2 .toolTip2.left_bottom {bottom:50%;left:calc(100% + 17px)}
 
 /* square 버튼 */
-/*[class*="btnSize"] {display:inline-block;border:1px solid #4876ef;border-radius:4px;box-sizing:border-box;color:#fff;letter-spacing:-1px;text-align:center;background-color:#4876ef}*/
+/*[class*="btnSize"] {display:inline-block;border:1px solid #045738;border-radius:4px;box-sizing:border-box;color:#fff;letter-spacing:-1px;text-align:center;background-color:#045738}*/
 /* square 버튼-사이즈 */
 /*.btnSizeXL {padding:13px 12px 17px;font-size:18px;font-weight:bold;line-height:32px}*/
 /*.btnSizeL {padding:10px 12px 12px;font-size:16px;line-height:24px}*/
@@ -60,9 +60,9 @@ label {cursor:pointer}
 
 /* square 버튼-컬러 */
 /*[class*="btnSize"]:hover {border-color:#3157dd;background-color:#3157dd}*/
-/*[class*="btnSize"].colorBlue {border-color:#4876ef;color:#fff;background-color:#4876ef}*/
+/*[class*="btnSize"].colorBlue {border-color:#045738;color:#fff;background-color:#045738}*/
 /*[class*="btnSize"].colorBlue:hover {border-color:#3157dd;background-color:#3157dd}*/
-/*[class*="btnSize"].colorBlueReverse {border-color:#4876ef;color:#4876ef;background-color:#fff}*/
+/*[class*="btnSize"].colorBlueReverse {border-color:#045738;color:#045738;background-color:#fff}*/
 /*[class*="btnSize"].colorBlueReverse:hover {background-color:#eff5ff}*/
 /*[class*="btnSize"].colorBlack {border-color:#373f57;color:#fff;background-color:#373f57}*/
 /*[class*="btnSize"].colorBlack:hover {border-color:#292e41;background-color:#292e41}*/
@@ -91,7 +91,7 @@ label {cursor:pointer}
 .inpTypo2:-ms-input-placeholder {color:#8491a7;letter-spacing:-1px}
 .inpTypo2::placeholder {color:#8491a7;letter-spacing:-1px;opacity:1}
 .inpTypo2:hover {border-color:#d7dce5;background-color:#f4f6fa}
-.inpTypo2:focus {border-color:#4876ef}
+.inpTypo2:focus {border-color:#045738}
 .inpTypo2.sizeS {height:32px;font-size:13px;line-height:28px}
 .inpTypo2.sizeL {height:48px;line-height:44px}
 .inpTypo2[disabled],
@@ -245,11 +245,11 @@ _:-ms-fullscreen,
 .inpChkSw2 .lbl {position:relative;padding-right:40px;color:#5c667b;font-size:14px;line-height:16px}
 .inpChkSw2 .lbl:before {position:absolute;top:50%;right:0;margin-top:-8px;width:32px;height:16px;border-radius:9px;background:#eff1f5;content:""}
 .inpChkSw2 .lbl:after {position:absolute;top:50%;right:16px;margin-top:-8px;width:16px;height:16px;border-radius:50%;box-sizing:border-box;background:#d8d8d8;transition-timing-function:linear;transition-duration:0.15s;transition-property:right, background;content:""}
-.inpChkSw2 input:checked+.lbl:after {right:0;background:#4876ef}
+.inpChkSw2 input:checked+.lbl:after {right:0;background:#045738}
 .inpChkSw2 .lbl.reverse {padding-right:0;padding-left:38px}
 .inpChkSw2 .lbl.reverse:before {left:0}
 .inpChkSw2 .lbl.reverse:after {right:initial;left:0;transition-property:left, background}
-.inpChkSw2 input:checked+.lbl.reverse:after {left:16px;background:#4876ef}
+.inpChkSw2 input:checked+.lbl.reverse:after {left:16px;background:#045738}
 
 
 /*********************************************************************************************/
@@ -327,7 +327,7 @@ _:-ms-fullscreen,
 .inpChkSw .lbl {position:relative;padding-right:48px;color:#5c667b;font-size:14px;line-height:20px}
 .inpChkSw .lbl:before {position:absolute;top:50%;right:0;margin-top:-8px;width:40px;height:20px;border-radius:10px;background:#96a0b5;content:""}
 .inpChkSw .lbl:after {position:absolute;top:50%;right:22px;margin-top:-6px;width:16px;height:16px;border-radius:50%;box-sizing:border-box;background:#fff;transition-timing-function:linear;transition-duration:0.15s;transition-property:right, background;content:""}
-.inpChkSw input:checked+.lbl:before {background:#4876ef}
+.inpChkSw input:checked+.lbl:before {background:#045738}
 .inpChkSw input:checked+.lbl:after {right:2px}
 .inpChkSw .lbl.reverse {padding-right:0;padding-left:48px}
 .inpChkSw .lbl.reverse:before {left:0}
@@ -335,12 +335,26 @@ _:-ms-fullscreen,
 .inpChkSw input:checked+.lbl.reverse:after {left:22px;background:#fff}
 
 /* input */
+.inpTypo{
+	    /* padding: 9px 12px 11px 12px; */
+    height: 40px;
+    /* border: 1px solid #d7dce5; */
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #373f57;
+    font-family: "Malgun Gothic",gulim,dotum,sans-serif;
+    font-size: 14px;
+    letter-spacing: -1px;
+    line-height: 20px;
+    vertical-align: middle;
+    /* background-color: #fff;*/
+}
 .inpTypo {padding:9px 12px 11px 12px;height:40px;border:1px solid #d7dce5;border-radius:4px;box-sizing:border-box;color:#373f57;font-family:"Malgun Gothic",gulim,dotum,sans-serif;font-size:14px;letter-spacing:-1px;line-height:20px;vertical-align:middle;background-color:#fff}
 .inpTypo::-ms-clear {display:none}
 .inpTypo:-ms-input-placeholder {color:#8491a7;letter-spacing:-1px}
 .inpTypo::placeholder {color:#8491a7;letter-spacing:-1px;opacity:1}
 .inpTypo:hover {border-color:#d7dce5;background-color:#f4f6fa}
-.inpTypo:focus {border-color:#4876ef}
+.inpTypo:focus {border-color:#045738}
 .inpTypo.sizeXL {padding:18px 12px 22px 12px;height:64px;font-size:16px;line-height:24px}
 .inpTypo.sizeML {padding:14px 12px 18px 12px;height:56px;font-size:16px;line-height:24px}
 .inpTypo.sizeL {padding:10px 12px 14px 12px;height:48px;font-size:16px;line-height:24px}
@@ -522,7 +536,7 @@ em.msgInvalid {display:block;margin-top:8px;color:#d63131;font-size:13px;letter-
 .pagination .btnLast:hover {background-position-x:-50px !important}
 
 /* square 버튼 */
-[class*="btnSize"] {display:inline-block;border:1px solid #4876ef;border-radius:4px;box-sizing:border-box;color:#fff;letter-spacing:-1px;text-align:center;background-color:#4876ef}
+[class*="btnSize"] {display:inline-block;border:1px solid #045738;border-radius:4px;box-sizing:border-box;color:#fff;letter-spacing:-1px;text-align:center;background-color:#045738}
 /* square 버튼-사이즈 */
 .btnSizeXL {padding:17px 24px 19px;height:64px;font-size:18px;font-weight:bold;line-height:26px}
 .btnSizeML {padding:13px 24px 15px;height:56px;font-size:16px;line-height:24px}
@@ -533,10 +547,10 @@ em.msgInvalid {display:block;margin-top:8px;color:#d63131;font-size:13px;letter-
 .btnRound {border-radius:20px}
 
 /* square 버튼-컬러 */
-[class*="btnSize"]:hover {border-color:#3157dd;background-color:#3157dd}
-[class*="btnSize"].colorBlue {border-color:#4876ef;color:#fff;background-color:#4876ef}
-[class*="btnSize"].colorBlue:hover {border-color:#3157dd;background-color:#3157dd}
-[class*="btnSize"].colorBlueReverse {border-color:#4876ef;color:#4876ef;background-color:#fff}
+[class*="btnSize"]:hover {border-color:#04738;background-color:#04738}
+[class*="btnSize"].colorBlue {border-color:#045738;color:#fff;background-color:#045738}
+[class*="btnSize"].colorBlue:hover {border-color:#04738;background-color:#04738}
+[class*="btnSize"].colorBlueReverse {border-color:#045738;color:#045738;background-color:#fff}
 [class*="btnSize"].colorBlueReverse:hover {background-color:#eff5ff}
 [class*="btnSize"].colorBlack {border-color:#373f57;color:#fff;background-color:#373f57}
 [class*="btnSize"].colorBlack:hover {border-color:#292e41;background-color:#292e41}
@@ -655,7 +669,7 @@ span.sri_btn_insatong {border:1px solid #aeb7dc;color:#8692c8;background:none}
 .toolTip .tail {position:absolute;z-index:2;width:32px;height:32px}
 .toolTip .toolTipCont {color:#5c667b;font-size:14px;letter-spacing:-1px;line-height:20px;white-space:nowrap}
 .toolTip .toolTipCont .toolTip_tit {display:block;margin-bottom:4px;font-size:15px;line-height:22px}
-.toolTip.colorBlue {background:#4876ef}
+.toolTip.colorBlue {background:#045738}
 .toolTip.colorBlue .toolTipCont {color:#fff}
 .toolTip .toolTip_badge {display:inline-block;margin-bottom:4px;padding:3px 10px;border-radius:27px;color:#fff;font-size:13px;font-weight:bold;letter-spacing:-0.5px;line-height:20px;background:#00d3ab}
 .toolTip.top_center .tail,
@@ -721,3 +735,5 @@ span.sri_btn_insatong {border:1px solid #aeb7dc;color:#8692c8;background:none}
 .inpChkBox>span input:disabled~.lbl {color:#b5c0d3;border-color:#eaedf4;background:#eaedf4}
 .inpChkBox>span input:disabled:checked+.lbl {color:#b5c0d3}
 .inpChkBox.box_center>span .lbl:before {top:50%;transform:translate(0, -50%)}
+
+

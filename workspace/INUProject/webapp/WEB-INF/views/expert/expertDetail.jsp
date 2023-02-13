@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  	<!-- 바디 영역 -->
-   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="site-wrap" >
 
@@ -35,7 +35,7 @@
                 <img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" style="max-width:70px;" >
               </div>
               <div>
-                <h2>Product Designer</h2>
+                <h2>${exprod.exprodName }</h2>
                 <div>
                   <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Puma</span>
                   <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
@@ -59,9 +59,7 @@
 
           <div class="col-lg-8">
             <h2>상세설명</h2>
-            <figure>
-              <a href="resources/images/sq_img_6.jpg" data-fancybox="gallery"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></a>
-            </figure>
+           	${exprod.exprodDetail }
             <h2>판매자 정보</h2>
             <figure>
               <a href="resources/images/sq_img_2.jpg" data-fancybox="gallery"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></a>
@@ -80,7 +78,7 @@
            
 
             <div class="mb-4">
-              <h3 class="mb-4 h4 border-bottom">가격</h3>
+              <h3 class="mb-4 h4 border-bottom">가격 : ${exprod.exprodPrice }</h3>
               
               <p class="mb-0">찜</p>
             </div>
@@ -88,16 +86,16 @@
             <div class="row mb-4">
 
               <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                <strong class="d-block text-black">기본 정보</strong>
-                Google, Inc.
+                <strong class="d-block text-black">사업장 주소</strong>
+                ${expert.expertAddr }
               </div>
               <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                <strong class="d-block text-black">방식</strong>
-                Design, Front-End and Back-End (WordPress)
+                <strong class="d-block text-black">상품이용방법</strong>
+                ${exprod.exprodWay }
               </div>
               <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                <strong class="d-block text-black">유효기간</strong>
-                2019
+                <strong class="d-block text-black">종료일</strong>
+                ${exprod.exprodEnd }
               </div>
               <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                 <strong class="d-block text-black mb-3">구매</strong>
@@ -108,13 +106,13 @@
             <div class="block__87154 mb-0">
                 
                 <blockquote>
-                  <p>여러분과 함께하고 싶습니다</p>
+                  <p>${expert.expertIntroduction }</p>
                 </blockquote>
                 <div class="block__91147 d-flex align-items-center">
                   <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></figure>
                   <div>
-                    <h3>Chris Peter</h3>
-                    <span class="position">Web Designer</span>
+                    <h3>${member.memName }</h3>
+                    <span class="position">${expert.expertField }</span>
                   </div>
                 </div>
               </div>

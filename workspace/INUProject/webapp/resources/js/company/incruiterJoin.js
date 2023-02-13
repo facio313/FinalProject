@@ -12,6 +12,45 @@ let btn = $("#searchBtn").on("click",function(){
 	var tbody = document.getElementById('companyList');
 	var data = $("form[name=myform]").serialize();
 	$.ajax({
+		url: '/INUProject/company',
+		method: "post",
+		cache : "false",
+		data :  data
+		,
+		datatype: "json",
+		success: (resp) =>{
+			console.log(data);
+			console.log($("form[name=myform]"));
+			console.log(resp)
+			var companyList = resp.dataList;
+			if(companyList.length>0){
+				for(let i=0; i<companyList.length;i++){
+					console.log(companyList[i].cmpId)
+					inner += "<tr>"
+					inner += "<td><a onclick='companyClick(this)' data-dismiss='modal' style='color: black; font-weight: bold;'>"+companyList[i].cmpName+"</a></td>"
+					inner += "<td>"+companyList[i].cmpRepName+"</td>"
+					inner += "<td>"+companyList[i].cmpAddr2+"</td>"
+					inner += "</tr>"
+				}
+				tbody.innerHTML=inner;
+			}else{
+				inner += "<tr>"
+					inner += "<td colspan='3'>게시글 없음</td>"
+						inner += "</tr>"
+							tbody.innerHTML=inner;
+			}
+		},
+		error : (err)=>{
+// 	              console.log(err);
+		}
+	});
+})
+// var comId = $('[name=comId]') 
+let modalBtn = $("#companyModal").on("click",function(){
+	var inner ="";
+	var tbody = document.getElementById('companyList');
+	var data = $("form[name=myform]").serialize();
+	$.ajax({
 	    url: '/INUProject/company',
 	    method: "post",
 	    cache : "false",
@@ -75,14 +114,14 @@ function companyClick(company){
 //회사등록 ajax 전송 
 
 let companyInsert = $("#insertCompanyBtn").on("click", function(){
-	var companyForm = $("form[name=companyForm]").serialize();
-	
-	console.log(companyForm);
+	var companyForm = $("form[name=companyForm]")[0];
+	console.log(companyForm)
+	var formData =new FormData(companyForm);
+	console.log(formData);
 	$.ajax({
 		url : '/INUProject/company/new',
 		type : 'post',
-		data : companyForm,
-		dataType : 'json',
+		data : formData,
 		success: function(res){
 			console.log(res);
 			$("#companyInsert").hide();
@@ -92,6 +131,9 @@ let companyInsert = $("#insertCompanyBtn").on("click", function(){
 		error : function(error){
             console.log("실패원인 :"+error );
         },
+        cache:false,
+        contentType:false,
+        processData:false
 	});
 })
 	 

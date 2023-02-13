@@ -25,11 +25,11 @@ let eduBody = $("#eduBody");
 let makeTrTag = function(edu, index){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/education/" + edu.eduSn)
-				.html(edu.eduMajor);
+				.html(edu.eduName);
 	return $("<tr>").append(
 				$("<td>").html(index + 1)
-				, $("<td>").html(edu.eduName)
 				, $("<td>").html(aTag)
+				, $("<td>").html(edu.eduMajor)
 				, $("<td>").html(edu.eduEntered)
 				, $("<td>").html(edu.eduGraduated)
 				, $("<td>").html(edu.eduStatus)

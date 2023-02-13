@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.expert.dao.ExprodDAO">
+	
+	<insert id="InsertExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
+	<selectKey order="BEFORE" resultType="string" keyProperty="exprodId">
+		SELECT 'EXP' || LPAD(COMPANY_SEQ.NEXTVAL,6,0) FROM DUAL
+	</selectKey>
+	INSERT INTO exprod (
+	    exprod_id,
+	    exprod_start,
+	    exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    exprod_detail,
+	    mem_id,
+	    exprod_aproval,
+	    exlprod_id
+	) VALUES (
+	 #{exprodId,jdbcType=VARCHAR}
+	, #{exprodStart,jdbcType=DATE}
+	, #{exprodEnd,jdbcType=DATE}
+	, #{exprodTarget,jdbcType=VARCHAR}
+	, #{exprodName,jdbcType=VARCHAR}
+	, #{exprodPrice,jdbcType=NUMERIC}
+	, #{exprodWay,jdbcType=VARCHAR}
+	, #{exprodTime,jdbcType=VARCHAR}
+	, #{exprodDetail,jdbcType=VARCHAR}
+	, #{memId,jdbcType=VARCHAR}
+	, 'N'
+	, #{exlprodId,jdbcType=VARCHAR}
+	)   		
+	</insert>
+	
+	<select id="selectExprod" parameterType="String" resultType="kr.or.ddit.expert.vo.ExprodVO">
+	SELECT
+    exprod_id,
+    exprod_start,
+    exprod_end,
+    exprod_target,
+    exprod_name,
+    exprod_price,
+    exprod_way,
+    exprod_time,
+    exprod_detail,
+    mem_id,
+    exprod_aproval,
+    exlprod_id
+	FROM
+	    exprod
+	where exprod_id = #{exprodId,jdbcType=VARCHAR}
+		
+	</select>
+	
+	<update id="updateExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
+	UPDATE exprod
+	SET
+	    exprod_start= #{exprodStart,jdbcType=DATE},
+	    exprod_end= #{exprodEnd,jdbcType=DATE},
+	    exprod_target= #{exprodTarget,jdbcType=VARCHAR},
+	    exprod_name= #{exprodName,jdbcType=VARCHAR},
+	    exprod_price= #{exprodPrice,jdbcType=NUMERIC},
+	    exprod_way= #{exprodWay,jdbcType=VARCHAR},
+	    exprod_time= #{exprodTime,jdbcType=VARCHAR},
+	    exlprod_id= #{exlprodId,jdbcType=VARCHAR},
+	    exprod_aproval = 'N',
+	    exprod_detail =  #{exprodDetail,jdbcType=CLOB}
+	where 
+		exprod_id = #{exprodId,jdbcType=VARCHAR}
+	</update>
+</mapper>

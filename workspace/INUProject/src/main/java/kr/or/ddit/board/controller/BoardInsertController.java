@@ -16,7 +16,7 @@ import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
 
 @Controller
-@RequestMapping("/board/writeBoard")
+@RequestMapping("/board/boardInsert")
 public class BoardInsertController {
 
 	@Inject
@@ -31,24 +31,20 @@ public class BoardInsertController {
 	// get방식으로 폼 보내기
 	@GetMapping
 	public String boardForm() {
-		return "board/writeBoard";
+		return "board/boardInsert";
 	}
 
-	// post방식으로 받기
+	// post방식으로 보내기
 	@PostMapping
-	public String writeBoard(
-		Model mdel
-		, @ModelAttribute("board") BoardVO board
-		, @AuthMember MemberVO authMember
-	) {
+	public String writeBoard(Model mdel, @ModelAttribute("board") BoardVO board, @AuthMember MemberVO authMember) {
 		String viewName = null;
 		board.setMemId(authMember.getMemId());
 		int rowcnt = service.createBoard(board);
 		if (rowcnt > 0) {
 //			viewName = "redirect:/board/detailBoard?what=" + board.getBoardNo();
-			viewName = "redirect:totalBoard";
+			viewName = "redirect:boardTotal";
 		} else {
-			viewName = "board/writeBoard";
+			viewName = "board/boardInsert";
 		}
 		return viewName;
 

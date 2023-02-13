@@ -128,7 +128,7 @@ body#sri_layout_popup #sri_footer {display:none}
 #sri_lnb .navi_depth3 li+li {margin-left:8px}
 #sri_lnb .navi_depth3 li a {display:grid;padding:0 16px;height:44px;border-radius:8px;white-space:nowrap;align-items:center}
 #sri_lnb .navi_depth3 li a:hover {background:#f4f6fa}
-#sri_lnb .navi_depth3 li a.selected {border-color:#4876ef;color:#fff;font-weight:bold;background:#eff5ff}
+#sri_lnb .navi_depth3 li a.selected {border-color:#045738;color:#fff;font-weight:bold;background:#eff5ff}
 #sri_lnb .navi_depth3 li a>span {color:var(--color_secondary);font-size:14px;letter-spacing:-1px}
 #sri_lnb .navi_depth3 li a.selected>span {color:var(--common_blue90);font-weight:bold}
 #sri_lnb .btn {display:none;position:absolute;top:0;z-index:2;width:60px;height:100%;background:#fff}
@@ -155,7 +155,7 @@ body#sri_layout_popup #sri_footer {display:none}
 
 #srch_wrap {display:none;position:fixed;top:0;left:0;z-index:110;width:100%;height:96px;background:#fff;box-shadow:0 3px 10px 0 rgba(72,118,239,0.1);transition:transform 0.2s, -webkit-transform 0.2s;-webkit-transform:translateY(-56px);-ms-transform:translateY(-56px);transform:translateY(-56px)}
 #srch_wrap .box_search {position:absolute;top:50%;left:50%;z-index:1;margin-top:-23px;margin-left:-630px;width:1260px;height:46px;box-sizing:border-box}
-#srch_wrap .box_search .box_search_input {display:block;position:absolute;top:0;right:137px;left:0;height:46px;border:1px solid #4876ef;border-radius:4px 0 0 4px;box-sizing:border-box}
+#srch_wrap .box_search .box_search_input {display:block;position:absolute;top:0;right:137px;left:0;height:46px;border:1px solid #045738;border-radius:4px 0 0 4px;box-sizing:border-box}
 #srch_wrap .box_search .box_search_input:before {display:block;position:absolute;top:0;left:0;z-index:1;width:100%;height:44px;border:0;border-radius:4px 0 0 4px;box-sizing:border-box;background:#fff;content:""}
 #srch_wrap .box_search .box_search_input .icon {position:absolute;top:12px;left:20px;z-index:3;width:20px;height:20px;color:#737373}
 #srch_wrap .box_search .box_search_input input {position:relative;z-index:2;padding:8px 20px 8px 48px;width:100%;height:44px;border:0;box-sizing:border-box;background:transparent;letter-spacing:-1px}
@@ -166,7 +166,7 @@ body#sri_layout_popup #sri_footer {display:none}
 #srch_wrap .box_search .btn_close svg {width:40px;height:40px;vertical-align:middle}
 #srch_wrap .box_search .btn_close svg use {color:var(--color_secondary)}
 #srch_wrap .box_search .btn_close:hover {background-color:#fff}
-#srch_wrap .box_search .btn_close:hover svg use {color:#4876ef}
+#srch_wrap .box_search .btn_close:hover svg use {color:#045738}
 body.search_on #srch_wrap {display:block;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}
 body.search_on #srch_wrap.on .box_search .box_search_input {border-width:1px 0 0 1px;border-color:#373f57;border-radius:4px 0 0 0}
 body.search_on #srch_wrap.on .box_search .box_search_input:before {height:45px;border-radius:4px 0 0 0}
@@ -194,21 +194,21 @@ body.search_on #srch_wrap.on .box_search .btn_search {border-radius:0 4px 0 0}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecent] .btn_delete:hover svg use {color:#373f73}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] span {display:block;position:relative;padding:0 20px;color:#292e41;background:#fff}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] a {display:inline-block;overflow:hidden;position:relative;width:calc(100% - 61px);font-size:14px;line-height:36px;text-overflow:ellipsis;vertical-align:top;white-space:nowrap}
-#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] a strong {color:#4876ef;font-weight:normal}
+#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] a strong {color:#045738;font-weight:normal}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] span:after {position:absolute;top:0;right:44px;color:#8491a7;font-size:12px;line-height:36px;content:"최근"}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] .btn_delete {position:absolute;top:7px;right:18px;padding:2px}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] .btn_delete svg {display:block;width:18px;height:18px}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] .btn_delete svg use {color:#8491a7}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest]:hover span {background:#eff5ff}
-#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest]:hover span a {color:#4876ef;font-weight:bold}
+#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest]:hover span a {color:#045738;font-weight:bold}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest]:hover span:after {font-weight:normal}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest]:hover span a strong {font-weight:bold}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordRecentSuggest] .btn_delete:hover svg use {color:#373f73}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest] span {display:block;padding:0 20px;color:#292e41;background:#fff}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest] a {display:block;overflow:hidden;width:100%;font-size:14px;line-height:36px;text-overflow:ellipsis;white-space:nowrap}
-#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest] a strong {color:#4876ef;font-weight:normal}
+#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest] a strong {color:#045738;font-weight:normal}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest]:hover span {background:#eff5ff}
-#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest]:hover span a {color:#4876ef;font-weight:bold}
+#srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest]:hover span a {color:#045738;font-weight:bold}
 #srch_wrap .quick-lists .list-keyword li[data-type=listKeywordSuggest]:hover span a strong {font-weight:bold}
 #srch_wrap .quick-lists .list-recruitment {overflow-x:hidden;overflow-y:auto;position:absolute;top:1px;left:380px;width:878px;height:366px;box-sizing:border-box}
 #srch_wrap .quick-lists .list-recruitment .title {margin-bottom:20px;padding-top:12px}
@@ -233,15 +233,15 @@ body.search_on #srch_wrap.on .box_search .btn_search {border-radius:0 4px 0 0}
 #srch_wrap .quick-lists .list-recruitment ul li a .meta strong {font-weight:normal}
 #srch_wrap .quick-lists .list-recruitment ul li.empty {background:url(//www.saraminimage.co.kr/sri/person/resume/img_empty_logo.png) 50% 50% no-repeat}
 #srch_wrap .quick-lists .list-recruitment .no-result {padding-top:216px;color:var(--color_secondary);font-size:15px;font-weight:bold;text-align:center;background:#fff url(//www.saraminimage.co.kr/sri/common/bg_quicksearch.png) 50% 61px no-repeat;liine-height:22px}
-#srch_wrap .quick-lists .list-recruitment .no-result strong {color:#4876ef}
+#srch_wrap .quick-lists .list-recruitment .no-result strong {color:#045738}
 #srch_wrap .quick-utils {position:relative;padding:10px 19px;height:41px;border-top:1px solid #eaedf4;box-sizing:border-box;background:#f4f6fa}
 #srch_wrap .quick-utils .btn_onoff {display:inline-block;position:relative;padding-right:46px;color:#8491a7;font-size:14px;letter-spacing:-1px;line-height:20px;vertical-align:top}
 #srch_wrap .quick-utils .btn_onoff:before {position:absolute;top:2px;right:0;width:32px;height:16px;border-radius:16px;background:#fff;content:""}
-#srch_wrap .quick-utils .btn_onoff:after {position:absolute;top:2px;right:0;width:16px;height:16px;border-radius:16px;background:#4876ef;content:""}
+#srch_wrap .quick-utils .btn_onoff:after {position:absolute;top:2px;right:0;width:16px;height:16px;border-radius:16px;background:#045738;content:""}
 #srch_wrap .quick-guide {display:none;padding-top:220px;height:368px;box-sizing:border-box;letter-spacing:-1px;text-align:center;background:#fff url(//www.saraminimage.co.kr/sri/common/bg_quicksearch.png) 50% 65px no-repeat}
 #srch_wrap .quick-guide>p strong {display:block;margin-bottom:8px;color:var(--color_secondary);font-size:15px;line-height:22px}
 #srch_wrap .quick-guide>p span {color:#8491a7;font-size:14px;line-height:20px}
-#srch_wrap .quick-guide>a {display:inline-block;margin-top:16px;color:#4876ef;font-size:14px;line-height:20px;text-decoration:underline;vertical-align:top}
+#srch_wrap .quick-guide>a {display:inline-block;margin-top:16px;color:#045738;font-size:14px;line-height:20px;text-decoration:underline;vertical-align:top}
 #srch_wrap .quick-search.off .quick-utils .btn_onoff:after {right:16px;background-color:#d6dce6}
 #srch_wrap .quick-search.off .quick-lists {display:none}
 #srch_wrap .quick-search.off .quick-guide {display:block}
@@ -262,7 +262,7 @@ body.search_on #srch_wrap.on .box_search .btn_search {border-radius:0 4px 0 0}
 #sri_banner_scrolled+#sri_banner_fixed {margin-top:13px}
 #sri_banner_fixed .data_list {position:relative;border:1px solid #e6e6e6;letter-spacing:-1px;background:#fff}
 #sri_banner_fixed .data_list+.data_list {margin-top:9px}
-#sri_banner_fixed .data_list .tit_data {display:block;margin-top:-1px;padding:12px 11px 11px;height:40px;border-top:1px solid #4876ef;box-sizing:border-box;color:#222;font-size:12px;line-height:16px;background:rgba(72, 118, 239, 0.04)}
+#sri_banner_fixed .data_list .tit_data {display:block;margin-top:-1px;padding:12px 11px 11px;height:40px;border-top:1px solid #045738;box-sizing:border-box;color:#222;font-size:12px;line-height:16px;background:rgba(72, 118, 239, 0.04)}
 #sri_banner_fixed .data_list .tit_data .num {float:right;color:#f64948}
 #sri_banner_fixed .data_list .list_data {margin:7px 0 4px 0}
 #sri_banner_fixed .data_list .list_data li {display:block;overflow:hidden;position:relative;padding:8px 12px;font-size:12px;letter-spacing:-0.5px;line-height:16px}
@@ -275,7 +275,7 @@ body.search_on #srch_wrap.on .box_search .btn_search {border-radius:0 4px 0 0}
 #sri_banner_fixed .data_list .list_data .btn_scrap.on {background-position:-30px -30px}
 #sri_banner_fixed .data_list .link_more {display:block;margin-top:-4px;padding:8px 0 10px;color:#949494;font-size:11px;line-height:15px;text-align:center}
 #sri_banner_fixed .data_list .link_more:after {display:inline-block;margin:4px 0 0 5px;width:6px;height:9px;vertical-align:top;background:url(//www.saraminimage.co.kr/sri/common/layout/arrow_banner.png) no-repeat;content:""}
-#sri_banner_fixed .data_list .ico_recomm {position:absolute;top:-3px;left:0;width:32px;height:16px;border-radius:8px;color:#fff;font-size:11px;letter-spacing:-1px;line-height:16px;text-align:center;background:#4876ef}
+#sri_banner_fixed .data_list .ico_recomm {position:absolute;top:-3px;left:0;width:32px;height:16px;border-radius:8px;color:#fff;font-size:11px;letter-spacing:-1px;line-height:16px;text-align:center;background:#045738}
 #sri_banner_fixed .data_list .logo {display:block;margin:0 auto 4px;width:88px;height:32px}
 #sri_banner_fixed .data_list .logo img {max-width:88px;max-height:32px}
 #sri_banner_fixed .data_list .sri_btn_xs {display:block;position:relative;z-index:3;margin:12px auto 0;width:96px;height:24px}
@@ -309,7 +309,7 @@ body.search_on #srch_wrap.on .box_search .btn_search {border-radius:0 4px 0 0}
 .sri_footer .banners a {display:inline-block;position:relative;width:50%;height:60px}
 .sri_footer .banners a:before,
 .sri_footer .banners a:after {display:inline-block;position:absolute;bottom:0;z-index:5;background:url(//www.saraminimage.co.kr/sri/common/layout/footer/spr_footer_banners.png) no-repeat;content:""}
-.sri_footer .banners a.banner_bluebird {background:#4876ef}
+.sri_footer .banners a.banner_bluebird {background:#045738}
 .sri_footer .banners a.banner_bluebird:before {right:40px;width:303px;height:61px;background-position:-5px -112px}
 .sri_footer .banners a.banner_bluebird:after {right:383px;width:128px;height:97px;background-position:-5px -5px}
 .sri_footer .banners a.banner_welounge {background:#0ccca4}

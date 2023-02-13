@@ -3,10 +3,15 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * ${date}      윤호연      최초작성
+* 2023.02.13   윤호연      1차수정
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +61,7 @@
 				<div class="col-md-7">
 		            <h1 class="text-white font-weight-bold">인재 홍보 </h1>
 		            <div class="custom-breadcrumbs">
-						<a href="#">SelfPR</a> <span class="mx-2 slash">/</span>
+						<a href="${pageContext.request.contextPath}/selfpr">SelfPR</a> <span class="mx-2 slash">/</span>
 						<span class="text-white"><strong>Main</strong></span>
 					</div>
 				</div>
@@ -461,160 +466,36 @@
                 <div class="row">
 
                   <!-- 자기소개 목록-->
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                          <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                        <div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-        
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                          <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                          <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                           <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                           <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                          <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                          <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   
+             <c:set var="selfprList" value="${pagingVO.dataList }" />
+              <c:choose>
+               <c:when test="${not empty selfprList }">
+               	<c:forEach items="${selfprList }" var="selfpr">
                   <div class="col-lg-4">
                     <div class="selfpr-block">
+                     <div>
                       <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
+                        <p><strong>&ldquo;${selfpr.prName }&rdquo;</strong></p>
                       </blockquote>
+                     </div>
                       <div class="block__91147 d-flex align-items-center">
                         <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
                         <div>
-                          <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
+                          <a href=""><h4>${selfpr.memName }</h4></a>
+                          <span class="position">${selfpr.prWantjob }</span>
                           <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
+                          <span style="font-size: 0.75em;">경력 : ${selfpr.prAnnual }</span>
+                        </div>
+                        <div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  <div class="col-lg-4">
-                    <div class="selfpr-block">
-                      <blockquote>
-                        <p>&ldquo;df&rdquo;</p>
-                      </blockquote>
-                      <div class="block__91147 d-flex align-items-center">
-                        <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
-                        <div>
-                           <h4>김철수</h4>
-                          <span class="position">웹 개발자</span>
-                          <br>
-                          <span style="font-size: 0.75em;">경력 3년</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+               	</c:forEach>
+               </c:when>
+              </c:choose>
+        			
+
                 </div>
               </div>
               
@@ -646,7 +527,7 @@
             
          
     
-     <!-- SCRIPTS -->
+    <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/isotope.pkgd.min.js"></script>

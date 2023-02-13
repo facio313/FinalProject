@@ -27,12 +27,15 @@ public class AnnoVO {
 	private String annoProbation;
 	private String annoSalary;
 	private Integer attId;
+	private String industry0; //code
+	private String industry1; //code
 	private String industryCode; //code
 	private String eduCode; //code
 	
 	private String industryName; 
 	private String eduName;
-	private Map<String,String> keyword;
+	
+	private Map<String,Object> keyword;
 	
 	private List<AnnoDetailVO> detailList;
 	private List<AnnoWalfareVO> walfareList;

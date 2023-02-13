@@ -49,4 +49,7 @@ public class EducationVO extends CommonsAttachVO {
 		return eduSn;
 	}
 	
+	public String getResumeItemSn() {
+		return eduSn;
+	}
 }
