@@ -44,7 +44,7 @@ public class CompanyController {
 		,Model model
 		) throws JsonProcessingException {
 		System.out.println(model);
-		PagingVO<CompanyVO> pagingVO = new PagingVO<CompanyVO>();
+		PagingVO<CompanyVO> pagingVO = new PagingVO<CompanyVO>(30,5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		service.retrieveCompanyList(pagingVO);

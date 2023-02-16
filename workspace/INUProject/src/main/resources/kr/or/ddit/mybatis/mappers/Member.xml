@@ -22,7 +22,7 @@
 	</resultMap>
 	<resultMap type="incruiterVO" id="incruiterMap">
 		<result property="cmpId" column="CMP_ID"/>
-		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="incruiterEmail" column="INCRUITER_EMAIL"/>
 		<result property="memTel" column="MEM_TEL"/>
 		<result property="memApproval" column="MEM_APPROVAL"/>
 		<result property="memDate" column="MEM_DATE"/>
@@ -61,7 +61,7 @@
 	</resultMap>
 	<select id="selectMember" parameterType="string" resultMap="MemberMap">
 		SELECT A.MEM_ID, A.MEM_PASS, A.MEM_NAME, A.MEM_DELETE, A.MEM_USE, A.MEM_AUTH_CD, A.MEM_JOINDATE
-		     , B.CMP_ID, B.MEM_EMAIL, B.MEM_TEL, B.MEM_APPROVAL, B.MEM_DATE, B.MEM_DELETE
+		     , B.CMP_ID, B.MEM_EMAIL AS INCRUITER_EMAIL, B.MEM_TEL, B.MEM_APPROVAL, B.MEM_DATE, B.MEM_DELETE
 		     , C.MEM_NICKNAME, C.MEM_BIRTH, C.MEM_GENDER, C.MEM_ZIP, C.MEM_ADDR1, C.MEM_ADDR2, C.MEM_EMAIL, C.MEM_TEL, C.MEM_CERTIFICATION, C.MEM_CARTTOTAL, C.MEM_SCORE
 		     , E.EXPERT_APPROVAL, E.EXPERT_APPROVAL_DATE, E.EXPERT_INTRODUCTION, E.EXPERT_JOINPATH, E.EXPERT_FIELD, E.EXPERT_TAG, E.EXPERT_ZIP, E.EXPERT_ADDR, E.EXPERT_ADDR2
 		        , E.EXPERT_TEL, E.EXPERT_EMAIL, E.EXPERT_BANK, E.EXPERT_ACCOUNT, E.EXPERT_HOLDER, E.EXFIELD_ID, E.EXJOB_ID

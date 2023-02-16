@@ -501,7 +501,7 @@ em.msgInvalid {display:block;margin-top:8px;color:#d63131;font-size:13px;letter-
 .tblWrap .txtTop {vertical-align:top}
 
 /* pagination */
-.pagination {margin:40px 0 80px !important;font-size:0;letter-spacing:-1px;text-align:center}
+.pagination {margin:40px 350px !important;font-size:0;letter-spacing:-1px;text-align:center}
 .pagination .btnPrev,
 .pagination .btnNext {display:inline-block;position:relative;width:auto !important;height:32px !important;border:0;box-sizing:border-box;color:#8491a7 !important;font-size:14px;line-height:32px;text-decoration:none;vertical-align:middle;background:none !important}
 .pagination .btnPrev:after,

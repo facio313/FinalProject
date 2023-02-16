@@ -15,6 +15,7 @@ public class AskVO {
 	private String refContent;	// 답글내용
 	private String consent;		// 동의여부
 	private String askType;		// 문의종류
-	private String askStatus;	// 답변상태
+	private String askStatus = "확인중";	// 답변상태
+	private String askDelDate; // 삭제여부
 
 }

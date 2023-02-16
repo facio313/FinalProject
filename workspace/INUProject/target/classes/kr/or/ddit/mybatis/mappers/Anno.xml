@@ -106,7 +106,7 @@
 			</collection>
 		</collection>
 		<collection property="walfareList" ofType="AnnoWalfareVO" autoMapping="true">
-			<id property="annowalNo" column="ANNOWAL_NO" />
+			<id property="walfareCode" column="WALFARE_CODE" />
 		</collection>
 	</resultMap>
 	<select id="selectAnno" parameterType="string" resultMap="annoMap">
@@ -132,7 +132,7 @@
 		        , (SELECT INDUSTRY_NAME FROM CD_INDUSTRY WHERE CD_INDUSTRY.INDUSTRY_CODE=A.INDUSTRY_CODE) INDUSTRY_NAME
 		        , A.EDU_CODE
 		        , (SELECT EDU_NAME FROM CD_EDUCATION WHERE CD_EDUCATION.EDU_CODE=A.EDU_CODE) EDU_NAME
-		        , AW.ANNOWAL_NO, AW.WALFARE_CODE, CW.WALFARE_NAME, CW.WALFARE_REF REF_CODE
+		        , AW.WALFARE_CODE, CW.WALFARE_NAME, CW.WALFARE_REF REF_CODE
 		        , (SELECT WALFARE_NAME FROM CD_WALFARE WHERE WALFARE_CODE = CW.WALFARE_REF) REF_NAME
 		    FROM ANNO A LEFT OUTER JOIN ANNO_WALFARE AW ON (A.ANNO_NO = AW.ANNO_NO)
 		        INNER JOIN CD_WALFARE CW ON (AW.WALFARE_CODE = CW.WALFARE_CODE)
@@ -147,7 +147,7 @@
 		WHERE ANNOALL.ANNO_NO = #{annoNo}
 		ORDER BY DA_NO, WALFARE_CODE
 	</select>
-	
+
  	<insert id="insertAnno" parameterType="AnnoVO">
 		<selectKey order="BEFORE" resultType="string" keyProperty="annoNo">
 			SELECT 'AN' || LPAD(ANNO_SEQ.NEXTVAL,6,0)
@@ -193,8 +193,8 @@
 		    )
 		SELECT * FROM DUAL
 	</insert>
-
-	<insert id="insertDetailAnno" parameterType="AnnoDetailVO">
+	
+	<insert id="insertAnnoDetail" parameterType="AnnoDetailVO">
 		<selectKey order="BEFORE" resultType="string" keyProperty="daNo">
 			SELECT 'AD' || LPAD(ANDETAIL_SEQ.NEXTVAL,6,0)
 			FROM DUAL 
@@ -230,33 +230,33 @@
 	        , #{daWorktime,jdbcType=VARCHAR}
 	        
 	        , #{daCarYeer,jdbcType=VARCHAR}
-	        , #{regionCode,jdbcType=VARCHAR}
-	        , #{jobCode,jdbcType=VARCHAR}
+	        , (SELECT REGION_CODE FROM CD_REGION WHERE REGION_NAME = #{regionName,jdbcType=VARCHAR})
 	        , #{empltypeCode,jdbcType=VARCHAR}
+	        , #{jobCode,jdbcType=VARCHAR}
 	    )
 	</insert>
-
-	<insert id="insertWalfareList" parameterType="AnnoWalfareVO">
-		INSERT INTO ANNO_WALFARE (
-	        walfare_code, anno_no
-	    ) VALUES (
-	        #{walfareCode,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}
-		)
-	</insert>
-
-	<insert id="insertAnnoCareer" parameterType="AnnoDetailVO">
+	
+	<insert id="insertAnnoCareer" parameterType="string">
 		INSERT INTO ANNO_CAREER (
 	        career_name, da_no
 	    ) VALUES (
 	        #{careerName,jdbcType=VARCHAR}, #{daNo,jdbcType=VARCHAR}
 	    )
 	</insert>
-
-	<insert id="insertAnnoPosition" parameterType="AnnoDetailVO">
+	
+	<insert id="insertAnnoPosition" parameterType="string">
 		INSERT INTO ANNO_POSITION (
 	        position_code, da_no
 	    ) VALUES (
 	        #{positionCode,jdbcType=VARCHAR}, #{daNo,jdbcType=VARCHAR}
 	    )
+	</insert>
+	
+	<insert id="insertWalfareList" parameterType="AnnoWalfareVO">
+		INSERT INTO ANNO_WALFARE (
+	        walfare_code, anno_no
+	    ) VALUES (
+	        #{walfareCode,jdbcType=VARCHAR}, #{annoNo,jdbcType=VARCHAR}
+		)
 	</insert>
 </mapper>

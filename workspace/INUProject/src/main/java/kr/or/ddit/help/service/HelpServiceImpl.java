@@ -65,10 +65,24 @@ public class HelpServiceImpl implements HelpService{
 		}
 	}
 	
+	//분류 명
+	@Override
+	public List<HelpVO> retrieveListName(String helpSort) {
+		List<HelpVO> listName = helpDAO.selectListName(helpSort);
+		return listName;
+	}
+	
+	//분류 목록
+	@Override
+	public List<HelpVO> retrieveList(String helpSort) {
+		List<HelpVO> list = helpDAO.selectList(helpSort);
+		return list;
+	}
+	
 	//페이징 처리된 목록
 	@Override
 	public void retrieveHelpList(PagingVO<HelpVO> pagingVO) {
-//		pagingVO.setTotalRecord(helpDAO.selectTotalRecord(pagingVO));
+		pagingVO.setTotalRecord(helpDAO.selectTotalRecord(pagingVO));
 		pagingVO.setDataList(helpDAO.selectHelpList(pagingVO));
 	}
 
@@ -104,5 +118,6 @@ public class HelpServiceImpl implements HelpService{
 	}
 
 	
+
 
 }

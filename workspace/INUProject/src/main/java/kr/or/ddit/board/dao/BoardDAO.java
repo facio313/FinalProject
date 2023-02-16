@@ -1,12 +1,28 @@
 package kr.or.ddit.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.vo.PagingVO;
 
+/**
+ * @author 임채리
+ * @since 2023. 2. 6.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일        수정자        수정내용
+ * --------     --------    ----------------------
+ * 2023. 2. 8.   임채리       최초작성
+ * Copyright (c) 2023 by DDIT All right reserved
+ *
+ * 커뮤니티 게시판
+ * </pre>
+ */
 @Mapper
 public interface BoardDAO {
 	// 상세조회
@@ -33,5 +49,10 @@ public interface BoardDAO {
 	// 조회수
 	public int updateHits(String boardNo);
 
+	// 좋아요 추가
+	public int likeInsert(Map<String, Object> m);
+
+	// 좋아요 개수
+	public int likeCount(String boardNo);
 
 }

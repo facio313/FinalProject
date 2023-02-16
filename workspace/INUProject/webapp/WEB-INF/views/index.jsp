@@ -11,27 +11,34 @@
 <div class="grid-stack">
 <!-- ============================================프로필=================================================== -->
 <!-- spring security용 -->
-    <div class="grid-stack-item"  gs-x="0" gs-y="0" gs-w="3" gs-h="3">
+    <div class="grid-stack-item"  gs-x="0" gs-y="0" gs-w="3" gs-h="4">
 		<security:authorize url="/mypage.do">
 			<security:authentication property="principal" var="memberVOWrapper"/>
 			<security:authentication property="principal.realMember" var="authMember"/>
-			<div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/Dementor.jpg); background-size: cover; background-position: center;">
-				<div id="profile" style="padding: 3%; height: 70%;"></div>
-				<div style="height: 30%; background-color: rgb(0, 0, 0, 0.4); color: white;">
-					<a href="<c:url value='/mypage/seeker'/>"><h1 style="color: white;">${authMember.memName }[${authMember.memAuthCd }]님</h1></a>
-					<a href="<c:url value='/logout'/>" class="logoutBtn">로그아웃</a>
+			<div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center;">
+				<div id="profile" style="padding: 3%; height: 65%;"></div>
+				<div style="width: 90%; height: 30%; background-color: rgb(0, 0, 0, 0.4); padding: 20px; border-radius: 16px; margin-left: auto; margin-right: auto;">
+					<a href="<c:url value='/mypage/seeker'/>" style="color: white; position: absolute; top: 70%;"><h2 style="color: white; display: inline-block; margin-bottom: 0;">${authMember.memName }</h2>님</a>
+					<h6 style="color: white; margin-bottom: 0; position: absolute; top: 81%;">[${authMember.memAuthCd }]</h6>
+					<h6 style="color: white; display: inline-block; margin-bottom: 0; position: absolute; top: 86%;">${authMember.seekerVO.memEmail}</h6>
+					<h6 style="color: white; display: inline-block; margin-bottom: 0; position: absolute; top: 86%;">${authMember.incruiterVO.incruiterEmail}</h6>
+					<a href="<c:url value='/logout'/>" class="logoutBtn" style=" display: inline-block; position: absolute; top: 88%; right: 8%;"><h6 style="color: white; display: inline-block;">로그아웃</h6></a>
 				</div>
 			</div>
 		</security:authorize>
 		<security:authorize url="/join/seeker">
 	        <div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/noImage.png); background-size: cover; background-position: center;">
-				<div id="profile" style="padding: 3%; height: 70%;"></div>
-				<div style="height: 30%; background-color: rgb(0, 0, 0, 0.4); color: white;">
-					<a href="<c:url value='/login'/>"><h1 style="color: white;">로그인</h1></a>
-					<a href="<c:url value='/join/incruiter'/>">기업회원가입</a>
-					<a href="<c:url value='/join/seeker'/>">일반회원가입</a>
-					
-					<a href="<c:url value='/help/find'/>">아이디/비밀번호 찾기</a>
+				<div id="profile" style="padding: 3%; height: 65%;"></div>
+				<div style="width: 90%; height: 30%; background-color: rgb(0, 0, 0, 0.4); padding: 20px; border-radius: 16px; margin-left: auto; margin-right: auto;">
+					<div>
+						<a href="<c:url value='/login'/>"><h2 style="color: white;">로그인</h2></a>
+					</div>
+					<div>
+						<a style="color: white;" href="<c:url value='/join'/>">회원가입</a>
+<%-- 						<a href="<c:url value='/join/incruiter'/>">기업회원가입</a> --%>
+<%-- 						<a href="<c:url value='/join/seeker'/>">일반회원가입</a> --%>
+						<a style="color: white;" href="<c:url value='/help/find'/>">아이디/비밀번호 찾기</a>
+					</div>
 				</div>
 			</div>
 		</security:authorize>
@@ -66,22 +73,17 @@
 		</div>
     </div>
 <!-- ============================================빠른메뉴=================================================== -->
-    <div class="grid-stack-item"  gs-x="0" gs-y="3" gs-w="3" gs-h="2">
+    <div class="grid-stack-item"  gs-x="0" gs-y="3" gs-w="3" gs-h="1">
         <div class="grid-stack-item-content">
 			<div class="top shadow-sm" style="height: 70px;; background-color: rgb(255, 255, 255, 0.5);">
 				<span style="position: relative; left: 8px; top:5px;"><img src="${pageContext.request.contextPath}/resources/images/hero_1.jpg" style="width:60px; height:60px;"></span>
 				<span style="position:absolute; left: 68px; top: 5px; font-size: 1.3em;">빠른 메뉴</span><br><span style="position:absolute; left: 68px; top: 40px"><a>설정하러 가지</a></span>
 			</div>
 			<div class="down bg-white" style="height: 100%;">
-				<a href="${pageContext.request.contextPath}/process/apply"><h6 style="color: black;">지원</h6></a>
+				<a href="${pageContext.request.contextPath}/apply"><h6 style="color: black;">지원</h6></a>
 				<a href="${pageContext.request.contextPath}/resume"><h6 style="color: black;">이력서</h6></a>
-				<a href="${pageContext.request.contextPath}/activity"><h6 style="color: black;">주요활동</h6></a>
-				<a href="${pageContext.request.contextPath}/award"><h6 style="color: black;">수상내역</h6></a>
-				<a href="${pageContext.request.contextPath}/career"><h6 style="color: black;">경력</h6></a>
-				<a href="${pageContext.request.contextPath}/certification"><h6 style="color: black;">자격증</h6></a>
-				<a href="${pageContext.request.contextPath}/course"><h6 style="color: black;">교육이수</h6></a>
-				<a href="${pageContext.request.contextPath}/education"><h6 style="color: black;">학력</h6></a>
-				<a href="${pageContext.request.contextPath}/facility"><h6 style="color: black;">기능</h6></a>
+				<a href="${pageContext.request.contextPath}/myintro"><h6 style="color: black;">자기소개서</h6></a>
+				<a href="${pageContext.request.contextPath}/process"><h6 style="color: black;">채용과정</h6></a>
 			</div>
 		</div>
     </div>

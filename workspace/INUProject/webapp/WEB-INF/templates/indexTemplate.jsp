@@ -19,12 +19,17 @@
 		</c:if>
 		
 		<style>
+		@font-face {
+		    font-family: 'Seoul';
+		    src: url('${pageContext.request.contextPath}/resources/fonts/SeoulNamsanL.ttf') format('truetype');
+		}
 			body {
 				width:100%;
  				height:100%;
  				overflow-x:hidden;
-<%-- 				background-image: url("<%=request.getContextPath()%>/resources/background/3.jpg"); --%>
-				background-color: rgb(220,225,233);
+ 				background-color: rgb(234, 237, 242);
+/* 				background-color: rgb(246,246,246); */
+				/*   background: #eaedf2; */
 				position:relative;
 				z-index:1;
 			}
@@ -33,28 +38,17 @@
  				z-index:2;
  				top: 50px;
  				left: 0;
-/* 				background: white; */
 			}
-			footer {
-				position: relative;
- 				z-index:1;
- 				height:80px;
- 				background-color:red;
- 				bottom:-1500px;
- 				left:0;
-			}
+
 		</style>
 		
 	</head>
 	<body>
-		<tiles:insertAttribute  name="headerMenu"/>
+		<tiles:insertAttribute name="headerMenu"/>
 		<main class="col-md-10 ks-lm-radius mx-auto">
-			<tiles:insertAttribute  name="content"/>
+			<tiles:insertAttribute name="content"/>
 		</main>
-		<footer class="footer" >
-			<tiles:insertAttribute  name="footer" ignore="true"/>
-		</footer>
-		
-		<tiles:insertAttribute  name="postScript"/>
+		<tiles:insertAttribute name="postScript"/>
+		<tiles:insertAttribute name="floating"/>
 	</body>
 </html>

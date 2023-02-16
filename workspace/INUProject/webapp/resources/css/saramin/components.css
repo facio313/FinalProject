@@ -599,7 +599,7 @@ textarea.inpTarea:read-only {background-color:#ccc;opacity:0.3}
 .combieChart .yAxis .domain {display:none}
 
 /* pagination */
-.pagination {margin-top:30px;font-size:0;letter-spacing:-1px;text-align:center}
+.pagination {margin-top:30px;font-size:0;letter-spacing:-1px;text-align:center; margin:40px 370px;}
 .pagination a:hover {color:#444;text-decoration:none}
 .pagination button.btnPrev,
 .pagination button.btnNext {border:0}

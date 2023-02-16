@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.board.dao.BoardDAO">
 
+	<sql id="searchFrag">
+		<trim prefix="where">
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+	    		LOWER(BOARD_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
+	    	</if>
+	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+	    		OR LOWER(BOARD_CONTENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
+	    	</if>
+		</trim>
+	</sql>
+
 	<select id="selectBoard" parameterType="String" resultType="BoardVO">
 		SELECT BOARD_NO,
 			   MEM_ID,
@@ -11,11 +22,7 @@
 			   BOARD_CONTENT,
 			   TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
 			   BOARD_HITS,
-			   TOTAL_LIKE,
-			   BOARD_LIKE,
-			   BOARD_FUN,
-			   BOARD_HELP,
-			   BOARD_CHEER
+			   LIKE_CNT
 		  FROM BOARD
 		 WHERE BOARD_NO = #{boardNo}
 	</select>
@@ -23,25 +30,26 @@
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
 		  FROM BOARD
+	<include refid="searchFrag"/>
 	</select>
 
 	<select id="selectBoardList" parameterType="PagingVO" resultType="BoardVO">
-		WITH ORDEREDBOARD AS(
-		SELECT BOARD_NO,
-			   MEM_ID,
-			   BOARD_SUB,
-			   JOB_NAME,
-			   BOARD_TITLE,
-			   BOARD_CONTENT,
-			   TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
-			   BOARD_HITS,
-			   TOTAL_LIKE,
-			   BOARD_LIKE,
-			   BOARD_FUN,
-			   BOARD_HELP,
-			   BOARD_CHEER
-		  FROM BOARD
-	  ORDER BY BOARD_NO DESC
+		  WITH ORDEREDBOARD AS(
+		SELECT B.BOARD_NO,
+			   B.MEM_ID,
+			   B.BOARD_SUB,
+			   B.JOB_NAME,
+			   B.BOARD_TITLE,
+			   B.BOARD_CONTENT,
+			   TO_CHAR(B.BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
+			   B.BOARD_HITS,
+               NVL((SELECT COUNT(D.LIKE_TYPE) LIKE_TYPE
+               	 	  FROM LIKE_BOARD D
+                     WHERE D.BOARD_NO = B.BOARD_NO
+                  GROUP BY D.BOARD_NO),0) LIKE_CNT
+		  FROM BOARD B
+	<include refid="searchFrag"/>
+	  ORDER BY B.BOARD_NO DESC
 	  ) SELECT A.*
 	      FROM (
 	      	SELECT ROWNUM RNUM, ORDEREDBOARD.*
@@ -49,7 +57,7 @@
 	      ) A
 	      <where>
 	      	<if test="_parameter neq null">
-	      		RNUM BETWEEN #{startRow} AND #{endRow}
+	      		A.RNUM BETWEEN #{startRow} AND #{endRow}
 	      	</if>
 	      </where>
 	</select>
@@ -85,7 +93,7 @@
 		   SET
 			   BOARD_TITLE   = #{boardTitle,jdbcType=VARCHAR},
 			   BOARD_CONTENT = #{boardContent,jdbcType=CLOB}
-		 WHERE BOARD_NO      = #{boardNo}
+		 WHERE BOARD_NO      = #{boardNo, jdbcType=VARCHAR}
 	</update>
 
 	<delete id="deleteBoard" parameterType="BoardVO">
@@ -93,7 +101,7 @@
 		   SET BOARD_DEL_DATE  = SYSDATE
 		       , BOARD_TITLE   = #{boardTitle,jdbcType=VARCHAR}
 		       , BOARD_CONTENT = #{boardContent,jdbcType=VARCHAR}
-		 WHERE BOARD_NO        = #{boardNo}
+		 WHERE BOARD_NO        = #{boardNo, jdbcType=VARCHAR}
 	</delete>
 
 	<update id="updateHits" parameterType="String">
@@ -101,5 +109,55 @@
 		   SET BOARD_HITS = BOARD_HITS+1
 		 WHERE BOARD_NO   = #{boardNo,jdbcType=VARCHAR}
 	</update>
+
+<!-- 좋아요기능 -->
+	<insert id="likeInsert" parameterType="map">
+		INSERT INTO LIKE_BOARD(
+			 BOARD_NO
+			 , MEM_ID
+			 , LIKE_TYPE
+		) VALUES (
+			#{boardNo}
+			, #{memId}
+			, #{likeType}
+		)
+	</insert>
+
+	<select id="likeCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM LIKE_BOARD
+		 WHERE BOARD_NO = #{boardNo}
+	</select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

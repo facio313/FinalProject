@@ -1,5 +1,10 @@
 package kr.or.ddit.apply.service;
 
+import java.util.List;
+
+import kr.or.ddit.apply.vo.ApplyVO;
+import kr.or.ddit.enumpkg.ServiceResult;
+
 /**
  * 
  * @author 최경수
@@ -16,4 +21,9 @@ package kr.or.ddit.apply.service;
  */
 public interface ApplyService {
 
+	public ApplyVO retrieveApply(String applySn);
+	public List<ApplyVO> retrieveApplyList(String memId);
+	public ServiceResult createApply(ApplyVO apply);
+	public ServiceResult modifyApply(ApplyVO apply);
+	public ServiceResult removeApply(String applySn);
 }

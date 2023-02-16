@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class IncruiterVO extends MemberVO{
 	
 	private String cmpId;
-	private String memEmail;
+	private String incruiterEmail;
 	private String memTel;
 	private String memApproval;
 	private String memDate;

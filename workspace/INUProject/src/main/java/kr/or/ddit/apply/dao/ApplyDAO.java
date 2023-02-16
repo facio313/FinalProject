@@ -1,5 +1,11 @@
 package kr.or.ddit.apply.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import kr.or.ddit.apply.vo.ApplyVO;
+
 /**
  * 
  * @author 최경수
@@ -14,6 +20,12 @@ package kr.or.ddit.apply.dao;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
-public class ApplyDAO {
+@Mapper
+public interface ApplyDAO {
 
+	public ApplyVO selectApply(String applySn);
+	public List<ApplyVO> selectApplyList(String memId);
+	public int insertApply(ApplyVO apply);
+	public int updateApply(ApplyVO apply);
+	public int deleteApply(String applySn);
 }

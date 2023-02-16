@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>  
+
 
 <script src="${pageContext.request.contextPath}/resources/header/lib/wow/wow.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/header/js/main.js"></script>
@@ -8,6 +9,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/header/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/header/css/style.css" rel="stylesheet">
+
 
 <header class="ks-header nav-bar bg-transparentt radius">
     <nav class="navbar navbar-expand-lg navbar-light py-0 px-4 bg-transparent radius">
@@ -32,8 +34,8 @@
                 <a href="${pageContext.request.contextPath}/expert"  class="nav-link dropdown-toggle" data-bs-toggle="dropdown">유료상품</a>
                 <div class="dropdown-menu rounded-0 m-0">
                     <a href="<c:url value='/expert'/>" class="dropdown-item">메인</a>
-                    <a href="<c:url value='/expert/class'/>" class="dropdown-item">클래스</a>
-                    <a href="<c:url value='/expert/product'/>" class="dropdown-item">상담</a>
+                    <a href="<c:url value='/expert/CLASS'/>" class="dropdown-item">클래스</a>
+                    <a href="<c:url value='/expert/CONSULTING'/>" class="dropdown-item">상담</a>
                     <a href="<c:url value='/expert/event'/>" class="dropdown-item">이벤트</a>
                     <a href="<c:url value='/expert/review'/>" class="dropdown-item">리뷰</a>
                 </div>
@@ -67,6 +69,8 @@
             </div>
         	<div class="ks-blank ms-auto"></div>
         </div>
-        <a href="${pageContext.request.contextPath}/mypage/seeker" class="btn btn-primary hover px-3 d-none d-lg-flex ms-auto">마이페이지</a>
+        <a href="${pageContext.request.contextPath}/mypage/seeker">
+       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+       	</a>
 	</nav>
 </header>

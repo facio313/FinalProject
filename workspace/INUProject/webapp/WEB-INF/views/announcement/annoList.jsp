@@ -171,6 +171,7 @@
 
 <!-- 페이징 -->
 <section class="site-section" id="next" style="background-color: white">
+<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a>
 	<!-- 리스트 영역 -->
 	<ul class="job-listings mb-5" id="listBody"></ul>
 	<div class="row pagination-wrap">

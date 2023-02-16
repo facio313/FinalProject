@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,6 +23,7 @@
 
 <style>
 .wrap_title_recruit {position: relative; padding: 0 0 0px;}
+#paging{font-size: 22pt;}
 </style>
 </head>
 
@@ -140,20 +142,12 @@
 								(42)
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">교육</a>
-								(29)
-							</li>
-							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">미디어·문화·스포츠</a>
 								(73)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">금융·보험</a>
 								(10)
-							</li>
-							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">공공·복지</a>
-								(3)
 							</li>
 						</ul>
 					</div>
@@ -162,64 +156,32 @@
 					<div class="recruilt_list_wrap wrap_job_interview">
 						<div class="list_info">
 							<div class="searchTypoBox">
-								<form name="frm" id="frm" method="get" action="#">
+								<form:form name="frm" id="searchUI" method="get" modelAttribute="simpleCondition" onclick="return false;">
 									<input type="hidden" name="cat_mcls" id="cat_mcls" value="">
-									<input type="text" class="inpTypo" name="keyword" id="search_keyword" value="" style="width: 230px" placeholder="제목 또는 기업명을 입력하세요.">
-									<button type="submit" class="btnTypoSearch" id="btn_company_search" onmousedown="try{n_trackEvent('public', 'job-interview' , 'search', '');}catch(e){}">검색</button>
-									<button type="button" class="btnTypoReset" onclick="location.href='/zf_user/career-information/senior-list';return false;">선택초기화</button>
-								</form>
+									<form:input type="text" class="inpTypo" path="searchWord" id="search_keyword" value="" style="width: 230px" placeholder="제목 또는 기업명을 입력하세요."/>
+									<button type="submit" class="btnTypoSearch" id="searchBtn">검색</button>
+									<button type="button" class="btnTypoReset" onclick="location.href='/INUProject/interview/interviewList';return false;">선택초기화</button>
+								</form:form>
 							</div>
 						</div>
 
 						<!-- 기업정보 -->
-						<div class="job_interview_list" id="listTop">
-							<ul>
-								<c:choose>
-									<c:when test="${not empty interviewList }">
-										<c:forEach items="${interviewList }" var="interview">
-											<li>
-												<c:url value="/interview/interviewDetail" var="viewURL">
-													<c:param name="incumNo" value="${interview.incumNo }" />
-												</c:url>
-													<a href="${viewURL }" class="inlist_box">
-													<p class="sub_title">
-														<span class="in_subtit">${interview.jobName }</span>
-													</p>
-													<p class="title">
-														<em>${interview.incumTitle }</em>
-													</p>
-													<div class="box_info">
-														<div class="txt_detail">
-															<p class="company_name">${interview.cmpId }</p>
-															<p class="company_part">
-																<em class="inpart">${interview.department }</em>
-																<em class="inname">${interview.incumName }</em>
-															</p>
-															<p class="day_line">
-																<span class="day">${interview.incumDate }</span>
-																<span class="view_count">${interview.incumHits }</span>
-															</p>
-														</div>
-														<div class="img_view">
-															<span class="img">
-																<img src="https://pds.saramin.co.kr/career-information/asset_thumbnail/202302/01/rpdolq_63pd-2so1pr_asset.png" alt="직무인터뷰 관계자 사진"></span>
-														</div>
-													</div>
-													</a>
-											</li>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<li>등록된 인터뷰 없음.</li>
-									</c:otherwise>
-								</c:choose>
-							</ul>
+						<div class="job_interview_list">
+							<ul id="listTop"></ul>
 						</div>
+						<div class="pagingArea"></div>
+
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
+
+<form id="searchForm">
+	<input type="hidden" name="page" />
+	<input type="hidden" name="searchWord"/>
+</form>
 
 <!-- SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -234,5 +196,109 @@
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script type="text/javascript">
+
+let listBody = $("#listTop");
+
+let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
+	event.preventDefault();
+	let page = $(this).data("page");
+	if(!page) return false;
+	searchForm.find("[name=page]").val(page);
+	searchForm.submit();
+	return false;
+});
+
+let makeTrTag = function(interview){
+	return $("<li>").append(
+				$("<a>").attr("href","${pageContext.request.contextPath}/interview/interviewDetail?incumNo="+interview.incumNo).attr("class","inlist_box").append(
+						$("<p>").attr("class","sub_title").append(
+							$("<span>").attr("class", "in_subtit").html(interview.jobName)),
+
+						$("<p>").attr("class","title").append(
+							$("<em>").html(interview.incumTitle)),
+
+						$("<div>").attr("class","box_info").append(
+							$("<div>").attr("class","txt_detail").append(
+								$("<p>").attr("class","company_name").html(interview.cmpId),
+								$("<p>").attr("class","company_part").append(
+									$("<em>").attr("class","inpart").html(interview.department),
+									$("<em>").attr("class","inname").html(interview.incumName)),
+
+								$("<p>").attr("class","day_line").append(
+									$("<span>").attr("class","day").html(interview.incumDate),
+									$("<span>").attr("class","view_count").html(interview.incumHits))),
+							$("<div>").attr("class","img_view").append(
+								$("<span>").attr("class","img").append(
+									$("<img>").attr("src","https://pds.saramin.co.kr/career-information/asset_thumbnail/202302/01/rpdolq_63pd-2so1pr_asset.png")))
+						)));
+}
+
+let searchForm = $("#searchForm").on("submit", function(event){
+	event.preventDefault();
+	let url = this.action;
+	let method = this.method;
+	let queryString = $(this).serialize();
+	$.ajax({
+		url : url,
+		method : method,
+		data : queryString,
+		dataType : "json",
+		success : function(resp) {
+			listBody.empty();
+			pagingArea.empty();
+			searchForm[0].page.value="";
+
+			let pagingVO = resp.pagingVO;
+
+			let dataList = pagingVO.dataList;
+			let trTags = [];
+
+			console.log("여기인가:",dataList);
+			if(dataList.length>0){
+				$.each(dataList, function(index, interview){
+					trTags.push(makeTrTag(interview));
+				});
+			}else {
+				// db에 데이터가 없을 때
+				console.log("찾는 것:",dataList);
+				let tr = $("<div>").attr("class", "job_interview_list").append(
+						$("<div>").attr("class","no_search_jobdata").append(
+							$("<p>").html("죄송합니다. 검색하신 조건으로 현직자 인터뷰를 찾지 못했습니다.")
+						)
+				);
+				trTags.push(tr);
+			}
+			listBody.html(trTags);
+			if(resp.pagingHTML)
+				pagingArea.html(resp.pagingHTML);
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+	return false;
+}).submit();
+
+let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
+	let inputs = searchUI.find(":input[name]");
+	$.each(inputs, function(index, input){
+		let name = this.name;
+		let value = $(this).val();
+		searchForm.find("[name="+name+"]").val(value);
+	});
+	searchForm.submit();
+});
+
+$('#search_keyword').keypress(function(event){
+    if ( event.which == 13 ) {
+        $('#searchBtn').click();
+        return false;
+    }
+});
+
+</script>
 </body>
 </html>

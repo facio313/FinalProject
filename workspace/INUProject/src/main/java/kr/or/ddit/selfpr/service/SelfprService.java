@@ -7,4 +7,6 @@ public interface SelfprService {
 
 	public void retrieveSelfprList(PagingVO<SelfprVO> pagingVO);
 	
+	public SelfprVO retrieveSelfpr(int prNo);
+	
 }

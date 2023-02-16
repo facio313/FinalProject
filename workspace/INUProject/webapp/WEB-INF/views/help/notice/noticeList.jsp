@@ -63,10 +63,7 @@
 	          						<tr>
 	          							<td>${notice.noticeSort }</td>
 	          							<td>
-	          								<c:url value="/help/notice/noticeView" var="viewURL">
-	          									<c:param name="what" value="${notice.noticeSn }"/>
-	          								</c:url>
-	          								<a href="${viewURL }">${notice.noticeTitle }</a>
+	          								<a href="<c:url value='/help/notice/${notice.noticeSn }'/>">${notice.noticeTitle }</a>
 	          							</td>
 	          							<td>${notice.noticeDate }</td>
 	          							<td>${notice.noticeHit }</td>

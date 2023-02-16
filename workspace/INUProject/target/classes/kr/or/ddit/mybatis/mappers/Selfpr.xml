@@ -2,20 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.selfpr.dao.SelfprDAO">
 	
-<!-- 	<sql id="searchFrag"> -->
-<!-- 		<where> -->
-<!-- 	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)"> -->
-<!-- 	    		AND INSTR(UPPER(NEWS_NAME), UPPER(#{simpleCondition.searchWord})) > 0 -->
-<!-- 	    	</if> -->
-<!-- 	    	<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.newsField)"> -->
-<!-- 	    		AND INSTR(NEWS_FIELD, #{simpleCondition.newsField}) > 0 -->
-<!-- 	    	</if> -->
-<!-- 	    </where> -->
-<!-- 	</sql> -->
+	<!-- dropdown box 선택값 -->
+	
+	<select id="selectRegionList" resultType="hashmap">
+		SELECT REGION_CODE "regionCode", REGION_NAME "regionName", REGION_REF "regionRef" 
+		FROM CD_REGION
+		<where>
+			<choose>
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(regionRef)">
+					REGION_REF = #{regionRef}
+				</when>
+				<otherwise>
+					REGION_REF IS NULL
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY 1
+	</select>
+	<select id="selectIndustry" resultType="hashmap">
+		SELECT INDUSTRY_CODE "industryCode", INDUSTRY_NAME "industryName", INDUSTRY_REF "industryRef" 
+		FROM CD_INDUSTRY
+		<where>
+			<choose>
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(industryRef)">
+					INDUSTRY_REF = #{industryRef}
+				</when>
+				<otherwise>
+					INDUSTRY_REF IS NULL
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY 1
+	</select>
+	
+	<!-- dropdown 박스 돌려서 나오는 쿼리 -->
+	
+	<sql id="searchFrag">
+		<trim prefix="WHERE">
+		    <if test="detailCondition neq null">
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.industryCode)">
+		    		AND INDUSTRY_CODE = #{detailCondition.keyword.industryCode}
+		    	</if>
+		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.regionCode)">
+		    		AND(
+		    		<trim prefixOverrides="OR">
+				    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.keyword.regionCode)">
+				    		OR REGION_CODE = #{detailCondition.keyword.regionCode}
+				    	</if>
+		    		</trim>
+		    		)
+		    	</if>
+		    </if>
+	    </trim>
+	</sql>
+
+
 	
 	<select id="selectSelfprList" parameterType="PagingVO" resultType="kr.or.ddit.selfpr.vo.SelfprVO">
 		WITH ORDEREDSELFPR AS (
-		    SELECT A.MEM_ID, A.PR_NO, A.PR_NAME, A.PR_CONTENT, A.PR_WANTJOB, A.PR_ANNUAL,
+		    SELECT A.MEM_ID, A.PR_NO, A.PR_NAME, A.PR_CONTENT, A.PR_WANTJOB, A.PR_ANNUAL,  A.PR_WANTMN, A.PR_WANTTYPE, A.PR_WANTLOCA,
                B.MEM_NAME
             FROM PR A
             INNER JOIN MEMBER B ON (A.MEM_ID = B.MEM_ID)           

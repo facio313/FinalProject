@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.InterviewDAO;
+import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.board.vo.InterviewVO;
+import kr.or.ddit.vo.PagingVO;
 
 @Service
 public class InterviewServiceImpl implements InterviewService {
@@ -24,9 +26,9 @@ public class InterviewServiceImpl implements InterviewService {
 
 	// 전체조회
 	@Override
-	public List<InterviewVO> retrieveInterviewList() {
-		List<InterviewVO> interviewList =  dao.selectInterviewList();
-		return interviewList;
+	public void retrieveInterviewList(PagingVO<InterviewVO> pagingVO) {
+		pagingVO.setTotalRecord(dao.selectTotalRecord(pagingVO));
+		pagingVO.setDataList(dao.selectInterviewList(pagingVO));
 	}
 
 	// 등록

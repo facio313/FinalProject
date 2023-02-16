@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.board.dao.InterviewDAO">
 
+	<sql id="searchFrag">
+		<trim prefix="WHERE">
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				LOWER(INCUM_TITLE) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(INCUM_CONTENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(JOB_NAME) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(INCUM_NAME) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(DEPARTMENT) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
+				OR LOWER(CMP_ID) LIKE '%' || #{simpleCondition.searchWord} || '%'
+			</if>
+		</trim>
+	</sql>
+
 	<select id="selectInterview" parameterType="String" resultType="kr.or.ddit.board.vo.InterviewVO">
 		SELECT INCUM_NO,
 			   CMP_ID,
@@ -19,7 +42,14 @@
 		   AND INCUM_DEL_DATE IS NULL
 	</select>
 
+	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM INCUM_INTERVIEW
+	<include refid="searchFrag"/>
+	</select>
+
 	<select id="selectInterviewList" resultType="kr.or.ddit.board.vo.InterviewVO">
+          WITH ORDEREDINTERVIEW AS(
 		SELECT INCUM_NO,
 			   CMP_ID,
 			   JOB_NAME,
@@ -30,8 +60,21 @@
 			   INCUM_HITS,
 			   DEPARTMENT,
 			   SUBTITLE
-		  FROM INCUM_INTERVIEW
-		 WHERE INCUM_DEL_DATE IS NULL
+		  FROM (SELECT *
+				  FROM INCUM_INTERVIEW
+       			 WHERE INCUM_DEL_DATE IS NULL)
+	<include refid="searchFrag"/>
+	  ORDER BY INCUM_NO DESC
+	  ) SELECT A.*
+	      FROM (
+	      	SELECT ROWNUM RNUM, ORDEREDINTERVIEW.*
+	      	  FROM ORDEREDINTERVIEW
+	      ) A
+	      <where>
+	      	<if test="_parameter neq null">
+	      		RNUM BETWEEN #{startRow} AND #{endRow}
+	      	</if>
+	      </where>
 	</select>
 
 	<insert id="insertInterview" parameterType="InterviewVO">
@@ -72,19 +115,20 @@
 			   , INCUM_CONTENT = #{incumContent,jdbcType=CLOB}
 			   , INCUM_NAME    = #{incumName,jdbcType=VARCHAR}
 			   , SUBTITLE      = #{subTitle,jdbcType=VARCHAR}
-		 WHERE INCUM_NO        = #{incumNo}
+			   , DEPARTMENT    = #{department,jdbcType=VARCHAR}
+		 WHERE INCUM_NO        = #{incumNo,jdbcType=VARCHAR}
 	</update>
 
 	<delete id="deleteInterview" parameterType="InterviewVO">
 		UPDATE INCUM_INTERVIEW
 		   SET INCUM_DEL_DATE = SYSDATE
-		 WHERE INCUM_NO       = #{incumNo}
+		 WHERE INCUM_NO       = #{incumNo, jdbcType=VARCHAR}
 	</delete>
 
 	<update id="updateHits" parameterType="String">
 		UPDATE INCUM_INTERVIEW
 		   SET INCUM_HITS = INCUM_HITS+1
-		 WHERE INCUM_NO        = #{incumNo}
+		 WHERE INCUM_NO   = #{incumNo, jdbcType=VARCHAR}
 	</update>
 
 </mapper>

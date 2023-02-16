@@ -21,6 +21,12 @@ public class SelfprServiceImpl implements SelfprService {
 		
 	}
 
+	@Override
+	public SelfprVO retrieveSelfpr(int prNo) {
+		SelfprVO selfpr = selfprDAO.selectSelfpr(prNo);
+		return selfpr;
+	}
+
 	
 	
 }

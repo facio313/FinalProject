@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.apply.dao.ApplyDAO">
+	
+	<select id="selectApplyList" parameterType="String" resultType="ApplyVO">
+		SELECT *
+		FROM APPLY
+		WHERE MEM_ID = #{memId}
+		AND APPLY_DELETE_DATE IS NULL
+	</select>
+	
+	<select id="selectApply" parameterType="String" resultType="ApplyVO">
+		SELECT A.*, C.ANNO_TITLE, C.ANNO_NO
+		FROM APPLY A
+		LEFT OUTER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
+		LEFT OUTER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
+		WHERE A.APPLY_SN = #{applySn}
+
+	</select>
+	
+	<insert id="insertApply" parameterType="ApplyVO">
+		<selectKey order="BEFORE" resultType="String" keyProperty="applySn">
+			SELECT 'APL'||LPAD(APPLY_SEQ.NEXTVAL, 6, '0')
+			FROM DUAL
+		</selectKey>
+		INSERT INTO APPLY (
+		    APPLY_SN
+		    , ANNO_NO
+		    , DA_NO
+		    , MEM_ID
+		    , RESUME_SN
+		    , MYINTRO_SN
+		    , APPLY_DATE
+		) VALUES (
+		    #{applySn,jdbcType=VARCHAR}
+		    , #{annoNo, jdbcType=VARCHAR}
+		    , #{daNo,jdbcType=VARCHAR}
+		    , #{memId,jdbcType=VARCHAR}
+		    , #{resumeSn,jdbcType=VARCHAR}
+		    , #{myintroSn,jdbcType=VARCHAR}
+		    , SYSDATE
+		)
+	</insert>
+	
+	<update id="updateApply" parameterType="ApplyVO">
+		UPDATE APPLY
+			SET
+				DA_NO = #{daNo,jdbcType=VARCHAR}
+				, RESUME_SN = #{resumeSn,jdbcType=VARCHAR}
+				, MYINTRO_SN = #{myintroSn,jdbcType=VARCHAR}
+				, APPLY_UPDATE_DATE = SYSDATE
+		WHERE
+			APPLY_SN = #{applySn,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deleteApply" parameterType="String">
+		UPDATE APPLY
+			SET
+				APPLY_DELETE_DATE = SYSDATE
+		WHERE
+			APPLY_SN = #{applySn,jdbcType=VARCHAR}
+	</delete>
+	
+</mapper>

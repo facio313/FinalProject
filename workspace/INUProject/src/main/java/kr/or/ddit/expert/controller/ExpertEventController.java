@@ -123,7 +123,7 @@ public class ExpertEventController {
 		      return viewName;
 		}
 	}
-	@PostMapping("/delete/{exeventId}")
+	@DeleteMapping("/delete/{exeventId}")
 	public String deleteExevent(
 		@PathVariable("exeventId") String exeventId
 		) {

@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import kr.or.ddit.board.dao.InterviewDAO;
+import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.board.vo.InterviewVO;
+import kr.or.ddit.vo.PagingVO;
 
 public interface InterviewService {
 
@@ -13,7 +15,7 @@ public interface InterviewService {
 	public InterviewVO retrieveInterview(String incumNo);
 
 	// 전체조회
-	public List<InterviewVO> retrieveInterviewList();
+	public void retrieveInterviewList(PagingVO<InterviewVO> pagingVO);
 
 	// 등록
 	public int createInterview(InterviewVO interview);

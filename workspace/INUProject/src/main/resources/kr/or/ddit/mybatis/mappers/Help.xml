@@ -24,19 +24,39 @@
 	</trim>
 </sql>
 
+<!-- 총 갯수 -->
+<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+	SELECT COUNT(*)
+	FROM HELP
+	<include refid="searchFrag"/>
+</select>
 
-<!-- 페이징 처리된 목록 -->
+<!-- 분류 페이징ㄴ 목록 -->
+<select id="selectList" parameterType="string" resultType="HelpVO">
+	SELECT *
+	FROM HELP
+	WHERE HELP_SORT = #{helpSort}
+</select>
+
+<!-- 분류명 -->
+<select id="selectListName" parameterType="string" resultType="HelpVO">
+	SELECT CODE_NAME
+	FROM COMMON_CODE
+	WHERE REF_CODE = #{helpSort}
+</select>
+
+<!-- 페이징 처리된 전체목록 -->
 <select id="selectHelpList" parameterType="PagingVO" resultType="HelpVO">
 	WITH ORDEREDHELP AS(
     	SELECT *
       	FROM HELP
+      	<include refid="searchFrag"/>
      	ORDER BY HELP_SN DESC
 	)
 	SELECT A.*
   	FROM(
     	SELECT ROWNUM RNUM, ORDEREDHELP.*
       	FROM ORDEREDHELP
-      	<include refid="searchFrag"/>
   	) A
   	WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 </select>

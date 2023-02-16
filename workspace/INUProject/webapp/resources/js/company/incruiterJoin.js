@@ -27,7 +27,7 @@ let btn = $("#searchBtn").on("click",function(){
 				for(let i=0; i<companyList.length;i++){
 					console.log(companyList[i].cmpId)
 					inner += "<tr>"
-					inner += "<td><a onclick='companyClick(this)' data-dismiss='modal' style='color: black; font-weight: bold;'>"+companyList[i].cmpName+"</a></td>"
+					inner += "<td style='width: 47%;'><a onclick='companyClick(this)' data-dismiss='modal' style='color: black; font-weight: bold;'>"+companyList[i].cmpName+"</a></td>"
 					inner += "<td>"+companyList[i].cmpRepName+"</td>"
 					inner += "<td>"+companyList[i].cmpAddr2+"</td>"
 					inner += "</tr>"
@@ -66,7 +66,7 @@ let modalBtn = $("#companyModal").on("click",function(){
 	            	 for(let i=0; i<companyList.length;i++){
 	            		 console.log(companyList[i].cmpId)
 	            		 inner += "<tr>"
-	            			 inner += "<td><a onclick='companyClick(this)' data-dismiss='modal' style='color: black; font-weight: bold;'>"+companyList[i].cmpName+"</a></td>"
+	            			 inner += "<td style='width: 47%;'><a onclick='companyClick(this)' data-dismiss='modal' style='color: black; font-weight: bold;'>"+companyList[i].cmpName+"</a></td>"
 	            			 inner += "<td>"+companyList[i].cmpRepName+"</td>"
 	            			 inner += "<td>"+companyList[i].cmpAddr2+"</td>"
 	            			 inner += "</tr>"

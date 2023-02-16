@@ -89,28 +89,6 @@ element.style {
 						                   		</svg>
 						                    </button>
 						                </div>
-
-						                <div class="auto_complete_keyword">
-						                  <div class="wrap_scroll">
-						                    <div class="scrollbar disable" style="height: 200px;">
-						                      <div class="track" style="height: 200px;">
-						                        <div class="thumb">
-						                          <div class="end"></div>
-						                        </div>
-						                      </div>
-						                    </div>
-						                    <div class="viewport">
-						                      <div class="overview" style="top: 0px;">
-						                        <ul style="display:block">
-						                        </ul>
-						                        <p class="no_result" style="display:block">자동완성 검색어가 없습니다</p>
-						                      </div>
-						                    </div>
-						                  </div>
-						                  <div class="util">
-						                    <button class="btn_close">닫기</button>
-						                  </div>
-						                </div>
 						              </div>
 					                <div class="" style="display:none">
 					                  <svg xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +123,7 @@ element.style {
 												</a>
 												<div class="util">
 													<span class="reply">6</span>
-													<span class="views">1,176</span>
+													<span class="views">0</span>
 												</div>
 											</li>
 											<li>
@@ -375,140 +353,6 @@ element.style {
 													</div>
 												</li>
 											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- 공지사항 -->
-							<div class="wrap_section manager_voice">
-								<div class="main_tit">운영자 확성기</div>
-								<div class="wrap_megaphone">
-									<div class="wrap_box_notice">
-										<div class="wrap_box_notice" style="max-width: 100%;">
-											<div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 301px;">
-												<ul class="box_notice" style="width: 2215%; position: relative; transition-duration: 0s; transform: translate3d(-600px, 0px, 0px);">
-													<li class="box_el worry bx-clone" style="float: left; list-style: none; position: relative; width: 300px;" aria-hidden="true">
-														<div class="tit_category">운영자 고민</div>
-														<div class="tit">[정보] 넷플릭스? 아니, 잡플릭스!</div>
-														<p class="txt">
-															🚨사람인 JOBFLIX 출범🚨𝗝𝗢𝗕(공고) +
-															𝗙𝗹𝗶𝗰𝗸𝘀(영화) = 𝗝𝗢𝗕𝗙𝗟𝗜𝗫&nbsp;🙄잡플릭스란 무엇인가요?+
-															잡플릭스는 선별된 좋은 공고를 볼 수 있는 큐레이션 서비스 입니다.+ 매주 새로운 큐레이션이 업데이트
-															됩니다.◾ 공고와 입사지원을 무제한으로.◾ 다양한 디바이스에서 지원하세요!◾ 스마트폰, 태블릿,
-															노트북, PC 모두 0원.◾ 당신이 원하는 것 무엇이든, 그 이상을 제공합니다.◾ 사람인은 당신의
-															취뽀를 응원합니다 (ง •_•)ง내가 본 영화의 주인공으로 입사지원 어때요~?잡플릭스
-															바로가기👇👇https://www.saramin.co.kr/zf_user/jobs/list/curation?category_seq=53
-														</p>
-														<a href="${pageContext.request.contextPath}/help/notice" class="go" onmousedown="SEARCH.Main.gaEvent('main_qst', 'notice_card')">자세히보기</a>
-													</li>
-													<li class="box_el notice" style="float: left; list-style: none; position: relative; width: 300px;" aria-hidden="true">
-														<div class="tit_category">공지</div>
-														<div class="tit">[커뮤니티 이용 규칙]</div>
-														<p class="txt">커뮤니티는 다양한 주제로 여러 사용자가 소통할 수 있는 공간입니다.
-															사용자의 원활한 서비스 이용을 위해 아래의 커뮤니티 이용 기준을 제정하여 운영하고 있습니다. 아래의
-															기준에 해당하면 운영자에 의해 게시물이 삭제될 수 있고, 해당 내용을 지속해서 반복하는 사용자에게는
-															일정한 제재가 이루어질 수 있습니다. : 타인의 명의를 도용한 게시물 및 댓글 : 내용 중 욕설,
-															음란성 내용이 포함된 게시물 및 댓글 : 상업적 광고의 성격이 포함된 게시물, 사이트 홍보나 구인·구직
-															게시물, 도배 의도성 게시물 및 댓글 : html, script 등을 사용한 게시물 중 서비스의 장애를
-															일으키는 게시물 및 댓글 : 다른 사용자의 게시물에 대한 직접적인 욕설과 인신공격 등 타인의 권리를
-															침해하는 내용을 포함한 게시물 및 댓글 : 전기통신 관계 법령 및 형사 관계 법령에 따른 국가기관 등의
-															삭제 등 요구가 있는 게시물 및 댓글 : 그 외 기타 커뮤니티의 주제나 목적에 맞지 않는 게시물이라고
-															판단되는 경우 올바르고 재미있는 커뮤니티가 될 수 있도록 진담이도 노력하겠습니다! 많은 이용
-															부탁드립니다 :-)</p>
-														<a href="${pageContext.request.contextPath}/help/notice" class="go" onmousedown="SEARCH.Main.gaEvent('main_qst', 'notice_card')">자세히보기</a>
-													</li>
-													<li class="box_el worry" style="float: left; list-style: none; position: relative; width: 300px;" aria-hidden="false">
-														<div class="tit_category">운영자 고민</div>
-														<div class="tit">[정보] 넷플릭스? 아니, 잡플릭스!</div>
-														<p class="txt">
-															🚨사람인 JOBFLIX 출범🚨𝗝𝗢𝗕(공고) +
-															𝗙𝗹𝗶𝗰𝗸𝘀(영화) = 𝗝𝗢𝗕𝗙𝗟𝗜𝗫&nbsp;🙄잡플릭스란 무엇인가요?+
-															잡플릭스는 선별된 좋은 공고를 볼 수 있는 큐레이션 서비스 입니다.+ 매주 새로운 큐레이션이 업데이트
-															됩니다.◾ 공고와 입사지원을 무제한으로.◾ 다양한 디바이스에서 지원하세요!◾ 스마트폰, 태블릿,
-															노트북, PC 모두 0원.◾ 당신이 원하는 것 무엇이든, 그 이상을 제공합니다.◾ 사람인은 당신의
-															취뽀를 응원합니다 (ง •_•)ง내가 본 영화의 주인공으로 입사지원 어때요~?잡플릭스
-															바로가기👇👇https://www.saramin.co.kr/zf_user/jobs/list/curation?category_seq=53
-														</p>
-														<a href="${pageContext.request.contextPath}/help/notice" class="go" onmousedown="SEARCH.Main.gaEvent('main_qst', 'notice_card')">자세히보기</a>
-													</li>
-													<li class="box_el notice bx-clone" style="float: left; list-style: none; position: relative; width: 300px;" aria-hidden="true">
-														<div class="tit_category">공지</div>
-														<div class="tit">[커뮤니티 이용 규칙]</div>
-														<p class="txt">
-															커뮤니티는 다양한 주제로 여러 사용자가 소통할 수 있는 공간입니다.
-															사용자의 원활한 서비스 이용을 위해 아래의 커뮤니티 이용 기준을 제정하여 운영하고 있습니다. 아래의
-															기준에 해당하면 운영자에 의해 게시물이 삭제될 수 있고, 해당 내용을 지속해서 반복하는 사용자에게는
-															일정한 제재가 이루어질 수 있습니다. : 타인의 명의를 도용한 게시물 및 댓글 : 내용 중 욕설,
-															음란성 내용이 포함된 게시물 및 댓글 : 상업적 광고의 성격이 포함된 게시물, 사이트 홍보나 구인·구직
-															게시물, 도배 의도성 게시물 및 댓글 : html, script 등을 사용한 게시물 중 서비스의 장애를
-															일으키는 게시물 및 댓글 : 다른 사용자의 게시물에 대한 직접적인 욕설과 인신공격 등 타인의 권리를
-															침해하는 내용을 포함한 게시물 및 댓글 : 전기통신 관계 법령 및 형사 관계 법령에 따른 국가기관 등의
-															삭제 등 요구가 있는 게시물 및 댓글 : 그 외 기타 커뮤니티의 주제나 목적에 맞지 않는 게시물이라고
-															판단되는 경우 올바르고 재미있는 커뮤니티가 될 수 있도록 진담이도 노력하겠습니다! 많은 이용
-															부탁드립니다 :-)
-														</p>
-														<a href="${pageContext.request.contextPath}/help/notice" class="go" onmousedown="SEARCH.Main.gaEvent('main_qst', 'notice_card')">자세히보기</a>
-													</li>
-												</ul>
-											</div>
-
-											<div class="bx-controls bx-has-controls-auto bx-has-pager">
-												<div class="bx-controls-auto">
-													<div class="bx-controls-auto-item">
-														<button type="button" class="bx-start">
-															<span class="blind">재생</span>
-														</button>
-													</div>
-												</div>
-												<div class="bx-pager bx-default-pager">
-													<div class="bx-pager-item">
-														<a href="" data-slide-index="0" class="bx-pager-link">1</a>
-													</div>
-													<div class="bx-pager-item">
-														<a href="" data-slide-index="1" class="bx-pager-link active">2</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- 현직자인터뷰 -->
-									<div class="wrap_monthly_expert">
-										<div class="monthly_expert">
-											<div class="tit_category">현직자인터뷰</div>
-											<c:choose>
-												<c:when test="${not empty interviewList }">
-													<c:forEach var="i" begin="1" end="4">
-														<c:url value="/interview/interviewDetail" var="viewURL">
-															<c:param name="incumNo" value="${interviewList[i].incumNo }" />
-														</c:url>
-
-														<ul class="list_monthly_expert">
-															<li class="month_pro"><a href="${viewURL }" class="link"
-																onmousedown="SEARCH.Main.gaEvent('main_qst', 'expert_list')">${interviewList[i].incumTitle }</a></li>
-														</ul>
-
-													</c:forEach>
-												</c:when>
-												<c:otherwise>
-													<li>등록된 게시글 없음.</li>
-												</c:otherwise>
-											</c:choose>
-
-											<%-- <ul class="list_story">
-												<li style="margin: 0 0 17px"><a href="${viewURL }">
-														<span class="txt_subject"> <c:out
-																value="${boardList[i].boardTitle }" />
-													</span>
-												</a>
-													<div class="util">
-														<span class="reply">14</span>
-													</div></li>
-											</ul> --%>
-										</div>
-										<div class="wrap_banner">
-											<img src="${pageContext.request.contextPath}/resources/css/saramin/img_expert_none.png" alt="어떤 이벤트일까?">
 										</div>
 									</div>
 								</div>

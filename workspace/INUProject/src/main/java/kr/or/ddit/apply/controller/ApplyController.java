@@ -1,5 +1,33 @@
 package kr.or.ddit.apply.controller;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.or.ddit.announcement.service.AnnoService;
+import kr.or.ddit.announcement.vo.AnnoDetailVO;
+import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.apply.service.ApplyService;
+import kr.or.ddit.apply.vo.ApplyVO;
+import kr.or.ddit.myintro.service.MyintroService;
+import kr.or.ddit.myintro.vo.MyintroVO;
+import kr.or.ddit.resume.service.ResumeService;
+import kr.or.ddit.resume.vo.ResumeVO;
+import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.vo.MemberVO;
+
 /**
  * 
  * @author 최경수
@@ -14,10 +42,10 @@ package kr.or.ddit.apply.controller;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+@Controller
+@RequestMapping("/apply")
 public class ApplyController {
 
-	
-	
 	// 각 세부공고 페이지에서 지원 버튼 누르면,
 	
 	// 강사안
@@ -61,4 +89,171 @@ public class ApplyController {
 	// 제출서류 관리
 	// 회사별, 공고별, 문서별, 확장자별 등의 여러 뷰 제
 	
+	@Inject
+	private ApplyService service;
+	
+	@Inject
+	private AnnoService annoService;
+	
+	@Inject
+	private ResumeService resumeService;
+	
+	@Inject
+	private MyintroService myintroService;
+	
+	@ModelAttribute
+	public ApplyVO apply() {
+		return new ApplyVO();
+	}
+	
+	@ModelAttribute
+	public AnnoVO anno() {
+		return new AnnoVO();
+	}
+	
+	@ModelAttribute
+	public AnnoDetailVO detail() {
+		return new AnnoDetailVO();
+	}
+	
+	// 목록
+	@GetMapping
+	public String main(
+		Model model
+		, @AuthMember MemberVO authMember
+	) {
+		List<ApplyVO> applyList = service.retrieveApplyList(authMember.getMemId());
+		model.addAttribute("applyList", applyList);
+		return "apply/applyMain";
+	}
+	
+	@GetMapping("/{applySn}")
+	public String view(
+		Model model
+		, @PathVariable String applySn
+		, @ModelAttribute("apply") ApplyVO apply
+	) {
+		apply = service.retrieveApply(applySn);
+		model.addAttribute("apply", apply);
+		return "apply/applyView";
+	}
+	
+	// 입력,수정 폼
+	@GetMapping("/form")
+	public String form(
+		Model model
+		, @ModelAttribute("apply") ApplyVO apply
+		, @ModelAttribute("anno") AnnoVO anno
+		, @ModelAttribute("annoDetail") AnnoDetailVO detail
+		, @RequestParam(value="applySn", required=false, defaultValue="") String applySn
+		, @RequestParam(value="annoNo", required=false, defaultValue="") String annoNo
+		, @AuthMember MemberVO authMember
+		
+	) {
+		if (!applySn.equals("")) {
+			apply = service.retrieveApply(applySn);
+			annoNo = apply.getAnnoNo();
+			model.addAttribute("apply", apply);
+		}
+		
+		// 수정 시 공고 찾기
+		/*
+		if (annoNo == null || annoNo.equals("")) {
+			apply가 갖고 있는 daNo로 annoNO을 찾아야 함
+			annoNo가 갖고 있는 detail들 중 apply의 daNo와 같은 값을 갖고 있는 것 찾기
+			List<AnnoDetailVO> detailList = anno.getDetailList();
+			String daNo = apply.getDaNo();
+			for (AnnoDetailVO vo : detailList) {
+				if (vo.getDaNo().equals(daNo)) {
+					annoNo = vo.getAnnoNo();
+				}
+			}
+		}
+		 */
+		
+		String memId = authMember.getMemId();
+		anno = annoService.retrieveAnno(annoNo);
+		
+		List<ResumeVO> resumeList = resumeService.retrieveResumeList(memId);
+		List<MyintroVO> myintroList = myintroService.retrieveMyintroList(memId);
+		
+		model.addAttribute("anno", anno);
+		model.addAttribute("resumeList", resumeList);
+		model.addAttribute("myintroList", myintroList);
+		
+		return "apply/applyForm"; 
+	}
+	
+	// 입력
+	@PostMapping
+	public String insert(
+		Model model
+		, @ModelAttribute("apply") ApplyVO apply
+		, @AuthMember MemberVO authMember
+	) {
+		apply.setMemId(authMember.getMemId());
+		service.createApply(apply);
+		return "redirect:/apply/" + apply.getApplySn();
+	}
+	
+	// 수정폼
+	@GetMapping("/edit")
+	public String edit(
+			Model model
+			, @ModelAttribute("apply") ApplyVO apply
+			, @ModelAttribute("anno") AnnoVO anno
+			, @ModelAttribute("annoDetail") AnnoDetailVO detail
+			, @RequestParam(value="applySn") String applySn
+			, @AuthMember MemberVO authMember
+	) {
+		apply = service.retrieveApply(applySn);
+		
+		String memId = authMember.getMemId();
+		String annoNo = apply.getAnnoNo();
+		anno = annoService.retrieveAnno(annoNo);
+		
+		List<ResumeVO> resumeList = resumeService.retrieveResumeList(memId);
+		List<MyintroVO> myintroList = myintroService.retrieveMyintroList(memId);
+		
+		model.addAttribute("apply", apply);
+		model.addAttribute("anno", anno);
+		model.addAttribute("resumeList", resumeList);
+		model.addAttribute("myintroList", myintroList);
+		
+		return "apply/applyEdit"; 		
+	}
+	
+	// 수정
+//	@PutMapping("/{applySn}")
+	@PatchMapping("/{applySn")
+	public String update(
+		Model model
+		, @ModelAttribute("apply") ApplyVO apply
+		, @PathVariable String applySn
+	) {
+		apply.setApplySn(applySn);
+		service.modifyApply(apply);
+		return "redirect:/apply/" + applySn;
+	}
+	
+	// 삭제
+	@DeleteMapping("/{applySn}")
+	public String delete(
+		Model model
+		, @PathVariable String applySn
+	) {
+		service.removeApply(applySn);
+		return "redirect:/apply";
+	}
+	
+	
+//	@ResponseBody
+//	   @GetMapping(value="/main/paNo/{paNo}", produces="application/json;charset=UTF-8")
+//	   public PatientVO getPaInfo(
+//	         @PathVariable String paNo
+//	         ) {
+//	      
+//	      PatientVO patientVO = service.retrievePaInfo(paNo);
+//	      return patientVO;
+//	   }
 }

@@ -19,4 +19,5 @@ import kr.or.ddit.vo.PagingVO;
 public interface AnnoService {
 	public void retrieveAnnoList(PagingVO<AnnoVO> pagingVO);
 	public AnnoVO retrieveAnno(String annoNo);
+	public int createAnno(AnnoVO anno);
 }

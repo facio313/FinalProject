@@ -211,6 +211,7 @@ function changeExfield(){
 				console.log(resp[i].exjobName)
 				exjobSelect.append("<option value="+resp[i].exjobId+" label="+resp[i].exjobName+"></option>")
 			}
+			console.log(exjobSelect);
 			
 		},
       error : function(jqXHR, status, error) {
