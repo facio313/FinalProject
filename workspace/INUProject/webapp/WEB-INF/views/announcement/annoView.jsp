@@ -80,7 +80,8 @@
 							<a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>관심공고</a>
 						</div>
 						<div class="col-6">
-							<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">지원하기</a>
+<%-- 							<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">지원하기</a> --%>
+							<a href="${pageContext.request.contextPath}/apply/form?annoNo=${anno.annoNo}" class="btn btn-block btn-primary btn-md">지원하기</a>
 						</div>
 					</div>
 				</div>

@@ -12,6 +12,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>   
+<style>
+.scroller {
+    overflow-y: auto;
+    overflow-x: auto;
+    height: 311px;
+    width: 100%;
+    position: sticky;
+   }
+   
+.scroller::-webkit-scrollbar {
+  width: 6px;
+}
+.scroller::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+   height : 10%;
+     border-radius: 3px;
+     background-color: #e9e9e9;
+}
+</style>
 <!-- 모달창 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -31,9 +53,8 @@
 					modelAttribute="simpleCondition" method="post"
 					onclick="return false;">
 					<fieldset>
-						<legend>통합검색</legend>
 						<table class="tb wrt_tb2 mb10">
-							<caption>회사검색 테이블</caption>
+							
 							<colgroup>
 								<col style="width: 120px;">
 								<col>
@@ -57,23 +78,23 @@
 				<!-- 검색영역 끝 -->
 				<!-- 검색결과 시작 -->
 			</div>
-			<div class="well well-gray group_srch_result">
+			<table border="1" style="width: 100%;" class="table table-bordered table-hover table-dark">
+					<tr style="text-align: center;">
+						<th style="font-weight: border; width : 47% ">회사이름</th>
+						<th style="font-weight: border;">대표자</th>
+						<th style="font-weight: bolder;">회사위치</th>
+					</tr>
+			</table>
+			<div class="scroller well well-gray group_srch_result">
 				<!-- <span class="clr-red">검색된 결과가 없습니다.<span> -->
-				<table border="1" style="width: 100%;">
-					<thead>
-						<tr>
-							<th style="font-weight: border:">회사이름</th>
-							<th style="font-weight: border:">대표자</th>
-							<th style="font-weight: bolder;">회사위치</th>
-						</tr>
-					</thead>
+				<table border="1" style="width: 100%;" class="table table-bordered table-hover">
 					<tbody name="companyList" id="companyList">
 						<c:set var="companyList" value="${pagingVO.dataList }"></c:set>
 						<c:choose>
 							<c:when test="${not empty companyList }">
 								<c:forEach items="${companyList }" var="company">
 									<tr>
-										<td><a href="" onclick="companyClick(this)"
+										<td style="width : 47% "><a href="" onclick="companyClick(this)"
 											data-dismiss="modal" style="color: black; font-weight: bold;">${company.cmpName }</a></td>
 										<td>${company.cmpRepName }</td>
 										<td>${company.cmpAddr2 }</td>

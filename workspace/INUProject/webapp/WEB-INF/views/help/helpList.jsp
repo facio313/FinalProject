@@ -64,70 +64,60 @@
 				</div>
 				<!-- // 검색 -->
 				<ul class="tabList">
-					<li class="select">
-      					<a href="/zf_user/help/help-word/main?memberCode=per" class="inTab">
+					<li id="private" class="select">
+      					<a href='<c:url value="help?helpSort=HPS"/>' class="inTab">
           					<span>개인회원</span>
       					</a>
   					</li>
-  					<li class="">
-      					<a href="/zf_user/help/help-word/main?memberCode=com" class="inTab">
+  					<li id="company" class="">
+      					<a href='<c:url value="help?helpSort=HPI"/>' class="inTab">
           					<span>기업회원</span>
       					</a>
   					</li>
 				</ul>
+<%-- 				<input hidden name="flag" value="${flag}"/> --%>
+				<script>
+					$("#company").click(function(){
+						$("#private").removeClass("select");
+						$("#company").addClass("select");
+					});
+// 					$("#private").click(function(){
+// 						$("#company").removeClass("select");
+// 						$("#private").addClass("select");
+// 					});
+				
+					/* if ($("input[name=flag]").val() == "i"){
+						$("#private").removeClass("select");
+						$("#company").addClass("select");
+					} */
+					
+				</script>
+				
 				<ul class="tab_help">
   					<li class="select">
       					<a href="/zf_user/help/help-word/main?memberCode=per" class="inTab">
           					<span>전체</span>
       					</a>
   					</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=3" class="inTab">
-              				<span>이력서 등록 / 관리</span>
-          				</a>
-      				</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=2" class="inTab">
-              				<span>회원정보 / 아이디 / 비밀번호</span>
-          				</a>
-      				</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=4" class="inTab">
-              				<span>입사지원 / 관리</span>
-          				</a>
-      				</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=5" class="inTab">
-              				<span>채용정보 검색 / 관리</span>
-          				</a>
-      				</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=1" class="inTab">
-              				<span>회원가입 / 탈퇴</span>
-          				</a>
-      				</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=8" class="inTab">
-              				<span>추천/나의 검색</span>
-          				</a>
-      				</li>
-                    <li class="">
-          				<a href="/zf_user/help/help-word/main?memberCode=per&amp;inquiryCode=7" class="inTab">
-              				<span>기타 회원 서비스</span>
-          				</a>
-      				</li>
+  					<c:forEach items="${listName}" var="listName">
+	                    <li class="">
+	          				<a href="" class="inTab">
+	              				<span>${listName.codeName}</span>
+	          				</a>
+	      				</li>
+  					</c:forEach>
       			</ul>
+				<a href="" class="btn_basic_type01 btn_report_enquiry">등록</a>
       			<!-- 리스트 영역 -->
 				<div class="wrap_list_help">
               		<h2 class="tit_list_help">
-         				<strong>자주 묻는 질문</strong>
+         				<strong></strong> 자주 묻는 질문
                     </h2>
       				<!-- 도움말 리스트 -->
-      				<c:set var="helpList" value="${pagingVO.dataList}"/>
       				<ul class="list_help">
-	      				<c:choose>
-		      				<c:when test="${not empty helpList}">
-			      				<c:forEach items="${helpList}" var="helpList">
+      					<c:choose>
+		      				<c:when test="${not empty list}">
+			      				<c:forEach items="${list}" var="helpList">
 			                        <li>
 			                  			<dl>
 			                      			<dt>
@@ -158,30 +148,30 @@
 					</ul>
 				</div>
 			</div>
-<script type="text/javascript">
-var $list = jQuery('.list_help'),
-  $li = jQuery('> li', $list);
-
-$list.on('click', '.btn_close', function () {
-  var $this = jQuery(this).closest('li');
-  if ($this.hasClass('select')) {
-      $this.removeClass('select');
-  } else {
-      $li.removeClass('select');
-      $this.addClass('select');
-  }
-});
-
-function isValidation() {
-  if (jQuery('#helpSearchInput').val().length > 20) {
-      alert('검색어는 20자 이내로 입력해주세요.\n키워드로 검색하시면 더 많은 검색결과를 찾을 수 있습니다.');
-      return false;
-  }
-
-  return true;
-}
-
-</script>
+			<script type="text/javascript">
+				var $list = jQuery('.list_help'),
+				  $li = jQuery('> li', $list);
+				
+				$list.on('click', '.btn_close', function () {
+				  var $this = jQuery(this).closest('li');
+				  if ($this.hasClass('select')) {
+				      $this.removeClass('select');
+				  } else {
+				      $li.removeClass('select');
+				      $this.addClass('select');
+				  }
+				});
+				
+				function isValidation() {
+				  if (jQuery('#helpSearchInput').val().length > 20) {
+				      alert('검색어는 20자 이내로 입력해주세요.\n키워드로 검색하시면 더 많은 검색결과를 찾을 수 있습니다.');
+				      return false;
+				  }
+				
+				  return true;
+				}
+			
+			</script>
 		</div>
 	</div>
 </div>

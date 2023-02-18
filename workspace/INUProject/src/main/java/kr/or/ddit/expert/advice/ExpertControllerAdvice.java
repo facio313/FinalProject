@@ -33,7 +33,7 @@ public class ExpertControllerAdvice {
 	
 	@ModelAttribute("exlprod")
 	public List<ExlprodVO> exLprodList(){
-		return otherDAO.selectExlprodList();
+		return otherDAO.selectExlprodList(null);
 	}
 	
 

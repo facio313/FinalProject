@@ -14,6 +14,11 @@
 	    exlprod_name
 	FROM
 	    exlprod
+	   <where>
+   		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(exlprodId)">
+   			exlprod_id = #{exlprodId}
+   		</if>
+	   </where>
 	</select>
 	
 	<select id="selectExjobList" parameterType="String" resultType="kr.or.ddit.expert.vo.ExjobVO">

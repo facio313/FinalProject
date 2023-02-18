@@ -21,6 +21,20 @@ import kr.or.ddit.vo.PagingVO;
  * </pre>
  */
 public interface HelpService {
+
+	/**
+	 * 분류 명
+	 * @param helpSort
+	 * @return
+	 */
+	public List<HelpVO> retrieveListName(String helpSort);
+	
+	/**
+	 * 분류 리스트
+	 * @param help
+	 * @return
+	 */
+	public List<HelpVO> retrieveList(String helpSort);
 	
 	/**
 	 * 페이징된 목록

@@ -6,6 +6,7 @@
 		<put-attribute name="preScript" value="/includee/preScript.jsp" />
 		<put-attribute name="headerMenu" value="/includee/headerMenu.jsp" />
 		<put-attribute name="postScript" value="/includee/postScript.jsp" />
+		<put-attribute name="floating" value="/includee/floating.jsp" />
 	</definition>
 	<definition name="index" extends="indexParent">
 	  	<put-attribute name="title" value="메인"/>
@@ -15,8 +16,9 @@
 	<definition name="processParent" template="/WEB-INF/templates/processTemplate.jsp" preparer="commonViewPreparer">
 	 	<put-attribute name="preScript" value="/includee/preScript.jsp" />
 	 	<put-attribute name="headerMenu" value="/includee/headerMenu.jsp" />
-	 	<put-attribute name="leftMenu" value="/includee/leftMenu.jsp" />
-	 	<put-attribute name="footer" value="/includee/footer.jsp" />
+<!-- 	 	<put-attribute name="leftMenu" value="/includee/leftMenu.jsp" /> -->
+<!-- 	 	<put-attribute name="footer" value="/includee/footer.jsp" /> -->
+	 	<put-attribute name="floating" value="/includee/floating.jsp" />
 	 	<put-attribute name="postScript" value="/includee/postScript.jsp" />
 	</definition>
 	<definition name="resume/*" extends="processParent">
@@ -27,5 +29,11 @@
 	</definition>
 	<definition name="process/*" extends="processParent">
 	 	<put-attribute name="content" value="/WEB-INF/views/process/{1}.jsp" />
+	</definition>
+	<definition name="myintro/*" extends="processParent">
+		<put-attribute name="content" value="/WEB-INF/views/myintro/{1}.jsp" />
+	</definition>
+	<definition name="apply/*" extends="processParent">
+		<put-attribute name="content" value="/WEB-INF/views/apply/{1}.jsp"/>
 	</definition>
 </tiles-definitions>

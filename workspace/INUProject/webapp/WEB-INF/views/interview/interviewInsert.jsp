@@ -65,6 +65,7 @@
 							<input class="form-control" id="job-title" name="jobName" placeholder="직무명을 입력해주세요" />
 						</div>
 
+
 						<div class="form-group">
 							<label for="job-title">부서명</label>
 							<input class="form-control" id="job-title" name="department" placeholder="부서명을 입력해주세요" />

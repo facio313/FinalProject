@@ -23,7 +23,8 @@
 	    exevent_content,
 	    TO_CHAR(exevent_start,'YYYY-MM-DD') as exevent_start,
 	    TO_CHAR(exevent_end,'YYYY-MM-DD') as exevent_end,
-	    exevent_hits,(
+	    exevent_hits,
+	    (
         select count(tbl_id)
         from attach
         where ATTACH.TBL_ID = exevent_attach.tbl_id) att_count

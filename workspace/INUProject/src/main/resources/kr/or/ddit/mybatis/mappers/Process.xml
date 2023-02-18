@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.process.dao.ProcessDAO">
+	
+	<select id="selectProcessList" parameterType="String" resultType="kr.or.ddit.process.vo.ProcessVO">
+		SELECT A.*, B.*
+		FROM PROCESS A
+		INNER JOIN APPLY B ON A.DA_NO = B.DA_NO
+		WHERE B.MEM_ID = #{memId}
+		AND a.PROCESS_DELETE_DATE IS NULL	
+	</select>
+	
+	<select id="selectProcess" parameterType="String" resultType="kr.or.ddit.process.vo.ProcessVO">
+		SELECT *
+		FROM PROCESS
+		WHERE DA_NO = #{daNo}
+	</select>
+	
+	<insert id="insertProcess" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="process" index="idx">
+			INTO PROCESS (
+			    DA_NO
+			    , PROCESS_CODE_ID
+			    , PROCESS_SN
+			    , PROCESS_START_DATE
+			    , PROCESS_END_DATE
+			    , PROCESS_WAY
+			    , PROCESS_SCORE
+			    , TBL_ID
+			    , PROCESS_LIMIT
+			    , PROCESS_INSERT_DATE
+			) VALUES (
+				#{daNo,jdbcType=VARCHAR}
+				, #{processCodeId,jdbcType=VARCHAR}
+				, #{processSn,jdbcType=NUMERIC}
+				, #{processStartDate,jdbcType=DATE}
+				, #{processEndDate,jdbcType=DATE}
+				, #{processWay,jdbcType=VARCHAR}
+				, #{processScore,jdbcType=NUMERIC}
+				, #{tblId,jdbcType=VARCHAR}
+				, #{processLimit,jdbcType=VARCHAR}
+				, SYSDATE
+			)
+		</foreach>
+		
+		SELECT * FROM DUAL
+	</insert>
+	
+	<update id="updateProcess" parameterType="kr.or.ddit.process.vo.ProcessVO">
+		UPDATE PROCESS
+			SET
+				PROCESS_SN = #{processSn,jdbcType=NUMERIC}
+				, PROCESS_START_DATE = #{processStartDate,jdbcType=DATE}
+				, PROCESS_END_DATE = #{processEndDate,jdbcType=DATE}
+				, PROCESS_WAY = #{processWay,jdbcType=VARCHAR}
+				, PROCESS_SCORE = #{processScore,jdbcType=NUMERIC}
+				, TBL_ID = #{tblId,jdbcType=VARCHAR}
+				, PROCESS_LIMIT = #{processLimit,jdbcType=VARCHAR}
+		WHERE	DA_NO = #{daNo,jdbcType=VARCHAR}
+		AND		PROCESS_CODE_ID = #{processCodeId,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deleteProcess" parameterType="String">
+		UPDATE PROCESS
+			SET
+				PROCESS_DELETE_DATE = SYSDATE
+		WHERE	DA_NO = #{daNo,jdbcType=VARCHAR}
+		AND		PROCESS_CODE_ID = #{processCodeId,jdbcType=VARCHAR}
+	</delete>
+	
+</mapper>

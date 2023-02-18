@@ -3,6 +3,9 @@ package kr.or.ddit.announcement.vo;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 import kr.or.ddit.company.vo.CompanyVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,10 +39,9 @@ public class AnnoVO {
 	private String eduName;
 	
 	private Map<String,Object> keyword;
-	
 	private List<AnnoDetailVO> detailList;
 	private List<AnnoWalfareVO> walfareList;
-	
+	private List<String> walfareCodeList;
 	private List<String> regionList;
 	
 	private CompanyVO company;

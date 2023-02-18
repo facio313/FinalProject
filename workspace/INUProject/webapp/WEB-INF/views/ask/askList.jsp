@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
 
 <head>
 <meta charset="utf-8" />
@@ -17,6 +18,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css" />
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
@@ -53,6 +55,7 @@
 							다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
 						</p>
 						<div class="tblType">
+
 							<table>
 								<colgroup>
 									<col style="width: 100px">
@@ -61,7 +64,8 @@
 									<col style="width: 100px">
 									<col style="width: 90px">
 								</colgroup>
-								<tbody>
+
+								<tbody id="ask_list">
 									<tr>
 										<td class="count">문의번호</td>
 										<td class="category">문의종류</td>
@@ -70,33 +74,32 @@
 										<td class="status end">처리상태</td>
 									</tr>
 
-									<c:choose>
-										<c:when test="${not empty askList }">
-											<c:forEach items="${askList }" var="ask">
+										<c:choose>
+											<c:when test="${not empty askList }">
+												<c:forEach items="${askList }" var="ask">
+													<tr>
+														<td>${ask.askNo }</td>
+														<td>${ask.askType }</td>
+														<td><c:url value="/ask/detailAsk" var="viewURL">
+																<c:param name="askNo" value="${ask.askNo }" />
+															</c:url> <a href="${viewURL}">${ask.askTitle }</a></td>
+														<td>${ask.askDate }</td>
+														<td>${ask.askStatus }</td>
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
 												<tr>
-													<td>${ask.askNo }</td>
-													<td>${ask.askType }</td>
-													<td>
-														<c:url value="/ask/detailAsk" var="viewURL">
-															<c:param name="askNo" value="${ask.askNo }" />
-														</c:url>
-														<a href="${viewURL}">${ask.askTitle }</a>
-													</td>
-													<td>${ask.askDate }</td>
-													<td>${ask.askStatus }</td>
+													<td colspan="5">게시글 없음.</td>
 												</tr>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="6">게시글 없음.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
+											</c:otherwise>
+										</c:choose>
+
 								</tbody>
 							</table>
 						</div>
 						<!-- 페이지 -->
+						<div class="pagingArea"></div>
 					</div>
 				</div>
 			</div>
@@ -115,5 +118,107 @@
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+
+<form id="searchForm">
+	<input type="hidden" name="page" />
+	<!-- <input type="hidden" name="searchType" />
+	<input type="hidden" name="searchWord" /> -->
+</form>
+
+<script type="text/javascript">
+	$("[name=searchType]").val("${simpleCondition.searchType}");
+	$("[name=searchWord]").val("${simpleCondition.searchWord}");
+
+
+	let listBody = $("#ask_list");
+
+	let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
+		event.preventDefault();
+		let page = $(this).data("page");
+		if(!page) return false;
+		searchForm.find("[name=page]").val(page);
+		searchForm.submit();
+		return false;
+	});
+
+	let headerTag = function(){
+		return $("<tr>").append(
+			$("<td>").attr("class","count").html("문의번호"),
+			$("<td>").attr("class","category").html("문의종류"),
+			$("<td>").attr("class","content_tit").html("제목"),
+			$("<td>").attr("class","date").html("등록일"),
+			$("<td>").attr("class","status end").html("처리상태")
+		);
+	}
+
+	let makeTrTag = function(ask){
+		return $("<tr>").append(
+			$("<td>").html(ask.askNo),
+			$("<td>").html(ask.askType),
+			$("<td>").append(
+				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)
+			),
+			$("<td>").html(ask.askDate),
+			$("<td>").html(ask.askStatus)
+		);
+
+	}
+
+
+	let searchForm = $("#searchForm").on("submit", function(event){
+		event.preventDefault();
+		let url = this.action;
+		let method = this.method;
+		let queryString = $(this).serialize();
+		$.ajax({
+			url : url,
+			method : method,
+			data : queryString,
+			dataType : "json",
+			success : function(resp) {
+				listBody.empty();
+				pagingArea.empty();
+				searchForm[0].page.value="";
+
+				let pagingVO = resp.pagingVO;
+
+				let dataList = pagingVO.dataList;
+				let trTags = [];
+
+				trTags.push(headerTag());
+				if(dataList != null && dataList != ""){
+					$.each(dataList, function(index, ask){
+						trTags.push(makeTrTag(ask));
+					});
+				}else{
+					let tr = $("<tr>").html(
+						$("<td>").attr("colspan", "5").html("문의게시글 없음.")
+					);
+					trTags.push(tr);
+				}
+				listBody.html(trTags);
+				if(resp.pagingHTML)
+					pagingArea.html(resp.pagingHTML);
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		return false;
+	}).submit();
+
+	let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
+		let inputs = searchUI.find(":input[name]");
+		$.each(inputs, function(index, input){
+			let name = this.name;
+			let value = $(this).val();
+			searchForm.find("[name="+name+"]").val(value);
+		});
+		searchForm.submit();
+	});
+
+</script>
 </body>
 </html>

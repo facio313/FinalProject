@@ -1,6 +1,9 @@
 package kr.or.ddit.board.service;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -66,6 +69,18 @@ public class BoardServiceImpl implements BoardService {
 	public int updateHits(String boardNo) {
 		int rowcnt = dao.updateHits(boardNo);
 		return rowcnt;
+	}
+
+	// 좋아요 추가
+	@Override
+	public int likeInsert(Map<String, Object> m) throws Exception {
+		return dao.likeInsert(m);
+	}
+
+	// 좋아요 개수
+	@Override
+	public int likeCount(String boardNo){
+		return dao.likeCount(boardNo);
 	}
 
 }

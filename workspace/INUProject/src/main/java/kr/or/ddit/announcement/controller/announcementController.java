@@ -108,20 +108,22 @@ public class announcementController {
 	public String insertAnno(Model model) {
 		return "announcement/annoForm";
 	}
-   
+
 	@PostMapping("insert")
 	public String insertAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
-		, @RequestParam String salaryDetail
 		, Errors errors
+		, @RequestParam String salaryDetail
 		, Model model
 	) {
 		String salary = anno.getAnnoSalary();
 		if(!salary.equals("면접후결정")) {
-			salary = salary + " " + salaryDetail;
+			salary = salary + " " + salaryDetail + "만원";
 		}
 		anno.setAnnoSalary(salary);
 		log.info("anno : {}",anno);
+		
+//		service.createAnno(anno);
 		
 		//혹은 annoView
 		return "redirect:/announcement";
@@ -139,11 +141,11 @@ public class announcementController {
 		List<Map<String, Object>> walfareList = null;
 		List<Map<String, Object>> positionList = null;
 		List<Map<String, Object>> empltypeList = null;
-	  
+
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
 			String code = (String)list.get("code");
-			
+
 			if(type.equals("region")) {
 				regionList = annoSearchDAO.selectRegionList(code);
 			}
@@ -173,7 +175,7 @@ public class announcementController {
 		model.addAttribute("walfareList", walfareList);
 		model.addAttribute("positionList", positionList);
 		model.addAttribute("empltypeList", empltypeList);
-		
+
 		return "jsonView";
 	}
 }

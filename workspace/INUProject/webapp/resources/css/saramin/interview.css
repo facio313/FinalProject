@@ -2677,7 +2677,7 @@ span.tab_menu02 strong {padding:0;color:#1469b3;font-weight:normal;background:ur
 .job_interview_list .sub_title {margin-top:-2px;display:flex;flex-flow:row wrap;justify-content: space-between}
 .job_interview_list .in_subtit {width:77%;color:#045738;font-size:15px;font-weight:bold;display:inline-block;overflow:hidden;text-overflow:ellipsis;word-break:break-all;white-space:nowrap;vertical-align:top}
 .job_interview_list .flag_applying {width:23%;font-size:15px;padding:0px 2px 0px 7px;box-sizing: border-box}
-.job_interview_list .title {position:relative;padding-top:31px;height:60px;letter-spacing:-2px;overflow:hidden}
+.job_interview_list .title {position:relative;padding-top:31px;letter-spacing:-2px;overflow:hidden}
 .job_interview_list .title:after {display:block;content:'';position:absolute;left:0;top:17px;width:20px;height:1px;background:#222}
 .job_interview_list .title em {color:#444;font-size:20px;font-weight:bold;line-height:31px;word-break:break-all}
 .job_interview_list .box_info {padding-top:58px}
@@ -2929,7 +2929,7 @@ span.tab_menu02 strong {padding:0;color:#1469b3;font-weight:normal;background:ur
 .share .list_share .copy_url:after {background-position:-60px -40px}
 .share .list_share .send_sms:after {background-position:-90px -40px}
 .share_open .list_share {display:block}
-.recruilt_list_wrap.wrap_job_interview .list_info {padding:0;height:61px}
+.recruilt_list_wrap.wrap_job_interview .list_info {padding:0;height:75px}
 .recruilt_list_wrap.wrap_job_interview .list_info .searchTypoBox {top:18px}
 .wrap_interview_part .rec-paging {margin:0}
 .wrap_interview_part .box_last {margin-bottom:0}

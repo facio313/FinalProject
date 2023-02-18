@@ -14,7 +14,7 @@
 	<sidebar>
 		<h1 class="text-center"><a href="${pageContext.request.contextPath}/" class="logo" style="color: white;" id="inu"></a></h1>
 		<ul class="list-unstyled components mb-5 text-left">
-			<a href="${pageContext.request.contextPath}/process/apply"><li><h6 style="color: white;">지원</h6></li></a>
+			<a href="${pageContext.request.contextPath}/apply"><li><h6 style="color: white;">지원</h6></li></a>
 			<a href="${pageContext.request.contextPath}/resume"><li><h6 style="color: white;">이력서</h6></li></a>
 			<a href="${pageContext.request.contextPath}/education"><li><h6 style="color: white;">학력</h6></li></a>
 			<a href="${pageContext.request.contextPath}/career"><li><h6 style="color: white;">경력</h6></li></a>
@@ -23,6 +23,8 @@
 			<a href="${pageContext.request.contextPath}/activity"><li><h6 style="color: white;">주요활동</h6></li></a>
 			<a href="${pageContext.request.contextPath}/course"><li><h6 style="color: white;">교육이수</h6></li></a>
 			<a href="${pageContext.request.contextPath}/award"><li><h6 style="color: white;">수상내역</h6></li></a>
+			<a href="${pageContext.request.contextPath}/myintro"><li><h6 style="color: white;">자기소개서</h6></li></a>
+			<a href="${pageContext.request.contextPath}/process"><li><h6 style="color: white;">채용과정</h6></li></a>
 		</ul>
 	</sidebar>
 </leftmenu>

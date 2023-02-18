@@ -1,6 +1,7 @@
 package kr.or.ddit.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.board.vo.InterviewVO;
@@ -28,4 +29,10 @@ public interface BoardService {
 
 	// 조회수
 	public int updateHits(String boardNo);
+
+	// 좋아요 추가
+	public int likeInsert(Map<String, Object> m) throws Exception;
+
+	// 좋아요 개수
+	public int likeCount(String boardNo);
 }

@@ -26,7 +26,6 @@ public class AnnoDetailVO {
 	private String job0; //code
 	private String job1; //code
 	private String jobCode; //code
-	
 	private String regionName;
 	private String empltypeName; 
 	private String jobName; 

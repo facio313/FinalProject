@@ -65,7 +65,7 @@
 												<br>
 											</p>
 											<p>남겨주신 내용만으로는 파악이 어렵습니다.</p>
-											<p>'재 문의하기'를 통해 구체적으로 말씀해 주시면 확인 후 안내도와드리겠습니다.</p>
+											<p>'재문의하기'를 통해 구체적으로 말씀해 주시면 확인 후 안내도와드리겠습니다.</p>
 											<p>
 												<br>
 											</p>
@@ -80,12 +80,15 @@
 						<a href="${pageContext.request.contextPath }/ask/askList" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
 							목록
 						</a>
+						<a href="${pageContext.request.contextPath }/ask/askForm" class="btn_basic_type01 btn_list" title="문의하기 바로가기">
+							재문의하기
+						</a>
 					</div>
 
 					<div class="help_find">
 						<div class="find_method">
 							<p class="desc_method">
-								아직도 궁금한 점이 남아있다면, 고객센터로 문의해 주세요. ( 전화문의 : <span class="tel">02-2025-4733</span>)
+								아직도 궁금한 점이 남아있다면, 고객센터로 문의해 주세요. ( 전화문의 : <span class="tel">042-123-4567</span>)
 							</p>
 						</div>
 					</div>

@@ -15,5 +15,8 @@ public class SelfprVO {
 	private String prWantjob;
 	private String prAnnual;
 	private String memName;
+	private String prWantmn;
+	private String prWanttype;
+	private String prWantloca;
 	
 }

@@ -82,7 +82,7 @@
 	<table class="table hover table-bordered">
 		<thead>
 			<tr>
-				<th>순번</th>
+				<th></th>
 				<th>제목</th>
 				<th>작성일</th>
 			</tr>

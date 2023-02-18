@@ -98,7 +98,6 @@ public class NoticeController {
 	}
 	
 	
-	//나중에 등록, 수정폼 같게하기
 	//공지사항 등록폼
 	@GetMapping("/noticeInsert")
 	public String insertForm() {
@@ -116,7 +115,7 @@ public class NoticeController {
 		notice.setMemId(authMember.getMemId());
 		int rowcnt = service.createNotice(notice);
 		if(rowcnt>0) {
-			viewName = "redirect:/help/notice";
+			viewName = "redirect:/help/notice"+notice.getNoticeSn();
 		}else {
 			model.addAttribute("message","서버 오류");
 			viewName = "help/notice/noticeForm";

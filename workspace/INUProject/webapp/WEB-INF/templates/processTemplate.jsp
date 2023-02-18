@@ -32,7 +32,8 @@
 				width:100%;
  				height:100%;
  				overflow-x:hidden;
-				background-image: url("<%=request.getContextPath()%>/resources/background/F6F6F6.jpg");
+ 				background-color: rgb(234, 237, 242);
+/* 				background-color: rgb(246,246,246); */
 				position:relative;
 				z-index:1;
 			}
@@ -40,32 +41,40 @@
  				position: abosolute;
  				top: 50px;
  				left: 25px;
+ 				padding-top: 50px;
+ 				border-radius: 30px;
 				background: white;
 			}
-			footer {
-				position: relative;
- 				z-index:1;
- 				height:80px;
- 				background-color:red;
- 				bottom:-1500px;
- 				left:0;
-			}			
+			button {
+				width: 100%;
+			}
 		</style>
 	</head>
 	<body>
 		<tiles:insertAttribute  name="headerMenu"/>
-		<div id="main_div" class="row">
-			<tiles:insertAttribute name="leftMenu" ignore="true"/>
-			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
+<!-- 		<div id="main_div" class="row"> -->
+<%-- 			<tiles:insertAttribute name="leftMenu" ignore="true"/> --%>
+<!-- 			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;"> -->
+<%-- 				<tiles:insertAttribute  name="content"/> --%>
+<!-- 			</main> -->
+<!-- 		</div> -->
+		<div class="row">
+			<main class="col-md-10  ks-lm-radius mx-auto">
+				<a class="btn btn-outline-success active" href="${pageContext.request.contextPath}/apply">지원</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/resume">이력서</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/education">학력</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/career">경력</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/certification">자격증</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/facility">기능</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/activity">주요활동</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/course">교육이수</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/award">수상내역</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/myintro">자기소개서</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/process">채용과정</a>
 				<tiles:insertAttribute  name="content"/>
 			</main>
 		</div>
-	
-	
-		<footer class="footer">
-			<tiles:insertAttribute  name="footer" ignore="true"/>
-		</footer>
-		
+		<tiles:insertAttribute name="floating"/>
 		<tiles:insertAttribute  name="postScript"/>
 	</body>
 </html>

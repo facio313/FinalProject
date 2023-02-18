@@ -8,10 +8,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class AnnoWalfareVO {
-	private String annowalNo;
+//	private String annowalNo;
 	private String walfare0;
 	private String walfareCode;
-	private String annoId;
+	private String annoNo;
 	
 	private String walfareName;
 	private String refCode;

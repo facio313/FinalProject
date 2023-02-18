@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,9 +25,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
 
 <style type="text/css">
-#paging{
-    font-size: 22pt;
-}
+#paging{font-size: 22pt;}
 </style>
 </head>
 
@@ -53,12 +52,6 @@
 		<div id="sri_wrap">
 			<div id="content">
 				<div class="company_honest_qna">
-					<input type="hidden" name="page" />
-					<input type="hidden" name="qna_action" value="sub" id="qna_action">
-					<input type="hidden" name="keyword" value="" id="keyword">
-					<input type="hidden" name="qna_searchType" value="" id="qna_searchType">
-					<input type="hidden" name="csn" value="" id="csn">
-					<input type="hidden" name="influencer" value="" id="influencer">
 					<input type="hidden" name="type" value="" id="type">
 					<div class="contents_container">
 						<div class="sub_top_wrap tag_list">
@@ -69,35 +62,16 @@
 						<!-- 검색 -->
 						<div class="search_form">
 							<div class="list_num_tit sub">전체 <strong>52,507</strong>건</div>
+							<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;">
 							<div class="box_search">
 								<div class="input_keyword">
-									<input type="text" name="input_keyword" id="input_keyword" value="" placeholder="다른 사람들은 어떤 이야기를 할까?" class="inpTypo" title="키워드, 기업명 입력">
-									<button type="button" class="spr btn_search">
+									<form:input type="text" path="searchWord" id="input_keyword" value="" placeholder="다른 사람들은 어떤 이야기를 할까?"
+									class="inpTypo" title="키워드, 기업명 입력"/>
+									<button type="button" id="searchBtn" class="spr btn_search">
 										<svg class="icon_search">
                         					<use xlink:href="#svg_my_8"></use>
                       					</svg>
 									</button>
-								</div>
-
-								<div class="auto_complete_keyword">
-									<div class="wrap_scroll">
-										<div class="scrollbar disable" style="height: 200px;">
-											<div class="track" style="height: 200px;">
-												<div class="thumb">
-													<div class="end"></div>
-												</div>
-											</div>
-										</div>
-										<div class="viewport">
-											<div class="overview" style="top: 0px;">
-												<ul style="display: block"></ul>
-												<p class="no_result" style="display: block">자동완성 검색어가 없습니다</p>
-											</div>
-										</div>
-									</div>
-									<div class="util">
-										<button class="btn_close">닫기</button>
-									</div>
 								</div>
 							</div>
 
@@ -111,6 +85,7 @@
                     				</symbol>
                   				</svg>
 							</div>
+						</form:form>
 						</div>
 						<!-- //검색 -->
 
@@ -161,9 +136,7 @@
 									</span>
 								</div>
 
-								<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath }/board/boardInsert'"
-									onmousedown="SEARCH.Main.gaEvent('search_detail', 'qst_reg')">게시글 작성
-								</button>
+								<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath }/board/boardInsert'">게시글 작성</button>
 							</div>
 
 							<ul class="qna_list" id="qst_and_ans_list">
@@ -190,7 +163,7 @@
 															<span class="emoticon">
 																<img src="http://www.saraminimage.co.kr/sri/company_review/list_emoji_help.png">
 															</span>
-															<span class="emoticon_num">공감 <strong>${boardList.totalLike }</strong></span>
+															<span class="emoticon_num">공감 <strong>${boardList.likeCnt }</strong></span>
 														</div>
 														<span class="qna_info qna_reply">댓글 <strong>0</strong></span>
 														<span class="qna_info qna_view">조회 <strong>${boardList.boardHits }</strong></span>
@@ -206,52 +179,25 @@
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
-											<li>등록된 인터뷰 없음.</li>
+											<li>등록된 게시글 없음.</li>
 										</c:otherwise>
 									</c:choose>
 								</div>
 							</ul>
-
-							<!-- <div class="pagination">
-
-								<span class="page">1</span> <a class="page"
-									href="javascript:SEARCH.Main.getSearchList(2);">2</a> <a
-									class="page" href="javascript:SEARCH.Main.getSearchList(3);">3</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(4);">4</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(5);">5</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(6);">6</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(7);">7</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(8);">8</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(9);">9</a>
-								<a class="page" href="javascript:SEARCH.Main.getSearchList(10);">10</a>
-
-								<a class="btnNext" type="button"
-									href="javascript:SEARCH.Main.getSearchList(11);"> 다음 </a>
-							</div> -->
-
-									<div class="pagingArea"></div>
-
-<!-- 		<div class="row pagination-wrap mt-5">
-            <div class="col-md-12 text-center ">
-            <div class="custom-pagination ml-auto">
-              <a href="#" class="prev">Prev</a>
-              <div class="d-inline-block">
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-              </div>
-              <a href="#" class="next">Next</a>
-            </div>
-          </div>
-        </div> -->
-
+							<div class="pagingArea"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+<form:form id="searchForm" modelAttribute="simpleCondition" method="get">
+	<input type="hidden" name="page" />
+	<input type="hidden" name="searchWord"/>
+	<input type="hidden" name="likeCheck"/>
+	<input type="hidden" name="boardNo" value="${boardList.boardNo }"/>
+</form:form>
 
 <!-- SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -265,17 +211,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
-<form id="searchForm">
-	<input type="hidden" name="page" />
-	<!-- <input type="hidden" name="searchType" />
-	<input type="hidden" name="searchWord" /> -->
-</form>
-
 <script type="text/javascript">
-	$("[name=searchType]").val("${simpleCondition.searchType}");
-	$("[name=searchWord]").val("${simpleCondition.searchWord}");
-
 
 	let listBody = $("#qst_and_ans_list");
 
@@ -298,22 +234,16 @@
 							$("<span>").attr("class","qna_desc").html(board.boardContent),
 						$("<div>").attr("class","qna_data_infos").append(
 							$("<div>").attr("class","emoticons_wrap").append(
-								$("<span>").attr("class","emoticon").append(
-									$("img[src='http://www.saraminimage.co.kr/sri/company_review/list_emoji_cheer.png']")),
-								$("<span>").attr("class","emoticon").append(
-									$("img[src='http://www.saraminimage.co.kr/sri/company_review/list_emoji_help.png']")),
-								$("<span>").attr("class","emoticon_num").html("공감").append($("<strong>").html(board.totalLike))),
 
+							$("<span>").attr("class","qna_info qna_like").html("공감").append($("<strong>").html(board.likeCnt))),
 							$("<span>").attr("class","qna_info qna_reply").html("댓글").append($("<strong>").html("0")),
 							$("<span>").attr("class","qna_info qna_view").html("조회").append($("<strong>").html(board.boardHits)),
 
-							$("<div>").attr("class","qna_member_info").append($("<span>").attr("class","qna_from").html(board.memId+"님이"+" "+board.boardDate+"작성"),
-							$("<div>").attr("class", "toolTipWrap").append("<button type='button' class='btn_qna_bookmark reputeScrap' data-idx='8703' data-data-reported='n'>").html("스크랩")))
-							));
-
+							$("<div>").attr("class","qna_member_info").append($("<span>").attr("class","qna_from").html(board.memId+"님이"+" "+board.boardDate+"작성")
+							))));
 	}
 
-
+	// 페이징&검색
 	let searchForm = $("#searchForm").on("submit", function(event){
 		event.preventDefault();
 		let url = this.action;
@@ -333,14 +263,22 @@
 
 				let dataList = pagingVO.dataList;
 				let trTags = [];
-				if(dataList){
+				if(dataList.length>0){
 					$.each(dataList, function(index, board){
 						trTags.push(makeTrTag(board));
 					});
 				}else{
-					let tr = $("<tr>").html(
-						$("<td>").attr("colspan", "7").html("조건에 맞는 공고 없음.")
-					);
+					let tr = $("<ul>").append(
+								$("<div>").attr("class","list_qna").append(
+									$("<span style='transform: translateY(66px);'>").attr("class","position"),
+									$("<div>").attr("class","qna_list_none").append(
+										$("<span>").attr("class","none_tit").html("앗! 해당 검색어에 대한 글이 없어요ㅠㅠ"),
+										$("<br>"),
+										$("<span>").attr("class","none_txt").html("검색한 글에 대해 먼저 남겨보세요!")
+									)
+								)
+							 );
+
 					trTags.push(tr);
 				}
 				listBody.html(trTags);
@@ -356,6 +294,7 @@
 		return false;
 	}).submit();
 
+	// 검색
 	let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
 		let inputs = searchUI.find(":input[name]");
 		$.each(inputs, function(index, input){
@@ -366,6 +305,13 @@
 		searchForm.submit();
 	});
 
-</script>
+	// 엔터로 검색
+	$('#input_keyword').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
 
+</script>
 </body>

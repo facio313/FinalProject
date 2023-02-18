@@ -76,11 +76,18 @@
 							<!-- 게시글 정보 -->
 							<div class="post_infos">
 								<div class="post_profile">
+									<div class="profile_pic_wrap">
+										<a href="#" target="_blank">
+											<div class="profile_pic profile1">
+												<svg><img src="${pageContext.request.contextPath}/resources/images/saramin/iu1.jfif"></img></svg>
+											</div>
+										</a>
+									</div>
 									<span class="nickname">${board.memId }</span>
-									<span class="nickname">${board.boardDate } 작성</span>
+									<span class="post_date">${board.boardDate } 작성</span>
 								</div>
 								<div class="post_data_wrap">
-									<span class="qna_info qna_like likeTotalCount">8</span>
+									<span class="qna_info qna_like likeTotalCount">${board.likeCnt }</span>
 									<span class="qna_info qna_reply">9</span>
 								</div>
 							</div>
@@ -92,26 +99,33 @@
 
 							<!-- 게시글 이모티콘 -->
 							<ul class="post_emoticon">
-								<li>
-									<button type="button" class="like " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'like')">
-										<span class="sympathy_result">좋아요<br> <strong>${board.boardLike }</strong></span>
-									</button>
-								</li>
-								<li>
-									<button type="button" class="fun " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'fun')">
-										<span class="sympathy_result">재밌어요<br> <strong>${board.boardFun }</strong></span>
-									</button>
-								</li>
-								<li>
-									<button type="button" class="help " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'help')">
-										<span class="sympathy_result">도움돼요<br> <strong>${board.boardHelp }</strong></span>
-									</button>
-								</li>
-								<li>
-									<button type="button" class="cheer " onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'cheer')">
-										<span class="sympathy_result">힘내요<br> <strong>${board.boardCheer }</strong></span>
-									</button>
-								</li>
+
+									<li>
+										<!-- 감정버튼을 누르면 class가 기본class+on으로 바뀜 -->
+										<button type="button" class="emotion like" data-like-type="1"
+											onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'like')">
+											<span class="sympathy_result">좋아요<br> <strong></strong></span>
+										</button>
+									</li>
+									<li>
+										<button type="button" class="emotion fun"  data-like-type="2"
+											onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'fun')">
+											<span class="sympathy_result">재밌어요<br> <strong></strong></span>
+										</button>
+									</li>
+									<li>
+										<button type="button" class="emotion help"  data-like-type="3"
+											onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'help')">
+											<span class="sympathy_result">도움돼요<br> <strong></strong></span>
+										</button>
+									</li>
+									<li>
+										<button type="button" class="emotion cheer"  data-like-type="4"
+											onclick="DETAILPAGE.Detail.likeBtnClick(this, '8703', 'qust', 'cheer')">
+											<span class="sympathy_result">힘내요<br> <strong></strong></span>
+										</button>
+									</li>
+								<%-- </c:if> --%>
 							</ul>
 						</div>
 
@@ -248,5 +262,92 @@
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<form>
+	<input type="hidden" name="likeCheck"/>
+	<input type="hidden" name="boardNo" value="${board.boardNo }"/>
+</form>
+<!-- 좋아요 -->
+<script type="text/javascript">
+
+	$(function(){
+		// 좋아요 버튼 클릭 시 추가 또는 취소
+		$(".emotion").click(function(){
+			let likeType = $(this).data("likeType")
+			$.ajax({
+				url:"likeInsert",
+				type:"post",
+				dataType:"JSON",
+				data:{
+					boardNo:"${ board.boardNo}"
+					, likeType:likeType
+				},
+				success:function(resp){
+					if(resp.error){
+
+					}else{
+
+						likeCnt();
+					}
+				},
+			})
+		})
+
+		// 게시글 추천 수
+		function likeCnt(){
+			$.ajax({
+				url:"likeCount",
+				type: "post",
+				dataType:"text",
+				data:{
+					boardNo:"${ board.boardNo}"
+				},
+				success:function(count){
+					$(".likeTotalCount").html(count);
+				},
+			})
+		}
+		likeCnt(); // 처음 시작했을 때 실행되도록 함수 호출
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

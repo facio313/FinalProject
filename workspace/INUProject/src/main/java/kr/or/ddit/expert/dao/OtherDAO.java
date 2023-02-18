@@ -14,5 +14,5 @@ public interface OtherDAO {
 	
 	public List<ExfieldVO> selectExfieldList();
 	public List<ExjobVO> selectExjobList(@Param("exfieldId") String exfieldId);
-	public List<ExlprodVO> selectExlprodList();
+	public List<ExlprodVO> selectExlprodList(@Param("exlprodId") String exlprodId);
 }

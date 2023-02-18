@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
 <script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -39,6 +40,11 @@
 	color: red;
 	font-size: 6px;
 }
+.chck {
+	display: inline-block;
+	margin: 1px;
+	margin-right: 20px;
+}
 
 .text_box {position:relative; display:inline-block; width:100%;}
 .text_box textarea {width:100%; height:152px; color:#666; font-family:"ht_r"; font-size:18px; line-height:28px; padding:20px; border:1px solid #e4dcd3; outline:0; resize:none}
@@ -52,14 +58,7 @@
 </style>
 
 <!-- html body -->
-<security:authorize url="/announcement/insert">
-<%-- 	<security:authentication property="principal" var="memberVOWrapper"/> --%>
-<%-- 	<security:authentication property="principal.realMember" var="authMember"/> --%>
-<%-- 	${authMember.incruiterVO.cmpId } --%>
-<%-- 	${authMember.memId } --%>
-</security:authorize>
 <div class="site-wrap" style="background-color: white">
-
 	<!-- HOME -->
 	<section class="section-hero overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg');" id="home-section">
 		<div class="container">
@@ -84,6 +83,7 @@
 					<div class="d-flex align-items-center">
 						<div>
 							<h2>공통 입력</h2>
+							
 						</div>
 					</div>
 				</div>
@@ -193,7 +193,7 @@
 										</form:select>
 										<div style="display: inline-block;">
 											<div id="salaryDetail" style="display: none;">
-												<input type="number" name="salaryDetail" class="box" value="0" min="0" style="width: 100px; height: 26px;"> 원
+												<input type="number" name="salaryDetail" class="box" value="0" min="0" style="width: 100px; height: 26px;"> 만원
 											</div>
 										</div>
 									</div>
@@ -227,6 +227,8 @@
 											<option value>소분류</option>
 										</form:select>
 									</div>
+									<ul id="walDiv" style="background-color: lavender;">
+									</ul>
 								</div>
 							</div>
 							<div class="container">
@@ -239,296 +241,210 @@
 							</div>
 						</div>
 						
-						<!-- 세부 페이지 추가 버튼 만들기, 세부voList -->
-						<!-- 2. 모집분야 : 모집분야명, 모집인원, 경력여부*, 담당업무, 근무부서, 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
-						<h3 class="text-black mb-5 border-bottom pb-2">2. 모집분야(세부)</h3>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">
-									모집분야
-									<div class="ref">
-										※필수
-									</div>
-								</div>
-								<div class="form-group col-md-6">
-									<form:input path="detailList[0].daFd" type="text" class="box" style="width: 100%" placeholder="모집분야를 입력해주세요" />
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">직무</div>
-								<div class="form-group col-md-6">
-									<form:select path="detailList[0].job0" class="box">
-										<option value>상위</option>
-									</form:select>
-									<form:select path="detailList[0].job1" class="box">
-										<option value>중위</option>
-									</form:select>
-									<form:select path="detailList[0].jobCode" class="box">
-										<option value>하위</option>
-									</form:select>
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">모집인원</div>
-								<div class="form-group col-md-6">
-									<form:input path="detailList[0].daCount" type="number" class="box" value="0" min="0" style="width: 100px"/> 명
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">
-									경력
-									<div class="ref">
-										※필수
-									</div>
-								</div>
-								<div class="form-group col-md-8">
-									<div class="row pp">
-										<div class="col-4 col-sm-3">
-											경력무관 
-											<form:checkbox path="detailList[0].careerName" value="관계없음" id="career0" />
-										</div>
-										<div class="col-4 col-sm-3">
-											신입 
-											<form:checkbox path="detailList[0].careerName" value="신입" id="career1"/>
-										</div>
-										<div class="col-4 col-sm-3">
-											경력 
-											<form:checkbox path="detailList[0].careerName" value="경력" id="career2"/>
-										</div>
-									</div>
-									<div id="careerYear" style="display: none">
-										<form:select path="detailList[0].daCarYeer" class="box">
-											<form:option value="1년 이상">1년 이상</form:option>
-											<form:option value="4년 이상">4년 이상</form:option>
-											<form:option value="7년 이상">7년 이상</form:option>
-											<form:option value="10년 이상">10년 이상</form:option>
-											<form:option value="15년 이상">15년 이상</form:option>
-											<form:option value="20년 이상">20년 이상</form:option>
-										</form:select>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">근무부서</div>
-								<div class="form-group col-md-6">
-									<form:input path="detailList[0].daDepartment" type="text" class="box" placeholder=" ex) 영업부" />
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">담당 업무</div>
-								<div class="form-group col-md-6 text_box text_boxp1">
-									<form:textarea path="detailList[0].daTask" rows="4" cols="50"></form:textarea>
-									<div class="count countp1"><span>0</span>/200</div>
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">직급/직책</div>
-								<div class="form-group col-md-6" id="positionCheck">
-<%-- 									<form:select path="detailList[0].positionCode" class="box"> --%>
-<!-- 										<option value>직급/직책</option> -->
-<%-- 									</form:select> --%>
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">
-									고용 형태
-									<div class="ref">
-										※필수
-									</div>
-								</div>
-								<div class="form-group col-md-6">
-									<form:select path="detailList[0].empltypeCode" class="box">
-										<option value>고용형태</option>
-									</form:select>
-								</div>
-							</div>
-						</div>
-						<div class="form-group container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">
-									근무지역
-									<div class="ref">
-										※필수
-									</div>
-								</div>
-								<div class="form-group col-md-6">
-					                <input type="hidden" id="sample4_postcode" placeholder="우편번호">
-									<input type="text" id="sample4_jibunAddress" class="box" placeholder="지번주소" >
-									<input type="button" onclick="sample4_execDaumPostcode()" value="주소 찾기" class="box"><br>
-									<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
-									<span id="guide" style="color:#999;display:none"></span>
-									<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
-									<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-									<!-- data.sido+" "+data.sigungu -->
-									<form:hidden path="detailList[0].regionName"/>
-			                	</div>
-							</div>
-						</div>
-						<!-- 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">지원 조건</div>
-								<div class="form-group col-md-6 text_box text_boxp3">
-									<form:textarea path="detailList[0].daCondition" name="" rows="4" cols="50"></form:textarea>
-									<div class="count countp3"><span>0</span>/200</div>
-								</div>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row pp">
-								<div class="col-6 col-md-2">우대 사항</div>
-								<div class="form-group col-md-6 text_box text_boxp4">
-									<form:textarea path="detailList[0].daPrefer" rows="4" cols="50"></form:textarea>
-									<div class="count countp4"><span>0</span>/200</div>
-								</div>
-							</div>
-						</div>
-						<!-- 3. 자격/조건 : 지원자 학력*, 지원자 성별(성차별금지 남녀고용평등에 관한 법률), 지원자 연령(연령차별 금지에 관한 법률), 연봉/급여, 고용형태*, 수습기간, 근무요일, 근무시간 -->
 						
-						<form:button type="submit" class="btn btn-success">등록</form:button>
+						
+						<!-- 					세부 페이지						 -->
+						
+						
+						
+						<h3 class="text-black mb-5 border-bottom pb-2">2. 모집분야(세부)</h3>
+						<button type="button" id="testBtn">버튼임버튼임버튼임</button>
+						
+						<!-- 탭머리 -->
+						<div class="row" style="margin-bottom: 50px">
+						    <div class="col-md-6">
+						        <div class="profile-head">
+						            <ul class="nav nav-tabs" id="myTab" role="tablist">
+						                <li class="nav-item" style="display: none;">
+						                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#detailContainer" role="tab" aria-controls="detailContainer0" aria-selected="true">탭1</a>
+						                </li>
+<!-- 						                <li class="nav-item"> -->
+<!-- 						                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#detailContainer0" role="tab" aria-controls="detailContainer0" aria-selected="true">탭1</a> -->
+<!-- 						                </li> -->
+<!-- 						                <li class="nav-item"> -->
+<!-- 						                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#detailContainer1" role="tab" aria-controls="detailContainer1" aria-selected="false">탭2</a> -->
+<!-- 						                </li> -->
+						            </ul>
+						        </div>
+						    </div>
+						</div>
+						<!-- 탭몸통 -->
+						<div class="tab-content profile-tab" id="myTabContent">
+							<!-- 탭몸통1  -->
+							<div class="tab-pane fade show active d-none" id="detailContainer" role="tabpanel" aria-labelledby="home-tab" >
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">
+											모집분야
+											<div class="ref">
+												※필수
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<input name="detailList[%n].daFd" type="text" class="box" style="width: 100%" placeholder="모집분야를 입력해주세요" />
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">직무</div>
+										<div class="form-group col-md-6">
+											<select name="detailList[%n].job0" class="box">
+												<option value>상위</option>
+											</select>
+											<select name="detailList[%n].job1" class="box">
+												<option value>중위</option>
+											</select>
+											<select name="detailList[%n].jobCode" class="box">
+												<option value>하위</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">모집인원</div>
+										<div class="form-group col-md-6">
+											<input name="detailList[%n].daCount" type="number" class="box" value="0" min="0" style="width: 100px"/> 명
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">
+											경력
+											<div class="ref">
+												※필수
+											</div>
+										</div>
+										<div class="form-group col-md-8">
+											<div class="row pp">
+												<div class="col-4 col-sm-3">
+													경력무관 
+													<input type="checkbox" name="detailList[%n].careerName" value="관계없음" id="career0" />
+												</div>
+												<div class="col-4 col-sm-3">
+													신입 
+													<input type="checkbox" name="detailList[%n].careerName" value="신입" id="career1"/>
+												</div>
+												<div class="col-4 col-sm-3">
+													경력 
+													<input type="checkbox" name="detailList[%n].careerName" value="경력" id="career2"/>
+												</div>
+											</div>
+											<div id="careerYear" style="display: none">
+												<select name="detailList[%n].daCarYeer" class="box">
+													<option value="1년 이상">1년 이상</option>
+													<option value="4년 이상">4년 이상</option>
+													<option value="7년 이상">7년 이상</option>
+													<option value="10년 이상">10년 이상</option>
+													<option value="15년 이상">15년 이상</option>
+													<option value="20년 이상">20년 이상</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">근무부서</div>
+										<div class="form-group col-md-6">
+											<input name="detailList[%n].daDepartment" type="text" class="box" placeholder=" ex) 영업부" />
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">담당 업무</div>
+										<div class="form-group col-md-6 text_box text_boxp1">
+											<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
+											<div class="count countp1"><span>0</span>/200</div>
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">직급/직책</div>
+										<div class="form-group col-md-8" id="positionCheck" >
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">
+											고용 형태
+											<div class="ref">
+												※필수
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<select name="detailList[%n].empltypeCode" class="box">
+												<option value>고용형태</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">
+											근무지역
+											<div class="ref">
+												※필수
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+							                <input type="hidden" id="sample4_postcode" placeholder="우편번호">
+											<input type="text" id="sample4_jibunAddress" class="box" placeholder="지번주소" >
+											<input type="button" onclick="sample4_execDaumPostcode()" id="execDaumPostcode" value="주소 찾기" class="box"><br>
+											<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
+											<span id="guide" style="color:#999;display:none"></span>
+											<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
+											<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+											<!-- data.sido+" "+data.sigungu -->
+											<input type="hidden" name="detailList[%n].regionName"/>
+					                	</div>
+									</div>
+								</div>
+								<!-- 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">지원 조건</div>
+										<div class="form-group col-md-6 text_box text_boxp3">
+											<textarea name="detailList[%n].daCondition" rows="4" cols="50"></textarea>
+											<div class="count countp3"><span>0</span>/200</div>
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row pp">
+										<div class="col-6 col-md-2">우대 사항</div>
+										<div class="form-group col-md-6 text_box text_boxp4">
+											<textarea name="detailList[%n].daPrefer" rows="4" cols="50"></textarea>
+											<div class="count countp4"><span>0</span>/200</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 탭몸통1 끝 -->
+						
+						</div>
+						<!-- 탭몸통 끝 -->
+						
+						<form:button type="submit" class="btn btn-success" style="color: white; float:right">등록</form:button>
+						<div class="container">
+							<div style="font-size: 13px; margin-top: 80px;">
+								※ 성별, 연령 입력 불가 안내<br>
+								- 당사는 남녀고용평등 및 연령차별 금지에 관한 법률을 준수하여, 불합리한 성별, 연령 조건은 제시할 수 없습니다. 이를 준수하지 않는 경우, 공고 강제 마감 및 행정처분을 받을 수 있습니다.<br>
+								- 성별, 연령 입력 불가로 인해 기존에 등록한 공고는 수정, 연장, 복사시에 '성별무관','연령무관'으로 변경됩니다.
+							</div>
+						</div>
+						
 					</form:form>
 				</div>
 			</div>
 		</div>  
-		<div style="font-size: 13px">
-			※ 성별, 연령 입력 불가 안내<br>
-			- 당사는 남녀고용평등 및 연령차별 금지에 관한 법률을 준수하여, 불합리한 성별, 연령 조건은 제시할 수 없습니다. 이를 준수하지 않는 경우, 공고 강제 마감 및 행정처분을 받을 수 있습니다.<br>
-			- 성별, 연령 입력 불가로 인해 기존에 등록한 공고는 수정, 연장, 복사시에 '성별무관','연령무관'으로 변경됩니다.
-		</div>
 	</section>
 </div>
-<form method="post"> 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="profile-head">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="tab-content profile-tab" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<div class="row">
-					    <div class="col-md-6">
-					        <label>User Id</label>
-					    </div>
-					    <div class="col-md-6">
-					        <p>Kshiti123</p>
-					    </div>
-					</div>
-					<div class="row">
-					    <div class="col-md-6">
-					        <label>Name</label>
-					    </div>
-					    <div class="col-md-6">
-					        <p>Kshiti Ghelani</p>
-					    </div>
-					</div>
-					<div class="row">
-					    <div class="col-md-6">
-					        <label>Email</label>
-					    </div>
-					    <div class="col-md-6">
-					        <p>kshitighelani@gmail.com</p>
-					    </div>
-					</div>
-					<div class="row">
-					    <div class="col-md-6">
-					        <label>Phone</label>
-					    </div>
-					    <div class="col-md-6">
-					        <p>123 456 7890</p>
-					    </div>
-					</div>
-					<div class="row">
-					    <div class="col-md-6">
-					        <label>Profession</label>
-					    </div>
-					    <div class="col-md-6">
-					        <p>Web Developer and Designer</p>
-					    </div>
-					</div>
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Experience</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>Expert</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Hourly Rate</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>10$/hr</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Total Projects</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>230</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>English Level</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>Expert</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Availability</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>6 months</p>
-                        </div>
-                    </div>
-                    <div class="row">
-						<div class="col-md-12">
-                            <label>Your Bio</label><br/>
-                            <p>Your detail description</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>      
 
 
 <!-- SCRIPTS -->
@@ -537,6 +453,50 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
 /* 테슷흐 */
+
+let detailContainer = $("#detailContainer");
+let myTabContent = $("#myTabContent");
+
+let x = 0;
+$("#testBtn").on("click",function(){
+	console.log("클릭햇다이거, x = ",x);
+	let nextContainer = detailContainer.clone();
+	nextContainer.prop("id","detailContainer"+x);
+	nextContainer.removeClass("d-none");
+	myTabContent.append(nextContainer);
+	$("#myTab").append(
+		$("<li>").attr("class","nav-item").append(
+			$("<a>").attr("class","nav-link").attr("id","tab"+x).attr("role","tab").attr("data-toggle","tab")
+			.attr("href","#detailContainer"+x).attr("aria-selected",true).html("탭"+(x+1))
+		)
+	);
+
+	$("#detailContainer"+x).find("#sample4_postcode").attr("id","sample4_postcode"+x);
+	$("#detailContainer"+x).find("#sample4_jibunAddress").attr("id","sample4_jibunAddress"+x);
+	$("#detailContainer"+x).find("#execDaumPostcode").attr("onclick","sample4_execDaumPostcode"+x+"()");
+	$("#detailContainer"+x).find("#sample4_roadAddress").attr("id","sample4_roadAddress"+x);
+	$("#detailContainer"+x).find("#guide").attr("id","guide"+x);
+	$("#detailContainer"+x).find("#sample4_postcode").attr("id","sample4_postcode"+x);
+	$("#detailContainer"+x).find("#sample4_detailAddress").attr("id","sample4_detailAddress"+x);
+	$("#detailContainer"+x).find("#sample4_extraAddress").attr("id","sample4_extraAddress"+x);
+	
+	$("#tab"+x).trigger("click");
+	x=x+1;
+});
+
+/* 테슷흐2 */
+
+let walval = $("[name='walfareList[0].walfareCode']").on("change",function(){
+	let walSelect = $("[name='walfareList[0].walfareCode'] option:selected");
+	console.log(walval.val());
+	console.log(walSelect.html());
+	$("#walDiv").append(
+		$("<li>").attr("type","button").attr("class","walBtn").html(walSelect.html()).append(
+			$("<i>").attr("class","bi bi-x-lg")
+			,$("<input>").attr("type","hidden").attr("name","walfareCodeList").val(walval.val())
+		)
+	)
+});
 
 /* 코드 */
 var career0 = document.getElementById("career0");
@@ -589,8 +549,6 @@ function sample4_execDaumPostcode() {
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
             // DB로 가져갈 값
-//         	console.log(data.sido+" "+data.sigungu);
-            //detailList[0].regionName
             let regionName = document.querySelector("[name='detailList[0].regionName']");
             regionName.value=data.sido+" "+data.sigungu;
 			console.log(regionName.value);
@@ -627,6 +585,66 @@ function sample4_execDaumPostcode() {
             }
 
             var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+        }
+    }).open();
+}
+
+//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+function sample4_execDaumPostcode1() {
+	new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            // DB로 가져갈 값
+//             let regionName = document.querySelector("[name='detailList[1].regionName']");
+//             regionName.value=data.sido+" "+data.sigungu;
+// 			console.log(regionName.value);
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample4_postcode1').value = data.zonecode;
+            document.getElementById("sample4_roadAddress1").value = roadAddr;
+            document.getElementById("sample4_jibunAddress1").value = data.jibunAddress;
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById("sample4_extraAddress1").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress1").value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide1");
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
             if(data.autoRoadAddress) {
                 var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
@@ -867,6 +885,67 @@ $("[name='detailList[0].job1']").on("change", function(){
 		}
 	});   
 });
+$("[name='detailList[1].job0']").on("change", function(){
+	let ref = $(this).val();
+	let data = [{type:'job',code:ref}];
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/select",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			console.log("리스트뽑아옴");
+			let jobList = resp.jobList;
+			let jobOption = [];
+			
+			$.each(jobList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+				jobOption.push(tr);
+			})
+			$("select[name='detailList[1].job1']").append(jobOption);
+// 			$("select[name='detailList[1].job1']").append(jobOption).val("${anno.detailList[1].job1}").trigger("change");
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});   
+});
+$("[name='detailList[1].job1']").on("change", function(){
+	
+	let ref = $(this).val();
+	let data = [{type:'job',code:ref}];
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/select",
+		method : "post",
+		data : JSON.stringify(data),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			console.log("리스트뽑아옴");
+			let jobList = resp.jobList;
+			let jobOption = [];
+			
+			$.each(jobList, function(index, val){
+				let tr = null;
+				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+				jobOption.push(tr);
+			})
+			$("select[name='detailList[1].jobCode']").append(jobOption);
+// 			$("select[name='detailList[1].jobCode']").append(jobOption).val("${anno.detailList[1].jobCode}");
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});   
+});
 
 
 /* 최상위 셀렉트... */
@@ -889,69 +968,70 @@ $.ajax({
 	contentType: 'application/json',
 	success : function(resp) {
 		let industryList = resp.industryList;
-		let jobList = resp.jobList;
-		let eduList = resp.eduList;
 		let walfareList = resp.walfareList;
+		let eduList = resp.eduList;
 		let positionList = resp.positionList;
+		let jobList = resp.jobList;
 		let empltypeList = resp.empltypeList;
 		
-		console.log("industryList",industryList);
-		console.log("jobList",jobList);
-		console.log("eduList",eduList);
-		console.log("walfareList",walfareList);
-		console.log("positionList",positionList);
-		console.log("empltypeList",empltypeList);
-		
 		let industryOption = [];
-		let jobOption = [];
-		let eduOption = [];
 		let walfareOption = [];
+		let eduOption = [];
 		let positionOption = [];
+		let jobOption = [];
 		let empltypeOption = [];
-		
+// 		let positionOption1 = [];
+// 		let jobOption1 = [];
+// 		let empltypeOption1 = [];
+
 		$.each(industryList, function(index, val){
-			let tr = null;
-			tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
+			let tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 			industryOption.push(tr);
 		})
-		$.each(jobList, function(index, val){
-			let tr = null;
-			tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-			jobOption.push(tr);
-		})
 		$.each(eduList, function(index, val){
-			let tr = null;
-			tr = $("<option>").attr("class","code").prop("value",val.eduCode).html(val.eduName);
+			let tr = $("<option>").attr("class","code").prop("value",val.eduCode).html(val.eduName);
 			eduOption.push(tr);
 		})
 		$.each(walfareList, function(index, val){
-			let tr = null;
-			tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
+			let tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
 			walfareOption.push(tr);
 		})
 		$.each(positionList, function(index, val){
-			let tr = null;
-			let div = $("<div>");
-			tr = $("<input>").attr("type","checkbox").attr("name","detailList[0].positionCode").prop("value",val.positionCode);
+			let div = $("<div>").attr("class","chck");
+			let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
 			div.append(tr);
 			div.html(div.html() + val.positionName);
-			// 			tr = $("<option>").attr("class","code").prop("value",val.positionCode).html(val.positionName);
 			positionOption.push(div);
+			
+// 			let div1 = $("<div>").attr("class","chck");
+// 			let tr1 = $("<input>").attr("type","checkbox").attr("name","detailList[1].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
+// 			div1.append(tr1);
+// 			div1.html(div1.html() + val.positionName);
+// 			positionOption1.push(div1);
+		})
+		$.each(jobList, function(index, val){
+			let tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+			jobOption.push(tr);
+// 			let tr1 = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+// 			jobOption1.push(tr1);
 		})
 		$.each(empltypeList, function(index, val){
-			let tr = null;
-			tr = $("<option>").attr("class","code").prop("value",val.empltypeCode).html(val.empltypeName);
+			let tr = $("<option>").attr("class","code").prop("value",val.empltypeCode).html(val.empltypeName);
 			empltypeOption.push(tr);
+// 			let tr1 = $("<option>").attr("class","code").prop("value",val.empltypeCode).html(val.empltypeName);
+// 			empltypeOption1.push(tr1);
 		})
 		
 		$("select[name=industry0]").append(industryOption);
 		$("select[name=eduCode]").append(eduOption);
-		$("select[name='detailList[0].job0']").append(jobOption);
-		$("select[name='detailList[0].empltypeCode']").append(empltypeOption);
-		$("#positionCheck").append(positionOption);
-// 		$("select[name='detailList[0].positionCode']").append(positionOption);
 		$("select[name='walfareList[0].walfare0']").append(walfareOption);
 		
+		$("#positionCheck").append(positionOption);
+		$("select[name='detailList[%n].job0']").append(jobOption);
+		$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
+// 		$("#positionCheck1").append(positionOption1);
+// 		$("select[name='detailList[1].job0']").append(jobOption1);
+// 		$("select[name='detailList[1].empltypeCode']").append(empltypeOption1);
 		
 // 		$("select[name=industry0]").val("${anno.industry0}").trigger("change");
 // 		$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
@@ -966,6 +1046,9 @@ $.ajax({
 		console.log(error);
 	}
 });
+
+
+
 
 
 </script>
