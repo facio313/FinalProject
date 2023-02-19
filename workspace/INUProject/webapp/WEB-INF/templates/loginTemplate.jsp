@@ -31,7 +31,6 @@
 			main {
  				position: relative;
  				top: 50px;
- 				left: 25px;
 				background: white;
 			}
 			

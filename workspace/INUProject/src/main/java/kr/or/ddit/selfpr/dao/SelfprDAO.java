@@ -23,7 +23,9 @@ public interface SelfprDAO {
 	
 	public int selectTotalRecord(PagingVO<SelfprVO> pagingVO);
 	
-	public SelfprVO selectSelfpr(int prNo);
+//	세부사항 메소드
+	public SelfprVO selectSelfprMember(int prNo);
+	public List<SelfprVO> selectSelfprEducation(int prNo);
 	
 	
 	

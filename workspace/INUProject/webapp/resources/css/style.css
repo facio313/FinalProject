@@ -406,7 +406,8 @@ body {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.7;
-  position: relative; }
+  position: relative;
+  background-color: rgb(234, 237, 242); }
   body:after {
     content: "";
     position: absolute;
@@ -574,7 +575,7 @@ h1, h2, h3, h4 {
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(137, 186, 22, 0.9);
+      background: rgba(4, 87, 56, 0.9);
       z-index: 1; }
     .bg-image.overlay-primary > .container {
       position: relative;
@@ -588,7 +589,7 @@ h1, h2, h3, h4 {
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(137, 186, 22, 0.9);
+      background: rgba(4, 87, 56, 0.9);
       z-index: 1; }
     .bg-image.overlay-blue > .container {
       position: relative;

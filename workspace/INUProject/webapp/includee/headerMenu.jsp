@@ -55,14 +55,21 @@
                 <a href="${pageContext.request.contextPath}/" class="nav-item nav-link active">부가기능</a>
             </div>
             <!-- 운영자 만 가능 -->
+<%-- 			<security:authorize access="isAuthenticated()"> --%>
+<%-- 			<security:authentication property="principal.realMember" var="memberVOWrapper"/> --%>
+<%-- 			<c:if test="${memberVOWrapper.memAuthCd == 'ADMIN'}"> --%>
+			<security:authorize url="/systemManagement">
             <div class="navbar-nav ms-auto">
                 <a href="<c:url value='/systemManagement'/>" class="nav-item nav-link active">시스템 관리</a>
             </div>
+			</security:authorize>
+<%--             </c:if> --%>
+<%-- 			</security:authorize> --%>
             <div class="nav-item dropdown ms-auto">
                 <a href="<c:url value='/help'/>" class="nav-link dropdown-toggle">고객센터</a>
                 <div class="dropdown-menu rounded-0 m-0">
-                    <a href="<c:url value='/help'/>" class="dropdown-item">도움말</a>
                     <a href="<c:url value='/help/notice'/>" class="dropdown-item">공지사항</a>
+                    <a href="<c:url value='/help'/>" class="dropdown-item">도움말</a>
                     <a href="<c:url value='/ask/askForm'/>" class="dropdown-item">문의하기</a>
                     <a href="<c:url value='/ask/askList'/>" class="dropdown-item">내문의내역</a>
                 </div>

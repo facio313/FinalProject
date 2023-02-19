@@ -29,4 +29,10 @@ public class ExcartServiceImpl implements ExcartService {
 		return cartVO;
 	}
 
+	@Override
+	public int insertExcart(ExcartVO excart) {
+		int rowcnt = excartDAO.insertExcart(excart);
+		return rowcnt;
+	}
+
 }

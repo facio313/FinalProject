@@ -63,6 +63,7 @@ public class selfprController {
 		service.retrieveSelfprList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		
+		System.out.println(detailCondition);
 		return "jsonView";
 	}
 	
@@ -91,17 +92,20 @@ public class selfprController {
 		return "jsonView";
 	}
 	
-	@GetMapping("Detail")
+	@GetMapping("/Detail")
 	public String selfprDetail(
-		@RequestParam(value="who") int prNo
-		, @ModelAttribute("simpleCondition") SearchVO searchVO
+		@RequestParam(value="no") int prNo
+		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
-		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(detailCondition);
 		
-		SelfprVO selfpr = service.retrieveSelfpr(prNo);
-		model.addAttribute("selfpr", selfpr);
+		SelfprVO selfprmem = service.retrieveSelfprMember(prNo);
+		List<SelfprVO> selfpredu = service.retrieveSelfprEducation(prNo);
+		model.addAttribute("selfprmem", selfprmem);
+		model.addAttribute("selfpredu", selfpredu);
+		System.out.println(selfprmem);
 		
 		return "selfpr/selfPrDetail";
 	}

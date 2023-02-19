@@ -21,6 +21,7 @@ import kr.or.ddit.vo.PagingVO;
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 7.      양서연       최초작성
+ * 2023. 2. 17.     최경수       회원아이디로 공고 찾기
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -81,7 +82,65 @@ public interface AnnoDAO {
 	 * @param walfare
 	 * @return
 	 */
+	public int insertWalfareList(Map<String, Object> map);
 //	public int insertWalfareList(@Param("walfareCode") String walfareCode, @Param("annoNo") String annoNo);
 //	public int insertWalfareList(AnnoWalfareVO walfareVO);
-	public int insertWalfareList(Map<String, Object> map);
+	
+	/**
+	 * 관심공고 등록여부 조회
+	 * @param annoNo
+	 * @param memId
+	 * @return
+	 */
+	public int selectLikeAnno(@Param("annoNo") String annoNo, @Param("memId") String memId);
+	
+	/**
+	 * 관심공고 등록
+	 * @param annoNo
+	 * @param memId
+	 * @return
+	 */
+	public int insertLikeAnno(@Param("annoNo") String annoNo, @Param("memId") String memId);
+	
+	/**
+	 * 관심공고 삭제
+	 * @param annoNo
+	 * @param memId
+	 * @return
+	 */
+	public int deleteLikeAnno(@Param("annoNo") String annoNo, @Param("memId") String memId);
+
+	
+	/**
+	 * 관심기업 등록여부 조회
+	 * @param cmpId
+	 * @param memId
+	 * @return
+	 */
+	public int selectLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
+	
+	/**
+	 * 관심기업 등록
+	 * @param cmpId
+	 * @param memId
+	 * @return
+	 */
+	public int insertLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
+	
+	/**
+	 * 관심기업 삭제
+	 * @param cmpId
+	 * @param memId
+	 * @return
+	 */
+	public int deleteLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
+	
+	/**
+	 * 경수
+	 * 한 회사가 등록한 공고 목록
+	 * @param memId
+	 * @return List<AnnoVO>
+	 */
+	public List<AnnoVO> selectMyAnnoList(String memId);
+	
 }

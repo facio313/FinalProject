@@ -34,6 +34,22 @@ public class ExpertController {
 	private ExprodService exprodservice;
 	@Inject
 	private ExreviewService exreviewService;
+	
+	@GetMapping("/search")
+	public String expertMainSearch(
+		@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage
+		,@ModelAttribute("simpleCondition")SearchVO searchVO
+		,Model model
+		) {
+		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
+		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+		exprodservice.selectExprodList(pagingVO);
+		model.addAttribute("pagingVO", pagingVO);
+		
+		return "expert/expertSearch";
+	}
+	
 	@GetMapping
 	public String expertMain(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage

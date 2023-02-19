@@ -373,5 +373,37 @@ element.style {
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board/bxslider.js"></script>
+<script>
+function sliderDisableCheck() {
+    if ($('.wrap_slide_category .bx-next').hasClass('disabled')) {
+        $('.wrap_slide_category').addClass('category_end');
+    } else {
+        $('.wrap_slide_category').removeClass('category_end');
+    }
+}
+$('.js-category').bxSlider({
+    mode: 'horizontal',
+    slideWidth: 114,
+    moveSlides: 3,
+    maxSlides: 35,
+    minSlides: 5,
+    slideMargin: 12,
+    controls: true,
+    pager: false,
+    infiniteLoop: false,
+    hideControlOnEnd: true,
+    prevText: '<span class="blind">이전</span>',
+    nextText: '<span class="blind">다음</span>',
+    touchEnabled: (navigator.maxTouchPoints > 0),
+    onSliderLoad: function () {
+        sliderDisableCheck();
+        $(this).removeClass('visible_hidden');
+    },
+    onSlideAfter: function () {
+        sliderDisableCheck();
+    }
+});
+</script>
 </body>
 </html>

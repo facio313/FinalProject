@@ -53,7 +53,21 @@
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리</span>
 								<div class="box_qna_category">
-									<button type="button" class="btn_category_select">전체</button>
+									<div class="inpSel">
+										<select id="replySort" name="replySort" title="댓글 정렬 선택">
+											<option value="전체글" selected="">전체글</option>
+											<option value="신입">신입</option>
+											<option value="취준">취준</option>
+											<option value="채용공고">채용공고</option>
+											<option value="자소서">자소서</option>
+											<option value="면접">면접</option>
+											<option value="Q&A">Q&A</option>
+											<option value="커리어">커리어</option>
+											<option value="이직">이직</option>
+											<option value="퇴사">퇴사</option>
+											<option value="잡담">잡담</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>

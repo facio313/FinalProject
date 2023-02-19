@@ -30,7 +30,6 @@
 			main {
  				position: abosolute;
  				top: 50px;
- 				left: 25px;
 				background: white;
 				border-radius: 30px;
 				padding-top: 50px;
@@ -41,11 +40,9 @@
 	<body>
 		<tiles:insertAttribute  name="headerMenu"/>
 		<div class="row">
-			<div class="col-md-1"></div>
-			<main class="col-md-10">
+			<main class="col-md-10 ks-lm-radius mx-auto">
 				<tiles:insertAttribute  name="content"/>
 			</main>
-			<div class="col-md-1"></div>
 		</div>
 
 		<tiles:insertAttribute name="floating"/>

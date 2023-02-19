@@ -49,14 +49,66 @@
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form enctype="multipart/form-data"
-						class="p-4 p-md-5 border rounded" method="post">
-						<div class="qna_write_wrap">
+					<form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post">
+						<div class="contents_container qna_write_wrap">
+							<input type="hidden" name="category_type" value="topic" id="category_type">
 							<div class="qna_write_selection">
-								<span class="qna_category_tit">카테고리</span>
+								<span class="qna_category_tit">카테고리 </span>
+
+								<!-- <div class="box_qna_category">
+									<div class="inpSel">
+										<select id="replySort" name="replySort" title="댓글 정렬 선택">
+											<option value="전체글" selected="">전체글</option>
+											<option value="신입">신입</option>
+											<option value="취준">취준</option>
+											<option value="채용공고">채용공고</option>
+											<option value="자소서">자소서</option>
+											<option value="면접">면접</option>
+											<option value="Q&A">Q&A</option>
+											<option value="커리어">커리어</option>
+											<option value="이직">이직</option>
+											<option value="퇴사">퇴사</option>
+											<option value="잡담">잡담</option>
+										</select>
+									</div>
+								</div> -->
 								<div class="box_qna_category">
-									<button type="button" class="btn_category_select">전체</button>
+									<button type="button" class="btn_category_select">신입</button>
+									<ul class="list_qna_category">
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="신입" data-upper_name=""> <span>신입</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="취준" data-upper_name=""> <span>취준</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="채용공고" data-upper_name=""> <span>채용공고</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="자소서" data-upper_name=""> <span>자소서</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="면접" data-upper_name=""> <span>면접</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="Q&A" data-upper_name=""> <span>Q
+													&A</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="커리어" data-upper_name=""> <span>커리어</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="이직" data-upper_name=""> <span>이직</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="퇴사" data-upper_name=""> <span>퇴사</span>
+										</a></li>
+										<li><a href="javascript:;" class="category"
+											data-type="topic" data-name="잡담" data-upper_name=""> <span>잡담</span>
+										</a></li>
+									</ul>
 								</div>
+
 							</div>
 						</div>
 
@@ -94,7 +146,6 @@
 		</div>
 	</section>
 
-
 <!-- SCRIPTS -->
 <!--
 저장경로 변경해야함!
@@ -107,10 +158,10 @@ CKEDITOR.replace('editor', {
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-  ClassicEditor.create( document.querySelector( '#editor' ), {
-	/* removePlugins: [ 'Heading' ], */
-    language: "ko"
-  } );
+	ClassicEditor.create(document.querySelector('#editor'), {
+		/* removePlugins: [ 'Heading' ], */
+		language : "ko"
+	});
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
@@ -124,6 +175,8 @@ CKEDITOR.replace('editor', {
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/board/regist.js"></script>
 
 </body>
 </html>

@@ -71,7 +71,7 @@
 	</section>
 	
 	<!-- 검색창 -->
-	<section style="padding-top: 100px;" id="home-section">
+	<section style="padding-top: 100px;">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-12">
@@ -102,6 +102,7 @@
                     <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
                       <select
                         class="selectpicker"
+                        name="prWanttype"
                         data-style="btn-white btn-lg"
                         data-width="100%"
                         data-live-search="true"
@@ -109,8 +110,11 @@
                         tabindex="-98"
                       >
                         <option class="bs-title-option" value=""></option>
-                        <option>Part Time</option>
-                        <option>Full Time</option>
+                        <option value="사원">사원급</option>
+                        <option value="주임">주임급</option>
+                        <option value="대리">대리급</option>
+                        <option value="과장">과장급</option>
+                        <option value="부장">부장급</option>
                       </select>
                       <div
                         class="dropdown-menu"
@@ -157,18 +161,21 @@
                     <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
                       <select
                         class="selectpicker"
+                        name="prAnnual"
                         data-style="btn-white btn-lg"
                         data-width="100%"
                         data-live-search="true"
                         title="경력"
                         tabindex="-98"
                       >
-                        <option class="bs-title-option" value=""></option>
-                        <option>신입</option>
-                        <option>1년</option>
-                        <option>2~3년</option>
-                        <option>4~5년</option>
-                        <option>5년 이상</option>
+                        <option class="bs-title-option" value="none"></option>
+                        <option value="신입">신입</option>
+                        <option value="1년차 미만">1년차 미만</option>
+                        <option value="1~2년">1~2년</option>
+                        <option value="2~3년">2~3년</option>
+                        <option value="3~5년">3~5년</option>
+                        <option value="5~10년">5~10년</option>
+                        <option value="10년 이상">10년 이상</option>
 					  </select>
                       <div
                         class="dropdown-menu"
@@ -215,6 +222,7 @@
                     <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
                       <select
                         class="selectpicker"
+                        name="prEdu"
                         data-style="btn-white btn-lg"
                         data-width="100%"
                         data-live-search="true"
@@ -224,7 +232,10 @@
                         <option class="bs-title-option" value=""></option>
                         <option>초,중졸</option>
                         <option>고졸</option>
-                        <option>대졸</option>
+                        <option>대학교(2,3년)졸업예정</option>
+                        <option>대학교(4년)졸업예정</option>
+                        <option>대학교(2,3년)졸업</option>
+                        <option>대학교(4년)졸업</option>
                         <option>석사</option>
                         <option>박사</option>
                       </select>
@@ -498,56 +509,21 @@
     		}
     	});
       
-      /* 서치결과 */
-//       let searchForm = $("#searchForm").on("submit", function(event){
-//     		event.preventDefault();
-//     		let url = this.action;
-//     		let method = this.method;
-//     		let queryString = $(this).serialize();
-//     		$.ajax({
-//     			url : url,
-//     			method : method,
-//     			data : queryString,
-//     			dataType : "json",
-//     			success : function(resp) {
-//     				searchForm[0].page.value="";
-    	         
-//     				let pagingVO = resp.pagingVO;
-    	         
-//     				let dataList = pagingVO.dataList;
-//     				let trTags = [];
-//     				if(dataList){
-//     					$.each(dataList, function(index, selfpr){
-//     						trTags.push(makeTrTag());
-//     					});
-//     				}else{
-//     					let tr = $("<tr>").html(
-//     						$("<td>").attr("colspan", "7").html("조건에 맞는 인재 없음.")
-//     					);   
-//     					trTags.push(tr);
-//     				}
-//     				listBody.html(trTags);
-//     				if(resp.pagingHTML)
-//     					pagingArea.html(resp.pagingHTML);            
-//     			},
-//     			error : function(jqXHR, status, error) {
-//     				console.log(jqXHR);
-//     				console.log(status);
-//     				console.log(error);
-//     			}
-//     		});
-//     		return false;
-//     	}).submit();
-      
-      
+	/* 시작하자마자 전체목록 조회 */    
+	$(document).ready(function(){
+		$("#btnsearch").trigger('click');
+	});
+	
+	/* 서치결과 */
    	$("#btnsearch").click(function(){
 		$.ajax({
 			url: "<%=request.getContextPath() %>/selfpr",
 			method: "get",
-// 			data: $('#searchUI').serialize(),
+			data: $('#searchUI').serialize(),
 			dataType: "json",
 			success: function(resp){
 				console.log(resp);
+					
 					let dataList = resp.pagingVO.dataList;
 					console.log(dataList);
 					let trTags = [];
@@ -560,6 +536,9 @@
 				});
 	    });
     
+   	
+//  tr 태그
+
     let makeTrTag = function(selfpr){
     	let selfprtag = "";
     	selfprtag += `
@@ -573,7 +552,7 @@
               <div class="block__91147 d-flex align-items-center">
                 <figure class="mr-5"><img src="resources/images/jobSeeker.png" alt="Image" class="img-jobseeker"></figure>
                 <div>
-                  <a href=""><h4>\${selfpr.memName }</h4></a>
+                  <a href="${pageContext.request.contextPath}/selfpr/Detail/?no=\${selfpr.prNo }"><h4>\${selfpr.memName }</h4></a>
                   <span class="position">\${selfpr.prWantjob }</span>
                   <br>
                   <span style="font-size: 0.75em;">경력 : \${selfpr.prAnnual }</span>
@@ -585,6 +564,8 @@
           </div>`;
           return selfprtag;
     }
+    
+	console.log(typeof no);
     
       
       

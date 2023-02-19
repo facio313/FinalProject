@@ -21,5 +21,7 @@ public class BoardVO {
 
 	private int likeCnt; 		// 공감수
 	private int likeCheck;		// 공감여부
+	private char likeType;		// 공감타입
+
 
 }

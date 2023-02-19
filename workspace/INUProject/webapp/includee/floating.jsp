@@ -9,7 +9,7 @@
 	<div class="floating-button">+</div>
 	<div class="element-container">
     	<span class="float-element tooltip-left">
-			<a href="${pageContext.request.contextPath}/process">
+			<a href="${pageContext.request.contextPath}/announcement/myList">
 	   			<i class="material-icons">phone</i>
     		</a>
     	</span>

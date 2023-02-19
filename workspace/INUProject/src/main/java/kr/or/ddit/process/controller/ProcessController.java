@@ -1,6 +1,7 @@
 package kr.or.ddit.process.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.announcement.service.AnnoService;
+import kr.or.ddit.announcement.vo.AnnoDetailVO;
+import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.process.service.ProcessService;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
@@ -32,6 +36,7 @@ import kr.or.ddit.vo.MemberVO;
  * 수정일         수정자         수정내용
  * --------     --------    ----------------------
  * 2023. 2. 4.      최경수       최초작성
+ * 2023. 2. 17.     최경수       채용과정 추가, 수정, 삭제
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -48,32 +53,63 @@ public class ProcessController {
 	@Inject
 	private ProcessService service;
 	
+	@Inject
+	private AnnoService annoService;
+	
 	@ModelAttribute
 	public ProcessVO process() {
 		return new ProcessVO();
 	}
 	
-	// 메인(일반회원)
+	@ModelAttribute
+	public AnnoVO anno() {
+		return new AnnoVO();
+	}
+	
+	@ModelAttribute
+	public AnnoDetailVO detail() {
+		return new AnnoDetailVO();
+	}
+	
+	// 메인
 	@GetMapping
 	public String main(
 		Model model
 		, @AuthMember MemberVO authMember
 	) {
+		String cmpId = authMember.getIncruiterVO().getCmpId();
 		String memId = authMember.getMemId();
-		List<ProcessVO> processList = service.retrieveProcessList(memId);
+		List<ProcessVO> processList = service.retrieveProcessList(cmpId);
+		List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
+		
+		for (AnnoVO anno : list) {
+			anno.setDetailList((annoService.retrieveAnno(anno.getAnnoNo()).getDetailList()));
+		}
+		model.addAttribute("list", list);
 		model.addAttribute("processList", processList);
 		return "process/processMain";
 	}
 	
+	@GetMapping("/{annoNo}")
+	public String processAnnoView(
+		Model model
+		, @PathVariable String annoNo
+		, @AuthMember MemberVO authMember
+	) {
+		String memId = authMember.getMemId();
+		annoService.retrieveMyAnnoList(memId);
+		return "process/processView";
+	}
+	
 	// 세부
-	@GetMapping("/{daNo}")
+	@GetMapping("/{daNo}/{pc}")
 	public String view(
 		Model model
 		, @PathVariable String daNo
+		, @PathVariable String pc
 		, @ModelAttribute("process") ProcessVO process
 	) {
-		
-		process = service.retrieveProcess(daNo);
+		process = service.retrieveProcess(daNo, pc);
 		model.addAttribute("process", process);
 		return "process/processView";
 	}
@@ -83,7 +119,9 @@ public class ProcessController {
 	public String form(
 		Model model
 		, @ModelAttribute("process") ProcessVO process
+		, @RequestParam("daNo") String daNo
 	) {
+		model.addAttribute("daNo", daNo);
 		return "process/processForm";
 	}
 	
@@ -91,9 +129,23 @@ public class ProcessController {
 	@PostMapping
 	public String insert(
 		Model model
-		, @ModelAttribute("processList") List<ProcessVO> processList
+		, @ModelAttribute("process") ProcessVO process
 	) {
-		service.createProcess(processList);
+		//jsp에서 넘어옴
+		List<ProcessVO> list = process.getProcessList();
+		
+		//최종
+		List<ProcessVO> resultList = new ArrayList<ProcessVO>();
+		
+		for (ProcessVO vo : list) {
+			if (!vo.getProcessStartDate().equals("")) {
+				resultList.add(vo);
+			}
+		}
+		
+		process.setProcessList(resultList);
+		
+		service.createProcess(process);
 		return "redirect:/process";
 	}
 	
@@ -104,7 +156,7 @@ public class ProcessController {
 		, @ModelAttribute("process") ProcessVO process
 		, @RequestParam("daNo") String daNo
 	) {
-		process = service.retrieveProcess(daNo);
+//		process = service.retrieveProcess(daNo);
 		model.addAttribute("process", process);
 		return "process/processEdit";
 	}

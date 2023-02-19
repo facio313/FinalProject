@@ -54,7 +54,6 @@
 			   CMP_ID,
 			   JOB_NAME,
 			   INCUM_TITLE,
-			   INCUM_CONTENT,
 			   INCUM_NAME,
 			   TO_CHAR(INCUM_DATE,'YYYY-MM-DD') INCUM_DATE,
 			   INCUM_HITS,

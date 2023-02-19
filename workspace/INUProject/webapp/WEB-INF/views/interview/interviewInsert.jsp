@@ -54,9 +54,78 @@
 						<div class="qna_write_wrap">
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리</span>
+								<!-- <div class="box_qna_category">
+									<div class="inpSel">
+										<select id="replySort" name="replySort" title="댓글 정렬 선택">
+											<option value="전체글" selected="">전체</option>
+											<option value="신입">신입</option>
+											<option value="취준">취준</option>
+											<option value="채용공고">채용공고</option>
+											<option value="자소서">자소서</option>
+											<option value="면접">면접</option>
+											<option value="Q&A">Q&A</option>
+											<option value="커리어">커리어</option>
+											<option value="이직">이직</option>
+											<option value="퇴사">퇴사</option>
+											<option value="잡담">잡담</option>
+										</select>
+									</div>
+								</div> -->
 								<div class="box_qna_category">
-									<button type="button" class="btn_category_select">전체</button>
-								</div>
+  <button type="button" class="btn_category_select">신입</button>
+  <ul class="list_qna_category">
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="신입" data-upper_name="">
+        <span>신입</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="취준" data-upper_name="">
+        <span>취준</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="채용공고" data-upper_name="">
+        <span>채용공고</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="자소서" data-upper_name="">
+        <span>자소서</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="면접" data-upper_name="">
+        <span>면접</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="Q&amp;A" data-upper_name="">
+        <span>Q&amp;A</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="커리어" data-upper_name="">
+        <span>커리어</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="이직" data-upper_name="">
+        <span>이직</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="퇴사" data-upper_name="">
+        <span>퇴사</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="category" data-type="topic" data-name="잡담" data-upper_name="">
+        <span>잡담</span>
+      </a>
+    </li>
+  </ul>
+</div>
 							</div>
 						</div>
 

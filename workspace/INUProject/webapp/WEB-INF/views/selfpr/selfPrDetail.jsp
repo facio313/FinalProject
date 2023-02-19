@@ -3,10 +3,12 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * ${date}      윤호연      최초작성
+* 2023.02.17   윤호연      1차수정
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,9 +69,9 @@
 	          <div>
 	             <h3>ㅇㄹㅇㄹ인림ㄴㅇ린ㅁ리</h3>
 	             <hr>
-	             <span class="position">Web Designer</span>
+	             <span class="position">${selfprmem.prWantjob }</span>
 	             <br>
-	             <span>주소</span>
+	             <span>${selfprmem.memAddr1}</span>
 	             <br>
 	             <span>전화번호</span>
 	             <hr>
@@ -98,7 +100,32 @@
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
           <strong class="d-block" style="font-size: 1.3em; color: red;">학력사항</strong>
           <hr>
-          <span>대학교 4년 재학</span>
+	          <table class="table">
+	          	<thead>
+	          	  <tr>
+	          		<th>학교명</th>
+	          		<th>전공분류</th>
+	          		<th>전공</th>
+	          		<th>상태</th>
+	          		<th>학점</th>
+	          		<th>입학일</th>
+	          		<th>졸업일</th>
+	          	  </tr>
+	          	</thead>
+	          	<tbody>
+	          	<c:forEach items="${selfpredu }" var="edu">
+		          <tr>
+		          	<td>${edu.eduName }</td>
+		          	<td>${edu.eduDepart }</td>
+		          	<td>${edu.eduMajor }</td>
+		          	<td>${edu.eduStatus }</td>
+		          	<td>${edu.eduScore }</td>
+		          	<td>${edu.eduEntered }</td>
+		          	<td>${edu.eduGraduated }</td>
+		          </tr>
+	          	</tbody>
+	         	</c:forEach>
+	          </table>
         </div>
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
           <strong class="d-block" style="font-size: 1.3em; color: red;">경력사항</strong>
@@ -167,6 +194,10 @@
         </div>
       </div>
     </section>
+    
+    <script>
+    	console.log(${selfpredu });
+    </script>
     
       <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

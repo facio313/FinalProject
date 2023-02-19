@@ -42,7 +42,7 @@
 	<body id="top" class="d-flex flex-column">
 		<tiles:insertAttribute  name="headerMenu"/>
 		<div id="main_div" class="row">
-			<tiles:insertAttribute name="leftMenu" ignore="true"/>
+			<tiles:insertAttribute name="leftMenu"/>
 			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;">
 				<tiles:insertAttribute  name="content" />
 			</main>

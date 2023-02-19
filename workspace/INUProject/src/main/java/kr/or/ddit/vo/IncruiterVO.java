@@ -13,6 +13,7 @@ public class IncruiterVO extends MemberVO{
 	private String memApproval;
 	private String memDate;
 	private String memDelete;
+	private String memEmail;
 	
 	private String cmpBsnsNo; //사업자 등록번호 (기업회원 아이디 찾을때 필요 - 형준)
 }

@@ -16,22 +16,6 @@
 		<script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
 
-<!-- HOME -->
-<div class="site-wrap">
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">이력서 관리</h1>
-            <div class="custom-breadcrumbs">
-              <a href="${pageContext.request.contextPath}/mypage/seeker">My Page</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>My Resume</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="py-5 bg-image overlay-primary fixed overlay" id="next-section" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');">
       <div class="container">
         <div class="row mb-5 justify-content-center">

@@ -2,23 +2,124 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.process.dao.ProcessDAO">
 	
-	<select id="selectProcessList" parameterType="String" resultType="kr.or.ddit.process.vo.ProcessVO">
-		SELECT A.*, B.*
+	
+	<!-- 한 회사의 모든 공고에 대한 채용과정 -->
+	<select id="selectProcessList" parameterType="String" resultType="ProcessVO">
+		SELECT
+			A.DA_NO
+			, A.PROCESS_CODE_ID
+			, A.PROCESS_SN
+			, A.PROCESS_START_DATE
+			, A.PROCESS_END_DATE
+			, A.PROCESS_WAY
+			, A.PROCESS_SCORE
+			, A.TBL_ID
+			, A.PROCESS_LIMIT
+			, A.PROCESS_DELETE_DATE
+			, A.PROCESS_INSERT_DATE
+<!-- 			, B.DA_FD -->
+<!-- 			, B.DA_COUNT -->
+<!-- 			, B.DA_TASK -->
+<!-- 			, B.DA_DEPARTMENT -->
+<!-- 			, B.DA_CONDITION -->
+<!-- 			, B.DA_PREFER -->
+<!-- 			, B.DA_WORKDAY -->
+<!-- 			, B.DA_WORKTIME -->
+<!-- 			, B.DA_CAR_YEER -->
+<!-- 			, B.REGION_CODE -->
+<!-- 			, B.EMPLTYPE_CODE -->
+<!-- 			, B.JOB_CODE -->
+<!-- 			, C.ANNO_NO -->
+<!-- 			, C.CMP_ID -->
+<!-- 			, C.MEM_ID -->
+<!-- 			, C.ANNO_TITLE -->
+<!-- 			, C.ANNO_CONTENT -->
+<!-- 			, C.ANNO_STARTDATE -->
+<!-- 			, C.ANNO_ENDDATE -->
+<!-- 			, C.ANNO_HIT -->
+<!-- 			, C.ANNO_DATE -->
+<!-- 			, C.ANNO_STATE_CD -->
+<!-- 			, C.ANNO_WORKENV -->
+<!-- 			, C.ANNO_PROBATION -->
+<!-- 			, C.ANNO_SALARY -->
+<!-- 			, C.INDUSTRY_CODE -->
+<!-- 			, C.EDU_CODE -->
 		FROM PROCESS A
-		INNER JOIN APPLY B ON A.DA_NO = B.DA_NO
-		WHERE B.MEM_ID = #{memId}
-		AND a.PROCESS_DELETE_DATE IS NULL	
+		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
+		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
+		WHERE C.CMP_ID = #{cmpId}
+		AND A.PROCESS_DELETE_DATE IS NULL	
+	</select>
+
+	<!-- 한 공고에 대한 채용과정 -->
+	<select id="selectProcessListForAnno" parameterType="String" resultType="ProcessVO">
+		SELECT
+			A.DA_NO
+			, A.PROCESS_CODE_ID
+			, A.PROCESS_SN
+			, A.PROCESS_START_DATE
+			, A.PROCESS_END_DATE
+			, A.PROCESS_WAY
+			, A.PROCESS_SCORE
+			, A.TBL_ID
+			, A.PROCESS_LIMIT
+			, A.PROCESS_DELETE_DATE
+			, A.PROCESS_INSERT_DATE
+		FROM PROCESS A
+		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
+		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
+		WHERE B.ANNO_NO = #{annoNo}
+		AND A.PROCESS_DELETE_DATE IS NULL	
+	</select>
+
+	<!-- 한 세부공고에 대한 채용과정 -->
+	<select id="selectProcessListForDetail" parameterType="String" resultType="ProcessVO">
+		SELECT
+			A.DA_NO
+			, A.PROCESS_CODE_ID
+			, A.PROCESS_SN
+			, A.PROCESS_START_DATE
+			, A.PROCESS_END_DATE
+			, A.PROCESS_WAY
+			, A.PROCESS_SCORE
+			, A.TBL_ID
+			, A.PROCESS_LIMIT
+			, A.PROCESS_DELETE_DATE
+			, A.PROCESS_INSERT_DATE
+		FROM PROCESS A
+		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
+		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
+		WHERE B.ANNO_NO = (
+                            SELECT ANNO_NO
+                            FROM ANNO_DETAIL
+                            WHERE DA_NO = #{daNo}
+                        	)
+		AND A.PROCESS_DELETE_DATE IS NULL
 	</select>
 	
-	<select id="selectProcess" parameterType="String" resultType="kr.or.ddit.process.vo.ProcessVO">
-		SELECT *
-		FROM PROCESS
-		WHERE DA_NO = #{daNo}
+	<!-- 한 채용과정 -->
+	<select id="selectProcess" parameterType="String" resultType="ProcessVO">
+		SELECT
+			A.DA_NO
+			, A.PROCESS_CODE_ID
+			, A.PROCESS_SN
+			, A.PROCESS_START_DATE
+			, A.PROCESS_END_DATE
+			, A.PROCESS_WAY
+			, A.PROCESS_SCORE
+			, A.TBL_ID
+			, A.PROCESS_LIMIT
+			, A.PROCESS_DELETE_DATE
+			, A.PROCESS_INSERT_DATE
+		FROM PROCESS A
+		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
+		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
+		WHERE B.DA_NO = #{daNo}
 	</select>
 	
-	<insert id="insertProcess" parameterType="java.util.List">
+	<insert id="insertProcess" parameterType="ProcessVO">
 		INSERT ALL
-		<foreach collection="list" item="process" index="idx">
+		<foreach collection="processList" item="process" index="idx">
 			INTO PROCESS (
 			    DA_NO
 			    , PROCESS_CODE_ID
@@ -31,15 +132,15 @@
 			    , PROCESS_LIMIT
 			    , PROCESS_INSERT_DATE
 			) VALUES (
-				#{daNo,jdbcType=VARCHAR}
-				, #{processCodeId,jdbcType=VARCHAR}
-				, #{processSn,jdbcType=NUMERIC}
-				, #{processStartDate,jdbcType=DATE}
-				, #{processEndDate,jdbcType=DATE}
-				, #{processWay,jdbcType=VARCHAR}
-				, #{processScore,jdbcType=NUMERIC}
-				, #{tblId,jdbcType=VARCHAR}
-				, #{processLimit,jdbcType=VARCHAR}
+				#{process.daNo,jdbcType=VARCHAR}
+				, #{process.processCodeId,jdbcType=VARCHAR}
+				, #{process.processSn,jdbcType=NUMERIC}
+				, #{process.processStartDate,jdbcType=DATE}
+				, #{process.processEndDate,jdbcType=DATE}
+				, #{process.processWay,jdbcType=VARCHAR}
+				, #{process.processScore,jdbcType=NUMERIC}
+				, #{process.tblId,jdbcType=VARCHAR}
+				, #{process.processLimit,jdbcType=VARCHAR}
 				, SYSDATE
 			)
 		</foreach>

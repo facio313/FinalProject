@@ -7,50 +7,70 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/leftMenu/css/style.css">
 		
+<style>
+.hja {
+color: white !important;
+}
+</style>
+		
 <leftmenu class="col-lg-2 sidebar ks-leftmenu ks-lm-radius">
-	<h1 style="text-align:right;"><i id="collapse" class="fa fa-bars"></i></h1>
+	<h2 style="text-align:right;"><i id="collapse" class="fa fa-bars"></i></h2>
 	<sidebar>
-		<h1 class="text-center"><a href="${pageContext.request.contextPath }/systemManagement" class="logo">시스템 관리 홈</a></h1>
+		<h2 class="text-center"><a href="${pageContext.request.contextPath }/systemManagement" class="logo hja">시스템 관리 홈</a></h2>
 		<hr>
-		<h2 class="text-center"><a href="${pageContext.request.contextPath }/systemManagement/seekerList" class="logo">일반회원 계정관리</a></h2>
+		<h3 class="text-center"><a href="${pageContext.request.contextPath }/systemManagement/seekerList" class="logo hja">일반 회원 관리</a></h3>
 		<hr>
 		<ul class="list-unstyled components mb-5 text-left">
 			<li class="active">
-				<a href="${pageContext.request.contextPath}/systemManagement/seekerList"><span class="fa fa-home"></span>일반회원 계정목록</a>
+				<a href="${pageContext.request.contextPath}/systemManagement/seekerList" class="hja"><span class="fa fa-home hja"></span>일반회원 계정목록</a>
 			</li>
 			<li>
-			    <a href="${pageContext.request.contextPath}/systemManagement/cutList"><span class="fa fa-user"></span>차단 계정목록</a>
+			    <a href="${pageContext.request.contextPath}/systemManagement/cutList" class="hja"><span class="fa fa-user hja"></span>차단 계정목록</a>
 			</li>
 			<li>
-			  	<a href="${pageContext.request.contextPath}/systemManagement/blackList"><span class="fa fa-sticky-note"></span>블랙리스트 목록</a>
+			  	<a href="${pageContext.request.contextPath}/systemManagement/blackList" class="hja"><span class="fa fa-sticky-note hja"></span>블랙리스트 목록</a>
 			</li>
 		</ul>
 		<hr>
-		<h2 class="text-center"><a href="${pageContext.request.contextPath }/" class="logo">기업회원 계정관리</a></h2>
+		<h3 class="text-center "><a href="${pageContext.request.contextPath }/" class="logo hja">기업 관리</a></h3>
 		<hr>
 		<ul class="list-unstyled components mb-5 text-left">
 			<li class="active">
-				<a href="${pageContext.request.contextPath}/"><span class="fa fa-home"></span>기업회원 계정목록</a>
+				<a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-home hja"></span>기업목록</a>
+			</li>
+			<li class="active">
+				<a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-home hja"></span>기업회원 계정목록</a>
 			</li>
 			<li>
-			    <a href="${pageContext.request.contextPath}/"><span class="fa fa-user"></span>기업총괄회원 계정목록</a>
+			    <a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-user hja"></span>기업총괄회원 계정목록</a>
 			</li>
 		</ul>
 		<hr>
-		<h2 class="text-center"><a href="${pageContext.request.contextPath }/" class="logo">전문가 계정관리</a></h2>
+		<h3 class="text-center"><a href="${pageContext.request.contextPath }/" class="logo hja">전문가, 상품 관리</a></h3>
 		<hr>
 		<ul class="list-unstyled components mb-5 text-left">
 			<li class="active">
-				<a href="${pageContext.request.contextPath}/"><span class="fa fa-home"></span>전문가 계정목록</a>
+				<a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-home hja"></span>전문가 계정목록</a>
 			</li>
 			<li>
-			    <a href="${pageContext.request.contextPath}/"><span class="fa fa-user"></span>전문가 신청목록</a>
+			    <a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-user hja"></span>전문가 신청목록</a>
 			</li>
 			<li>
-			  	<a href="${pageContext.request.contextPath}/"><span class="fa fa-sticky-note"></span>상품 신청목록</a>
+			  	<a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-sticky-note hja"></span>상품 신청목록</a>
 			</li>
 			<li>
-			  	<a href="${pageContext.request.contextPath}/"><span class="fa fa-sticky-note"></span>상품 철회목록</a>
+			  	<a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-sticky-note hja"></span>상품 철회목록</a>
+			</li>
+		</ul>
+		<hr>
+		<h3 class="text-center"><a href="${pageContext.request.contextPath }/" class="logo hja">신고 관리</a></h3>
+		<hr>
+		<ul class="list-unstyled components mb-5 text-left">
+			<li class="active">
+				<a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-home hja"></span>신고 게시글 목록</a>
+			</li>
+			<li>
+			    <a href="${pageContext.request.contextPath}/" class="hja"><span class="fa fa-user hja"></span>신고 댓글 목록</a>
 			</li>
 		</ul>
 	</sidebar>

@@ -63,7 +63,7 @@
 
 body {
 	margin: 0;
-	font-family: "Heebo", sans-serif;
+	font-family: "Noto Sans KR", sans-serif;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
@@ -214,6 +214,8 @@ sup {
 
 a {
 	color: black;
+	font-family: "Noto Sans KR", sans-serif;
+	font-weight: 700;
 	text-decoration: none
 }
 
@@ -3797,6 +3799,8 @@ textarea.form-control-lg {
 .nav-link {
 	display: block;
 	padding: .5rem 1rem;
+	font-weight: 600;
+	font-size: 17px;
 	color: #00B98E;
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 		border-color 0.15s ease-in-out

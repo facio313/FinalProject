@@ -35,6 +35,7 @@ public class HelpVO extends CommonsAttachVO {
 	private String helpDelDate;    	//수정일
 	private int helpHit;            //조회수
 
+	private String code;			//분류코드
 	private String codeName;		//분류코드명
 	
 	public HelpVO(String helpSort, String helpCate) {

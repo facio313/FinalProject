@@ -19,27 +19,15 @@
 
     
 
-
+	<div class="wrap_title_recruit">
+	    <h1 class="title_common" style="font-size: 40px;">시스템 관리</h1>
+	</div>
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">시스템 관리</h1>
-            <div class="custom-breadcrumbs">
-              <a href="#">Home</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>About Us</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="py-5 bg-image overlay-primary fixed overlay" id="next-section" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');">
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2 text-white">오늘의 업데이트 목록</h2>
+            <h2 class="section-title mb-2 text-white">승인 대기 목록</h2>
           </div>
         </div>
         <div class="row pb-0 block__19738 section-counter">
@@ -48,28 +36,42 @@
             <div class="d-flex align-items-center justify-content-center mb-2">
               <strong class="number" data-number="1930">0</strong>
             </div>
-            <span class="caption">가입한 회원</span>
+            <span class="caption">기업 총괄 회원 등록 신청</span>
           </div>
 
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
               <strong class="number" data-number="54">0</strong>
             </div>
-            <span class="caption">작성된 공고</span>
+            <span class="caption">전문가 등록 신청</span>
           </div>
 
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
               <strong class="number" data-number="120">0</strong>
             </div>
-            <span class="caption">작성된 기업 리뷰</span>
+            <span class="caption">상품 등록 신청</span>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="120">0</strong>
+            </div>
+            <span class="caption">올라온 문의사항</span>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="120">0</strong>
+            </div>
+            <span class="caption">신고된 게시글</span>
           </div>
 
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
               <strong class="number" data-number="550">0</strong>
             </div>
-            <span class="caption">작성된 게시글</span>
+            <span class="caption">신고된 댓글</span>
           </div>
 
             

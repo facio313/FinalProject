@@ -53,8 +53,8 @@
 	<select id="selectNoticeList" parameterType="PagingVO" resultType="NoticeVO">
 		WITH ORDEREDNOTICE AS (
 		    SELECT NOTICE_SN, MEM_ID, NOTICE_SORT
-				, NOTICE_TITLE, NOTICE_CONTENT
-				, NOTICE_DATE, NOTICE_HIT, NOTICE_DEL_DATE		           
+				, NOTICE_TITLE, NOTICE_DATE
+				, NOTICE_HIT, NOTICE_DEL_DATE		           
 		    FROM NOTICE
 			<include refid="searchFrag" />
 		    ORDER BY NOTICE_SN DESC

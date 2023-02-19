@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
- * @author 작성자명
+ * @author 박형준
  * @since 2023. 2. 1.
  * @version 1.0
  * @see javax.servlet.http.HttpServlet
@@ -57,33 +57,20 @@ public class NoticeController {
 		return new NoticeVO();
 	}
 	
-	//공지사항 목록
-	/*@GetMapping
-	public String noticeListUI() {
-		return "help/notice/noticeList";
-	}*/
-	
 	//공지사항 목록 페이징
-//	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE) 
 	@GetMapping
 	public String noticeListData(
 		@RequestParam(value="page", required=false, defaultValue="1") int currentPage	//요청된 파라미터(page)를 currentpage에 넣음
 		, Model model
-//		, @ModelAttribute("detailCondition") NoticeVO detailCondition
 		, @ModelAttribute("simpleCondition") SearchVO searchVO
 	) {
 		PagingVO<NoticeVO> pagingVO = new PagingVO<>(10, 10);
 		pagingVO.setCurrentPage(currentPage); //현재페이지
 		pagingVO.setSimpleCondition(searchVO); // 검색 키워드
-//		pagingVO.setDetailCondition(detailCondition);
 		
 		service.retrieveNoticeList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
-		/*if(!pagingVO.getDataList().isEmpty())  //의심이 됨
-			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-		*/
-//		return "jsonView";
 		return "help/notice/noticeList";
 	}
 	
@@ -115,7 +102,7 @@ public class NoticeController {
 		notice.setMemId(authMember.getMemId());
 		int rowcnt = service.createNotice(notice);
 		if(rowcnt>0) {
-			viewName = "redirect:/help/notice"+notice.getNoticeSn();
+			viewName = "redirect:/help/notice";
 		}else {
 			model.addAttribute("message","서버 오류");
 			viewName = "help/notice/noticeForm";

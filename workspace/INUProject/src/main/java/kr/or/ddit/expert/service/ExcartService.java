@@ -9,4 +9,6 @@ public interface ExcartService {
 	public List<ExcartVO> selectExcartList(String memId);
 	
 	public ExcartVO slectExcart(String cartId);
+	
+	public int insertExcart(ExcartVO excart);
 }

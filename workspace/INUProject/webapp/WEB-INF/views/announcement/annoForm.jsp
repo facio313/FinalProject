@@ -25,6 +25,12 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
+
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
@@ -77,13 +83,11 @@
 
 	<section class="site-section">
 		<div class="container">
-
 			<div class="row align-items-center mb-5">
 				<div class="col-lg-8 mb-4 mb-lg-0">
 					<div class="d-flex align-items-center">
 						<div>
 							<h2>공통 입력</h2>
-							
 						</div>
 					</div>
 				</div>
@@ -107,7 +111,7 @@
 							</div>
 							<div class="container">
 								<div class="row pp">
-									<div class="col-6 col-md-2">
+									<div class="col-6 col-md-2" >
 										공지 제목
 										<div class="ref">
 											※필수
@@ -125,7 +129,7 @@
 										</div>
 									</div>
 									<div class="form-group col-md-10" >
-										<input type="text" name="daterange" value="01/01/2018" class="box"/>
+										<input type="text" name="datetimes" class="box" style="width: 270px"/>
 										<form:hidden path="annoStartdate" />
 										<form:hidden path="annoEnddate" />
 									</div>
@@ -137,7 +141,7 @@
 											※필수
 										</div>
 									</div>
-									<div class="form-group col-md-6">
+									<div class="form-group col-md-6 ">
 										<form:select path="industry0" class="box">
 											<option value>대분류</option>
 										</form:select>
@@ -190,10 +194,11 @@
 											<form:option value="면접후결정"/>면접 후 결정
 											<form:option value="연봉"/>연봉
 											<form:option value="월급"/>월급
+											<form:option value="시급"/>월급
 										</form:select>
 										<div style="display: inline-block;">
 											<div id="salaryDetail" style="display: none;">
-												<input type="number" name="salaryDetail" class="box" value="0" min="0" style="width: 100px; height: 26px;"> 만원
+												<input type="number" name="salaryDetail" class="box" value="0" min="0" step="0.1" style="width: 100px; height: 26px;"> 만원
 											</div>
 										</div>
 									</div>
@@ -248,12 +253,13 @@
 						
 						
 						<h3 class="text-black mb-5 border-bottom pb-2">2. 모집분야(세부)</h3>
-						<button type="button" id="testBtn">버튼임버튼임버튼임</button>
+						
 						
 						<!-- 탭머리 -->
 						<div class="row" style="margin-bottom: 50px">
-						    <div class="col-md-6">
+						    <div>
 						        <div class="profile-head">
+						        <button type="button" id="testBtn" class="btn btn-success" style="color: white; float:right">추가</button>
 						            <ul class="nav nav-tabs" id="myTab" role="tablist">
 						                <li class="nav-item" style="display: none;">
 						                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#detailContainer" role="tab" aria-controls="detailContainer0" aria-selected="true">탭1</a>
@@ -270,162 +276,7 @@
 						</div>
 						<!-- 탭몸통 -->
 						<div class="tab-content profile-tab" id="myTabContent">
-							<!-- 탭몸통1  -->
-							<div class="tab-pane fade show active d-none" id="detailContainer" role="tabpanel" aria-labelledby="home-tab" >
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">
-											모집분야
-											<div class="ref">
-												※필수
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<input name="detailList[%n].daFd" type="text" class="box" style="width: 100%" placeholder="모집분야를 입력해주세요" />
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">직무</div>
-										<div class="form-group col-md-6">
-											<select name="detailList[%n].job0" class="box">
-												<option value>상위</option>
-											</select>
-											<select name="detailList[%n].job1" class="box">
-												<option value>중위</option>
-											</select>
-											<select name="detailList[%n].jobCode" class="box">
-												<option value>하위</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">모집인원</div>
-										<div class="form-group col-md-6">
-											<input name="detailList[%n].daCount" type="number" class="box" value="0" min="0" style="width: 100px"/> 명
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">
-											경력
-											<div class="ref">
-												※필수
-											</div>
-										</div>
-										<div class="form-group col-md-8">
-											<div class="row pp">
-												<div class="col-4 col-sm-3">
-													경력무관 
-													<input type="checkbox" name="detailList[%n].careerName" value="관계없음" id="career0" />
-												</div>
-												<div class="col-4 col-sm-3">
-													신입 
-													<input type="checkbox" name="detailList[%n].careerName" value="신입" id="career1"/>
-												</div>
-												<div class="col-4 col-sm-3">
-													경력 
-													<input type="checkbox" name="detailList[%n].careerName" value="경력" id="career2"/>
-												</div>
-											</div>
-											<div id="careerYear" style="display: none">
-												<select name="detailList[%n].daCarYeer" class="box">
-													<option value="1년 이상">1년 이상</option>
-													<option value="4년 이상">4년 이상</option>
-													<option value="7년 이상">7년 이상</option>
-													<option value="10년 이상">10년 이상</option>
-													<option value="15년 이상">15년 이상</option>
-													<option value="20년 이상">20년 이상</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">근무부서</div>
-										<div class="form-group col-md-6">
-											<input name="detailList[%n].daDepartment" type="text" class="box" placeholder=" ex) 영업부" />
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">담당 업무</div>
-										<div class="form-group col-md-6 text_box text_boxp1">
-											<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
-											<div class="count countp1"><span>0</span>/200</div>
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">직급/직책</div>
-										<div class="form-group col-md-8" id="positionCheck" >
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">
-											고용 형태
-											<div class="ref">
-												※필수
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<select name="detailList[%n].empltypeCode" class="box">
-												<option value>고용형태</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="form-group container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">
-											근무지역
-											<div class="ref">
-												※필수
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-							                <input type="hidden" id="sample4_postcode" placeholder="우편번호">
-											<input type="text" id="sample4_jibunAddress" class="box" placeholder="지번주소" >
-											<input type="button" onclick="sample4_execDaumPostcode()" id="execDaumPostcode" value="주소 찾기" class="box"><br>
-											<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
-											<span id="guide" style="color:#999;display:none"></span>
-											<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
-											<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-											<!-- data.sido+" "+data.sigungu -->
-											<input type="hidden" name="detailList[%n].regionName"/>
-					                	</div>
-									</div>
-								</div>
-								<!-- 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">지원 조건</div>
-										<div class="form-group col-md-6 text_box text_boxp3">
-											<textarea name="detailList[%n].daCondition" rows="4" cols="50"></textarea>
-											<div class="count countp3"><span>0</span>/200</div>
-										</div>
-									</div>
-								</div>
-								<div class="container">
-									<div class="row pp">
-										<div class="col-6 col-md-2">우대 사항</div>
-										<div class="form-group col-md-6 text_box text_boxp4">
-											<textarea name="detailList[%n].daPrefer" rows="4" cols="50"></textarea>
-											<div class="count countp4"><span>0</span>/200</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- 탭몸통1 끝 -->
+							
 						
 						</div>
 						<!-- 탭몸통 끝 -->
@@ -446,34 +297,288 @@
 	</section>
 </div>
 
+<!-- Hidden Tab -->
+<!-- 탭몸통1  -->
+<div class="tab-pane fade show active d-none" id="detailContainer" role="tabpanel" aria-labelledby="home-tab" >
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">
+				모집분야
+				<div class="ref">
+					※필수
+				</div>
+			</div>
+			<div class="form-group col-md-6">
+				<input name="detailList[%n].daFd" type="text" class="box" style="width: 100%" placeholder="모집분야를 입력해주세요" />
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">직무</div>
+			<div class="form-group col-md-6">
+				<select name="detailList[%n].job0" class="job0 box">
+					<option value>상위</option>
+				</select>
+				<select name="detailList[%n].job1" class="job1 box">
+					<option value>중위</option>
+				</select>
+				<select name="detailList[%n].jobCode" class="jobCode box">
+					<option value>하위</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">모집인원</div>
+			<div class="form-group col-md-6">
+				<input name="detailList[%n].daCount" type="number" class="box" value="0" min="0" style="width: 100px"/> 명
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">
+				경력
+				<div class="ref">
+					※필수
+				</div>
+			</div>
+			<div class="form-group col-md-8" id="careerDiv">
+				<div class="row pp">
+					<div class="col-4 col-sm-3">
+						경력무관 
+						<input type="checkbox" name="detailList[%n].careerName" value="관계없음" class="career0" />
+					</div>
+					<div class="col-4 col-sm-3">
+						신입 
+						<input type="checkbox" name="detailList[%n].careerName" value="신입" class="career1"/>
+					</div>
+					<div class="col-4 col-sm-3">
+						경력 
+						<input type="checkbox" name="detailList[%n].careerName" value="경력" class="career2"/>
+					</div>
+				</div>
+				<div class="careerYear" style="display: none">
+					<select name="detailList[%n].daCarYeer" class="box">
+						<option value="1년 이상">1년 이상</option>
+						<option value="4년 이상">4년 이상</option>
+						<option value="7년 이상">7년 이상</option>
+						<option value="10년 이상">10년 이상</option>
+						<option value="15년 이상">15년 이상</option>
+						<option value="20년 이상">20년 이상</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">근무부서</div>
+			<div class="form-group col-md-6">
+				<input name="detailList[%n].daDepartment" type="text" class="box" placeholder=" ex) 영업부" />
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">담당 업무</div>
+			<div class="form-group col-md-6 text_box text_boxp1">
+				<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
+				<div class="count countp1"><span>0</span>/200</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">직급/직책</div>
+			<div class="form-group col-md-8" id="positionCheck" >
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">
+				고용 형태
+				<div class="ref">
+					※필수
+				</div>
+			</div>
+			<div class="form-group col-md-6">
+				<select name="detailList[%n].empltypeCode" class="box">
+					<option value>고용형태</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="form-group container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">
+				근무지역
+				<div class="ref">
+					※필수
+				</div>
+			</div>
+			<div class="form-group col-md-6">
+                <input type="hidden" id="sample4_postcode" placeholder="우편번호">
+				<input type="text" id="sample4_jibunAddress" class="box" placeholder="지번주소" >
+<!-- 											<input type="button" onclick="sample4_execDaumPostcode()" id="execDaumPostcode" value="주소 찾기" class="box"><br> -->
+				<input type="button" id="execDaumPostcode" value="주소 찾기" class="box"><br>
+				<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
+				<span id="guide" style="color:#999;display:none"></span>
+				<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
+				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+				<!-- data.sido+" "+data.sigungu -->
+				<input type="hidden" name="detailList[%n].regionName"/>
+              	</div>
+		</div>
+	</div>
+	<!-- 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">지원 조건</div>
+			<div class="form-group col-md-6 text_box text_boxp3">
+				<textarea name="detailList[%n].daCondition" rows="4" cols="50"></textarea>
+				<div class="count countp3"><span>0</span>/200</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row pp">
+			<div class="col-6 col-md-2">우대 사항</div>
+			<div class="form-group col-md-6 text_box text_boxp4">
+				<textarea name="detailList[%n].daPrefer" rows="4" cols="50"></textarea>
+				<div class="count countp4"><span>0</span>/200</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 탭몸통1 끝 -->
 
 <!-- SCRIPTS -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-/* 테슷흐 */
+let ic = $("[name=industryCode]").on("change",function(){
+	console.log(ic.val());
+})
 
+let topData = [
+	{type:'region', code:''}
+	, {type:'industry', code:''}
+	, {type:'job', code:''}
+	, {type:'edu', code:''}
+	, {type:'walfare', code:''}
+	, {type:'position', code:''}
+	, {type:'empltype', code:''}
+]
+
+$(function(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/announcement/select",
+		method : "post",
+		data : JSON.stringify(topData),
+		dataType : "json",
+		contentType: 'application/json',
+		success : function(resp) {
+			
+			let industryList = resp.industryList;
+			let walfareList = resp.walfareList;
+			let eduList = resp.eduList;
+			let positionList = resp.positionList;
+			let jobList = resp.jobList;
+			let empltypeList = resp.empltypeList;
+			
+			let industryOption = [];
+			let walfareOption = [];
+			let eduOption = [];
+			let positionOption = [];
+			let jobOption = [];
+			let empltypeOption = [];
+	
+			$.each(industryList, function(index, val){
+				let tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
+				industryOption.push(tr);
+			})
+			$.each(eduList, function(index, val){
+				let tr = $("<option>").attr("class","code").prop("value",val.eduCode).html(val.eduName);
+				eduOption.push(tr);
+			})
+			$.each(walfareList, function(index, val){
+				let tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
+				walfareOption.push(tr);
+			})
+			$.each(positionList, function(index, val){
+				let div = $("<div>").attr("class","chck");
+				let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
+				div.append(tr);
+				div.html(div.html() + val.positionName);
+				positionOption.push(div);
+			})
+			$.each(jobList, function(index, val){
+				let tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+				jobOption.push(tr);
+			})
+			$.each(empltypeList, function(index, val){
+				let tr = $("<option>").attr("class","code").prop("value",val.empltypeCode).html(val.empltypeName);
+				empltypeOption.push(tr);
+			})
+			
+			$("select[name=industry0]").append(industryOption);
+			$("select[name=eduCode]").append(eduOption);
+			$("select[name='walfareList[0].walfare0']").append(walfareOption);
+			$("#positionCheck").append(positionOption);
+			$(".job0").append(jobOption);
+			$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
+			
+	// 		$("select[name=industry0]").val("${anno.industry0}").trigger("change");
+	// 		$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
+	// 		$("select[name='detailList[0].job0']").val("${anno.detailList[0].job0}").trigger("change");
+	// 		$("select[name='detailList[0].empltypeCode']").val("${anno.detailList[0].empltypeCode}");
+	// 		$("select[name='detailList[0].positionCode']").val("${anno.detailList[0].positionCode}");
+	// 		$("select[name='walfareList[0].walfare0']").val("${anno.walfareList[0].walfare0}").trigger("change");
+	
+		 	$("#testBtn").trigger("click");
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+})
+
+
+/* 탭 생성 */
 let detailContainer = $("#detailContainer");
 let myTabContent = $("#myTabContent");
-
 let x = 0;
 $("#testBtn").on("click",function(){
 	console.log("클릭햇다이거, x = ",x);
 	let nextContainer = detailContainer.clone();
-	nextContainer.prop("id","detailContainer"+x);
+	nextContainer.attr("id","detailContainer"+x); 
 	nextContainer.removeClass("d-none");
 	myTabContent.append(nextContainer);
+	
+	let nWord = $("#detailContainer"+x).find("[name*='%n']");
+	for(i=0;i<nWord.length;i++){
+        let nName = nWord.eq(i).attr('name');
+        let newName = nName.replace("%n",x);
+        nWord.eq(i).attr("name",newName);
+    }
+
 	$("#myTab").append(
 		$("<li>").attr("class","nav-item").append(
 			$("<a>").attr("class","nav-link").attr("id","tab"+x).attr("role","tab").attr("data-toggle","tab")
-			.attr("href","#detailContainer"+x).attr("aria-selected",true).html("탭"+(x+1))
+			.attr("href","#detailContainer"+x).attr("aria-selected",true).html("분야"+(x+1))
 		)
 	);
 
 	$("#detailContainer"+x).find("#sample4_postcode").attr("id","sample4_postcode"+x);
 	$("#detailContainer"+x).find("#sample4_jibunAddress").attr("id","sample4_jibunAddress"+x);
-	$("#detailContainer"+x).find("#execDaumPostcode").attr("onclick","sample4_execDaumPostcode"+x+"()");
+	$("#detailContainer"+x).find("#execDaumPostcode").attr("onclick","sample4_execDaumPostcode("+x+")");
 	$("#detailContainer"+x).find("#sample4_roadAddress").attr("id","sample4_roadAddress"+x);
 	$("#detailContainer"+x).find("#guide").attr("id","guide"+x);
 	$("#detailContainer"+x).find("#sample4_postcode").attr("id","sample4_postcode"+x);
@@ -482,74 +587,80 @@ $("#testBtn").on("click",function(){
 	
 	$("#tab"+x).trigger("click");
 	x=x+1;
+	
+	job0();
+	job1();
+	career();
 });
 
-/* 테슷흐2 */
-
+/* 복지 태그 */
 let walval = $("[name='walfareList[0].walfareCode']").on("change",function(){
 	let walSelect = $("[name='walfareList[0].walfareCode'] option:selected");
 	console.log(walval.val());
 	console.log(walSelect.html());
 	$("#walDiv").append(
-		$("<li>").attr("type","button").attr("class","walBtn").html(walSelect.html()).append(
+		$("<li>").attr("type","button").attr("class","walBtn").css({"display":"inline-block","margin-right":"15px"}).html(walSelect.html()).append(
 			$("<i>").attr("class","bi bi-x-lg")
 			,$("<input>").attr("type","hidden").attr("name","walfareCodeList").val(walval.val())
 		)
 	)
 });
 
-/* 코드 */
-var career0 = document.getElementById("career0");
-var career1 = document.getElementById("career1");
-var career2 = document.getElementById("career2");
-var careerYear = document.getElementById("careerYear");
+/* 경력 체크박스 */
+//아이디 다르게 만들던가 클래스 주기
+function career(){
+	let career0 = $(".career0");
+	let career1 = $(".career1");
+	let career2 = $(".career2");
+	let careerYear = $(".careerYear");
 
-career0.addEventListener("change", function (e) {
-    e.preventDefault();
-   	career1.checked = false;
-   	career2.checked = false;
-   	careerYear.style.display = 'none';
-});
-career1.addEventListener("change", function (e) {
-    e.preventDefault();
-    if(career0.checked){
-    	career0.checked = false;
-    }
-});
-career2.addEventListener("change", function (e) {
-    e.preventDefault();
-    if(career0.checked){
-    	career0.checked = false;
-    }
-});
-career2.addEventListener("change", function (e) {
-    if(career2.checked){
-    	careerYear.style.display = 'block';
-    }else{
-    	careerYear.style.display = 'none';
-    }
-});
+	career0.on("change", function (e) {
+	    e.preventDefault();
+		console.log($(this));
+	    $(this).parents("#careerDiv").find(".career1").prop("checked", false);
+	    $(this).parents("#careerDiv").find(".career2").prop("checked", false);
+	   	$(this).parents("#careerDiv").find(".careerYear").attr("style","display:none");
+	});
+	career1.on("change", function (e) {
+	    e.preventDefault();
+	    console.log($(this));
+	    if($(this).parents("#careerDiv").find(".career0").is(":checked")){
+	    	$(this).parents("#careerDiv").find(".career0").prop("checked", false);
+	    }
+	});
+	career2.on("change", function (e) {
+	    e.preventDefault();
+	    console.log($(this));
+	    if($(this).parents("#careerDiv").find(".career0").is(":checked")){
+	    	$(this).parents("#careerDiv").find(".career0").prop("checked", false);
+	    }
+	    if($(this).parents("#careerDiv").find(".career2").is(":checked")){
+	    	$(this).parents("#careerDiv").find(".careerYear").attr("style","display:block");
+	    }else{
+	    	$(this).parents("#careerDiv").find(".careerYear").attr("style","display:none");
+	    }
+	});
+}
 
-var salary = document.querySelector("select[name=annoSalary]");
-var salaryDetail = document.querySelector("#salaryDetail");
-salary.addEventListener("change", function (e) {
-	console.log(salary.value);
-// 	연봉,월급,시급
-    if(salary.value=="연봉"||salary.value=="월급"||salary.value=="시급"){
-    	salaryDetail.style.display = 'block';
-    }else{
-    	salaryDetail.style.display = 'none';
-    }
-});
+	let salary = $("#annoSalary");
+	let salaryDetail = $("#salaryDetail");
+	salary.on("change", function (e) {
+//	 	연봉,월급,시급
+	    if(salary.val()=="연봉"||salary.val()=="월급"||salary.val()=="시급"){
+	    	salaryDetail.attr("style","display:block");
+	    }else{
+	    	salaryDetail.attr("style","display:none");
+	    }
+	});
 
-
+/* 도로명주소 */
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-function sample4_execDaumPostcode() {
+function sample4_execDaumPostcode(x) {
 	new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
             // DB로 가져갈 값
-            let regionName = document.querySelector("[name='detailList[0].regionName']");
+            let regionName = document.querySelector("[name='detailList["+x+"].regionName']");
             regionName.value=data.sido+" "+data.sigungu;
 			console.log(regionName.value);
 
@@ -573,78 +684,18 @@ function sample4_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample4_postcode').value = data.zonecode;
-            document.getElementById("sample4_roadAddress").value = roadAddr;
-            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+            document.getElementById('sample4_postcode'+x).value = data.zonecode;
+            document.getElementById("sample4_roadAddress"+x).value = roadAddr;
+            document.getElementById("sample4_jibunAddress"+x).value = data.jibunAddress;
             
             // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
             if(roadAddr !== ''){
-                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                document.getElementById("sample4_extraAddress"+x).value = extraRoadAddr;
             } else {
-                document.getElementById("sample4_extraAddress").value = '';
+                document.getElementById("sample4_extraAddress"+x).value = '';
             }
 
-            var guideTextBox = document.getElementById("guide");
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if(data.autoRoadAddress) {
-                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                guideTextBox.style.display = 'block';
-
-            } else if(data.autoJibunAddress) {
-                var expJibunAddr = data.autoJibunAddress;
-                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                guideTextBox.style.display = 'block';
-            } else {
-                guideTextBox.innerHTML = '';
-                guideTextBox.style.display = 'none';
-            }
-        }
-    }).open();
-}
-
-//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-function sample4_execDaumPostcode1() {
-	new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-            // DB로 가져갈 값
-//             let regionName = document.querySelector("[name='detailList[1].regionName']");
-//             regionName.value=data.sido+" "+data.sigungu;
-// 			console.log(regionName.value);
-
-            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var roadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 참고 항목 변수
-
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                extraRoadAddr += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if(data.buildingName !== '' && data.apartment === 'Y'){
-               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if(extraRoadAddr !== ''){
-                extraRoadAddr = ' (' + extraRoadAddr + ')';
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample4_postcode1').value = data.zonecode;
-            document.getElementById("sample4_roadAddress1").value = roadAddr;
-            document.getElementById("sample4_jibunAddress1").value = data.jibunAddress;
-            
-            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-            if(roadAddr !== ''){
-                document.getElementById("sample4_extraAddress1").value = extraRoadAddr;
-            } else {
-                document.getElementById("sample4_extraAddress1").value = '';
-            }
-
-            var guideTextBox = document.getElementById("guide1");
+            var guideTextBox = document.getElementById("guide"+x);
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
             if(data.autoRoadAddress) {
                 var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
@@ -664,12 +715,11 @@ function sample4_execDaumPostcode1() {
 }
     
 /* CKEDITOR */
-
 CKEDITOR.replace('annoContent',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
 });
 
-
+/* 글자수세기 */
 $('.text_boxp1 textarea').keyup(function(){
 	var content = $(this).val();
 	$('.text_boxp1 .countp1 span').html(content.length);
@@ -709,15 +759,20 @@ $('.text_boxp4 textarea').keyup(function(){
 
 /* daterangepicker */
 $(function() {
-	$('input[name="daterange"]').daterangepicker({
-		opens: 'left'
+	$('input[name="datetimes"]').daterangepicker({
+		opens: 'left',
+		timePicker: true,
+		startDate: moment().startOf('hour'),
+		endDate: moment().startOf('hour').add(32, 'hour'),
+		locale: {
+			format: 'M/DD hh:mm A'
+		}
 	}, function(start, end, label) {
-		console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 		//DB로 가져갈 값
 		let annoStartdate = document.querySelector("[name=annoStartdate]");
 		let annoEnddate = document.querySelector("[name=annoEnddate]");
-		annoStartdate.value=start.format('YYYY-MM-DD');
-		annoEnddate.value=end.format('YYYY-MM-DD');
+		annoStartdate.value=start.format('YYYY-MM-DD HH:mm:ss');
+		annoEnddate.value=end.format('YYYY-MM-DD HH:mm:ss');
 		console.log('시작날짜',annoStartdate.value);
 		console.log('종료날짜',annoEnddate.value);
 	});
@@ -726,7 +781,6 @@ let today = new Date();
 $('input[name=daterange]').val(today);
 
 /* 하위 업종 셀렉트 */
-
 $("[name=industry0]").on("change", function(){
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
@@ -739,16 +793,17 @@ $("[name=industry0]").on("change", function(){
 		contentType: 'application/json',
 		success : function(resp) {
 			
-			console.log("리스트뽑아옴");
 			let industryList = resp.industryList;
 			let industryOption = [];
-			
 			$.each(industryList, function(index, val){
 				let tr = null;
 				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 				industryOption.push(tr);
 			})
+			$("select[name=industry1] option").remove();
 			$("select[name=industry1]").append(industryOption);
+			$("select[name=industryCode] option").remove();
+			$("select[name=industryCode]").append($("<option>").html("소분류"));
 // 			$("select[name=industry1]").val("${anno.industry1}").trigger("change");
 		},
 		error : function(jqXHR, status, error) {
@@ -769,15 +824,14 @@ $("[name=industry1]").on("change", function(){
 		dataType : "json",
 		contentType: 'application/json',
 		success : function(resp) {
-			console.log("리스트뽑아옴");
 			let industryList = resp.industryList;
 			let industryOption = [];
-			
 			$.each(industryList, function(index, val){
 				let tr = null;
 				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 				industryOption.push(tr);
 			})
+			$("select[name=industryCode] option").remove();
 			$("select[name=industryCode]").append(industryOption);
 // 			$("select[name=industryCode]").append(industryOption).val("${anno.industryCode}");
 		},
@@ -790,7 +844,6 @@ $("[name=industry1]").on("change", function(){
 });
 
 /* 복지 하위 셀렉트 */
-
 $("[name='walfareList[0].walfare0']").on("change", function(){
 	let ref = $(this).val();
 	let data = [{type:'walfare',code:ref}];
@@ -802,10 +855,9 @@ $("[name='walfareList[0].walfare0']").on("change", function(){
 		dataType : "json",
 		contentType: 'application/json',
 		success : function(resp) {
-			console.log("리스트뽑아옴");
 			let walfareList = resp.walfareList;
 			let walfareOption = [];
-			
+			$("select[name='walfareList[0].walfareCode'] option").remove();
 			$.each(walfareList, function(index, val){
 				let tr = null;
 				tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
@@ -823,236 +875,80 @@ $("[name='walfareList[0].walfare0']").on("change", function(){
 });
 
 /* 직종 하위 셀렉트 */
-
-$("[name='detailList[0].job0']").on("change", function(){
-	let ref = $(this).val();
-	let data = [{type:'job',code:ref}];
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			console.log("리스트뽑아옴");
-			let jobList = resp.jobList;
-			let jobOption = [];
-			
-			$.each(jobList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-				jobOption.push(tr);
-			})
-			$("select[name='detailList[0].job1']").append(jobOption);
-// 			$("select[name='detailList[0].job1']").append(jobOption).val("${anno.detailList[0].job1}").trigger("change");
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});   
-});
-$("[name='detailList[0].job1']").on("change", function(){
-	
-	let ref = $(this).val();
-	let data = [{type:'job',code:ref}];
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			console.log("리스트뽑아옴");
-			let jobList = resp.jobList;
-			let jobOption = [];
-			
-			$.each(jobList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-				jobOption.push(tr);
-			})
-			$("select[name='detailList[0].jobCode']").append(jobOption);
-// 			$("select[name='detailList[0].jobCode']").append(jobOption).val("${anno.detailList[0].jobCode}");
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});   
-});
-$("[name='detailList[1].job0']").on("change", function(){
-	let ref = $(this).val();
-	let data = [{type:'job',code:ref}];
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			console.log("리스트뽑아옴");
-			let jobList = resp.jobList;
-			let jobOption = [];
-			
-			$.each(jobList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-				jobOption.push(tr);
-			})
-			$("select[name='detailList[1].job1']").append(jobOption);
-// 			$("select[name='detailList[1].job1']").append(jobOption).val("${anno.detailList[1].job1}").trigger("change");
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});   
-});
-$("[name='detailList[1].job1']").on("change", function(){
-	
-	let ref = $(this).val();
-	let data = [{type:'job',code:ref}];
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
-		method : "post",
-		data : JSON.stringify(data),
-		dataType : "json",
-		contentType: 'application/json',
-		success : function(resp) {
-			console.log("리스트뽑아옴");
-			let jobList = resp.jobList;
-			let jobOption = [];
-			
-			$.each(jobList, function(index, val){
-				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-				jobOption.push(tr);
-			})
-			$("select[name='detailList[1].jobCode']").append(jobOption);
-// 			$("select[name='detailList[1].jobCode']").append(jobOption).val("${anno.detailList[1].jobCode}");
-		},
-		error : function(jqXHR, status, error) {
-			console.log(jqXHR);
-			console.log(status);
-			console.log(error);
-		}
-	});   
-});
-
-
-/* 최상위 셀렉트... */
-
-let topData = [
-	{type:'region', code:''}
-	, {type:'industry', code:''}
-	, {type:'job', code:''}
-	, {type:'edu', code:''}
-	, {type:'walfare', code:''}
-	, {type:'position', code:''}
-	, {type:'empltype', code:''}
-]
-	
-$.ajax({
-	url : "${pageContext.request.contextPath}/announcement/select",
-	method : "post",
-	data : JSON.stringify(topData),
-	dataType : "json",
-	contentType: 'application/json',
-	success : function(resp) {
-		let industryList = resp.industryList;
-		let walfareList = resp.walfareList;
-		let eduList = resp.eduList;
-		let positionList = resp.positionList;
-		let jobList = resp.jobList;
-		let empltypeList = resp.empltypeList;
+function job0(){
+	$(".job0").on("change", function(){
+		let job0 = $(this);
+		let job1 = $(this).siblings(".job1");
+		let ref = $(this).val();
+		let data = [{type:'job',code:ref}];
 		
-		let industryOption = [];
-		let walfareOption = [];
-		let eduOption = [];
-		let positionOption = [];
-		let jobOption = [];
-		let empltypeOption = [];
-// 		let positionOption1 = [];
-// 		let jobOption1 = [];
-// 		let empltypeOption1 = [];
+		$.ajax({
+			url : "${pageContext.request.contextPath}/announcement/select",
+			method : "post",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: 'application/json',
+			success : function(resp) {
+				let jobList = resp.jobList;
+				let jobOption = [];
+				
+				$.each(jobList, function(index, val){
+					let tr = null;
+					tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+					jobOption.push(tr);
+				})
+				
+				job0.siblings(".job1").find("option").remove();
+				job0.siblings(".job1").append(jobOption);
+				job1.siblings(".jobCode").find("option").remove();
+				job1.siblings(".jobCode").append($("<option>").html("소분류"));
+	// 			$("select[name='detailList[0].job1']").append(jobOption).val("${anno.detailList[0].job1}").trigger("change");
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});   
+	});
 
-		$.each(industryList, function(index, val){
-			let tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
-			industryOption.push(tr);
-		})
-		$.each(eduList, function(index, val){
-			let tr = $("<option>").attr("class","code").prop("value",val.eduCode).html(val.eduName);
-			eduOption.push(tr);
-		})
-		$.each(walfareList, function(index, val){
-			let tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
-			walfareOption.push(tr);
-		})
-		$.each(positionList, function(index, val){
-			let div = $("<div>").attr("class","chck");
-			let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
-			div.append(tr);
-			div.html(div.html() + val.positionName);
-			positionOption.push(div);
-			
-// 			let div1 = $("<div>").attr("class","chck");
-// 			let tr1 = $("<input>").attr("type","checkbox").attr("name","detailList[1].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
-// 			div1.append(tr1);
-// 			div1.html(div1.html() + val.positionName);
-// 			positionOption1.push(div1);
-		})
-		$.each(jobList, function(index, val){
-			let tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-			jobOption.push(tr);
-// 			let tr1 = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
-// 			jobOption1.push(tr1);
-		})
-		$.each(empltypeList, function(index, val){
-			let tr = $("<option>").attr("class","code").prop("value",val.empltypeCode).html(val.empltypeName);
-			empltypeOption.push(tr);
-// 			let tr1 = $("<option>").attr("class","code").prop("value",val.empltypeCode).html(val.empltypeName);
-// 			empltypeOption1.push(tr1);
-		})
+}
+function job1(){
+	$(".job1").on("change", function(){
+		let job1 = $(this);
+		let ref = $(this).val();
+		let data = [{type:'job',code:ref}];
 		
-		$("select[name=industry0]").append(industryOption);
-		$("select[name=eduCode]").append(eduOption);
-		$("select[name='walfareList[0].walfare0']").append(walfareOption);
-		
-		$("#positionCheck").append(positionOption);
-		$("select[name='detailList[%n].job0']").append(jobOption);
-		$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
-// 		$("#positionCheck1").append(positionOption1);
-// 		$("select[name='detailList[1].job0']").append(jobOption1);
-// 		$("select[name='detailList[1].empltypeCode']").append(empltypeOption1);
-		
-// 		$("select[name=industry0]").val("${anno.industry0}").trigger("change");
-// 		$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
-// 		$("select[name='detailList[0].job0']").val("${anno.detailList[0].job0}").trigger("change");
-// 		$("select[name='detailList[0].empltypeCode']").val("${anno.detailList[0].empltypeCode}");
-// 		$("select[name='detailList[0].positionCode']").val("${anno.detailList[0].positionCode}");
-// 		$("select[name='walfareList[0].walfare0']").val("${anno.walfareList[0].walfare0}").trigger("change");
-	},
-	error : function(jqXHR, status, error) {
-		console.log(jqXHR);
-		console.log(status);
-		console.log(error);
-	}
-});
-
-
-
-
+		$.ajax({
+			url : "${pageContext.request.contextPath}/announcement/select",
+			method : "post",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: 'application/json',
+			success : function(resp) {
+				let jobList = resp.jobList;
+				let jobOption = [];
+				
+				$.each(jobList, function(index, val){
+					let tr = null;
+					tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
+					jobOption.push(tr);
+				})
+				job1.siblings(".jobCode").find("option").remove();
+				job1.siblings(".jobCode").append(jobOption);
+				
+//	 			$("select[name='detailList[0].jobCode']").append(jobOption).val("${anno.detailList[0].jobCode}");
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});   
+	});
+}
 
 </script>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>

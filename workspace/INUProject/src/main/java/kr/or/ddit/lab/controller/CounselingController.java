@@ -23,32 +23,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping("/lab/support")
-public class labSupportController {
+@RequestMapping("/lab/counseling")
+public class CounselingController {
+	
 	@GetMapping
 	public String counList(Model model) {
-		return "lab/supportList";
+		return "lab/counList";
 	}
 	
-	@GetMapping("view/{supportId}")
-	public String annoView(
-		@PathVariable String supportId
+	@GetMapping("view/{counId}")
+	public String counView(
+		@PathVariable String counId
 		, Model model
 	) {
-		model.addAttribute("supportId",supportId);
-		return "lab/supportView";
+		model.addAttribute("counId",counId);
+		return "lab/counView";
 	}
 	
 	@GetMapping("insert")
-	public String insertSupport(Model model) {
-		return "lab/supportForm";
+	public String insertCoun(Model model) {
+		return "lab/counForm";
 	}
 	
 	@PostMapping("insert")
-	public String insertSupportProcess(Model model) {
+	public String insertCounProcess(Model model) {
 		//insert
 		
-		//혹은 supportView로 이동시켜주기
-		return "lab/supportList";
+		//혹은 counView로 이동시켜주기
+		return "lab/counList";
 	}
 }

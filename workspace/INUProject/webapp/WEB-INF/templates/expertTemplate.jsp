@@ -24,7 +24,7 @@
 		
 		<style>
 			body {
-				background-color: #FAFAD2;
+				background-color: rgb(234, 237, 242);;
 				background-size: auto;
 			}
 			</style>

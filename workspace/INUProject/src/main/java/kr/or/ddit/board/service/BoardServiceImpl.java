@@ -72,15 +72,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 좋아요 추가
-	@Override
-	public int likeInsert(Map<String, Object> m) throws Exception {
-		return dao.likeInsert(m);
-	}
+//	@Override
+//	public int insertLike(Map<String, Object> m) throws Exception {
+//		return dao.insertLike(m);
+//	}
 
 	// 좋아요 개수
 	@Override
 	public int likeCount(String boardNo){
 		return dao.likeCount(boardNo);
+	}
+
+	// 좋아요 on
+	@Override
+	public String likeOn(String boardNo, String memId) {
+		return dao.likeOn(boardNo, memId);
+	}
+
+	@Override
+	public int likeInsert(Map<String, Object> m) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

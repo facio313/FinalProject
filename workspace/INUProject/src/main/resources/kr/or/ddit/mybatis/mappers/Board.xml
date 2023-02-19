@@ -40,7 +40,7 @@
 			   B.BOARD_SUB,
 			   B.JOB_NAME,
 			   B.BOARD_TITLE,
-			   B.BOARD_CONTENT,
+			   SUBSTR(B.BOARD_CONTENT,1,30) BOARD_CONTENT,
 			   TO_CHAR(B.BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
 			   B.BOARD_HITS,
                NVL((SELECT COUNT(D.LIKE_TYPE) LIKE_TYPE
@@ -92,7 +92,8 @@
 		UPDATE BOARD
 		   SET
 			   BOARD_TITLE   = #{boardTitle,jdbcType=VARCHAR},
-			   BOARD_CONTENT = #{boardContent,jdbcType=CLOB}
+			   BOARD_CONTENT = #{boardContent,jdbcType=CLOB},
+			   LIKE_CNT		 = #{likeCnt}
 		 WHERE BOARD_NO      = #{boardNo, jdbcType=VARCHAR}
 	</update>
 
@@ -127,37 +128,15 @@
 		SELECT COUNT(*)
 		  FROM LIKE_BOARD
 		 WHERE BOARD_NO = #{boardNo}
+		   AND MEM_ID = #{memId}
 	</select>
+
+	<select id="likeOn" parameterType="String" resultType="String">
+		SELECT LIKE_TYPE
+		  FROM LIKE_BOARD
+		 WHERE BOARD_NO = #{boardNo}
+		   AND MEM_ID   = #{memId}
+	</select>
+
+
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

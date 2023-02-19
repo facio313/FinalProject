@@ -3,6 +3,8 @@ package kr.or.ddit.board.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.ddit.board.vo.BoardVO;
 import kr.or.ddit.board.vo.InterviewVO;
 import kr.or.ddit.vo.PagingVO;
@@ -35,4 +37,7 @@ public interface BoardService {
 
 	// 좋아요 개수
 	public int likeCount(String boardNo);
+
+	// 좋아요 on
+	public String likeOn(@Param("boardNo") String boardNo, @Param("memId") String memId);
 }

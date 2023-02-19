@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.expert.service.ExpertService;
 import kr.or.ddit.expert.service.ExprodService;
+import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.member.service.MemberService;
@@ -41,6 +42,7 @@ public class ExpertProdController {
 	public String expertDetail(
 		@PathVariable("exprodId")String exprodId
 		, @ModelAttribute("exprod") ExprodVO exprod
+		, @ModelAttribute("excart") ExcartVO excart
 		,Errors errors
 		,Model model
 		) {

@@ -28,7 +28,6 @@
 			   MEM_ID,
 			   ASK_CATE,
 			   ASK_TITLE,
-			   ASK_CONTENT,
 			   TO_CHAR(ASK_DATE,'YYYY-MM-DD')ASK_DATE,
 			   REF_CONTENT,
 			   CONSENT,

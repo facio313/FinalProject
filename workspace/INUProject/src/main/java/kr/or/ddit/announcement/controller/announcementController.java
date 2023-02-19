@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,14 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
-import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
-import kr.or.ddit.vo.MemberVOWrapper;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +37,11 @@ import lombok.extern.slf4j.Slf4j;
  * @see javax.servlet.http.HttpServlet
  * <pre>
  * [[개정이력(Modification Information)]]
- * 수정일                          수정자               수정내용
+ * 수정일                 수정자               수정내용
  * --------     --------    ----------------------
- * 2023. 2. 1.      양서연       최초작성
+ * 2023. 2. 1.   양서연               최초작성
+ * 2023. 2. 17.  최경수               회원별 공고 목록 추가
+ * 2023. 2. 19.  양서연               컨트롤러 이름 변경
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -47,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/announcement")
 @RequiredArgsConstructor
-public class announcementController {
+public class AnnouncementController {
 	private final AnnoService service;
 	private final AnnoSearchDAO annoSearchDAO;
 
@@ -59,11 +61,23 @@ public class announcementController {
 		return new AnnoVO();
 	}
 	
+	/**
+	 * 공고 목록으로 이동
+	 * @return
+	 */
 	@GetMapping
 	public String listUI() {
 		return "announcement/annoList";
 	}
 
+	/**
+	 * 페이징 처리
+	 * @param currentPage
+	 * @param detailCondition
+	 * @param map
+	 * @param model
+	 * @return
+	 */
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String annoList(
 		@RequestParam(value="page",required=false, defaultValue="1") int currentPage
@@ -94,21 +108,49 @@ public class announcementController {
 		return "jsonView";
 	}
 
+	/**
+	 * 공고 view
+	 * @param annoNo
+	 * @param model
+	 * @param principal
+	 * @return
+	 */
 	@GetMapping("view/{annoNo}")
 	public String annoView(
 		@PathVariable String annoNo
 		, Model model
+//		, @AuthMember MemberVO authMember
+//		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
+//      String memId = principal.getRealMember().getMemId();
 		AnnoVO anno = service.retrieveAnno(annoNo);
 		model.addAttribute("anno",anno);
+		String memId = "asdf";
+		String cmpId = anno.getCmpId();
+		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+		int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+		model.addAttribute("selectLikeAnno", selectLikeAnno);
+		model.addAttribute("selectLikeCmp", selectLikeCmp);
 		return "announcement/annoView";
-	}   
+	}
 
 	@GetMapping("insert")
-	public String insertAnno(Model model) {
+	public String insertAnno(
+		Model model
+	) {
+//		String memId = authMember.getMemId();
+//		log.info("memId : {}",memId);
 		return "announcement/annoForm";
 	}
 
+	/**
+	 * 공고 등록 프로세스
+	 * @param anno
+	 * @param errors
+	 * @param salaryDetail
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("insert")
 	public String insertAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
@@ -123,12 +165,74 @@ public class announcementController {
 		anno.setAnnoSalary(salary);
 		log.info("anno : {}",anno);
 		
-//		service.createAnno(anno);
+		service.createAnno(anno);
 		
 		//혹은 annoView
 		return "redirect:/announcement";
 	}
+	
+	/**
+	* 관심공고
+	* @param annoNo
+	* @param memId
+	* @return
+	*/
+	@PostMapping("likeAnno")
+	@ResponseBody
+	public String insertLikeAnno(
+		@RequestBody Map<String,String> map
+		, Model model
+	) {
+		int cnt = 0;
+		String result = "";
+		String annoNo = map.get("annoNo");
+		String memId = map.get("memId");
+		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+		if(selectLikeAnno>0) {
+			cnt = service.deleteLikeAnno(annoNo, memId);
+			if(cnt>0) result = "delete";
+		} else {
+			cnt = service.insertLikeAnno(annoNo, memId);
+			if(cnt>0) result = "insert";
+		}
+		return result;
+	}
+	
+	/**
+	 * 관심기업
+	 * @param map
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("likeCmp")
+	@ResponseBody
+	public String insertLikeCmp(
+		@RequestBody Map<String,String> map
+		, Model model	
+	) {
+		int cnt = 0;
+		String result= "";
+		
+		String cmpId = map.get("cmpId");
+		String memId = map.get("memId");
+		int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+		if(selectLikeCmp>0) {
+			cnt = service.deleteLikeCmp(cmpId, memId);
+			if(cnt>0) result = "delete";
+		} else {
+			cnt = service.insertLikeCmp(cmpId, memId);
+			if(cnt>0) result = "insert";
+		}
+		return result;
+	}
 
+
+	/**
+	 * DB 코드 가져오기
+	 * @param model
+	 * @param param
+	 * @return
+	 */
 	@PostMapping("select")
 	public String selectList(
 		Model model
@@ -177,5 +281,18 @@ public class announcementController {
 		model.addAttribute("empltypeList", empltypeList);
 
 		return "jsonView";
+	}
+	
+
+	//경수
+	@GetMapping("/myList")
+	public String myList(
+		Model model
+		, @AuthMember MemberVO authMember
+	) {
+		String memId = authMember.getMemId();
+		List<AnnoVO> list = service.retrieveMyAnnoList(memId);
+		model.addAttribute("list", list);
+		return "announcement/annoMyList";
 	}
 }

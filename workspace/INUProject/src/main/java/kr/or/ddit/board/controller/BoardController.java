@@ -87,11 +87,17 @@ public class BoardController {
 	public String detailBoard(
 			Model model,
 			@RequestParam("boardNo") String boardNo
+//			Authentication authentication
 //			// @PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
 //			@PathVariable("boardNo") String boardNo
 	) {
 		BoardVO board = service.retrieveBoard(boardNo);
 		service.updateHits(boardNo);
+//		String memId = authentication.getName();
+//		if(memId!=null && memId.length()>0) {
+			/*String likeOn = service.likeOn(boardNo, memId);
+			model.addAttribute("likeOn",likeOn);*/
+//		}
 		model.addAttribute("board", board);
 		return "board/boardDetail";
 	}
@@ -124,4 +130,5 @@ public class BoardController {
 		int likeCnt = service.likeCount(boardNo);
 		return likeCnt + "";
 	}
+
 }

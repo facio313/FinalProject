@@ -30,3 +30,4 @@
 	<input name="actSn" value="${activity.actSn}" hidden/>
 	<button type="submit" class="btn btn-danger">삭제하기</button>
 </form:form>
+

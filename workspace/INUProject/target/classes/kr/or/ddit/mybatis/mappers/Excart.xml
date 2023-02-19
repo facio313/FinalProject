@@ -5,6 +5,7 @@
 		select *
 		from excart
 		where mem_id = #{memId,jdbcType=VARCHAR}
+		and review_state = 'N'
 	</select>
 	
 	<update id="updateReviewState" parameterType="String">
@@ -26,4 +27,21 @@
 	    excart
 	where excart_id = #{excartId,jdbcType=VARCHAR}
 	</select>
+	
+	<insert id="insertExcart" parameterType="ExcartVO">
+	<selectKey order="BEFORE" resultType="String" keyProperty="excartId">
+		SELECT 'EXC' || LPAD(EXCART_SEQ.NEXTVAL,6,0) FROM DUAL
+	</selectKey>
+	INSERT INTO excart (
+	    excart_id,
+	    exprod_id,
+	    mem_id,
+	    excart_price
+	) VALUES (
+	 #{excartId,jdbcType=VARCHAR}
+	 , #{exprodId,jdbcType=VARCHAR}
+	 , #{memId,jdbcType=VARCHAR}
+	 , #{excartPrice,jdbcType=NUMERIC}
+	)
+	</insert>
 </mapper>

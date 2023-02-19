@@ -14,4 +14,6 @@ public interface ExcartDAO {
 	public int updateReviewState(String excartId);
 	
 	public ExcartVO selectExcart(String excartId);
+	
+	public int insertExcart(ExcartVO excart);
 }

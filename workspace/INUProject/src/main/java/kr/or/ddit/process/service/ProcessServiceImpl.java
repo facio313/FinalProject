@@ -17,20 +17,20 @@ public class ProcessServiceImpl implements ProcessService {
 	private ProcessDAO dao; 
 	
 	@Override
-	public List<ProcessVO> retrieveProcessList(String memId) {
-		List<ProcessVO> processList = dao.selectProcessList(memId);
+	public List<ProcessVO> retrieveProcessList(String cmpId) {
+		List<ProcessVO> processList = dao.selectProcessList(cmpId);
 		return processList;
 	}
 	
 	@Override
-	public ProcessVO retrieveProcess(String daNo) {
-		ProcessVO process = dao.selectProcess(daNo);
+	public ProcessVO retrieveProcess(String daNo, String pc) {
+		ProcessVO process = dao.selectProcess(daNo, pc);
 		return process;
 	}
 
 	@Override
-	public ServiceResult createProcess(List<ProcessVO> processList) {
-		int rowcnt = dao.insertProcess(processList);
+	public ServiceResult createProcess(ProcessVO process) {
+		int rowcnt = dao.insertProcess(process);
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 

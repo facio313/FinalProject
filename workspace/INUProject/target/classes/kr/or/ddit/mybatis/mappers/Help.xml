@@ -31,21 +31,30 @@
 	<include refid="searchFrag"/>
 </select>
 
-<!-- 분류 페이징ㄴ 목록 -->
+<!-- 분류별 목록 -->
 <select id="selectList" parameterType="string" resultType="HelpVO">
-	SELECT *
-	FROM HELP
-	WHERE HELP_SORT = #{helpSort}
+	SELECT A.HELP_SN
+       , A.HELP_SORT
+       , A.HELP_CATE
+       , B.CODE_NAME
+       , A.HELP_TITLE
+       , A.HELP_CONTENT
+       , A.HELP_DATE
+       , A.HELP_MODI_DATE
+       , A.HELP_HIT
+       , A.HELP_DEL_DATE       
+  	FROM HELP A INNER JOIN COMMON_CODE B ON(A.HELP_CATE = B.CODE)
+ 	WHERE HELP_SORT = #{helpSort}
 </select>
 
 <!-- 분류명 -->
 <select id="selectListName" parameterType="string" resultType="HelpVO">
-	SELECT CODE_NAME
+	SELECT CODE, CODE_NAME
 	FROM COMMON_CODE
 	WHERE REF_CODE = #{helpSort}
 </select>
 
-<!-- 페이징 처리된 전체목록 -->
+<!-- 페이징 처리된 전체목록, 안쓰고 있음 -->
 <select id="selectHelpList" parameterType="PagingVO" resultType="HelpVO">
 	WITH ORDEREDHELP AS(
     	SELECT *
