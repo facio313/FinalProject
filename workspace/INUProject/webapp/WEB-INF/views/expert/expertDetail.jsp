@@ -34,7 +34,7 @@
           <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="d-flex align-items-center">
               <div class="border p-2 d-inline-block mr-3 rounded">
-                <img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" style="max-width:70px;" >
+                <img src="<%=request.getContextPath()%>/resources/images/Dobby.png" alt="Image" style="max-width:70px;" >
               </div>
               <div>
                 <h2>${exprod.exprodName }</h2>
@@ -104,7 +104,7 @@
                   <p>${expert.expertIntroduction }</p>
                 </blockquote>
                 <div class="block__91147 d-flex align-items-center">
-                  <figure class="mr-4"><img src="<%=request.getContextPath() %>/resources/images/우기1.jfif" alt="Image" class="img-fluid"></figure>
+                  <figure class="mr-4"><img src="<%=request.getContextPath()%>/resources/images/Dobby.png" alt="Image" class="img-fluid"></figure>
                   <div>
                     <h3>${member.memName }</h3>
                     <span class="position">${expert.expertField }</span>

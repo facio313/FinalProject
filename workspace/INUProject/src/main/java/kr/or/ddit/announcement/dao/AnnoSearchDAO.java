@@ -26,7 +26,7 @@ public interface AnnoSearchDAO {
 	public List<Map<String, Object>> selectIndustry(@Param("industryRef") String industryRef);
 	public List<Map<String, Object>> selectJob(@Param("jobRef") String jobRef);
 	public List<Map<String, Object>> selectEduCd();
-	public List<Map<String, Object>> selectWalfareList(@Param("walfareRef") String walfareRef);
+	public List<Map<String, Object>> selectWelfareList(@Param("welfareRef") String welfareRef);
 	public List<Map<String, Object>> selectPositionList(@Param("positionRef") String positionRef);
 	public List<Map<String, Object>> selectEmpltypeList();
 }

@@ -50,7 +50,7 @@
 										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
 										class="item-wrap"> <span class="icon-add">${exprod.exprodName }</span>
 										<img class="img-fluid"
-										src="<%=request.getContextPath()%>/resources/images/우기1.jfif" />
+										src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
 										
 									</a>
 									<h3><a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="text-black">${exprod.exprodName }</a></h3>
@@ -64,7 +64,3 @@
 		</div>
 	</div>
 </section>
-
-
-
-

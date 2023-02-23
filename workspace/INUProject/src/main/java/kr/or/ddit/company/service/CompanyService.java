@@ -19,6 +19,7 @@ public interface CompanyService {
 	public CompanyVO retrieveCompany(String cmpName);
 	
 	public int createCompany(CompanyVO company);
+	
 }
 
 

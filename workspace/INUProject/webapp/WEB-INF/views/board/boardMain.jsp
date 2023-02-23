@@ -39,23 +39,6 @@ element.style {
 </head>
 
 <body id="top">
-	<!-- HOME -->
-	<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7">
-					<h1 class="text-white font-weight-bold">홈</h1>
-					<div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-							<span class="mx-2 slash">/</span>
-							<span class="text-white"><strong>Home</strong></span>
-					</div>
-					<div class="custom-breadcrumbs"></div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<!-- 작성 -->
 	<div id="sri_section" class=" layout_full ">
 		<div id="sri_wrap">
@@ -74,7 +57,7 @@ element.style {
 								<div class="qna_search">
 									<h3 class="title">
 										<a href="${pageContext.request.contextPath }/board/boardTotal" class="link_go">실시간 전체글
-											<span class="count">52,473</span>개
+											<span class="count" id="totalCnt">0</span>개
 										</a>
 									</h3>
 
@@ -144,79 +127,7 @@ element.style {
 									<div class="wrap_title">
 										<h3 class="main_tit">주제별 커뮤니티</h3>
 									</div>
-									<div class="wrap_slide_category">
-										<div class="bx-wrapper" style="max-width: 1374px;">
-											<div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 50px;">
-												<ul class="list_category js-category" style="width: 11215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
-													<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate selected" href="${pageContext.request.contextPath }/board/boardTotal" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															전체글
-														</a>
-													</li>
-													<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															신입
-														</a>
-													</li>
-													<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															취준
-														</a>
-													</li>
-													<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															채용공고
-														</a>
-													</li>
-													<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															자소서
-														</a>
-													</li>
-													<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															면접
-														</a>
-													</li>
-													<li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															Q&amp;A
-														</a>
-													</li>
-													<li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															커리어
-														</a>
-													</li>
-													<li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															이직
-														</a>
-													</li>
-													<li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															퇴사
-														</a>
-													</li>
-													<li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-														<a class="item_cate" href="#" onmousedown="SEARCH.Main.gaEvent('main_qst', 'hot_tag')">
-															잡담
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="bx-controls bx-has-controls-direction">
-												<div class="bx-controls-direction">
-													<button type="button" class="bx-prev disabled">
-														<span class="blind">이전</span>
-													</button>
-													<button type="button" class="bx-next">
-														<span class="blind">다음</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
+
 
 										<!-- 전체글 -->
 									<div class="community_list">
@@ -374,36 +285,5 @@ element.style {
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/board/bxslider.js"></script>
-<script>
-function sliderDisableCheck() {
-    if ($('.wrap_slide_category .bx-next').hasClass('disabled')) {
-        $('.wrap_slide_category').addClass('category_end');
-    } else {
-        $('.wrap_slide_category').removeClass('category_end');
-    }
-}
-$('.js-category').bxSlider({
-    mode: 'horizontal',
-    slideWidth: 114,
-    moveSlides: 3,
-    maxSlides: 35,
-    minSlides: 5,
-    slideMargin: 12,
-    controls: true,
-    pager: false,
-    infiniteLoop: false,
-    hideControlOnEnd: true,
-    prevText: '<span class="blind">이전</span>',
-    nextText: '<span class="blind">다음</span>',
-    touchEnabled: (navigator.maxTouchPoints > 0),
-    onSliderLoad: function () {
-        sliderDisableCheck();
-        $(this).removeClass('visible_hidden');
-    },
-    onSlideAfter: function () {
-        sliderDisableCheck();
-    }
-});
-</script>
 </body>
 </html>

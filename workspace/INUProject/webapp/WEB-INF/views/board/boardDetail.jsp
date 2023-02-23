@@ -26,23 +26,6 @@
 </head>
 
 <body id="top">
-	<!-- HOME -->
-	<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7">
-					<h1 class="text-white font-weight-bold">상세보기</h1>
-					<div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-							<span class="mx-2 slash">/</span>
-							<span class="text-white"><strong>Detail Board</strong></span>
-					</div>
-					<div class="custom-breadcrumbs"></div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<!-- 작성 -->
 	<div id="sri_section" class=" layout_full ">
 		<div id="sri_wrap">
@@ -155,21 +138,41 @@
 						</div>
 
 						<!-- 댓글 등록 -->
-						<div class="comment_input_wrap" onclick="window.login();">
-							<div class="comment_input img_add">
-								<textarea class="scrollbar" placeholder="“나도 이런 고민했었지, 라떼는 말이야~” 위 고민과 같은 경험이 있거나, 알고 계신 정보가 있다면 조언 부탁드려요!" disabled=""></textarea>
-							</div>
-							<div class="comment_input_bot">
-								<div class="image_add_wrap">
-									<button type="button" class="btn_image_add" onclick="window.login();">이미지첨부</button>
-									*최대 1개 ( <em>jpg, png, gif</em>만 가능 )
+						<form class="qna_answer_form" name="qna_answer_form" enctype="multipart/form-data">
+							<input type="hidden" name="qust_idx" value="67155" id="qust_idx">
+							<input type="hidden" name="csn" value="" id="csn">
+							<div class="comment_input_wrap">
+								<div class="comment_input img_add">
+									<span class="nickname">${board.memId }</span>
+									<textarea name="contents" id="contents" class="scrollbar"
+										placeholder="“나도 이런 고민했었지, 라떼는 말이야~” 위 고민과 같은 경험이 있거나, 알고 계신 정보가 있다면 조언 부탁드려요!"
+										rows="24" cols="80"></textarea>
+									<ul class="add_img_list" style="display: none;">
+										<li>
+											<div class="thumb">
+												<img id="reply_preview"
+													src="http://www.saraminimage.co.kr/sri/company_review/dummy_pic1.png"
+													alt="">
+											</div>
+											<button type="button" class="img_delete"></button>
+										</li>
+									</ul>
 								</div>
-								<span class="comment_count">
-									<em>0</em>/1000자
-								</span>
+								<div class="comment_input_bot info_write">
+									<div class="image_add_wrap">
+										<input type="file" id="reply_file" name="reply_file"
+											accept="image/*" style="display: none;"> <label
+											for="reply_file" class="btn_image_add">이미지첨부</label> *최대 1개 (
+										<em>jpg, png, gif</em>만 가능 )
+									</div>
+									<!-- <span class="comment_count bytes"> <em>0</em>/1000자 -->
+									</span>
+								</div>
+								<button type="button"
+									class="btnSizeL comment_submit btn_anwr_register"
+									name="btn_anwr_register">댓글 등록</button>
 							</div>
-							<button type="button" class="btnSizeL comment_submit" onclick="window.login();">댓글 등록</button>
-						</div>
+						</form>
 
 						<!-- 댓글 정렬 -->
 						<div class="comment_lists_wrap" id="qna_answer_box">

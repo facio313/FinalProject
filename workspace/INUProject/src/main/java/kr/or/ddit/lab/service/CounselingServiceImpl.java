@@ -2,6 +2,13 @@ package kr.or.ddit.lab.service;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.exception.NotExistBoardException;
+import kr.or.ddit.lab.dao.CounselingDAO;
+import kr.or.ddit.lab.vo.CounselingVO;
+import kr.or.ddit.vo.PagingVO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author 작성자명
  * @since 2023. 2. 19.
@@ -15,7 +22,34 @@ import org.springframework.stereotype.Service;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class CounselingServiceImpl implements CounselingService {
+	private final CounselingDAO counDAO;
+	@Override
+	public void retrieveCounList(PagingVO<CounselingVO> pagingVO) {
+		pagingVO.setTotalRecord(counDAO.selectTotalRecord(pagingVO));
+		pagingVO.setDataList(counDAO.selectCounList(pagingVO));
+	}
 
+	@Override
+	public CounselingVO retrieveCoun(String counNo) {
+		CounselingVO coun = counDAO.selectCoun(counNo);
+		if(coun==null)
+			throw new NotExistBoardException(counNo);
+		return coun;
+	}
+
+	@Override
+	public int createCoun(CounselingVO coun) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteCoun(String counNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

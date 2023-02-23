@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.expert.dao.ExprodDAO;
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.vo.PagingVO;
 @Service
 public class ExprodServiceImpl implements ExprodService {
@@ -24,6 +25,7 @@ public class ExprodServiceImpl implements ExprodService {
 	@Override
 	public ExprodVO selectExprod(String exprodId) {
 		ExprodVO exprod = exprodDAO.selectExprod(exprodId);
+		exprod.setExreviewList(exprodDAO.selectExreviewList(exprodId));
 		return exprod;
 	}
 
@@ -40,6 +42,19 @@ public class ExprodServiceImpl implements ExprodService {
 		pagingVO.setDataList(exprodList);
 		exprodList.stream().forEach(System.out::println);
 	}
+
+	@Override
+	public int removeExprod(String exprodId) {
+		int rowcnt = exprodDAO.deleteExprod(exprodId);
+		return rowcnt;
+	}
+	
+	@Override
+	public int updateExprodName(ExprodVO exprod) {
+		int rowcnt = exprodDAO.updateExprodName(exprod);
+		return rowcnt;
+	}
+
 
 
 }

@@ -30,30 +30,13 @@
 <body id="top">
 	<div id="overlayer"></div>
 	<div class="site-wrap">
-		<!-- HOME -->
-		<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-7">
-						<h1 class="text-white font-weight-bold">현직자인터뷰</h1>
-						<div class="custom-breadcrumbs">
-							<a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-								<span class="mx-2 slash">/</span>
-								<span class="text-white"><strong>Interview</strong></span>
-						</div>
-						<div class="custom-breadcrumbs"></div>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<!-- 작성 -->
 		<div id="sri_section" class="  ">
 			<div id="sri_wrap">
 				<div id="content">
 					<div class="wrap_title_recruit title_type2">
 						<h1 class="title_common">현직자 인터뷰
-							<span class="value">전체 <b>939</b>건</span>
+							<span class="value">전체 <b id="totalCnt"></b>건</span>
 						</h1>
 						<div class="">
 							<div class=""></div>
@@ -75,79 +58,79 @@
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">기획·전략</a>
-								(159)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">마케팅·홍보·조사</a>
-								(159)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">회계·세무·재무</a>
-								(30)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">인사·노무·HRD</a>
-								(82)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">총무·법무·사무</a>
-								(36)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">IT개발·데이터</a>
-								(108)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">디자인</a>
-								(71)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">영업·판매·무역</a>
-								(134)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">고객상담·TM</a>
-								(14)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">구매·자재·물류</a>
-								(18)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">상품기획·MD</a>
-								(29)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">운전·운송·배송</a>
-								(5)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">서비스</a>
-								(58)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">생산</a>
-								(54)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">건설·건축</a>
-								(34)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">의료</a>
-								(9)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">연구·R&amp;D</a>
-								(42)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">미디어·문화·스포츠</a>
-								(73)
+								(0)
 							</li>
 							<li>
 								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">금융·보험</a>
-								(10)
+								(0)
 							</li>
 						</ul>
 					</div>
@@ -245,6 +228,7 @@ let searchForm = $("#searchForm").on("submit", function(event){
 		data : queryString,
 		dataType : "json",
 		success : function(resp) {
+			$("#totalCnt").html(resp.pagingVO.totalRecord);
 			listBody.empty();
 			pagingArea.empty();
 			searchForm[0].page.value="";

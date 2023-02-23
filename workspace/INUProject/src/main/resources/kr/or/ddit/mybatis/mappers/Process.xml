@@ -170,4 +170,26 @@
 		AND		PROCESS_CODE_ID = #{processCodeId,jdbcType=VARCHAR}
 	</delete>
 	
+<!-- 	<resultMap type="kr.or.ddit.process.vo.ItemVO" id="itemMap"> -->
+<!-- 		<id property="daNo" column="DA_NO"/> -->
+<!-- 		<id property="processCodeId" column="PROCESS_CODE_ID"/> -->
+<!-- 		<result property="daNo" column="DA_NO"/> -->
+<!-- 		<result property="processCodeId" column="PROCESS_CODE_ID"/> -->
+<!-- 		<result property="itemCodeId" column="ITEM_CODE_ID"/> -->
+<!-- 		<result property="itemCodeName" column="ITEM_CODE_NAME"/> -->
+<!-- 		<result property="itemAsk" column="ITEM_ASK"/> -->
+<!-- 	</resultMap> -->
+	
+	<select id="selectItemList" parameterType="String" resultType="ItemVO">
+		SELECT 
+			A.DA_NO
+			, B.PROCESS_CODE_ID
+			, A.ITEM_CODE_ID
+			, B.ITEM_CODE_NAME
+			, A.ITEM_ASK
+		FROM ITEM A
+		INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		WHERE A.DA_NO = #{daNo}
+		ORDER BY A.ITEM_CODE_ID
+	</select>
 </mapper>

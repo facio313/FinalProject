@@ -14,7 +14,7 @@
 <link href="<%=request.getContextPath()%>/resources/cks/processMain.css" rel="stylesheet"/>
 
 <!-- 달력, 일정 -->
-<div style="position: relative; padding: 50px; height: 67vh;">
+<div style="position: relative; margin-bottom: 75px; padding: 50px; height: 90vh;">
 	<div id='calendar' style="position: abolute; padding: 50px; float:left; border-radius: 0.5em; width: 67%; height: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"></div>
 	<div id='schedular' class="table-responsive" style="position: abolute; padding-top: 50px; padding-bottom: 50px; float:right; border-radius: 0.5em; width: 32%; height: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
 <!-- 		<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(0, 158, 100); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"> -->
@@ -74,19 +74,20 @@
 <div>
 
 <!-- 	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(0, 158, 100); left: -20px; width: 95%%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"> -->
-	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); left: -20px; width: 95%%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-		<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">진행중인 공고</span>
+	<div style="position: relative; margin-right: 10px; margin-bottom: 75px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+		<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">회사 공고</span>
 		<span style="position: absolute; left: 20px; top: 60px; font-size: 15px; font-weight: 600; color: white;">[세부공고별]</span>
 	</div>
 	
 	<section class="page-contain">
 	
-			<div style="display: flex; flex-direction: column; padding-top: 110px; min-width: 20.75em; min-height: 20.75em; text-decoration: none; text-align: center;">
-				<h1>전체로 보기</h1>
+			<div style="display: flex; flex-direction: column; padding-top: 110px; min-width: 17.75em; min-height: 20.75em; text-decoration: none; text-align: center;">
+				<h3>전체 공고</h3>
+				<h3>목록 보기</h3>
 				<h1>&#10159;</h1>
 			</div>
 	
-			<a href="#" class="data-card">
+			<a href="${pageContext.request.contextPath}/process/${list[0].annoNo}" class="data-card">
 				<h3>세부공고</h3>
 				<h4>공고제목</h4>
 				<p>직무, 직급, 복지,</p>
@@ -195,19 +196,14 @@
 	
 	<!-- 끝난 공고 -->
 <!-- 	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(0, 158, 100); left: -20px; width: 95%%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"> -->
-	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); left: -20px; width: 95%%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-		<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">만료된 공고</span>
-		<span style="position: absolute; left: 20px; top: 60px; font-size: 15px; font-weight: 600; color: white;">[세부공고별]</span>
-	</div>
+<!-- 	<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"> -->
+<!-- 		<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">만료된 공고</span> -->
+<!-- 		<span style="position: absolute; left: 20px; top: 60px; font-size: 15px; font-weight: 600; color: white;">[세부공고별]</span> -->
+<!-- 	</div> -->
 	
-	<section class="page-contain">
+	<section class="page-contain" style="position: relative; top: -100px;">
 	
-			<div style="display: flex; flex-direction: column; padding-top: 110px; min-width: 20.75em; min-height: 20.75em; text-decoration: none; text-align: center;">
-				<h1>전체로 보기</h1>
-				<h1>&#10159;</h1>
-			</div>
-	
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>세부공고</h3>
 				<h4>공고제목</h4>
 				<p>직무, 직급, 복지,</p>
@@ -220,7 +216,7 @@
 				</span>
 			</a>
 			
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>개발자</h3>
 				<h4>제14회 상반기 공개채용</h4>
 				<p>직무, 직급, 복지, 등</p>
@@ -233,7 +229,7 @@
 				</span>
 			</a>
 			
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>인사담당자</h3>
 				<h4>제14회 상반기 공개채용</h4>
 				<p>직무, 직급, 복지, 등</p>
@@ -246,7 +242,7 @@
 				</span>
 			</a>
 			
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>품질관리자</h3>
 				<h4>제8회 상시채용</h4>
 				<p>직무, 직급, 복지, 등</p>
@@ -259,7 +255,7 @@
 				</span>
 			</a>
 	
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>기업변호사</h3>
 				<h4>제8회 상시채용</h4>
 				<p>직무, 직급, 복지,</p>
@@ -272,7 +268,7 @@
 				</span>
 			</a>
 			
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>디자이너</h3>
 				<h4>제13회 하반기 공개채용</h4>
 				<p>직무, 직급, 복지,</p>
@@ -285,7 +281,7 @@
 				</span>
 			</a>
 			
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>상담사</h3>
 				<h4>제13회 하반기 공개채용</h4>
 				<p>직무, 직급, 복지,</p>
@@ -298,7 +294,7 @@
 				</span>
 			</a>
 			
-			<a href="#" class="data-card">
+			<a href="#" class="data-card completed">
 				<h3>구내요리사</h3>
 				<h4>제13회 하반기 공개채용</h4>
 				<p>직무, 직급, 복지,</p>
@@ -314,9 +310,60 @@
 	</section>
 </div>
 
+<!-- 공고목록 -->
+<%-- <div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); left: -20px; width: 90%; height: 100px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+	<span style="position: absolute; left: 20px; top: 7px; font-size: 40px; font-weight: 800; color: white;">공고목록</span>
+	<span style="position: absolute; left: 20px; top: 60px; font-size: 15px; font-weight: 600; color: white;">[세부공고별]</span>
+</div>
+<c:choose>
+	<c:when test="${not empty list}">
+		<div class="courses-container">
+			<c:forEach items="${list}" var="anno" end="9">
+				<!-- 나중에 processVO에 annoVO 넣어놓기 -->
+				<c:forEach items="${processList}" var="process" end="0">
+					<div class="course">
+						<div class="course-preview">
+							<h6 style="color: white;">${anno.company.cmpName}</h6>
+							<h2 style="color: white;">${anno.annoTitle}</h2>
+							<a href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}">공고 내용 보러가기<i class="fas fa-chevron-right"></i></a>
+						</div>
+						<div class="course-info">
+							<div class="progress-container">
+								<div class="progress"></div>
+								<span class="progress-text">3/8 ${process.processCodeId} </span>
+							</div>
+							<h6>직급</h6>
+							<a style="text-decoration: none;" href="${pageContext.request.contextPath}/process/${processList[0].daNo}"><h2>직무명</h2></a>
+							<button class="listBtn" style="width: 25%;" onclick='location.href="${pageContext.request.contextPath}/process/${processList[0].daNo}/${processList[0].processCodeId}"'>채용과정 보러가기</button>
+						</div>
+					</div>
+				</c:forEach>
+			</c:forEach>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="courses-container">
+			<div class="course">
+				<div class="course-preview">
+					<h6 style="color: white;">회사명</h6>
+					<h2 style="color: white;">공고이름</h2>
+					<a href="#">공고 내용 보러가기<i class="fas fa-chevron-right"></i></a>
+				</div>
+				<div class="course-info">
+					<div class="progress-container">
+						<div class="progress"></div>
+						<span class="progress-text">3/8 현재 채용과정 </span>
+					</div>
+					<h6>직급</h6>
+					<h2>직무명</h2>
+					<button class="listBtn" style="width: 25%;">채용과정 보러가기</button>
+				</div>
+			</div>
+		</div>
+	</c:otherwise>
+</c:choose> --%>
 
-
-<div class="bottom" style="position: relative;">
+<%-- <div class="bottom" style="position: relative;">
 	<table class="table hover table-bordered">
 		<thead>
 			<tr>
@@ -359,12 +406,12 @@
 	<div id="sri_wrap">
       	<div id="content">
 			<div class="wrap_help">
-      			<!-- 리스트 영역 -->
+      			리스트 영역
 				<div class="wrap_list_help">
               		<h2 class="tit_list_help">
          				<strong></strong> 공고 목록
                     </h2>
-      				<!-- 도움말 리스트 -->
+      				도움말 리스트
       				<ul class="list_help">
       					<c:choose>
 		      				<c:when test="${not empty list}">
@@ -404,11 +451,11 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --%>
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	var $list = jQuery('.list_help'),
 	  $li = jQuery('> li', $list);
 	
@@ -421,7 +468,7 @@
 	      $this.addClass('select');
 	  }
 	});
-</script>
+</script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.4/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.4/index.global.min.js"></script>

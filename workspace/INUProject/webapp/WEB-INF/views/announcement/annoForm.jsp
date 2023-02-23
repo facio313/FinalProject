@@ -10,26 +10,21 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
+<c:set  var="prePath" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${prePath}/resources/css/custom-bs.css">
+<link rel="stylesheet" href="${prePath}/resources/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="${prePath}/resources/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="${prePath}/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="${prePath}/resources/fonts/line-icons/style.css">
+<link rel="stylesheet" href="${prePath}/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${prePath}/resources/css/animate.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
-<script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
+<script src="${prePath}/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -62,7 +57,8 @@
 /* 	font-size: 12px;  */
 /* } */
 </style>
-
+<security:authentication property="principal" var="memberVOWrapper"/>
+<security:authentication property="principal.realMember" var="authMember"/>	
 <!-- html body -->
 <div class="site-wrap" style="background-color: white">
 	<!-- HOME -->
@@ -104,10 +100,9 @@
 						<!-- 1. 담당자 정보 : 담당자 이름, 전화번호, 이메일 주소, 업종, 대표 근무지역(+api)  -->
 						<h3 class="text-black mb-5 border-bottom pb-2">1.대표 정보</h3>
 						<div style="margin-bottom: 100px">
-							<!-- 담당자 아이디 -->
 							<div class="form-group">
-								<form:hidden path="memId" value="asdf"/>
-								<form:hidden path="cmpId" value="C777777"/>
+								<form:hidden path="memId" value="${authMember.memId}"/>
+								<form:hidden path="cmpId" value="${authMember.incruiterVO.cmpId}"/>
 							</div>
 							<div class="container">
 								<div class="row pp">
@@ -225,14 +220,14 @@
 							<div class="row pp">
 								<div class="col-6 col-md-2">복지 사항</div>
 									<div class="form-group col-md-6">
-										<form:select path="walfareList[0].walfare0" class="box">
+										<form:select path="welfareList[0].welfare0" class="box">
 											<option value>대분류</option>
 										</form:select>
-										<form:select path="walfareList[0].walfareCode" class="box">
+										<form:select path="welfareList[0].welfareCode" class="box">
 											<option value>소분류</option>
 										</form:select>
 									</div>
-									<ul id="walDiv" style="background-color: lavender;">
+									<ul id="welDiv" style="background-color: lavender;">
 									</ul>
 								</div>
 							</div>
@@ -247,13 +242,10 @@
 						</div>
 						
 						
-						
 						<!-- 					세부 페이지						 -->
 						
 						
-						
 						<h3 class="text-black mb-5 border-bottom pb-2">2. 모집분야(세부)</h3>
-						
 						
 						<!-- 탭머리 -->
 						<div class="row" style="margin-bottom: 50px">
@@ -289,7 +281,6 @@
 								- 성별, 연령 입력 불가로 인해 기존에 등록한 공고는 수정, 연장, 복사시에 '성별무관','연령무관'으로 변경됩니다.
 							</div>
 						</div>
-						
 					</form:form>
 				</div>
 			</div>
@@ -318,13 +309,13 @@
 			<div class="col-6 col-md-2">직무</div>
 			<div class="form-group col-md-6">
 				<select name="detailList[%n].job0" class="job0 box">
-					<option value>상위</option>
+					<option value>대분류</option>
 				</select>
 				<select name="detailList[%n].job1" class="job1 box">
-					<option value>중위</option>
+					<option value>중분류</option>
 				</select>
 				<select name="detailList[%n].jobCode" class="jobCode box">
-					<option value>하위</option>
+					<option value>소분류</option>
 				</select>
 			</div>
 		</div>
@@ -349,15 +340,15 @@
 				<div class="row pp">
 					<div class="col-4 col-sm-3">
 						경력무관 
-						<input type="checkbox" name="detailList[%n].careerName" value="관계없음" class="career0" />
+						<input type="checkbox" name="detailList[%n].careerNames" value="경력무관" class="career0" />
 					</div>
 					<div class="col-4 col-sm-3">
 						신입 
-						<input type="checkbox" name="detailList[%n].careerName" value="신입" class="career1"/>
+						<input type="checkbox" name="detailList[%n].careerNames" value="신입" class="career1"/>
 					</div>
 					<div class="col-4 col-sm-3">
 						경력 
-						<input type="checkbox" name="detailList[%n].careerName" value="경력" class="career2"/>
+						<input type="checkbox" name="detailList[%n].careerNames" value="경력" class="career2"/>
 					</div>
 				</div>
 				<div class="careerYear" style="display: none">
@@ -430,7 +421,7 @@
 				<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
 				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 				<!-- data.sido+" "+data.sigungu -->
-				<input type="hidden" name="detailList[%n].regionName"/>
+				<input type="hidden" name="detailList[%n].regionVO.regionName"/>
               	</div>
 		</div>
 	</div>
@@ -455,22 +446,23 @@
 	</div>
 </div>
 <!-- 탭몸통1 끝 -->
-
 <!-- SCRIPTS -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-let ic = $("[name=industryCode]").on("change",function(){
-	console.log(ic.val());
-})
+//test-start
+
+
+
+//test-end
 
 let topData = [
 	{type:'region', code:''}
 	, {type:'industry', code:''}
 	, {type:'job', code:''}
 	, {type:'edu', code:''}
-	, {type:'walfare', code:''}
+	, {type:'welfare', code:''}
 	, {type:'position', code:''}
 	, {type:'empltype', code:''}
 ]
@@ -485,14 +477,14 @@ $(function(){
 		success : function(resp) {
 			
 			let industryList = resp.industryList;
-			let walfareList = resp.walfareList;
+			let welfareList = resp.welfareList;
 			let eduList = resp.eduList;
 			let positionList = resp.positionList;
 			let jobList = resp.jobList;
 			let empltypeList = resp.empltypeList;
 			
 			let industryOption = [];
-			let walfareOption = [];
+			let welfareOption = [];
 			let eduOption = [];
 			let positionOption = [];
 			let jobOption = [];
@@ -506,13 +498,13 @@ $(function(){
 				let tr = $("<option>").attr("class","code").prop("value",val.eduCode).html(val.eduName);
 				eduOption.push(tr);
 			})
-			$.each(walfareList, function(index, val){
-				let tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
-				walfareOption.push(tr);
+			$.each(welfareList, function(index, val){
+				let tr = $("<option>").attr("class","code").prop("value",val.welfareCode).html(val.welfareName);
+				welfareOption.push(tr);
 			})
 			$.each(positionList, function(index, val){
 				let div = $("<div>").attr("class","chck");
-				let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].positionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
+				let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].inpositionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
 				div.append(tr);
 				div.html(div.html() + val.positionName);
 				positionOption.push(div);
@@ -528,7 +520,7 @@ $(function(){
 			
 			$("select[name=industry0]").append(industryOption);
 			$("select[name=eduCode]").append(eduOption);
-			$("select[name='walfareList[0].walfare0']").append(walfareOption);
+			$("select[name='welfareList[0].welfare0']").append(welfareOption);
 			$("#positionCheck").append(positionOption);
 			$(".job0").append(jobOption);
 			$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
@@ -537,9 +529,9 @@ $(function(){
 	// 		$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
 	// 		$("select[name='detailList[0].job0']").val("${anno.detailList[0].job0}").trigger("change");
 	// 		$("select[name='detailList[0].empltypeCode']").val("${anno.detailList[0].empltypeCode}");
-	// 		$("select[name='detailList[0].positionCode']").val("${anno.detailList[0].positionCode}");
-	// 		$("select[name='walfareList[0].walfare0']").val("${anno.walfareList[0].walfare0}").trigger("change");
-	
+	// 		$("select[name='detailList[0].inpositionCode']").val("${anno.detailList[0].inpositionCode}");
+	// 		$("select[name='welfareList[0].welfare0']").val("${anno.welfareList[0].welfare0}").trigger("change");
+
 		 	$("#testBtn").trigger("click");
 		},
 		error : function(jqXHR, status, error) {
@@ -591,17 +583,21 @@ $("#testBtn").on("click",function(){
 	job0();
 	job1();
 	career();
+	
+	$(".jobCode").on("change",function(){
+		console.log("jobCOde",$(".jobCode").val());
+	});
 });
 
 /* 복지 태그 */
-let walval = $("[name='walfareList[0].walfareCode']").on("change",function(){
-	let walSelect = $("[name='walfareList[0].walfareCode'] option:selected");
-	console.log(walval.val());
-	console.log(walSelect.html());
-	$("#walDiv").append(
-		$("<li>").attr("type","button").attr("class","walBtn").css({"display":"inline-block","margin-right":"15px"}).html(walSelect.html()).append(
+let welval = $("[name='welfareList[0].welfareCode']").on("change",function(){
+	let welSelect = $("[name='welfareList[0].welfareCode'] option:selected");
+	console.log(welval.val());
+	console.log(welSelect.html());
+	$("#welDiv").append(
+		$("<li>").attr("type","button").attr("class","welBtn").css({"display":"inline-block","margin-right":"15px"}).html(welSelect.html()).append(
 			$("<i>").attr("class","bi bi-x-lg")
-			,$("<input>").attr("type","hidden").attr("name","walfareCodeList").val(walval.val())
+			,$("<input>").attr("type","hidden").attr("name","welfareCodeList").val(welval.val())
 		)
 	)
 });
@@ -660,7 +656,7 @@ function sample4_execDaumPostcode(x) {
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
             // DB로 가져갈 값
-            let regionName = document.querySelector("[name='detailList["+x+"].regionName']");
+            let regionName = document.querySelector("[name='detailList["+x+"].regionVO.regionName']");
             regionName.value=data.sido+" "+data.sigungu;
 			console.log(regionName.value);
 
@@ -716,7 +712,8 @@ function sample4_execDaumPostcode(x) {
     
 /* CKEDITOR */
 CKEDITOR.replace('annoContent',{
-	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
+	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
+
 });
 
 /* 글자수세기 */
@@ -769,19 +766,26 @@ $(function() {
 		}
 	}, function(start, end, label) {
 		//DB로 가져갈 값
-		let annoStartdate = document.querySelector("[name=annoStartdate]");
-		let annoEnddate = document.querySelector("[name=annoEnddate]");
+		let annoStartdate = $("[name=annoStartdate]");
+		let annoEnddate = $("[name=annoEnddate]");
 		annoStartdate.value=start.format('YYYY-MM-DD HH:mm:ss');
 		annoEnddate.value=end.format('YYYY-MM-DD HH:mm:ss');
 		console.log('시작날짜',annoStartdate.value);
 		console.log('종료날짜',annoEnddate.value);
 	});
+	console.log('시작날짜',annoStartdate.value);
+	console.log('종료날짜',annoEnddate.value);
 });
 let today = new Date();
 $('input[name=daterange]').val(today);
 
 /* 하위 업종 셀렉트 */
 $("[name=industry0]").on("change", function(){
+	$("[name='industry1'] option").remove();   
+	$("[name='industry1']").append("<option>중분류</option>");
+	$("[name='industryCode'] option").remove();   
+	$("[name='industryCode']").append("<option>소분류</option>");
+	
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
 	
@@ -792,7 +796,6 @@ $("[name=industry0]").on("change", function(){
 		dataType : "json",
 		contentType: 'application/json',
 		success : function(resp) {
-			
 			let industryList = resp.industryList;
 			let industryOption = [];
 			$.each(industryList, function(index, val){
@@ -800,11 +803,7 @@ $("[name=industry0]").on("change", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 				industryOption.push(tr);
 			})
-			$("select[name=industry1] option").remove();
 			$("select[name=industry1]").append(industryOption);
-			$("select[name=industryCode] option").remove();
-			$("select[name=industryCode]").append($("<option>").html("소분류"));
-// 			$("select[name=industry1]").val("${anno.industry1}").trigger("change");
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -814,6 +813,9 @@ $("[name=industry0]").on("change", function(){
 	});   
 });
 $("[name=industry1]").on("change", function(){
+	$("[name='industryCode'] option").remove();   
+	$("[name='industryCode']").append("<option>소분류</option>");
+	
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
 	
@@ -831,7 +833,6 @@ $("[name=industry1]").on("change", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
 				industryOption.push(tr);
 			})
-			$("select[name=industryCode] option").remove();
 			$("select[name=industryCode]").append(industryOption);
 // 			$("select[name=industryCode]").append(industryOption).val("${anno.industryCode}");
 		},
@@ -844,9 +845,9 @@ $("[name=industry1]").on("change", function(){
 });
 
 /* 복지 하위 셀렉트 */
-$("[name='walfareList[0].walfare0']").on("change", function(){
+$("[name='welfareList[0].welfare0']").on("change", function(){
 	let ref = $(this).val();
-	let data = [{type:'walfare',code:ref}];
+	let data = [{type:'welfare',code:ref}];
 	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/announcement/select",
@@ -855,16 +856,17 @@ $("[name='walfareList[0].walfare0']").on("change", function(){
 		dataType : "json",
 		contentType: 'application/json',
 		success : function(resp) {
-			let walfareList = resp.walfareList;
-			let walfareOption = [];
-			$("select[name='walfareList[0].walfareCode'] option").remove();
-			$.each(walfareList, function(index, val){
+			let welfareList = resp.welfareList;
+			let welfareOption = [];
+			$("select[name='welfareList[0].welfareCode'] option").remove();
+			$.each(welfareList, function(index, val){
 				let tr = null;
-				tr = $("<option>").attr("class","code").prop("value",val.walfareCode).html(val.walfareName);
-				walfareOption.push(tr);
+				tr = $("<option>").attr("class","code").prop("value",val.welfareCode).html(val.welfareName);
+				welfareOption.push(tr);
 			})
-			$("select[name='walfareList[0].walfareCode']").append(walfareOption);
-// 			$("select[name='walfareList[0].walfareCode']").append(walfareOption).val("${anno.walfareList[0].walfareCode}");
+			$("select[name='welfareList[0].welfareCode']").append($("<option>").html("소분류"));
+			$("select[name='welfareList[0].welfareCode']").append(welfareOption);
+// 			$("select[name='welfareList[0].welfareCode']").append(welfareOption).val("${anno.welfareList[0].welfareCode}");
 		},
 		error : function(jqXHR, status, error) {
 			console.log(jqXHR);
@@ -899,6 +901,7 @@ function job0(){
 				})
 				
 				job0.siblings(".job1").find("option").remove();
+				job0.siblings(".job1").append($("<option>").html("중분류"));
 				job0.siblings(".job1").append(jobOption);
 				job1.siblings(".jobCode").find("option").remove();
 				job1.siblings(".jobCode").append($("<option>").html("소분류"));
@@ -915,6 +918,7 @@ function job0(){
 }
 function job1(){
 	$(".job1").on("change", function(){
+		
 		let job1 = $(this);
 		let ref = $(this).val();
 		let data = [{type:'job',code:ref}];
@@ -935,6 +939,7 @@ function job1(){
 					jobOption.push(tr);
 				})
 				job1.siblings(".jobCode").find("option").remove();
+				job1.siblings(".jobCode").append("<option>소분류</option>");
 				job1.siblings(".jobCode").append(jobOption);
 				
 //	 			$("select[name='detailList[0].jobCode']").append(jobOption).val("${anno.detailList[0].jobCode}");
@@ -944,23 +949,23 @@ function job1(){
 				console.log(status);
 				console.log(error);
 			}
-		});   
+		});
 	});
 }
 
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+<script src="${prePath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${prePath}/resources/js/isotope.pkgd.min.js"></script>
+<script src="${prePath}/resources/js/stickyfill.min.js"></script>
+<script src="${prePath}/resources/js/jquery.fancybox.min.js"></script>
+<script src="${prePath}/resources/js/jquery.easing.1.3.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
+<script src="${prePath}/resources/js/jquery.waypoints.min.js"></script>
+<script src="${prePath}/resources/js/jquery.animateNumber.min.js"></script>
+<script src="${prePath}/resources/js/owl.carousel.min.js"></script>
+<script src="${prePath}/resources/js/quill.min.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
+<script src="${prePath}/resources/js/bootstrap-select.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="${prePath}/resources/js/custom.js"></script>

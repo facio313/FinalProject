@@ -30,23 +30,6 @@
 </head>
 
 <body id="top">
-	<!-- HOME -->
-	<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7">
-					<h1 class="text-white font-weight-bold">글 전체</h1>
-					<div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-							<span class="mx-2 slash"></span>
-								<span class="text-white"><strong>Total Board</strong></span>
-					</div>
-					<div class="custom-breadcrumbs"></div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<!-- 여기에 작성 -->
 	<div id="sri_section" class=" layout_full ">
 		<div id="sri_wrap">
@@ -61,7 +44,7 @@
 
 						<!-- 검색 -->
 						<div class="search_form">
-							<div class="list_num_tit sub">전체 <strong>52,507</strong>건</div>
+							<div class="list_num_tit sub">전체 <strong id="totalCnt"></strong>건</div>
 							<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;">
 							<div class="box_search">
 								<div class="input_keyword">
@@ -91,33 +74,6 @@
 
 						<div class="qna_list_wrap">
 							<div class="qna_list_sort">
-								<div class="inpSel">
-									<select name="option_select_category" title="직무·직업 전체">
-										<option value="">직무·직업 전체</option>
-										<option value="16">기획·전략</option>
-										<option value="14">마케팅·홍보·조사</option>
-										<option value="3">회계·세무·재무</option>
-										<option value="5">인사·노무·HRD</option>
-										<option value="4">총무·법무·사무</option>
-										<option value="2">IT개발·데이터</option>
-										<option value="15">디자인</option>
-										<option value="8">영업·판매·무역</option>
-										<option value="21">고객상담·TM</option>
-										<option value="18">구매·자재·물류</option>
-										<option value="12">상품기획·MD</option>
-										<option value="7">운전·운송·배송</option>
-										<option value="10">서비스</option>
-										<option value="11">생산</option>
-										<option value="22">건설·건축</option>
-										<option value="6">의료</option>
-										<option value="9">연구·R&amp;D</option>
-										<option value="19">교육</option>
-										<option value="13">미디어·문화·스포츠</option>
-										<option value="17">금융·보험</option>
-										<option value="20">공공·복지</option>
-									</select>
-								</div>
-
 								<div class="icoChk_outline filter">
 									<span class="inpChk icoChk">
 										<input type="checkbox" id="popular" class="btn_sort" value="popular">
@@ -255,6 +211,8 @@
 			data : queryString,
 			dataType : "json",
 			success : function(resp) {
+				console.log("여기",resp);
+				$("#totalCnt").html(resp.pagingVO.totalRecord);
 				listBody.empty();
 				pagingArea.empty();
 				searchForm[0].page.value="";

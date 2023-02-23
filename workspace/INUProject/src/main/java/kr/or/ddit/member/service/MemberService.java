@@ -20,6 +20,7 @@ import kr.or.ddit.vo.SeekerVO;
  * 수정일              수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.    박형준            아이디 찾기 추가
+ * 2023. 2. 22.   박형준           시스템 관리 부분 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -38,7 +39,6 @@ public interface MemberService {
 	 */
 	public ServiceResult createIcruiter(IncruiterVO incruiter);
 	
-	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
 	/**
 	 * 회원 정보 상세 조회
 	 * @param memId
@@ -60,6 +60,72 @@ public interface MemberService {
 	
 	
 	
+	
+	
+	
+	
+	
+	/*=======================================시스템관리 부분======================================*/
+	/**
+	 * 권한별 회원 목록
+	 * @param memAuthCd
+	 * @return
+	 */
+	public List<MemberVO> retrieveAuthMemberList(MemberVO member);
+
+	/**
+	 * 차단 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveCutList();
+	
+	/**
+	 * 블랙 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveBlackList();
+	
+	/**
+	 * 총괄 기업회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveIncruiterList();
+	
+	/**
+	 * 총괄 기업회원 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveIncruiter(String memId);
+	
+	/**
+	 * 총괄 승인
+	 * @param member
+	 * @return
+	 */
+	public int modifyAcceptInc(IncruiterVO incruiter);
+	public int modifyAcceptCmp(IncruiterVO incruiter);
+	
+	/**
+	 * 전문가 신청 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveExpertList();
+	
+	/**
+	 * 전문가 신청 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveExpert(String memId);
+	
+	/**
+	 * 전문가 승인
+	 * @param member
+	 * @return
+	 */
+	public int modifyAcceptExpRole(MemberVO member);
+	public int modifyAcceptExp(MemberVO member);
 	/*=======================================아이디,비번 찾기 부분======================================*/
 	/**
 	 * 일반회원 아이디 찾기

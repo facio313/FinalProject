@@ -78,15 +78,13 @@
 				<c:when test="${not empty exprodList }">
 					<c:forEach items="${exprodList }" var="exprod">
 						<div class="item">
-								<div
-									class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 ${exprod.exfieldId }">
 									<a
 										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
 										class="item-wrap"> <span class="icon-add">${exprod.exprodName }</span>
 										<img class="img-fluid"
-										src="<%=request.getContextPath()%>/resources/images/2a3359cd-011a-4493-971b-0a4e412c8d59" />
+										src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
 									</a>
-								</div>
+									<h4>상품명:${exprod.exprodName }</h4>
 						</div>
 					</c:forEach>
 				</c:when>
@@ -106,17 +104,12 @@
 			<c:choose>
 				<c:when test="${not empty exeventList }">
 					<c:forEach items="${exeventList }" var="exevent">
-						<div class="container">
-							<div
-								class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
 								<a
 									href="<%=request.getContextPath() %>/expert/event/detail/${exevent.exeventId }"
 									class="item-wrap"> <span class="icon-add">${exevent.exeventName }</span>
 									<img class="img-fluid"
-									src="<%=request.getContextPath()%>/resources/images/우기1.jfif" />
+									src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
 								</a>
-							</div>
-						</div>
 					</c:forEach>
 				</c:when>
 			</c:choose>
@@ -142,21 +135,21 @@
 			<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
 				<a href="portfolio-single.html" class="item-wrap"> <span
 					class="icon-add"></span> <img class="img-fluid"
-					src="<%=request.getContextPath()%>/resources/images/우기1.jfif" />
+					src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
 				</a>
 			</div>
-			<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-				<a href="portfolio-single.html" class="item-wrap"> <span
+			<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4" style="">
+				<%-- <a href="portfolio-single.html" class="item-wrap"> <span
 					class="icon-add"></span> <img class="img-fluid"
-					src="<%=request.getContextPath()%>/resources/images/우기1.jfif" />
-				</a>
+					src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
+				</a> --%>
 			</div>
 
 			<div
 				class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
 				<a href="portfolio-single.html" class="item-wrap"> <span
 					class="icon-add"></span> <img class="img-fluid"
-					src="<%=request.getContextPath()%>/resources/images/우기1.jfif" />
+					src="<%=request.getContextPath()%>/resources/images/Dobby.png" />
 				</a>
 			</div>
 		</div>
@@ -165,48 +158,36 @@
 <section class="site-section">
 	<div class="container">
 		<div class="row mb-5">
+		
 			<div class="col-12 text-center" data-aos="fade">
 				<h2 class="section-title mb-3">후기</h2>
 			</div>
 		</div>
-		<div class="row">
+<!-- 		<div class="row"> -->
+		<div class="owl-carousel owl-theme">
+		 <c:set var="exreviewList" value="${pagingVO3.dataList }"></c:set>
+			<c:forEach items="${exreviewList }" var="exreviewList">
 			<div class="col-lg-6">
-				<div class="block__87154  rounded">
+				<div class="block__87154  rounded" >
+					<h5>상품명 : ${exreviewList.exprodName }</h5>
+					<h5>제목 : ${exreviewList.exreviewName }</h5>
 					<blockquote>
-						<p>너무 좋은 상담시간이였습니다.</p>
+						<p>${exreviewList.exreviewContent }</p>
 					</blockquote>
 					<div class="block__91147 d-flex align-items-center">
 						<figure class="mr-4">
 							<img
-								src="<%=request.getContextPath()%>/resources/images/우기1.jfif"
+								src="<%=request.getContextPath()%>/resources/images/Dobby.png"
 								alt="Image" class="img-fluid" />
 						</figure>
 						<div>
-							<h3>아이유</h3>
+							<h3>${exreviewList.exreviewWriter }</h3>
 							<span class="position">가수</span>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<div class="col-lg-6">
-				<div class="block__87154 bg-white rounded">
-					<blockquote>
-						<p>유익한 시간 정보 감사합니다.</p>
-					</blockquote>
-					<div class="block__91147 d-flex align-items-center">
-						<figure class="mr-4">
-							<img
-								src="<%=request.getContextPath()%>/resources/images/우기1.jfif"
-								alt="Image" class="img-fluid" />
-						</figure>
-						<div>
-							<h3>아이유</h3>
-							<span class="position">가수</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </section>

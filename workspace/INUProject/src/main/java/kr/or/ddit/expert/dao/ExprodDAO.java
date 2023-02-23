@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.vo.PagingVO;
 
 @Mapper
@@ -19,5 +20,9 @@ public interface ExprodDAO {
 	
 	public int selectTotalRecord(PagingVO<ExprodVO> pagingVO);
 	
+	public int deleteExprod(String exprodId);
 	
+	public int updateExprodName(ExprodVO exprod);
+	
+	public List<ExreviewVO> selectExreviewList(String exprodId);
 }

@@ -25,17 +25,24 @@ li {
 }
 .col-1 {
   flex-basis: 10%;
+  color: black;
+  left: -25px;
 }
 .col-2 {
   flex-basis: 60%;
+  color: white;
+  left: -35px;
 }
 .col-3 {
   flex-basis: 25%;
+  width: 30px;
   left: 50px;
+  color: white;
 }
 .col-4 {
   flex-basis: 10%;
   left: 10px;
+  color: white;
 }
 input {
 	border: none;
@@ -62,6 +69,7 @@ input {
 	border-radius: 0.5em;
 	padding: 2em;
 	margin: 25px;
+	margin-bottom: 125px;
 	font-family: "Noto Sans KR", sans-serif;
 }
 
@@ -84,8 +92,8 @@ input {
 
 .data-card h3 {
 	color: #2E3C40;
-	font-size: 3.5em;
-	font-weight: 600;
+	font-size: 2.75em;
+	font-weight: 800;
 	line-height: 1;
 	padding-bottom: 0.5em;
 	margin: 0 0 0.142857143em;
@@ -96,7 +104,7 @@ input {
 .data-card h4 {
 	color: #627084;
 	text-transform: uppercase;
-	font-size: 1.5em;
+	font-size: 1.25em;
 	font-weight: 700;
 	line-height: 1.5;
 	letter-spacing: 0.1em;
@@ -173,3 +181,107 @@ input {
     transform: translateX(0.125em);
   }
 }
+.completed {
+	
+}
+
+
+
+/* 전체 공고목록 */
+.courses-container {
+	padding: 50px;
+}
+
+.course {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+	display: flex;
+	max-width: 100%;
+	height: 350px;
+	margin: 20px;
+	overflow: hidden;
+/* 	width: 700px; */
+}
+
+.course h6 {
+	opacity: 0.6;
+	margin: 0;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.course h2 {
+	word-break: keep-all;
+	letter-spacing: 1px;
+	margin: 10px 0;
+}
+	
+.course-preview {
+	background-color: rgb(4, 87, 56);
+	color: #fff;
+	padding: 30px;
+	width: 30%;
+}
+
+.course-preview a {
+	color: #fff;
+	display: inline-block;
+	font-size: 12px;
+	opacity: 0.6;
+	margin-top: 190px;
+	text-decoration: none;
+}
+
+.course-info {
+	padding: 30px;
+	position: relative;
+	width: 100%;
+}
+
+.progress-container {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	text-align: right;
+	width: 150px;
+}
+
+.progress {
+	background-color: #ddd;
+	border-radius: 3px;
+	height: 5px;
+	width: 100%;
+}
+
+.progress::after {
+	border-radius: 3px;
+	background-color: rgb(4, 87, 56);
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 5px;
+	width: 66%;
+}
+
+.progress-text {
+	font-size: 10px;
+	opacity: 0.6;
+	letter-spacing: 1px;
+}
+
+.listBtn {
+	background-color: rgb(4, 87, 56);
+	border: 0;
+	border-radius: 50px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-size: 16px;
+	padding: 12px 25px;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	letter-spacing: 1px;
+}
+

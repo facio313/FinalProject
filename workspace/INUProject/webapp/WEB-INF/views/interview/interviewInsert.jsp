@@ -24,26 +24,6 @@
 
 <bo id="top">
   <div id="overlayer"></div>
-  <!-- HOME -->
-  <section class="section-hero overlay inner-page bg-image"
-    style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-7">
-          <h1 class="text-white font-weight-bold">작성하기</h1>
-          <div class="custom-breadcrumbs">
-            <a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-            	<span class="mx-2 slash">/</span>
-            	<span class="text-white">
-            		<strong>Write Interview</strong>
-            	</span>
-          </div>
-          <div class="custom-breadcrumbs"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 <!-- 작성 -->
   <section class="site-section">
 		<div class="container">
@@ -54,7 +34,7 @@
 						<div class="qna_write_wrap">
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리</span>
-								<!-- <div class="box_qna_category">
+								<div class="box_qna_category">
 									<div class="inpSel">
 										<select id="replySort" name="replySort" title="댓글 정렬 선택">
 											<option value="전체글" selected="">전체</option>
@@ -70,8 +50,8 @@
 											<option value="잡담">잡담</option>
 										</select>
 									</div>
-								</div> -->
-								<div class="box_qna_category">
+								</div>
+<!-- <div class="box_qna_category">
   <button type="button" class="btn_category_select">신입</button>
   <ul class="list_qna_category">
     <li>
@@ -125,7 +105,7 @@
       </a>
     </li>
   </ul>
-</div>
+</div> -->
 							</div>
 						</div>
 

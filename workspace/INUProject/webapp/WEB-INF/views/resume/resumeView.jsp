@@ -57,9 +57,9 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="11" id="eduFoot">
-					<button type="button" class="btn btn-primary" id="eduBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
+				<td colspan="11" id="eduFoot" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="eduBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
 				</td>
 			</tr>
 		</tfoot>
@@ -366,9 +366,9 @@ let eduModalBtn = $("#eduModalBtn").on("click", function() {
 		</tbody>
 		<tfoot>
 			<tr id="careerFoot">
-				<td colspan="11">
-					<button type="button" class="btn btn-primary" id="careerBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#careerModal">기존 경력 추가하기</button>						
+				<td colspan="11" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="careerBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#careerModal">기존 경력 추가하기</button>						
 				</td>
 			</tr>
 		</tfoot>
@@ -670,11 +670,11 @@ let careerModalBtn = $("#careerModalBtn").on("click", function() {
 		<tbody id="certBody">
 
 		</tbody>
-		<tfoot id="certFoot">
+		<tfoot>
 			<tr>
-				<td colspan="7">
-					<button type="button" class="btn btn-primary" id="certBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#certModal">기존 자격증 추가하기</button>				
+				<td colspan="7" id="certFoot" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="certBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#certModal">기존 자격증 추가하기</button>				
 				</td>
 			</tr>
 		</tfoot>
@@ -958,9 +958,9 @@ let certModalBtn = $("#certModalBtn").on("click", function() {
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="11" id="facFoot">
-					<button type="button" class="btn btn-primary" id="facBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#facModal">기존 학력 추가하기</button>
+				<td colspan="11" id="facFoot" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="facBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#facModal">기존 학력 추가하기</button>
 				</td>
 			</tr>
 		</tfoot>
@@ -1252,9 +1252,9 @@ let facModalBtn = $("#facModalBtn").on("click", function() {
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7" id="actFoot">
-					<button type="button" class="btn btn-primary" id="actBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#actModal">기존 주요활동 추가하기</button>
+				<td colspan="7" id="actFoot" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="actBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#actModal">기존 주요활동 추가하기</button>
 				</td>
 			</tr>
 		</tfoot>
@@ -1539,9 +1539,9 @@ let actModalBtn = $("#actModalBtn").on("click", function() {
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7" id="courseFoot">
-					<button type="button" class="btn btn-primary" id="courseBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal">기존 교육이수 추가하기</button>
+				<td colspan="7" id="courseFoot" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="courseBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#courseModal">기존 교육이수 추가하기</button>
 				</td>
 			</tr>
 		</tfoot>
@@ -1827,9 +1827,9 @@ let courseModalBtn = $("#courseModalBtn").on("click", function() {
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="8" id="awardFoot">
-					<button type="button" class="btn btn-primary" id="awardBtn">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#awardModal">기존 수상내역 추가하기</button>
+				<td colspan="8" id="awardFoot" style="text-align: center;">
+					<button type="button" class="btn btn-primary" id="awardBtn" style="width: 15%;">새로 추가하기</button>
+					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#awardModal">기존 수상내역 추가하기</button>
 				</td>
 			</tr>
 		</tfoot>
@@ -2101,10 +2101,10 @@ let awardModalBtn = $("#awardModalBtn").on("click", function() {
 
 </script>
 
-<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-primary">목록</button></a>
-<a href="${pageContext.request.contextPath}/resume/edit?resumeSn=${resume.resumeSn}"><button class="btn btn-secondary">수정하기</button></a>
+<a href="${pageContext.request.contextPath}/resume"><button class="btn btn-primary" style="width: 15%;">목록</button></a>
+<a href="${pageContext.request.contextPath}/resume/edit?resumeSn=${resume.resumeSn}"><button class="btn btn-secondary" style="width: 15%;">수정하기</button></a>
 <%-- <form:form modelAttribute="resume" action="${pageContext.request.contextPath}/resume/${resume.resumeSn }" method="delete" style="display: inline-block;"> --%>
-<form:form modelAttribute="resume" action="${pageContext.request.contextPath}/resume/delete" method="post" style="display: inline-block;">
+<form:form modelAttribute="resume" action="${pageContext.request.contextPath}/resume/delete" method="post" style="display: inline-block; width: 15%;">
 	<input name="resumeSn" value="${resume.resumeSn}" hidden/>
 	<button type="submit" class="btn btn-danger">삭제하기</button>
 </form:form>

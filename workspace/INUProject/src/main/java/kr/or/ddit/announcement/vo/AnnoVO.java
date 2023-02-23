@@ -3,8 +3,8 @@ package kr.or.ddit.announcement.vo;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.ddit.company.vo.CompanyVO;
 import lombok.Data;
@@ -40,11 +40,15 @@ public class AnnoVO {
 	
 	private Map<String,Object> keyword;
 	private List<AnnoDetailVO> detailList;
-	private List<AnnoWalfareVO> walfareList;
-	private List<String> walfareCodeList;
-	private List<String> regionList;
+	private List<AnnoWelfareVO> welfareList;
+	private List<String> welfareCodeList;
 	
 	private CompanyVO company;
+	
+	private int acheck; //관심공고여부
+	private String regionName; //대표지역명
+	
+	private double percent; // 오늘 날짜로 몇 퍼인지
 
 	public void setAnnoStartdate(String annoStartdate) {
 		this.annoStartdate = annoStartdate.substring(0, 10);
@@ -58,5 +62,13 @@ public class AnnoVO {
 		this.annoDate = annoDate.substring(0, 10);
 	}
 	
-	
+	public String getWelfareListToJson() {
+		String welfareListToJson = null;
+		try {
+			 welfareListToJson = new ObjectMapper().writeValueAsString(welfareList);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return welfareListToJson;
+	}
 }

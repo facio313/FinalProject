@@ -44,7 +44,7 @@ public class BoardUpdateController {
 		if(rowcnt > 0) {
 			viewName = "redirect:boardTotal";
 		}else {
-			viewName = "board/boardInsert";
+			viewName = "board/boardUpdate";
 		}
 		return viewName;
 

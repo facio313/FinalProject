@@ -62,7 +62,4 @@ public interface BoardDAO {
 	// 좋아요 on
 	public String likeOn(@Param("boardNo") String boardNo, @Param("memId") String memId);
 
-	// 좋아요 off
-	// public int
-
 }

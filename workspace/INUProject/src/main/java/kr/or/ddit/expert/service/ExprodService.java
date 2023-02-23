@@ -3,6 +3,7 @@ package kr.or.ddit.expert.service;
 import java.util.List;
 
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.vo.PagingVO;
 
 public interface ExprodService {
@@ -14,5 +15,8 @@ public interface ExprodService {
 	
 	public void selectExprodList(PagingVO<ExprodVO> pagingVO);
 	
+	public int removeExprod(String exprodId);
+	
+	public int updateExprodName(ExprodVO exprod);
 	
 }

@@ -21,4 +21,5 @@ public class ExprodVO {
 	private String exfieldId;
 	private String exjobId;
 	private List<ExcartVO> excartList;
+	private List<ExreviewVO> exreviewList;
 }

@@ -1,5 +1,7 @@
 package kr.or.ddit.expert.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +20,7 @@ import kr.or.ddit.expert.service.ExprodService;
 import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
@@ -50,7 +53,6 @@ public class ExpertProdController {
 		String memId = exprod.getMemId();
 		ExpertVO expert = expertService.retrieveMember(memId);
 		MemberVO member = memberService.retrieveMember(memId);
-		
 		model.addAttribute("member", member);
 		model.addAttribute("expert", expert);
 		model.addAttribute("exprod", exprod);

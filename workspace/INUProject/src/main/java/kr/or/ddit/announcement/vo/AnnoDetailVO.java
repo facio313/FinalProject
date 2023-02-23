@@ -2,6 +2,7 @@ package kr.or.ddit.announcement.vo;
 
 import java.util.List;
 
+import kr.or.ddit.process.vo.ProcessVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,16 +22,20 @@ public class AnnoDetailVO {
 	private String daWorkday;
 	private String daWorktime;
 	private String daCarYeer;
-	private String regionCode; //code
-	private String empltypeCode; //code
 	private String job0; //code
 	private String job1; //code
 	private String jobCode; //code
+	private String jobName;
+	private String regionCode; //code
 	private String regionName;
+	private String empltypeCode; //code
 	private String empltypeName; 
-	private String jobName; 
+	private List<String> inpositionCode; //insert용
 	
-	private List<String> careerName;
-	private List<String> positionCode;
-	private List<String> positionName;
+	private AnnoRegionVO regionVO;
+	private List<AnnoPositionVO> positionList;
+	private List<String> careerNames;
+	
+	private List<ProcessVO> processList;
+	private double percent;
 }

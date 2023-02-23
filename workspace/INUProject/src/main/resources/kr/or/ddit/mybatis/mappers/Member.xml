@@ -70,83 +70,243 @@
 		              LEFT OUTER JOIN EXPERT E ON(A.MEM_ID = E.MEM_ID)
 	</select>
 	<insert id="insertMember" parameterType="SeekerVO">
-	INSERT INTO member (
-    mem_id,
-    mem_pass,
-    mem_name,
-    mem_use,
-    mem_auth_cd
-	) VALUES (
-	 #{memId,jdbcType=VARCHAR}
-	, #{memPass,jdbcType=VARCHAR}
-	, #{memName,jdbcType=VARCHAR}
-	, 'Y'
-	, 'SEEKER'
-	)
+		INSERT INTO member (
+	    mem_id,
+	    mem_pass,
+	    mem_name,
+	    mem_use,
+	    mem_auth_cd
+		) VALUES (
+		 #{memId,jdbcType=VARCHAR}
+		, #{memPass,jdbcType=VARCHAR}
+		, #{memName,jdbcType=VARCHAR}
+		, 'Y'
+		, 'ROLE_SEEKER'
+		)
 	</insert>
 	
 	<insert id="insertMemberIN" parameterType="SeekerVO">
-	INSERT INTO member (
-    mem_id,
-    mem_pass,
-    mem_name,
-    mem_use,
-    mem_auth_cd
-	) VALUES (
-	 #{memId,jdbcType=VARCHAR}
-	, #{memPass,jdbcType=VARCHAR}
-	, #{memName,jdbcType=VARCHAR}
-	, 'Y'
-	, 'INCRUITER'
-	)
+		INSERT INTO member (
+	    mem_id,
+	    mem_pass,
+	    mem_name,
+	    mem_use,
+	    mem_auth_cd
+		) VALUES (
+		 #{memId,jdbcType=VARCHAR}
+		, #{memPass,jdbcType=VARCHAR}
+		, #{memName,jdbcType=VARCHAR}
+		, 'Y'
+		, 'ROLE_INCRUITER'
+		)
 	</insert>
 	
 	
 	<insert id="insertSeeker" parameterType="SeekerVO">
-	INSERT INTO seeker (
-    mem_id,
-    mem_nickname,
-    mem_birth,
-    mem_gender,
-    mem_zip,
-    mem_addr1,
-    mem_addr2,
-    mem_email,
-    mem_tel
-<!--     mem_certification, 추가해야함 -->
-	) VALUES (
-	 #{memId,jdbcType=VARCHAR}
-	, #{memNickname,jdbcType=VARCHAR}
-	, #{memBirth,jdbcType=DATE}
-	, #{memGender,jdbcType=VARCHAR}
-	, #{memZip,jdbcType=VARCHAR}
-	, #{memAddr1,jdbcType=VARCHAR}
-	, #{memAddr2,jdbcType=VARCHAR}
-	, #{memEmail,jdbcType=VARCHAR}
-	, #{memTel,jdbcType=VARCHAR}
-<!-- 	, #{memCertification,jdbcType=VARCHAR} -->
-	)
-	</insert>
-	<insert id="insertIncruiter" parameterType="IncruiterVO">
-	INSERT INTO incruiter (
+		INSERT INTO seeker (
 	    mem_id,
-	    cmp_id,
+	    mem_nickname,
+	    mem_birth,
+	    mem_gender,
+	    mem_zip,
+	    mem_addr1,
+	    mem_addr2,
 	    mem_email,
 	    mem_tel
-	) VALUES (
-	 #{memId,jdbcType=VARCHAR}
-	, #{cmpId,jdbcType=VARCHAR}
-	, #{memEmail,jdbcType=VARCHAR}
-	, #{memTel,jdbcType=VARCHAR}
-	)
-
-	
+<!--     mem_certification, 추가해야함 -->
+		) VALUES (
+		 #{memId,jdbcType=VARCHAR}
+		, #{memNickname,jdbcType=VARCHAR}
+		, #{memBirth,jdbcType=DATE}
+		, #{memGender,jdbcType=VARCHAR}
+		, #{memZip,jdbcType=VARCHAR}
+		, #{memAddr1,jdbcType=VARCHAR}
+		, #{memAddr2,jdbcType=VARCHAR}
+		, #{memEmail,jdbcType=VARCHAR}
+		, #{memTel,jdbcType=VARCHAR}
+<!-- 	, #{memCertification,jdbcType=VARCHAR} -->
+		)
+	</insert>
+	<insert id="insertIncruiter" parameterType="IncruiterVO">
+		INSERT INTO incruiter (
+		    mem_id,
+		    cmp_id,
+		    mem_email,
+		    mem_tel
+		) VALUES (
+		 #{memId,jdbcType=VARCHAR}
+		, #{cmpId,jdbcType=VARCHAR}
+		, #{memEmail,jdbcType=VARCHAR}
+		, #{memTel,jdbcType=VARCHAR}
+		)
 	</insert>
 	
+	<!-- ====================================== 시스템 관리 부분 ===================================== -->
+	<resultMap type="MemberVO" id="listMap" autoMapping="true">
+		<id property="memId" column="MEM_ID"/>
+		<association property="cutVO" javaType="CutVO" autoMapping="true"/>
+		<association property="blackVO" javaType="BlackVO" autoMapping="true"/>
+		<association property="seekerVO" javaType="SeekerVO" autoMapping="true"/>
+		<association property="incruiterVO" javaType="IncruiterVO" autoMapping="true"/>		
+		<association property="expertVO" javaType="ExpertVO" autoMapping="true"/>		
+		<association property="companyVO" javaType="CompanyVO" autoMapping="true"/>	
+	</resultMap>
 	
+	<!-- 권한별 회원 목록 -->
+	<select id="selectAuthMemberList" parameterType="MemberVO" resultMap="listMap">
+		WITH ORDEREDMEMBER AS (
+		    SELECT A.MEM_ID
+               , A.MEM_NAME
+               , A.MEM_USE
+               , A.MEM_AUTH_CD
+               , A.MEM_JOINDATE
+               , B.CUT_DATE 
+               , C.BLACKLIST_DATE 
+               , A.MEM_DELETE		           
+		    FROM MEMBER A
+            LEFT OUTER JOIN CUT B ON(A.MEM_ID = B.MEM_ID)
+            LEFT OUTER JOIN BLACKLIST C ON(A.MEM_ID = C.MEM_ID)
+            WHERE MEM_AUTH_CD = #{memAuthCd}
+		    ORDER BY MEM_NAME
+		)
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM RNUM, ORDEREDMEMBER.*
+		    FROM ORDEREDMEMBER
+		) A
+	</select>
 	
+	<!-- 차단 회원 목록 -->
+	<select id="selectCutList" resultMap="listMap">
+		WITH ORDEREDMEMBER AS (
+		    SELECT A.MEM_ID
+               , A.MEM_NAME
+               , A.MEM_AUTH_CD
+               , A.MEM_JOINDATE
+               , B.CUT_SN
+               , B.CUT_DATE 
+               , B.CUT_CHECK
+		    FROM MEMBER A
+            LEFT OUTER JOIN CUT B ON(A.MEM_ID = B.MEM_ID)
+            WHERE B.CUT_DATE IS NOT NULL
+		    ORDER BY MEM_NAME
+		)
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM RNUM, ORDEREDMEMBER.*
+		    FROM ORDEREDMEMBER
+		) A 
+	</select>
 	
+	<!-- 블랙 회원 목록 -->
+	<select id="selectBlackList" resultMap="listMap">
+		WITH ORDEREDMEMBER AS (
+		    SELECT A.MEM_ID
+               , A.MEM_NAME
+               , A.MEM_AUTH_CD
+               , A.MEM_JOINDATE
+               , B.BLACKLIST_SN
+               , B.BLACKLIST_DATE 
+               , B.BLACKLIST_CHECK
+		    FROM MEMBER A
+            LEFT OUTER JOIN BLACKLIST B ON(A.MEM_ID = B.MEM_ID)
+            WHERE B.BLACKLIST_DATE IS NOT NULL
+		    ORDER BY MEM_NAME
+		)
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM RNUM, ORDEREDMEMBER.*
+		    FROM ORDEREDMEMBER
+		) A
+	</select>
 	
+	<!-- 총괄 기업회원 목록 -->
+	<select id="selectIncruiterList" resultMap="listMap">
+		SELECT A.MEM_ID
+       			, A.MEM_NAME
+       			, A.MEM_AUTH_CD
+		       	, A.MEM_JOINDATE
+		       	, B.CMP_ID
+		       	, B.MEM_EMAIL
+		       	, B.MEM_TEL
+		       	, B.MEM_APPROVAL
+		       	, B.MEM_DATE
+  		FROM MEMBER A
+  		INNER JOIN INCRUITER B ON (A.MEM_ID = B.MEM_ID)
+ 		WHERE MEM_AUTH_CD = 'ROLE_INCRUITER3'
+   		AND MEM_APPROVAL = 'N'
+	</select>
+	
+	<!-- 총괄 기업회원 세부 -->
+	<select id="selectIncruiter" parameterType="string" resultMap="listMap">
+		SELECT
+		    mem_id, mem_pass, mem_name,
+		    mem_delete, mem_use, cmp_id,
+		    mem_email, mem_tel, mem_auth_cd,
+		    mem_approval, mem_date, cmp_no,
+		    cmp_name, cmp_rep_name, cmp_bsns_no,
+		    cmp_addr1, cmp_addr2, cmp_zip,
+		    cmp_phone, cmp_email, cmp_url,
+		    cmp_estbl_date, cmp_smenp, cmp_emp_no,
+		    cmp_avr_work, cmp_avr_salary, cmp_mb_name,
+		    cmp_check, cmp_content, cmp_logo, att_id
+		FROM
+		    mem_incruiter
+		WHERE MEM_ID=#{memId}
+	</select>
+	
+	<!-- 총괄 승인 -->
+	<update id="updateAcceptInc" parameterType="IncruiterVO">
+		UPDATE INCRUITER 
+   		SET MEM_APPROVAL = 'Y'
+ 		WHERE CMP_ID = #{cmpId}
+	</update>
+	<!-- 회사 승인 -->
+	<update id="updateAcceptCmp" parameterType="IncruiterVO">
+		UPDATE COMPANY
+		SET CMP_CHECK = 'Y'
+		WHERE CMP_ID = #{cmpId}
+	</update>
+	
+	<!-- 전문가 신청 리스트 -->
+	<select id="selectExpertList" resultMap="listMap">
+		SELECT A.MEM_ID
+		       , A.MEM_NAME
+		       , A.MEM_AUTH_CD
+		       , B.EXPERT_APPROVAL
+		       , B.EXPERT_FIELD
+		FROM MEMBER A
+		INNER JOIN EXPERT B ON (A.MEM_ID = B.MEM_ID)
+		WHERE B.EXPERT_APPROVAL = 'N'
+	</select>
+	
+	<!-- 전문가 신청 세부 -->
+	<select id="selectExpert" resultMap="listMap">
+		SELECT MEM_ID, MEM_NAME
+		   , MEM_BIRTH, MEM_GENDER, MEM_ZIP
+		   , MEM_ADDR1, MEM_ADDR2, MEM_EMAIL
+		   , MEM_TEL, MEM_JOINDATE, MEM_AUTH_CD
+		   , EXPERT_INTRODUCTION, EXPERT_JOINPATH
+		   , EXPERT_FIELD, EXPERT_TAG, EXPERT_ZIP
+		   , EXPERT_ADDR, EXPERT_ADDR2
+		   , EXPERT_BANK, EXPERT_ACCOUNT
+		   , EXPERT_HOLDER, EXFIELD_ID, EXJOB_ID 
+		FROM MEM_EXPERT
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<!-- 전문가 승인 -->
+	<update id="updateAcceptExpRole" parameterType="MemberVO">
+		UPDATE MEMBER 
+		SET MEM_AUTH_CD = 'ROLE_EXPERT'
+ 		WHERE MEM_ID = #{memId}
+	</update>
+	<update id="updateAcceptExp" parameterType="MemberVO">
+		UPDATE EXPERT
+   		SET EXPERT_APPROVAL = 'Y',
+       	EXPERT_APPROVAL_DATE = SYSDATE
+ 		WHERE MEM_ID = #{memId}
+	</update>
 	
 	<!-- ===========================아이디, 비번 찾기 부분 ================================ -->
 	<!-- 일반회원 아이디 찾기 -->

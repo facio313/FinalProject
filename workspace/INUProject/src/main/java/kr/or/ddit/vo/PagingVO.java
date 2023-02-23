@@ -35,9 +35,15 @@ public class PagingVO<T> {
 	
 	private List<T> dataList;
 	
+	private String memId;
+	
 	private SearchVO simpleCondition; // 단순 키워드 검색용
 	private T detailCondition; // 상세 검색용.
 	private Map<String, Object> flexibleCondition;
+	
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
 	
 	public void setDetailCondition(T detailCondition) {
 		this.detailCondition = detailCondition;

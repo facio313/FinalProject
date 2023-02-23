@@ -21,33 +21,12 @@
 <body id="top">
   <div id="overlayer"></div>
   <div class="site-wrap">
-    <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">기업투명도</h1>
-            <div class="custom-breadcrumbs">
-              <a href="#">Transparency</a> <span class="mx-2 slash"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
 <!-- 작성 -->
     <section class="site-section">
       <div class="container">
-        <div class="row align-items-center mb-5">
           <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <div>
-                <h4>기업투명도</h4>
-              </div>
-            </div>
             <p>모든 항목에 대해 선택사항이며 작성개수에 따라 점수가 부여됩니다.</p>
           </div>
-        </div>
 
 <!-- 작성 폼 -->
         <div class="row mb-5">

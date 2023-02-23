@@ -15,7 +15,7 @@
   	<put-attribute name="headerMenu" value="/includee/headerMenu.jsp" />
   	<put-attribute name="footer" value="/includee/footer.jsp" />
   	<put-attribute name="postScript" value="/includee/postScript.jsp" />
-  	<put-attribute name="leftMenu" value="/includee/leftMenu.jsp" />
+<!--   	<put-attribute name="leftMenu" value="/includee/leftMenu.jsp" /> -->
   	<put-attribute name="cssSource" value="/includee/cssScriptSources/css.jsp" />
   	<put-attribute name="scriptSource" value="/includee/cssScriptSources/script.jsp" />  	
   </definition>

@@ -42,12 +42,15 @@
       .top-interval{
         height: 25px;
       }
+      .top-medium-interval{
+      	height: 50px;
+      }
+      .top-large-interval{
+      	height: 100px;
+      }
       .img-jobseeker{
       	height: 75px;
       	width: 75px; 
-      }
-      #insert-form{
-      	float: right;
       }
       
     </style> 
@@ -77,10 +80,12 @@
             <div class="col-md-12">
             
               <form method="post" class="search-jobs-form" id="searchUI">
+              	<input type="hidden" name="page"/>
                 <div class="row mb-5">
                 
 				<!-- 1번째 -->
                  <div class="col-lg-2">
+                 	<p style="text-align: center;">직군선택</p>
 <!--                   	<div class="dropdown" style="width: 100%; border: 3px solid #d6efeb;"> -->
 	                  <select name="industry0" class="form-select form-select-sm selectBox">
 						 <option value>기초</option>
@@ -90,6 +95,7 @@
                  
                   <!-- 2번째 -->
 				 <div class="col-lg-2">
+				 	<p style="text-align: center;">근무지역선택</p>
 <!--                   	<div class="dropdown" style="width: 100%; border: 3px solid #d6efeb;"> -->
                   <select name="metro" class="form-select form-select-sm selectBox">
 					 <option value>기초</option>
@@ -99,6 +105,7 @@
                   
                   <!-- 3번째 -->
                   <div class="col-lg-2">
+                   <p style="text-align: center;">직급선택</p>
                     <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
                       <select
                         class="selectpicker"
@@ -110,11 +117,11 @@
                         tabindex="-98"
                       >
                         <option class="bs-title-option" value=""></option>
-                        <option value="사원">사원급</option>
-                        <option value="주임">주임급</option>
-                        <option value="대리">대리급</option>
-                        <option value="과장">과장급</option>
-                        <option value="부장">부장급</option>
+                        <option value="사원급">사원급</option>
+                        <option value="주임급">주임급</option>
+                        <option value="대리급">대리급</option>
+                        <option value="과장급">과장급</option>
+                        <option value="부장급">부장급</option>
                       </select>
                       <div
                         class="dropdown-menu"
@@ -158,6 +165,7 @@
                  
                   <!-- 4번째 -->
                   <div class="col-lg-2">
+                   <p style="text-align: center;">근무경력선택</p>
                     <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
                       <select
                         class="selectpicker"
@@ -219,6 +227,7 @@
                   
                   <!-- 5번째 -->
                   <div class="col-lg-2">
+                   <p style="text-align: center;">학력선택</p>
                     <div class="dropdown bootstrap-select" style="width: 100%; border: 3px solid #d6efeb;">
                       <select
                         class="selectpicker"
@@ -288,22 +297,31 @@
                   
                   <!-- 6번째 -->
                    <div class="col-lg-2">
-<!--                   	<div class="dropdown" style="width: 100%; border: 3px solid #d6efeb;"> -->
 	                  <select name="industry1" class="form-select form-select-sm selectBox">
 						  <option value>중위</option>
 					  </select>
-<!-- 					 </div> -->
 					</div>
                   
                   <!-- 7번째 -->
                   <div class="col-lg-2">
-<!--                   	<div class="dropdown" style="width: 100%; border: 3px solid #d6efeb;"> -->
 	                  <select name="regionCode" class="form-select form-select-sm selectBox">
 						 <option value>기초</option>
 					  </select>
-<!-- 					</div> -->
 				  </div>	  
-					 
+				
+				<!-- 거리 띄우기 -->
+				
+				<div class="col-lg-2"></div>
+				<div class="col-lg-2"></div>
+				<div class="col-lg-2"></div>
+				<div class="col-lg-2"></div>
+				
+				<!-- 8번째 (industryCode)하위 -->
+				<div class="col-lg-2">	 
+					 <select name="industryCode" class="form-select form-select-sm selectBox">
+							<option value>하위</option>
+					 </select>
+				</div>
                   
                 </div>
                 
@@ -314,7 +332,6 @@
           </div>
         </div>
         
- 
           <section class="site-section">
               <div class="container">
                 <div class="row" id="searchTag">
@@ -354,35 +371,25 @@
               </div>
               
               
-			 <div class="top-interval"></div>
+		  <div class="top-medium-interval"></div>
               
-          <!-- 페이징 처리 -->
-          <div class="row pagination-wrap mt-5">
-            <div class="col-md-12 text-center ">
-            <div class="custom-pagination ml-auto">
-              <a href="#" class="prev">Prev</a>
-              <div class="d-inline-block">
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-              </div>
-              <a href="#" class="next">Next</a>
-              <div>
-              	<input type="button" value="내 홍보글 작성" id="insert-form"
-              	 class="btn btn-primary hover px-3 d-none d-lg-flex ms-auto"
-              	 onclick=""/>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- 페이징 처리 -->
+       
+       <div class="col-1" style="left: 650px;">
+          <div class="pagingArea"></div>
+       </div>
+        
+        
+        <div class="top-large-interval"></div>
+	       <div class="col-2" style="left: 1200px;">
+		       	<input type="button" value="내 홍보글 작성" id="insert-form" class="btn btn-primary" 
+		       		   onclick="location.href='${pageContext.request.contextPath}/selfpr/InsertForm'"/>
+	       </div>
         
       </section>
       
-      
       <!-- hidden form -->
 	<form id="searchForm">
-		<input type="hidden" name="page" />
 		<input type="hidden" name="regionCode" />
 		<input type="hidden" name="industryCode" />
 	</form>
@@ -409,6 +416,7 @@
     				console.log(resp);
     				let regionList = resp.regionList;
     				let regionOption = [];
+    				
     				
     				$.each(regionList, function(index, val){
     					let tr = null;
@@ -464,6 +472,38 @@
     			}
     		});   
     	});
+		 $("[name=industry1]").on("change", function(){
+			$("[name='industryCode'] option").remove();   
+			$("[name='industryCode']").append("<option>하위</option>");
+			
+			let ref = $(this).val();
+			let data = [{type:'industry',code:ref}];
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/announcement/select",
+				method : "post",
+				data : JSON.stringify(data),
+				dataType : "json",
+				contentType: 'application/json',
+				success : function(resp) {
+					console.log("리스트뽑아옴");
+					let industryList = resp.industryList;
+					let industryOption = [];
+					
+					$.each(industryList, function(index, val){
+						let tr = null;
+						tr = $("<option>").attr("class","code").prop("value",val.industryCode).html(val.industryName);
+						industryOption.push(tr);
+					})
+					$("select[name=industryCode]").append(industryOption);
+				},
+				error : function(jqXHR, status, error) {
+					console.log(jqXHR);
+					console.log(status);
+					console.log(error);
+				}
+			});   
+		});
       
       /* 최상위 셀렉트... */
       let topData = [
@@ -523,7 +563,7 @@
 			dataType: "json",
 			success: function(resp){
 				console.log(resp);
-					
+				
 					let dataList = resp.pagingVO.dataList;
 					console.log(dataList);
 					let trTags = [];
@@ -532,11 +572,15 @@
 					});
 					$('#searchTag').html(trTags);
 					
+					if(resp.pagingHTML)
+						pagingArea.html(resp.pagingHTML);
+					
+					console.log(resp.pagingHTML);
 					}
 				});
 	    });
     
-   	
+
 //  tr 태그
 
     let makeTrTag = function(selfpr){
@@ -565,10 +609,19 @@
           return selfprtag;
     }
     
-	console.log(typeof no);
+//  페이징 처리
+
+	let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
+		event.preventDefault();
+		let page = $(this).data("page");
+		if(!page) return false;
+		$('#searchUI').find("[name=page]").val(page);
+		$("#btnsearch").trigger("click");
+			
+		return false;
+	});
+
     
-      
-      
     </script>
 
 	<!-- SCRIPTS -->

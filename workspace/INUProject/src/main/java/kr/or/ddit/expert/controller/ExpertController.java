@@ -20,6 +20,7 @@ import kr.or.ddit.expert.service.ExreviewService;
 import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.expert.vo.ExlprodVO;
 import kr.or.ddit.expert.vo.ExprodVO;
+import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
 
@@ -58,14 +59,19 @@ public class ExpertController {
 		) {
 		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
 		PagingVO<ExeventVO> pagingVO2 = new PagingVO<>();
+		PagingVO<ExreviewVO> pagingVO3 = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		pagingVO2.setCurrentPage(currentPage);
 		pagingVO2.setSimpleCondition(searchVO);
+		pagingVO3.setCurrentPage(currentPage);
+		pagingVO3.setSimpleCondition(searchVO);
 		exventservice.retrieveExeventList(pagingVO2);
 		exprodservice.selectExprodList(pagingVO);
+		exreviewService.selectReveiwList(pagingVO3);
 		model.addAttribute("pagingVO", pagingVO);
 		model.addAttribute("pagingVO2", pagingVO2);
+		model.addAttribute("pagingVO3", pagingVO3);
 		return "expert/expertMain";
 	} 
  

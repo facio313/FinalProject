@@ -17,12 +17,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
+<style>
+.btn_cert_pop {
+    background-color: #045738;
+    color: #fff;
+}
+</style>
 </head>
 
 <body id="top">
 	<div id="overlayer"></div>
 	<div class="site-wrap">
-		<div id="sri_section" class="  has_banner">
+		<div id="sri_section" class="has_banner">
 			<div id="sri_wrap">
 				<div id="content">
 					<div class="wrap_title_recruit">
@@ -30,25 +36,24 @@
 					</div>
 					<div class="help_find help_lost wrap_help">
 						<div class="cont_find">
-							<form method="post" id="writeForm" enctype="multipart/form-data">
+							<form method="post" action="#" id="writeForm" enctype="multipart/form-data">
 								<input type="hidden" id="hSelected_category" value="">
 								<input type="hidden" id="hSelected_contents" value="">
 								<input type="hidden" name="hSeq" id="hSeq" value="">
 								<input type="hidden" name="hType" id="hType" value="">
 								<input type="hidden" name="hOption" id="hOption" value="">
 								<input type="hidden" name="help_total_size" id="help_total_size" value="">
-								<input type="hidden" name="csrfToken" value="e3d761ce00af6d347b2725254690c53b">
+								<input type="hidden" name="csrfToken" value="9ffdb7871b6d52cc291a2afb174f74c7">
 								<input type="hidden" name="channel" id="channel" value="mail">
-								<input type="hidden" name="seq" id="seq" value="seq1675825767">
+								<input type="hidden" name="seq" id="seq" value="seq1677046033">
 								<input type="hidden" name="confirm_status" id="confirm_status" value="ready">
 								<input type="hidden" name="mail_confirm_complete" value="n" id="mail_confirm_complete">
 
-							<!-- 문의 폼 -->
 								<fieldset>
 									<legend class="blind">이메일 문의 입력 폼</legend>
 									<p class="desc_find_type2">
-										평일 09시 에서 17시까지 문의하신 내용은 당일 답변해드립니다. <br>17시 이후에 문의하신 내용은
-										다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
+										평일 09시 에서 17시까지 문의하신 내용은 당일 답변해드립니다. <br>
+										17시 이후에 문의하신 내용은 다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
 									</p>
 									<ul class="list_find">
 										<li>
@@ -58,23 +63,25 @@
 												</span>
 												<label for="help_email" class="lab_find"> 이메일 </label>
 											</div>
-
 											<div class="wrap_input">
 												<span class="box_input">
-													<input type="text" id="help_email" class="inp_find" value="" autocomplete="off">
+													<input type="text" id="help_email" class="inp_find" name="help_email" value="" autocomplete="off">
 												</span>
 
+												<!-- 인증버튼 -->
 												<button type="button" class="btn_back btn_cert_pop" data-popupid="layer_pop_byemail">
 													<span>인증</span>
 												</button>
 
+												<!-- sms_confirm_complete -->
 												<input type="hidden" name="sms_confirm_complete" value="" id="sms_confirm_complete">
+
+												<!-- 인증버튼 눌렀을 때 팝업창 -->
 												<div class="layer_identify open" id="layer_pop_byemail" style="display: none">
 													<h4>이메일 인증</h4>
 													<button type="button" class="btn_layer_close" onclick="confirm_layer_close(this);">
 														<span>닫기</span>
 													</button>
-
 													<div class="box_txt_identify">
 														<p class="txt" id="email_layer_sub_title" name="email_layer_sub_title"></p>
 													</div>
@@ -85,12 +92,13 @@
 															<col style="width: 130px;">
 															<col>
 														</colgroup>
-
 														<tbody>
 															<tr>
 																<th>인증번호</th>
-																<td><input type="text" id="email_code" name="email_code" value="" class="sri_input" style="width: 96px;">
+																<td>
+																	<input type="text" id="email_code" name="email_code" value="" class="sri_input" style="width: 96px;">
 																	<button type="button" class="btn_basic_type04 confirm-action person">확인</button>
+																	<!-- 인증시간 -->
 																	<span class="expiredin" id="confirm_remain_mail_time_area" name="confirm_remain_mail_time_area"><strong></strong></span>
 																</td>
 															</tr>
@@ -105,6 +113,39 @@
 														<button type="button" class="btn_basic_type05" onclick="changeConfirmCell()">인증완료</button>
 													</div>
 												</div>
+
+												<!-- 이메일 제안 -->
+												<div class="suggest_email email_list" style="display: none">
+													<ul class="list_email">
+														<li class="auto_list">
+															<a href="javascript:;" onclick="return false;" class="link_email">
+																<strong class="txt_email">abcd</strong>@naver.com
+															</a>
+														</li>
+														<li class="auto_list">
+															<a href="javascript:;" onclick="return false;" class="link_email">
+																<strong class="txt_email">abcd</strong>@gmail.com
+															</a>
+														</li>
+														<li class="auto_list">
+															<a href="javascript:;" onclick="return false;" class="link_email">
+																<strong class="txt_email">abcd</strong>@daum.net
+															</a>
+														</li>
+														<li class="auto_list">
+															<a href="javascript:;" onclick="return false;" class="link_email">
+																<strong class="txt_email">abcd</strong>@nate.com
+															</a>
+														</li>
+														<li class="auto_list">
+															<a href="javascript:;" onclick="return false;" class="link_email">
+																<strong class="txt_email">abcd</strong>@outlook.com
+															</a>
+														</li>
+													</ul>
+												</div>
+												<!-- // 이메일 제안 -->
+
 											</div>
 										</li>
 
@@ -115,17 +156,16 @@
 												</span>
 												<label class="lab_find">구분</label>
 											</div>
-
 											<div class="wrap_input">
 												<span class="choice_input">
-													<span class="inpRdo">
-														<input type="radio" name="askCate" id="help_member_type_person" class="help_member_type" value="개인">
-															<label class="lbl" for="help_member_type_person">개인</label>
-													</span>
-													<span class="inpRdo">
-														<input type="radio" name="askCate" id="help_member_type_company" class="help_member_type" value="기업">
-														<label class="lbl" for="help_member_type_company">기업</label>
-													</span>
+												<span class="inpRdo">
+													<input type="radio" name="askCate" id="help_member_type_person" class="help_member_type"value="개인">
+													<label class="lbl" for="help_member_type_person">개인</label>
+												</span>
+												<span class="inpRdo">
+													<input type="radio" name="askCate" id="help_member_type_company" class="help_member_type" value="기업">
+													<label class="lbl" for="help_member_type_company">기업</label>
+												</span>
 												</span>
 											</div>
 										</li>
@@ -156,7 +196,7 @@
 														<option value="기업정보">기업정보</option>
 														<option value="제안사항">제안사항</option>
 														<option value="기타">기타</option>
-												</select>
+													</select>
 												</span>
 											</div>
 										</li>
@@ -196,16 +236,16 @@
 											<div class="wrap_input">
 												<div class="uploads"></div>
 												<div class="wrap_file">
-													<input type="file" id="help_upload" class="inp_upload" title="파일 업로드" name="">
+													<input type="file" id="help_upload" class="inp_upload" title="파일 업로드" name="uploaded_file">
 													<label for="help_upload" class="btn_basic2 type03">파일첨부하기</label>
 												</div>
 												<p class="noti_inp">
-													10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG,
-													BMP) 만 등록 가능합니다.
-													<!-- <br/>(최대 5개까지 가능)-->
+													10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다.
+													<!--<br/>(최대 5개까지 가능)-->
 												</p>
 											</div>
 										</li>
+
 									</ul>
 
 									<div class="noti_find">
@@ -249,7 +289,6 @@
 			</div>
 		</div>
 	</div>
-
 <!-- SCRIPTS -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
@@ -263,5 +302,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board/ask.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board/email.js"></script>
+<script type="text/javascript">var $j = jQuery.noConflict();</script>
+
 </body>
 </html>

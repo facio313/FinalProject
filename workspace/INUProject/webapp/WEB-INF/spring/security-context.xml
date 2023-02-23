@@ -63,6 +63,16 @@
 		<intercept-url pattern="/login/loginForm.jsp" access="isAnonymous()"/>
 		<intercept-url pattern="/login/loginProcess.do" access="isAnonymous()"/>
 		<intercept-url pattern="/login/*" access="isAuthenticated()"/>
+		
+		<intercept-url pattern="/mypage/seeker" access="hasRole('ROLE_SEEKER')"/>
+	    <intercept-url pattern="/mypage/incruiter" access="hasRole('ROLE_INCRUITER')"/>
+	    <intercept-url pattern="/mypage/expert" access="hasRole('ROLE_EXPERT')"/>
+		
+		<intercept-url pattern="/announcement/insert" access="hasRole('ROLE_INCRUITER')"/>
+		<intercept-url pattern="/announcement/update/*" access="hasRole('ROLE_INCRUITER')"/>
+		<intercept-url pattern="/announcement/delete/*" access="hasRole('ROLE_INCRUITER')"/>
+		<intercept-url pattern="/announcement/terminate/*" access="hasRole('ROLE_INCRUITER')"/>
+		
 		<intercept-url pattern="/**" access="permitAll"/>
 		
 		<csrf disabled="true"/>

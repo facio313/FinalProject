@@ -31,6 +31,7 @@
               </div>
               <div>
                 <h2>${exevent.exeventName }</h2>
+                <h2><%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attFilename }</h2>
                 <div>
                   <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>작성자</span>
                   <span class="m-2"><span class="icon-room mr-2"></span>시작일</span>
@@ -57,8 +58,9 @@
         <c:if test="${not empty exevent.attatchList }">
 			첨부파일 : <br>
             <c:forEach items="${exevent.attatchList }" var="attatch" varStatus="vs">
-             <%--  <img src="${attatch.attStreCours }/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" /> --%>
+              <img src="<%=request.getContextPath()%>/resources/attach/expertFolder/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" />
              <a>${attatch.attFilename }</a><br>
+<!--              <img alt="" src=""> -->
             </c:forEach>
        </c:if>
         </div>      

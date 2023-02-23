@@ -31,7 +31,7 @@ public class ExeventServiceImpl implements ExeventService {
 	private ExeventDAO exeventDAO;
 	
 	
-	@Value("#{appInfo.saveFiles}")
+	@Value("#{appInfo.expertFolder}")
 	private File saveFiles;
 
 	@PostConstruct

@@ -9,6 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,20 +26,29 @@
     
     <style type="text/css">
       .img-jobseeker{
-      	height: 150px;
-      	width: 160px; 
+      	height: 220px;
+      	width: 200px; 
       	border-radius: 10px;
-      }
-      .top-interval{
-        height: 25px;
       }
       .block_jobseeker {
 		position: relative;
-		background: #f0f9f7;
+		background: #e7f4fb;
 		padding: 55px;
 		margin-bottom: 3rem;
 		border-radius: 15px;
 	  }
+	  .table_header{
+	  	background-color: #eff7ed
+	  }
+	  .top-interval{
+        height: 25px;
+      }
+      .top-medium-interval{
+      	height: 50px;
+      }
+      .top-large-interval{
+      	height: 100px;
+      }
     </style>
         
 </head>
@@ -62,46 +72,58 @@
   <section class="site-section">
 
       <div class="container">
-      
        <div class="block_jobseeker mb-6">
-          <div class="block__91147 d-flex align-items-center">
-         	 <figure class="mr-5"><img src="resources/images/logo.jpg" class="img-jobseeker"></figure>
-	          <div>
-	             <h3>ㅇㄹㅇㄹ인림ㄴㅇ린ㅁ리</h3>
-	             <hr>
-	             <span class="position">${selfprmem.prWantjob }</span>
-	             <br>
-	             <span>${selfprmem.memAddr1}</span>
-	             <br>
-	             <span>전화번호</span>
-	             <hr>
+       
+       		<!-- 좋아요 기능 -->
+	          <div class="col-3" style="float: right;">
+                <a href="#" onclick="likeseeker(${selfprmem.prNo})" class="btn btn-block btn-light btn-md" style="border: 1px solid black;">
+                	<span id="likeheart" class="icon-heart-o mr-2 text-danger"></span>관심인재 등록</a>
+              </div>
+              
+	          <div class="block__91147 d-flex align-items-center">
+	         	 <figure class="mr-5"><img src="${pageContext.request.contextPath}/resources/images/profile.jpg" class="img-jobseeker"></figure>
+		          <div>
+		             <h3><strong>&quot;${selfprmem.prName }&quot;</strong></h3>
+		             <hr>
+		             <span>${selfprmem.memName }</span>
+		             <br>
+		             <span class="position">${selfprmem.prWantjob }</span>
+		             <br>
+		             <span>${selfprmem.memAddr1}</span>
+		             <br>
+		             <span>${selfprmem.memTel }</span>
+		             <br>
+		             <span>${selfprmem.memEmail }</span>
+		             <hr>
+		          </div>
 	          </div>
-          </div>
+	          	<p style="float: right;">작성일 : ${selfprmem.prDate }</p>
           <div class="top-interval"></div>
-        <div class="prname">
-        	<blockquote>
-          	<p>Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit</p>
-        	</blockquote>
-        </div>
         </div> 
         
       </div>
 
 	<div class="container">
       <div class="mb-4">
-        <h3 class="mb-4" style="font-size: 1.3em; color: black;"><strong>자기소개</strong></h3>
+      	<div>
+        <h3 class="mb-4, icon-portrait" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;자기소개</strong>
+        	<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;" >&nbsp;내용 수정하기</a>
+        </h3>
+      	</div>
         <hr>
-        <p class="mb-0">Nostrum iure atque enim quisquam minima distinctio omnis consequatur aliquam suscipit quidem esse aspernatur Libero excepturi animi repellendus porro impedit</p>
+        <p class="mb-0">${selfprmem.prContent }</p>
       </div>
     </div>
+    
+    <div class="top-interval"></div>
     
     <div class="container">
       <div class="row mb-4">
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-          <strong class="d-block" style="font-size: 1.3em; color: red;">학력사항</strong>
+          <h3 class="icon-school d-block" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;학력사항</strong></h3>
           <hr>
 	          <table class="table">
-	          	<thead>
+	          	<thead class="table_header">
 	          	  <tr>
 	          		<th>학교명</th>
 	          		<th>전공분류</th>
@@ -123,59 +145,175 @@
 		          	<td>${edu.eduEntered }</td>
 		          	<td>${edu.eduGraduated }</td>
 		          </tr>
-	          	</tbody>
 	         	</c:forEach>
+	          	</tbody>
 	          </table>
         </div>
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-          <strong class="d-block" style="font-size: 1.3em; color: red;">경력사항</strong>
+          <h3 class="icon-address-card d-block" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;경력사항</strong></h3>
           <hr>
-          <span>넥슨 1년 구글 2년</span>
+          	<table class="table">
+          		<thead class="table_header">
+          			<tr>
+          				<td>업종</td>
+          				<td>직장명</td>
+          				<td>직무</td>
+          				<td>직급</td>
+          				<td>입사일</td>
+          				<td>퇴사일</td>
+          				<td>연차</td>
+          			</tr>
+          		</thead>
+          		<tbody>
+          		<c:forEach items="${selfprcareer }" var="career">
+          			<tr>
+          				<td>${career.careerCategory }</td>
+          				<td>${career.careerCompany }</td>
+          				<td>${career.careerTask }</td>
+          				<td>${career.careerClass }</td>
+          				<td>${career.careerJoin }</td>
+          				<td>${career.careerResign }</td>
+          				<td>${career.careerAnnual }</td>
+          			</tr>
+          		</c:forEach>
+          		</tbody>
+          	</table>
         </div>
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-          <strong class="d-block" style="font-size: 1.3em; color: red;">자격증</strong>
+       	  <h3 class="icon-playlist_add_check" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;자격증</strong></h3>
           <hr>
-          <span>Design, Front-End and Back-End (WordPress)</span>
+          <table class="table">
+          	<thead class="table_header">
+          		<tr>
+          			<td>자격번호</td>
+          			<td>자격증명</td>
+          			<td>발급일</td>
+          			<td>시행부처</td>
+          		</tr>
+          	</thead>
+          	<tbody>
+          	<c:forEach items="${selfprcert }" var="cert">
+          		<tr>
+          			<td>${cert.certNo }</td>
+          			<td>${cert.certName }</td>
+          			<td>${cert.certDate }</td>
+          			<td>${cert.certInstitution }</td>
+          		</tr>
+          	</c:forEach>
+          	</tbody>
+          </table>
         </div>
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-          <strong class="d-block" style="font-size: 1.3em; color: red;">주요활동</strong>
+          <h3 class="icon-line-briefcase" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;주요활동</strong></h3>
           <hr>
-          <span>Design, Front-End and Back-End (WordPress)</span>
+          <table class="table">
+          	<thead class="table_header">
+          		<tr>
+          			<td>주요활동명</td>
+          			<td>주요활동종류</td>
+          			<td>주요활동기관</td>
+          			<td>주요활동기간</td>
+          		</tr>
+          	</thead>
+          	<tbody>
+          	<c:forEach items="${selfpract }" var="act">
+          		<tr>
+          			<td>${act.actName }</td>
+          			<td>${act.actCategory }</td>
+          			<td>${act.actInstitution }</td>
+          			<td>${act.actPeriod }</td>
+          		</tr>
+          	</c:forEach>	
+          	</tbody>
+          </table>
         </div>
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-          <strong class="d-block" style="font-size: 1.3em; color: red;">수상경력</strong>
+          <h3 class="icon-trophy d-block" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;수상경력</strong></h3>
           <hr>
-          <span>Design, Front-End and Back-End (WordPress)</span>
+          <table class="table">
+			<thead class="table_header">
+				<tr>
+					<td>수상대회명</td>
+					<td>수상명</td>
+					<td>수상대회종류</td>
+					<td>수상날짜</td>
+					<td>수상기관</td>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${selfpraward }" var="award">
+				<tr>
+					<td>${award.awardCompetition }</td>
+					<td>${award.awardName }</td>
+					<td>${award.awardCategory }</td>
+					<td>${award.awardDate }</td>
+					<td>${award.awardInstitution }</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+          </table>
         </div>
         <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-          <strong class="d-block" style="font-size: 1.3em; color: red;">교육이수</strong>
+        <h3 class="icon-book d-block" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;교육이수</strong></h3>
           <hr>
-          <span>Design, Front-End and Back-End (WordPress)</span>
+          <table class="table">
+          	<thead class="table_header">
+          		<tr>
+          			<td>교육명</td>
+          			<td>교육종류</td>
+          			<td>교육기관</td>
+          			<td>교육기간</td>
+          		</tr>
+          	</thead>
+          	<tbody>
+          	<c:forEach items="${selfprcourse }" var="course">
+          		<tr>
+          			<td>${course.courseName }</td>
+          			<td>${course.courseCategory }</td>
+          			<td>${course.courseInstitution }</td>
+          			<td>${course.coursePeriod }</td>
+          		</tr>
+          	</c:forEach>
+          	</tbody>
+          </table>
         </div>
-        
-        
         
         <div class="top-interval"></div>
-        	<div class="card">
-	        	<table class="table">
-	        		<thead>
-		        		<tr>
-							<td><strong>고용형태</strong></td>
-							<td><strong>희망근무지</strong></td>
-							<td><strong>희망연봉</strong></td>
-							<td><strong>원하는 분야</strong></td>
-		        		</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>정규직</td>
-							<td>대전</td>
-							<td>3000만원</td>
-							<td>개발</td>
-						</tr>
-					</tbody>
-	        	</table>
-        	</div>
+        	<h3 class="icon-check d-block" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;희망근무조건</strong>
+        		<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;" >&nbsp;내용 수정하기</a>
+        	</h3>
+        	<hr>
+        	<table class="table">
+        		<thead style="background-color: #eefaff">
+	        		<tr>
+						<td><strong>산업분야</strong></td>
+						<td><strong>희망직급</strong></td>
+						<td><strong>희망직무</strong></td>
+						<td><strong>해당직무경력</strong></td>
+						<td><strong>희망근무지</strong></td>
+						<td><strong>희망연봉</strong></td>
+	        		</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>${selfprmem.industryName }</td>
+						<td>${selfprmem.prWanttype }</td>
+						<td>${selfprmem.prWantjob }</td>
+						<td>${selfprmem.prAnnual }</td>
+						<td>${selfprmem.regionName }</td>
+						<td>${selfprmem.prWantmn }</td>
+					</tr>
+				</tbody>
+        	</table>
+    <div class="top-medium-interval"></div>
+        	
+   	<div class="col-1" style="left: 980px;">
+    	<input type="button" value="내 이력서로 가기" class="btn btn-primary" onclick="${pageContext.request.contextPath}/resume"/>
+    </div>
+   	<div class="col-1" style="left: 740px;">
+    	<input type="button" value="내 홍보글 삭제" class="btn btn-primary text-white" 
+    		   onclick="location.href='${pageContext.request.contextPath}/selfpr/Delete?no=${selfprmem.prNo}'"/>
+    </div>
 
 	<!-- 이동 -->
     </section>
@@ -195,9 +333,6 @@
       </div>
     </section>
     
-    <script>
-    	console.log(${selfpredu });
-    </script>
     
       <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
@@ -213,5 +348,21 @@
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
+    
+    <script>
+    function likeseeker(prNo){
+    	$.ajax({
+    		url: '${pageContext.request.contextPath}/selfpr/like/insert',
+    		type : 'GET',
+    		data : {'prNo': prNo},
+    		success: function(resp){
+				$("#likeheart").removeClass('icon-heart-o');
+				$("#likeheart").addClass('icon-heart');
+    		}
+    	});
+    }
+    
+    </script>
+    
 </body>
 </html>

@@ -11,6 +11,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype html>
 <html>
@@ -96,7 +97,7 @@
 						<a href="${viewURL }">${news.newsName }</a>
 					  </td>
 		              <td>${news.newsHit }</td>
-		              <td>${news.newsDate }</td>
+		              <td><fmt:formatDate value="${news.newsDate }" pattern="yyyy-MM-dd" type="Date"/></td>
 		            </tr>
           	  	</c:forEach>
           	  </c:when>

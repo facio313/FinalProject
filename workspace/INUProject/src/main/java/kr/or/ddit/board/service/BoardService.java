@@ -6,11 +6,15 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.board.vo.BoardVO;
-import kr.or.ddit.board.vo.InterviewVO;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.PagingVO;
 
 public interface BoardService {
 
+	/**
+	 * @param boardNo
+	 * @return 존재여부(NotExistBoardException)
+	 */
 	// 상세조회
 	public BoardVO retrieveBoard(String boardNo);
 
@@ -23,6 +27,10 @@ public interface BoardService {
 	// 등록
 	public int createBoard(BoardVO board);
 
+	/**
+	 * @param board
+	 * @return 존재여부(NotExistBoardException), 인증성공여부(AuthenticationException), rowcnt
+	 */
 	// 수정
 	public int modifyBoard(BoardVO board);
 
@@ -40,4 +48,7 @@ public interface BoardService {
 
 	// 좋아요 on
 	public String likeOn(@Param("boardNo") String boardNo, @Param("memId") String memId);
+
+	// 첨부파일
+	public AttachVO retrieveForDownload(String attId);
 }

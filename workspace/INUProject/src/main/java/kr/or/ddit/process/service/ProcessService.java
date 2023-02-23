@@ -3,6 +3,7 @@ package kr.or.ddit.process.service;
 import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
+import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 
 /**
@@ -16,6 +17,7 @@ import kr.or.ddit.process.vo.ProcessVO;
  * --------     --------    ----------------------
  * 2023. 2. 17.     최경수        최초작성
  * 2023. 2. 18.     최경수        목록 찾기 세분화 
+ * 2023. 2. 23.     최경수        세부항목
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -56,4 +58,11 @@ public interface ProcessService {
 	 * @return 삭제된 채용과정 수
 	 */
 	public ServiceResult removeProcess(String daNo);
+	
+	/**
+	 * 한 상세공고가 갖고 있는 채용과정의 각 항목들
+	 * @param daNo
+	 * @return	List<ItemVO>
+	 */
+	public List<ItemVO> retrieveItemList(String daNo);
 }

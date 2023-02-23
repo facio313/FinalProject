@@ -17,7 +17,6 @@
 		SELECT BOARD_NO,
 			   MEM_ID,
 			   BOARD_SUB,
-			   JOB_NAME,
 			   BOARD_TITLE,
 			   BOARD_CONTENT,
 			   TO_CHAR(BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
@@ -38,7 +37,6 @@
 		SELECT B.BOARD_NO,
 			   B.MEM_ID,
 			   B.BOARD_SUB,
-			   B.JOB_NAME,
 			   B.BOARD_TITLE,
 			   SUBSTR(B.BOARD_CONTENT,1,30) BOARD_CONTENT,
 			   TO_CHAR(B.BOARD_DATE,'YYYY-MM-DD') BOARD_DATE,
@@ -71,7 +69,6 @@
 			  BOARD_NO
 			, MEM_ID
 			, BOARD_SUB
-			, JOB_NAME
 			, BOARD_TITLE
 			, BOARD_CONTENT
 			, BOARD_DATE
@@ -80,7 +77,6 @@
 			#{boardNo,jdbcType=VARCHAR}
 			, #{memId,jdbcType=VARCHAR}
 			, #{boardSub,jdbcType=VARCHAR}
-			, #{jobName,jdbcType=VARCHAR}
 			, #{boardTitle,jdbcType=VARCHAR}
 			, #{boardContent,jdbcType=CLOB}
 			, SYSDATE

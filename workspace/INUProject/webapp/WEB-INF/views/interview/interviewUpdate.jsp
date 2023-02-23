@@ -25,23 +25,6 @@
 
 <bo id="top">
   <div id="overlayer"></div>
-  <!-- HOME -->
-  <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-7">
-          <h1 class="text-white font-weight-bold">작성하기</h1>
-          <div class="custom-breadcrumbs">
-            <a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-            	<span class="mx-2 slash">/</span>
-            	<span class="text-white"><strong>Write Interview</strong></span>
-          </div>
-          <div class="custom-breadcrumbs"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 <!-- 작성 -->
   <section class="site-section">
 		<div class="container">

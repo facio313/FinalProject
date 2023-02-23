@@ -1,0 +1,167 @@
+/* 리스트 */
+.courses-container {
+	padding: 50px;
+}
+
+.course {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+	display: flex;
+	max-width: 100%;
+	height: 350px;
+/* 	height: auto; */
+	margin: 20px;
+	overflow: hidden;
+}
+
+.course h6 {
+	opacity: 0.6;
+	margin: 0;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.course h2 {
+	word-break: keep-all;
+	letter-spacing: 1px;
+	margin: 10px 0;
+}
+	
+.course-preview {
+	background-color: rgb(4, 87, 56);
+	color: #fff;
+	padding: 30px;
+	width: 30%;
+}
+
+.course-preview a {
+	color: #fff;
+	display: inline-block;
+	font-size: 12px;
+	opacity: 0.6;
+/* 	margin-top: 190px; */
+	text-decoration: none;
+	position: relative;
+	top: 70%;
+}
+
+.course-info {
+	padding: 30px;
+	position: relative;
+	width: 100%;
+}
+
+.progress-container {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	text-align: right;
+	width: 150px;
+}
+
+.progress {
+	background-color: #ddd;
+	border-radius: 3px;
+	height: 5px;
+	width: 100%;
+}
+
+.progressAfter {
+	border-radius: 3px;
+	background-color: rgb(4, 87, 56);
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 5px;
+/* 	width: 66%; */
+}
+
+.progress-text {
+	font-size: 10px;
+	opacity: 0.6;
+	letter-spacing: 1px;
+}
+
+.listBtn {
+	background-color: rgb(4, 87, 56);
+	border: 0;
+	border-radius: 50px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-size: 16px;
+	padding: 12px 25px;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	letter-spacing: 1px;
+}
+
+/* 트리구조 */
+.tree-container {
+  position: relative;
+  display: block;
+  height: auto;
+/*   margin-left: 100px; */
+/*   margin-top: 75px; */
+/*   padding: 25px; */
+/*   width: 70%; */
+/*   box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23); */
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+details {
+  position: relative;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  transition: all 0.1s ease;
+/*   margin-bottom: 25px; */
+}
+details ::-webkit-details-marker {
+  display: none;
+}
+details > summary {
+  position: relative;
+/*   height: 100px; */
+  color: black;
+}
+details > summary:before {
+/*   content: "⊞"; */
+  color: #eee;
+  font-size: 0.5em;
+  margin-right: 0.5em;
+}
+details[open] > summary {
+  background: darkgrey;
+  color: #eee;
+
+}
+details[open] > summary:before {
+/*   content: "⊟"; */
+  color: #ccc;
+  
+}
+
+.folder {
+  margin: 0 0 0.5em 0.86em;
+  padding: 0.5em 0em 0.5em 1.5em;
+  border-left: 0.1em #ccc dotted;
+  border-bottom: 0.1em #ccc dotted;
+}
+.folder p {
+  margin: 0;
+}
+
+details[open] {
+  height: auto;
+  max-height: 99em !important;
+  transition: all 2s ease;
+}
+
+details:not([open]) .folder {
+  height: 0px !important;
+  transition: all 2s ease;
+  
+}

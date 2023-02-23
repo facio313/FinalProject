@@ -1,29 +1,64 @@
 package kr.or.ddit.board.service;
 
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDAO;
 import kr.or.ddit.board.vo.BoardVO;
-import kr.or.ddit.board.vo.InterviewVO;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.PagingVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardDAO dao;
 
+/*	@Inject
+	private AttachDAO attachDAO;
+
+	@Value("#{appInfo.saveFiles}")
+	private File saveFiles;
+
+	@PostConstruct
+	public void init() throws IOException {
+		log.info("EL로 주입된 첨부파일 저장 경로 : {}", saveFiles.getCanonicalPath());
+	}*/
+
+	/*private int processAttatchList(BoardVO board) {
+
+		List<AttachVO> attatchList = board.getAttatchList();
+		if (attatchList == null || attatchList.isEmpty())
+			return 0;
+		// 1. metadata 저장 - DB (ATTATCH)
+		log.info("board : {}", board);
+		log.info("attactchList : {}" , attatchList);
+		// 2. binary 저장 - Middle Tier : (D:\saveFiles)
+		try {
+			for (AttachVO attatch : attatchList) {
+				attatch.saveTo(saveFiles);
+			}
+			int rowcnt = attachDAO.insertAttatches(board);
+			return rowcnt;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}*/
+
 	// 상세조회
 	@Override
 	public BoardVO retrieveBoard(String boardNo) {
 		BoardVO board = dao.selectBoard(boardNo);
+		if(board==null) {
+			throw new UsernameNotFoundException(String.format(boardNo+"에 해당하는 게시글 없음."));
+		}
 		return board;
 	}
 
@@ -47,13 +82,29 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int createBoard(BoardVO board) {
 		int rowcnt = dao.insertBoard(board);
+		/*rowcnt += processAttatchList(board);*/
 		return rowcnt;
 	}
 
 	// 수정
 	@Override
 	public int modifyBoard(BoardVO board) {
+		/*BoardVO savedBoard = dao.selectBoard(board.getBoardNo());*/
 		int rowcnt = dao.updateBoard(board);
+		/*rowcnt += processAttatchList(board);
+		int[] delAttonos = board.getDelAttNos();
+		if(delAttonos!=null && delAttonos.length>0) {
+			Arrays.sort(delAttonos);
+			rowcnt += attachDAO.deleteAttatchs(board);
+			String[] delAttSavenames = savedBoard.getAttatchList().stream()
+					.filter(attach->{
+						return Arrays.binarySearch(delAttonos, attach.getAttno())>=0;
+					}).map(AttachVO::getAttSavename)
+					.toArray(String[]::new);
+			for(String saveName:delAttSavenames) {
+				FileUtils.deleteQuietly(new File(saveFiles,saveName));
+			}
+		}*/
 		return rowcnt;
 	}
 
@@ -61,6 +112,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int removeBoard(BoardVO board) {
 		int rowcnt = dao.deleteBoard(board);
+	/*	rowcnt += attachDAO.deleteAttatchs(board.getBoardNo());*/
 		return rowcnt;
 	}
 
@@ -79,7 +131,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 좋아요 개수
 	@Override
-	public int likeCount(String boardNo){
+	public int likeCount(String boardNo) {
 		return dao.likeCount(boardNo);
 	}
 
@@ -93,6 +145,12 @@ public class BoardServiceImpl implements BoardService {
 	public int likeInsert(Map<String, Object> m) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public AttachVO retrieveForDownload(String attId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

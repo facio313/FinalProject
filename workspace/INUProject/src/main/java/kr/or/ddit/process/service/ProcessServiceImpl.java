@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.process.dao.ProcessDAO;
+import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 
 @Service
@@ -44,6 +45,12 @@ public class ProcessServiceImpl implements ProcessService {
 	public ServiceResult removeProcess(String daNo) {
 		int rowcnt = dao.deleteProcess(daNo);
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public List<ItemVO> retrieveItemList(String daNo) {
+		List<ItemVO> list = dao.selectItemList(daNo);
+		return list;
 	}
 
 }

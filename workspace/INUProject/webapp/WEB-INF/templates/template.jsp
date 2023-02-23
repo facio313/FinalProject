@@ -8,6 +8,14 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+		<!-- MAIN CSS -->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+		<!-- gridstack -->
+		<link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
+		<link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
+		<script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
+
 		<title>INU</title>
 		
 		<tiles:insertAttribute name="preScript" />
@@ -21,19 +29,32 @@
 			body {
 				width:100%;
  				height:100%;
- 				overflow-x:hidden;
  				background-color: rgb(234, 237, 242);
-/* 				background-color: rgb(246,246,246); */
 				position:relative;
 				z-index:1;
 			}
 			main {
  				position: abosolute;
  				top: 50px;
-				background: white;
-				border-radius: 30px;
 				padding-top: 50px;
+				border-radius: 30px;
+				background: white;
 			}
+			body::-webkit-scrollbar {
+			    width: 8px;  /* 스크롤바의 너비 */
+			}
+			
+			body::-webkit-scrollbar-thumb {
+			    height: 50%; /* 스크롤바의 길이 */
+			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */
+			    
+			    border-radius: 10px;
+			}
+			
+			body::-webkit-scrollbar-track {
+			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/
+			}		
+			
 		</style>
 	</head>
 	
@@ -41,6 +62,7 @@
 		<tiles:insertAttribute  name="headerMenu"/>
 		<div class="row">
 			<main class="col-md-10 ks-lm-radius mx-auto">
+				<tiles:insertAttribute name="subMenu"/>
 				<tiles:insertAttribute  name="content"/>
 			</main>
 		</div>
@@ -50,24 +72,4 @@
 	</body>
 	
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 		<div id="main_div" class="row"> -->
-<%-- 			<tiles:insertAttribute name="leftMenu" ignore="true"/> --%>
-<!-- 			<main class="col-md-9" style="border-radius: 30px; padding-top: 50px;"> -->
-<%-- 				<tiles:insertAttribute  name="content"/> --%>
-<!-- 			</main> -->
-<!-- 		</div> -->
-
 

@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.expert.dao.ExprodDAO">
-	<sql id="searchFrag">
-		<where>
-			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchType)">
-				exlprod_id = #{simpleCondition.searchType}		
-			</if>
-		</where>
-	</sql>
  	<sql id="mainSearch">
 		<where>
-			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.newsField)">
+			<if test="simpleCondition neq null">
 			<choose>
 				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchField) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 					and exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
@@ -38,6 +31,7 @@
 				<when test="@org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchField)  and @org.apache.commons.lang3.StringUtils@isBlank(simpleCondition.searchValue) and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
 					and INSTR(EXPROD_NAME, #{simpleCondition.searchWord,jdbcType=VARCHAR})>0
 				</when> 
+				
 			<!-- 	<otherwise>
 					exfield_id = #{simpleCondition.searchField,jdbcType=VARCHAR}
 					OR
@@ -47,12 +41,26 @@
 				</otherwise> -->
 			</choose>
 			</if>
+			
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchType)">
+				AND exlprod_id = #{simpleCondition.searchType}		
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchId)">
+				and INSTR(mem_id, #{simpleCondition.searchId,jdbcType=VARCHAR})>0	
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.startDate)">
+				and exprod_start <![CDATA[>=]]> #{simpleCondition.startDate}	
+			</if>
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.endDate)">
+				and exprod_end <![CDATA[<=]]> #{simpleCondition.endDate}
+			</if>
+			
 		</where>
 	</sql> 
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		select count(*)
 		from mem_expert_exprod
-		<include refid="searchFrag"/>
+<!-- 		<include refid="searchFrag"/> -->
 		<include refid="mainSearch"/>
 	</select>
 	 
@@ -60,8 +68,8 @@
 	WITH ORDEREDEVENT AS (
 	SELECT
 	    exprod_id,
-	    exprod_start,
-	    exprod_end,
+	    to_char(exprod_start,'yyyy-hh-dd') as exprod_start,
+	    to_char(exprod_end,'yyyy-hh-dd') as exprod_end,
 	    exprod_target,
 	    exprod_name,
 	    exprod_price,
@@ -74,7 +82,7 @@
     	EXLPROD_ID	    
 	FROM
 	    mem_expert_exprod
-    <include refid="searchFrag"/>
+<!--     <include refid="searchFrag"/> -->
     <include refid="mainSearch"/>
     ORDER BY exprod_id DESC
     )
@@ -156,4 +164,32 @@
 	where 
 		exprod_id = #{exprodId,jdbcType=VARCHAR}
 	</update>
+	
+	<delete id="deleteExprod" parameterType="String">
+	DELETE FROM EXPROD
+	WHERE exprod_id = #{exprodId,jdbcType=VARCHAR}
+	</delete>
+	
+	<update id="updateExprodName" parameterType="ExprodVO">
+	UPDATE exprod
+	SET
+	    exprod_name= #{exprodName,jdbcType=VARCHAR}
+	where 
+		exprod_id = #{exprodId,jdbcType=VARCHAR}
+	</update>
+	<select id="selectExreviewList" parameterType="String" resultType="kr.or.ddit.expert.vo.ExreviewVO">
+	SELECT
+	    exreview_id,
+	    exreview_name,
+	    exreview_writer,
+	    exreview_pass,
+	    exreview_hit,
+	    review_cartid,
+	    exreview_date,
+	    exreview_score,
+	    exreview_content
+	FROM
+	    mem_excart_exprod_exreview
+	WHERE EXPROD_ID = #{exprodId,jdbcType=VARCHAR}
+	</select>
 </mapper>

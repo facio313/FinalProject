@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 
 /**
@@ -17,6 +18,7 @@ import kr.or.ddit.process.vo.ProcessVO;
  * --------     --------    ----------------------
  * 2023. 2. 17.      최경수        최초작성
  * 2023. 2. 18.      최경수        리스트 가져오기 다양화
+ * 2023. 2. 23.      최경수        항목 관리
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -70,4 +72,11 @@ public interface ProcessDAO {
 	 * @return 삭제된 채용과정 수
 	 */
 	public int deleteProcess(String daNo);
+	
+	/**
+	 * 한 상세공고가 갖고 있는 채용과정의 각 항목들
+	 * @param daNo
+	 * @return	List<ItemVO>
+	 */
+	public List<ItemVO> selectItemList(String daNo);
 }

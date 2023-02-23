@@ -23,4 +23,6 @@ public interface CompanyDAO{
 	
 	public int insertCompany(CompanyVO company);
 
+	
+	
 }

@@ -44,4 +44,11 @@ public class AskServiceImpl implements AskService {
 		return rowcnt;
 	}
 
+	// 수정
+	@Override
+	public int modifyRef(AskVO ask) {
+		int rowcnt = dao.updateRef(ask);
+		return rowcnt;
+	}
+
 }

@@ -3,52 +3,36 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * 2023. 2. 7.   양서연      최초작성
-* Copyright (c) ${year} by DDIT All right reserved
- --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
+* Copyright (c) 2023 by DDIT All right reserved
+ --%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-select.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/fonts/line-icons/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animate.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/quill.snow.css">
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-<link rel="shortcut icon" href="ftco-32x32.png">
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/saramin/jobs-recruit.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
+
+<c:set var="prePath" value="${pageContext.request.contextPath}"/>
+<security:authorize access="isAuthenticated()">
+<security:authentication property="principal" var="memberVOWrapper"/>
+<security:authentication property="principal.realMember" var="authMember"/>
+<c:set var="authMemId" value="${authMember.memId }" />
+</security:authorize>
+<c:set  var="prePath" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-recruit.css" />
 
 <!-- MAIN CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
 <style>
 #temp {
@@ -333,11 +317,10 @@
 								</button>
 							</p>
 							<p class="deadlines">
-								<!-- 						~ 04/16(일) -->
+								<!-- ~ 04/16(일) -->
 								<b style="font-weight: bold; color: #d63131;">오늘마감</b> <span
 									class="reg_date">(3일 전 등록)</span>
 							</p>
-
 						</div>
 						<div class="similar_recruit"></div>
 					</div>
@@ -365,15 +348,39 @@
 
 <!-- hidden form -->
 <form id="searchForm">
-	<input type="hidden" name="page" /> <input type="hidden"
-		name="regionCode" /> <input type="hidden" name="industryCode" /> <input
-		type="hidden" name="job" /> <input type="hidden" name="careerName" />
+	<input type="hidden" name="page" /> 
+	<input type="hidden" name="regionCode" /> 
+	<input type="hidden" name="industryCode" /> 
+	<input type="hidden" name="job" /> 
+	<input type="hidden" name="careerName" />
 	<input type="hidden" name="searchWord" />
-</form>
+</form>	
 
 <!-- SCRIPTS -->
 
 <script>
+function timeForToday(value) {
+    let today = new Date();
+    let timeValue = new Date(value);
+
+    let betweenTime = Math.floor((today.getTime() - timeValue.getTime())/1000/60);
+    if (betweenTime<1) return '방금 전 등록';
+    if (betweenTime<60) {
+        return betweenTime+'분 전 등록';
+    }
+
+    let betweenTimeHour = Math.floor(betweenTime/60);
+    if (betweenTimeHour<24) {
+        return betweenTimeHour+'시간 전 등록';
+    }
+
+    let betweenTimeDay = Math.floor(betweenTime/60/24);
+    if (betweenTimeDay<365) {
+        return betweenTimeDay+'일 전 등록';
+    }
+
+    return Math.floor(betweenTimeDay/365)+'년 전 등록';
+}
 
 /* 페이징 */
 let listBody = $("#listBody");
@@ -387,10 +394,11 @@ let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
 	return false;
 });
 
-let makeNewTag = function(anno){
+
+let makeNewTag00 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 	return $("<div class='list_item'>").attr("id",anno.annoNo)
 			//파란 강조 글씨
-// 			.addClass("outstand_point")
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
 			.append(
 				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
 					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
@@ -399,9 +407,9 @@ let makeNewTag = function(anno){
 					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
 						//관심기업 추가되어 있으면 하트에 불 들어옴
-// 						.addClass("interested_on")
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
 						.attr("first_nudge","off").attr("title","관심기업 등록").append(
-							$("<span>").html("관심기업 등록")	
+							$("<span>").html("관심기업 등록")
 						)
 						, $("<div class='toolTip'>").append(
 							$("<span class='tail tail_bottom_center'>")
@@ -412,8 +420,7 @@ let makeNewTag = function(anno){
 				, $("<div class='col notification_info'>").append(
 					$("<div class='job_tit'>").append(
 						//HOT 아이콘	
-// 						$("<span class='prd_icon_02'>")
-// 						, $("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+// 						$("<span class='prd_icon_02'>"),
 						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
 							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
 							.append(
@@ -421,9 +428,8 @@ let makeNewTag = function(anno){
 							)
 						, $("<div class='toolTipWrap wrap_scrap'>").append(
 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
-// 							.attr("onClick","likeAnnoFt()")
 							//관심공고 추가되어 있으면 별에 불 들어옴
-// 							.addClass("on")
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
 							.append(
 								$("<span class='blind'>").html("스크랩")
 							)
@@ -435,19 +441,20 @@ let makeNewTag = function(anno){
 					)	
 					, $("<div class='job_meta'>").append(
 						$("<span class='job_sector'>").append(
-							$("<span>").html(" M직종01 ")
-							, $("<span>").html(" M직종02 ")
-							, $("<span>").html(" M직종03 ")
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
 						)
 					)
 				)
 				, $("<div class='col recruit_condition'>").append(
-					$("<p class='career'>").html("McareerNameList")
+					$("<p class='career'>").html(careerNameList)
 					, $("<p class='education'>").html(anno.eduName)
 				)
 				, $("<div class='col company_info'>").append(
-					$("<p class='employment_type'>").html("M고용형태중복제거")
-					, $("<p class='work_place'>").html("M대표지역01")	
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
 				)
 				, $("<div class='col support_info'>").append(
 					$("<p class='support_type'>").append(
@@ -459,9 +466,233 @@ let makeNewTag = function(anno){
 						//오늘마감
 // 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
 						.append("~ "+anno.annoEnddate)
-						.append($("<span class='reg_date'>").html("(M일 전 등록)"))
+						.append($("<span class='reg_date'>").html(annoDate))
 				)
-				
+	);
+}
+let makeNewTag10 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+// 						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
+	);
+}
+let makeNewTag01 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+// 						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
+	);
+}
+let makeNewTag11 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
+	return $("<div class='list_item'>").attr("id",anno.annoNo)
+			//파란 강조 글씨
+// 	       $("<div class='list_item outstand_point'>").attr("id",anno.annoNo)
+			.append(
+				$("<div class='col company_nm'>").attr("id",anno.cmpId).append(
+					$("<a class='str_tit' target='_blank'>").attr("title",anno.company.cmpName).attr("href","회사상세페이지주소").append(
+						$("<span>").html(anno.company.cmpName)
+					)
+					, $("<div class='toolTipWrap wrap_interested_corp'>").append(
+// 						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon")
+						//관심기업 추가되어 있으면 하트에 불 들어옴
+						$("<button>").attr("type","button").attr("aria-pressed","false").attr("class","likeCmpBtn interested_corp likeIcon interested_on")
+						.attr("first_nudge","off").attr("title","관심기업 등록").append(
+							$("<span>").html("관심기업 등록")
+						)
+						, $("<div class='toolTip'>").append(
+							$("<span class='tail tail_bottom_center'>")
+							, $("<div class='toolTipCont txtCenter'>").html("관심기업 등록")		
+						)
+					)
+				)
+				, $("<div class='col notification_info'>").append(
+					$("<div class='job_tit'>").append(
+						//HOT 아이콘	
+// 						$("<span class='prd_icon_02'>"),
+						$("<a class='str_tit' target='_blank'>").attr("title",anno.annoTitle)
+							.attr("href","${pageContext.request.contextPath}/announcement/view/"+anno.annoNo)
+							.append(
+								$("<span>").html(anno.annoTitle)		
+							)
+						, $("<div class='toolTipWrap wrap_scrap'>").append(
+// 							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon'>")
+							//관심공고 추가되어 있으면 별에 불 들어옴
+							$("<button type='button' scraped='n' bbs_fl='n' imgtype='button' class='likeAnnoBtn spr_scrap btn_scrap likeIcon on'>")
+							.append(
+								$("<span class='blind'>").html("스크랩")
+							)
+							, $("<div class='toolTip'>").append(
+								$("<span class='tail tail_bottom_center'>")
+								, $("<div class='toolTipCont txtCenter'>").html("스크랩")
+							)
+						)
+					)	
+					, $("<div class='job_meta'>").append(
+						$("<span class='job_sector'>").append(
+							jobTag
+// 							$("<span>").html(" M직종01 ")
+// 							, $("<span>").html(" M직종02 ")
+// 							, $("<span>").html(" M직종03 ")
+						)
+					)
+				)
+				, $("<div class='col recruit_condition'>").append(
+					$("<p class='career'>").html(careerNameList)
+					, $("<p class='education'>").html(anno.eduName)
+				)
+				, $("<div class='col company_info'>").append(
+					$("<p class='employment_type'>").html(empltypeName)
+					, $("<p class='work_place'>").html(anno.regionName)	
+				)
+				, $("<div class='col support_info'>").append(
+					$("<p class='support_type'>").append(
+						$("<button class='sri_btn_xs' title='클릭하면 입사지원할 수 있는 창이 뜹니다.'>").append(
+							$("<span class='sri_btn_immediately'>").html("입사지원")
+						)
+					)
+					, $("<p class='deadlines'>")
+						//오늘마감
+// 						.append($("<b style='font-weight: bold; color: #d63131;'>").html("오늘마감"))
+						.append("~ "+anno.annoEnddate)
+						.append($("<span class='reg_date'>").html(annoDate))
+				)
 	);
 }
 
@@ -487,8 +718,62 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			let newTags = [];
 			if(dataList){
 				$.each(dataList, function(index, anno){
-// 					newTags.push(makeTrTag(anno));
-					newTags.push(makeNewTag(anno));
+					let annoDate = timeForToday(anno.annoDate);
+					let jobTag = [];
+					let tempC = [];
+					let careerNameList = [];
+					let tempE = [];
+					let empltypeName = [];
+					let cntC=0;
+					let cntE=0;
+					
+					$.each(anno.detailList,function(index,detail){
+						$.each(detail.careerNames,function(index,careers){
+							if (!tempC.includes(careers)) {
+								if(cntC==0){
+									tempC.push(careers);
+									careerNameList.push(careers);
+									cntC=cntC+1;
+								} else {
+									tempC.push(careers);
+									careerNameList.push(","+careers);
+									cntC=cntC+1;
+								}
+							}
+						})
+					});
+					$.each(anno.detailList,function(index,detail){
+						jobTag.push($("<span>").html(detail.jobName));
+					});
+					$.each(anno.detailList,function(index,detail){
+						console.log("detail",detail);
+						if (!tempE.includes(detail.empltypeName)) {
+							if(cntE==0){
+								tempE.push(detail.empltypeName);
+								empltypeName.push(detail.empltypeName);
+								cntE=cntE+1;
+							} else {
+								tempE.push(detail.empltypeName);
+								empltypeName.push(","+detail.empltypeName);
+								cntE=cntE+1;
+							}
+						}
+					})
+// 					console.log("jobTag",jobTag);
+					
+					if(anno.acheck==0 && anno.company.ccheck==0){
+						//둘다 안되어잇음
+						newTags.push(makeNewTag00(anno,annoDate,careerNameList,jobTag,empltypeName));
+					} else if (anno.acheck==0 && anno.company.ccheck>0){
+						//기업만 되어잇음
+						newTags.push(makeNewTag10(anno,annoDate,careerNameList,jobTag,empltypeName));
+					} else if (anno.acheck>0 && anno.company.ccheck==0){
+						//공고만 되어잇음
+						newTags.push(makeNewTag01(anno,annoDate,careerNameList,jobTag,empltypeName));
+					} else {
+						//둘다 되어잇음
+						newTags.push(makeNewTag11(anno,annoDate,careerNameList,jobTag,empltypeName));
+					}
 				});
 			}else{
 				let tr = $("<tr>").html(
@@ -529,10 +814,10 @@ let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
 
 function likeAnnoFt(){
 	$(".likeAnnoBtn").on("click",function(){
-		console.log("likeAnnoFt 클릭",$(this));
-		
-		let annoNo = $(this).parents(".list_item").attr("id")
-		let memId = "";
+		let clickedAnno = $(this);
+		let annoNo = clickedAnno.parents(".list_item").attr("id");
+		let memId = `${authMemId}`;
+		console.log("likeAnnoFt 클릭",$(this),annoNo,memId);
 	    let data = {annoNo:annoNo,memId:memId};
 	    
 	    $.ajax({
@@ -542,11 +827,12 @@ function likeAnnoFt(){
 	       dataType : "text",
 	       contentType: 'application/json',
 	       success : function(resp) {
-	          console.log("resp : ",resp);
 	          if(resp=="delete"){
-	        	  //.removeClass("on")
+		          console.log("resp : ",resp);
+	        	  clickedAnno.removeClass("on");
 	          } else if(resp=="insert") {
-	        	  //.addClass("on")
+		          console.log("resp : ",resp);
+	        	  clickedAnno.addClass("on")
 	          }
 	       },
 	       error : function(jqXHR, status, error) {
@@ -554,16 +840,16 @@ function likeAnnoFt(){
 	          console.log(status);
 	          console.log(error);
 	       }
-	    });  
+	    });
 	})
 }
 
 function likeCmpFt(){
     $(".likeCmpBtn").on("click",function(){
-	    console.log("likeCmpFt 클릭",$(this));
-	    
-	    let cmpId="";
-	    let memId="";
+    	let clickedCmp = $(this);
+	    let cmpId=clickedCmp.parents(".company_nm").attr("id");
+	    let memId=`${authMemId}`;
+	    console.log("likeCmpFt 클릭",$(this),cmpId,memId);
     	let data = {cmpId:cmpId,memId:memId};
         
     	$.ajax({
@@ -575,9 +861,9 @@ function likeCmpFt(){
            success : function(resp) {
               console.log("resp : ",resp);
               if(resp=="delete"){
-            	  //.removeClass("interested_on")
+            	  clickedCmp.removeClass("interested_on");
               } else if(resp=="insert") {
-            	  //.addClass("interested_on")
+            	  clickedCmp.addClass("interested_on")
               }
            },
            error : function(jqXHR, status, error) {
@@ -820,29 +1106,4 @@ $.ajax({
 });
 
 </script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/isotope.pkgd.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/stickyfill.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery.fancybox.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
-
-<script
-	src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
-
-<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>

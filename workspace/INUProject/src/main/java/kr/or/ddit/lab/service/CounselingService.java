@@ -1,6 +1,13 @@
 package kr.or.ddit.lab.service;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
+import kr.or.ddit.lab.dao.CounselingDAO;
+import kr.or.ddit.lab.vo.CounselingVO;
+import kr.or.ddit.vo.PagingVO;
 
 /**
  * @author 작성자명
@@ -15,6 +22,10 @@ import org.springframework.stereotype.Service;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+@Service
 public interface CounselingService {
-
+	public void retrieveCounList(PagingVO<CounselingVO> pagingVO);
+	public CounselingVO retrieveCoun(String counNo);
+	public int createCoun(CounselingVO coun);
+	public int deleteCoun(String counNo);
 }

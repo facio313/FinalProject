@@ -49,6 +49,7 @@
                     <a href="<c:url value='/board/boardMain'/>" class="dropdown-item">홈</a>
                     <a href="<c:url value='/board/boardTotal'/>" class="dropdown-item">글 전체</a>
                     <a href="<c:url value='/interview/interviewList'/>" class="dropdown-item">현직자인터뷰</a>
+                    <a href="<c:url value='#'/>" class="dropdown-item">기업 리뷰</a>
                 </div>
             </div>
             <div class="navbar-nav ms-auto">
