@@ -37,7 +37,7 @@
  				position: abosolute;
  				top: 50px;
 				padding-top: 50px;
-				border-radius: 30px;
+				border-radius: 10px;
 				background: white;
 			}
 			body::-webkit-scrollbar {

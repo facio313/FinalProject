@@ -7,7 +7,6 @@
 <link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
 <link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
 <script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
-
 <div class="grid-stack">
 <!-- ============================================프로필=================================================== -->
 <!-- spring security용 -->
@@ -210,11 +209,15 @@
 			</div>
 		</div>
     </div>
+    
+    <!-- ============================================유료상품=================================================== -->
+    <div class="grid-stack-item"  gs-x="12" gs-y="12" gs-w="12" gs-h="3">
+        <div class="grid-stack-item-content">
+        
+		</div>
+    </div>
 </div>
 
-<div>
-<br><br><br><br><br><br><br><br><br><br><br>
-</div>
 <!-- ============================================TOP20 공고목록=================================================== -->
 <div class="bg-white" style="background-color: rgb(255, 255, 255); border-radius:16px;">
 	<div><span><h1>TOP20 공고 목록</h1></span></div>

@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ExreviewVO {
+public class ExreviewVO extends ExcartVO{
 	private String exreviewId;
 	private String exreviewName;
 	private String exreviewWriter;
@@ -16,5 +16,11 @@ public class ExreviewVO {
 	private String exreviewDate;
 	private String exreviewScore;
 	private String exprodName;
-	
+	private String exprodId;
+	private Integer excartPrice;
+	private String exfieldName;
+	private String exjobName;
+	private String expertName;
+
 }
+

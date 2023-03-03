@@ -77,20 +77,33 @@
       </div>
     </section>
 
-    <section class=" py-3 site-section mb-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">Previous Project</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-primary border-width-2 d-block">All Projects</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">Next Project</a>
-          </div>
-        </div>
-      </div>
-    </section>
+	<section class=" py-3 site-section mb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 text-center" >
+					<a href="${pageContext.request.contextPath}/expert/event/detail/${exevent.preExevent}"
+						class="btn btn-md btn-outline-primary border-width-2 d-block"
+						id="preBtn">&laquo; 이전</a>
+				</div>
+				<div class="col-md-4 text-center">
+					<a href="${pageContext.request.contextPath}/expert/event" class="btn btn-md btn-primary border-width-2 d-block">전체</a>
+				</div>
+				<div class="col-md-4 text-center">
+					<a href="${pageContext.request.contextPath}/expert/event/detail/${exevent.nextExevent}"
+						class="btn btn-md btn-outline-primary border-width-2 d-block" 
+						id="nextBtn">다음 &raquo;</a>
+				</div>
+			</div>
+		</div>
+	</section>
     
   </div>
+  
+ <script type="text/javascript">
+if(`${exevent.preExevent}`==""){
+	$("#preBtn").click(function () {return false;});
+};
+if(`${exevent.nextExevent}`==""){
+	$("#nextBtn").click(function () {return false;});
+};
+</script>

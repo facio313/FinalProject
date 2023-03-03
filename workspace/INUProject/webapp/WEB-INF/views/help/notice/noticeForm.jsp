@@ -32,7 +32,8 @@
 	<tr>
 		<th>내용</th>
 		<td>
-			<form:textarea path="noticeContent" type="text" cssClass="form-control"/>
+<%-- 			<form:textarea path="noticeContent" type="text" cssClass="form-control"/> --%>
+			<textarea id="noticeContent" name="noticeContent"></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -46,6 +47,14 @@
 </form:form>
 
 <script>
+$("button").on("click", function(event) {
+	event.preventDefault();
+	
+	console.log(CKEDITOR.instances.noticeContent.getData());
+	
+	return false;
+});
+
 CKEDITOR.replace('noticeContent', {
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
 });

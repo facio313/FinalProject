@@ -27,20 +27,16 @@ public class EducationVO extends CommonsAttachVO {
 	private String eduInsertDate;
 	private String eduDeleteDate;
 	
-	public String getEduEntered() {
-		return eduEntered;
-	}
-	
 	public void setEduEntered(String eduEntered) {
 		this.eduEntered = eduEntered.substring(0, 10);
 	}
 	
-	public String getEduGraduated() {
-		return eduGraduated;
-	}
-	
 	public void setEduGraduated(String eduGraduated) {
 		this.eduGraduated = eduGraduated.substring(0, 10);
+	}
+	
+	public void setEduInsertDate(String eduInsertDate) {
+		this.eduInsertDate = eduInsertDate.substring(0, 10);
 	}
 	
 	@Override

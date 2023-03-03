@@ -1622,7 +1622,7 @@ let makeCourseModalTag = function(index, course) {
 				, $("<td>").html(course.coursePeriod)
 				, $("<td>").html(course.courseInsertDate.substr(0, 10))
 				, $("<td>").append($("<input>").attr("type", "checkBox").attr("id", courseIndex).attr("name", "itemList.resumeItemSn").val(course.courseSn))
-			)
+			);
 }
 
 // 공통 모듈로 뺄 수 있을 듯?

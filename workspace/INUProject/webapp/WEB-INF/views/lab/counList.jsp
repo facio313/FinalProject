@@ -8,16 +8,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>    
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
 <c:set  var="prePath" value="${pageContext.request.contextPath}"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
-<c:set  var="prePath" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${prePath}/resources/css/style.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/help.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
 <body id="top">
 	<div class="site-wrap">
 		<!-- 작성 -->
@@ -32,6 +34,29 @@
 							평일 09시 에서 17시 까지 문의하신 내용은 당일 답변해드립니다.<br> 17시 이후에 문의하신 내용은
 							다음날에 답변, 주말에 문의하신 내용은 그 다음주 월요일에 답변해 드립니다.
 						</p>
+						<div class="company_honest_qna">
+							<div class="qna_list_wrap">
+								<div class="qna_list_sort">
+									<div class="icoChk_outline filter">
+										<security:authorize access="hasAnyRole('SEEKER','INCRUITER','EXPERT')">
+											<security:authentication property="principal" var="memberVOWrapper"/>
+											<security:authentication property="principal.realMember" var="authMember"/>
+											<span class="inpChk icoChk">
+												<input type="checkbox" id="myBoard" class="btn_sort" value="myBoard"> 
+												<label class="lbl" for="myBoard">내 글 보기</label>
+											</span>
+										</security:authorize>
+										<security:authorize access="hasRole('ROLE_ADMIN')">
+											<span class="inpChk icoChk">
+												<input type="checkbox" id="notAnsweredBoard" class="btn_sort" value="notAnsweredBoard" > 
+												<label class="lbl" for="notAnsweredBoard">답변대기중인 글 보기</label>
+											</span>
+										</security:authorize>
+										
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="tblType">
 							<table>
 								<colgroup>
@@ -41,7 +66,6 @@
 									<col style="width: 100px">
 									<col style="width: 90px">
 								</colgroup>
-
 								<tbody id="ask_list" >
 									<tr>
 										<td class="count">문의번호</td>
@@ -66,10 +90,11 @@
 			</div>
 		</div>
 	</div>
-<form id="searchForm">
-	<input type="hidden" name="page" /> 
-</form>	
-
+	<form:form id="searchForm" modelAttribute="searchVO" method="get">
+		<input type="hidden" name="page" />
+		<input type="hidden" name="searchType" />
+		<input type="hidden" name="searchWord" />
+	</form:form>	
 <script>
 
 /* 페이징 */
@@ -89,12 +114,12 @@ let makeNewTag = function(coun){
 		$("<td>").attr("class","count").html(coun.counNo)
 		, $("<td style='text-align: center;'>").attr("class","category").html(coun.memName)
 		, $("<td style='text-align: center;'>").attr("class","content_tit").append(
-			$("<a>").attr("href","${prePath}/lab/counseling/view/"+coun.counNo).html(coun.counTitle)
+			$("<a>").attr("href","${prePath}/lab/counseling/view/CS"+coun.counNo).html(coun.counTitle)
 		)
 		, $("<td>").attr("class","date").html(coun.counDate)
 		, $("<td>").attr("class","status end").html(coun.counState)
 	)
-}
+};
 
 let searchForm = $("#searchForm").on("submit", function(event){
 	event.preventDefault();
@@ -116,12 +141,16 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			let newTags = [];
 			if(dataList){
 				$.each(dataList, function(index, coun){
-					console.log("coun.isrefed",coun.isrefed);
-					if(coun.isrefed==null){
+					if(coun.isrefed==0){
 						coun.counState = '답변대기중';
 					} else {
 						coun.counState = '답변완료';
 					}
+					coun.counNo = coun.counNo.substring(2);
+					if(coun.isAttached>0){
+						coun.counTitle = coun.counTitle +'<i class="bi bi-paperclip"></i>'
+					}
+					
 					newTags.push(makeNewTag(coun));
 				});
 			}else{
@@ -143,4 +172,38 @@ let searchForm = $("#searchForm").on("submit", function(event){
 	});
 	return false;
 }).submit();
+
+// 내 글 보기
+// 페이징 처리
+let myBoard = $("#myBoard").on("change",function(){
+	if(myBoard.is(":checked")){
+		console.log("myBoard 체크됨");
+		$("[name=searchType]").val("memId");
+		$("[name=searchWord]").val(`${authMember.memId}`);
+		console.log("====>",$("[name=searchType]").val());
+		console.log("====>",$("[name=searchWord]").val());
+	} else {
+		console.log("myBoard 체크안됨");
+		$("[name=searchType]").val(null);
+		$("[name=searchWord]").val(null);
+	}
+	searchForm.submit();
+});
+
+// 답변 대기중인 글 보기
+// 페이징 처리
+let notAnsweredBoard = $("#notAnsweredBoard").on("change",function(){
+	if(notAnsweredBoard.is(":checked")){
+		console.log("notAnsweredBoard 체크됨");
+		$("[name=searchType]").val("isrefed");
+	} else {
+		console.log("notAnsweredBoard 체크안됨");
+		$("[name=searchType]").val(null);
+	}
+	searchForm.submit();
+});
+if(notAnsweredBoard.is(":checked")){
+	notAnsweredBoard.trigger("change");
+}
+
 </script>

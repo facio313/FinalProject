@@ -58,7 +58,7 @@
 				|
 				<a href="<c:url value='/join/seeker'/>" class="" title="회원가입 바로가기">회원가입</a>
 				|
-				<a href="#" class="" title="자주 묻는 질문 바로가기">자주 묻는 질문</a>
+				<a href="<c:url value='/help'/>" class="" title="자주 묻는 질문 바로가기">자주 묻는 질문</a>
 				<p class="">위 방법으로 계정을 찾을수 없다면, 고객센터로 직접 <a href="<c:url value='/ask'/>">문의</a> 주시기 바랍니다.</p>
 			</div>
 		</div>

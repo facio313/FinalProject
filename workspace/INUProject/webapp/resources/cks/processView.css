@@ -6,17 +6,17 @@
 
 .responsive-table li {
 	border-radius: 3px;
-	padding: 25px 30px;
+	padding: 15px;
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 25px;
 }
 
 .responsive-table .table-header {
-	background-color: #95A5A6;
-	font-size: 30px;
-	font-weight: 700;
-	color: white;
+	background-color: #f7f7f7;
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: black;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 }
@@ -80,7 +80,7 @@
 }
 
 .step.selected {
-	border: 8px solid rgb(4, 87, 56);
+	border: 6px solid rgb(4, 87, 56);
 }
 
 .step.completed {

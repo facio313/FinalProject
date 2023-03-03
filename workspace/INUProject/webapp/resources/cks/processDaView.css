@@ -1,17 +1,17 @@
 /* 회사내용 */
-.responsive-table {
-/* 	padding: 50px; */
+/* .responsive-table {
+	padding: 50px;
 }
 .responsive-table li {
   border-radius: 3px;
-  padding: 25px 30px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
 }
 .responsive-table .table-header {
   background-color: #95A5A6;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   color: white;
   text-transform: uppercase;
@@ -21,12 +21,7 @@
   background-color: #ffffff;
   box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
 }
-/* .responsive-table .col-5 { */
-/*   flex-basis: 100%; */
-/* } */
-/* .responsive-table .col-6 { */
-/*   flex-basis: 100%; */
-/* } */
+
 @media all and (max-width: 767px) {
   .responsive-table .table-header {
     display: none;
@@ -48,7 +43,7 @@
     flex-basis: 50%;
     text-align: right;
   }
-}
+} */
 
 /* 세부내용 */
 .courses-container {
@@ -85,6 +80,7 @@
 	color: #fff;
 	padding: 30px;
 	width: 30%;
+	position: relative;
 }
 
 .course-preview a {
@@ -94,8 +90,8 @@
 	opacity: 0.6;
 /* 	margin-top: 190px; */
 	text-decoration: none;
-	position: relative;
-	top: 70%;
+	position: absolute;
+	top: 90%;
 }
 
 .course-info {

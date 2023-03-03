@@ -7,11 +7,6 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!doctype html>
-<html>
-	<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom-bs.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
@@ -22,7 +17,6 @@
 	    
 	    <!-- MAIN CSS -->
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">    
-	</head>
 	
 		<!-- HOME -->
 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
@@ -65,7 +59,7 @@
                 <!-- 공모전 탭 -->
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
                   
-                  <a href="${pageContext.request.contextPath}/lab/Contest" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
+                  <a href="${pageContext.request.contextPath}/lab/contest" class="block__16443 text-center d-block" style="border: 1px solid rgba(88, 170, 178, 0.444); border-radius: 15px;">
                     <span class="custom-icon mx-auto"><span class="icon-trophy d-block"></span></span>
                     <h3>CONTEST</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
@@ -121,6 +115,3 @@
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
     
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
-
-</body>
-</html>

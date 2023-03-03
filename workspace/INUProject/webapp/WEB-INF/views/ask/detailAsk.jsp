@@ -65,7 +65,7 @@
 						</div>
 					</div>
 					<div class="area_btn">
-						<a href="${pageContext.request.contextPath }/ask/askList" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
+						<a href="${pageContext.request.contextPath }/ask/askList" class="btn_basic_type01" title="이전 목록 바로가기">
 							목록
 						</a>
 					</div>
@@ -73,7 +73,7 @@
 					<div class="help_find">
 						<div class="find_method">
 						<!-- 회원이면 재문의하기, 운영자면 답글달기 -->
-						<a href="${pageContext.request.contextPath }/ask/askForm" class="btn_basic_type01 btn_list" title="문의하기 바로가기">
+						<a href="${pageContext.request.contextPath }/ask/askForm" class="btn_basic_type01" title="문의하기 바로가기">
 							재문의하기
 						</a>
 						<button type="button" class="btn_basic_type01 btn_list" title="답글 바로가기">답글달기</button>
@@ -107,26 +107,22 @@
 				</div>
 			</div>
 
+			<form action="${pageContext.request.contextPath}/ask/askForm/ref" method="post">
+					<input value="${ask.askNo }" name="askNo"  hidden="hidden"/>
+				<div class="lpop_cont">
+				<!-- <input type="hidden" name="refContent" value=""> -->
+				<div class="form-group">
+					<label for="job-description"></label>
+					<!-- rows="24" cols="80" -->
+					<textarea name="refContent" class=inp_tarea id="report_contents" title="답글내용 입력"
+						placeholder="내용을 입력해주세요">
+					</textarea>
+				</div>
+				<%-- <input type="text" value="${ask.refContent}" name="refContent" /> --%>
+				</div>
 
-				<form action="${pageContext.request.contextPath}/ask/askForm/ref" method="post">
-						<input value="${ask.askNo }" name="askNo"  hidden="hidden"/>
-
-					<div class="lpop_cont">
-					<!-- <input type="hidden" name="refContent" value=""> -->
-					<div class="form-group">
-						<label for="job-description"></label>
-						<!-- rows="24" cols="80" -->
-						<textarea name="refContent" class=inp_tarea id="report_contents" title="답글내용 입력"
-							placeholder="내용을 입력해주세요">
-						</textarea>
-					</div>
-					<%-- <input type="text" value="${ask.refContent}" name="refContent" /> --%>
-					</div>
-
-					<button type="submit" class="btn_report report_submit">등록하기</button>
-				</form>
-
-<!-- 			</div> -->
+				<button type="submit" class="btn_report report_submit">등록하기</button>
+			</form>
 			<div class="lpop_foot">
 				<button type="button" class="btn_close lpop_report_layer_close">
 					<span class="blind">닫기</span>

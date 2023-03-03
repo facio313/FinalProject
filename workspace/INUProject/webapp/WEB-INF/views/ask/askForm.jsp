@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quill.snow.css" />
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
@@ -64,6 +64,8 @@
 												<label for="help_email" class="lab_find"> 이메일 </label>
 											</div>
 											<div class="wrap_input">
+
+												<!-- 이메일 작성 -->
 												<span class="box_input">
 													<input type="text" id="help_email" class="inp_find" name="help_email" value="" autocomplete="off">
 												</span>
@@ -73,19 +75,19 @@
 													<span>인증</span>
 												</button>
 
-												<!-- sms_confirm_complete -->
-												<input type="hidden" name="sms_confirm_complete" value="" id="sms_confirm_complete">
-
 												<!-- 인증버튼 눌렀을 때 팝업창 -->
 												<div class="layer_identify open" id="layer_pop_byemail" style="display: none">
 													<h4>이메일 인증</h4>
 													<button type="button" class="btn_layer_close" onclick="confirm_layer_close(this);">
 														<span>닫기</span>
 													</button>
+
+													<!-- 팝업창 내용 -->
 													<div class="box_txt_identify">
 														<p class="txt" id="email_layer_sub_title" name="email_layer_sub_title"></p>
 													</div>
 
+													<!-- 인증번호 입력칸 -->
 													<table class="tbl_fieldset">
 														<caption></caption>
 														<colgroup>
@@ -105,9 +107,12 @@
 														</tbody>
 													</table>
 
+													<!-- 인증번호 입력하지 않고 확인 눌렀을 때 나오는 내용 -->
 													<div class="txt alert_txt">
 														<p class="alert_column warning_txt" id="email_confirm_msg" style="display: none;">인증번호를 입력해주세요.</p>
 													</div>
+
+													<!-- 재발송 및 인증완료 버튼 -->
 													<div class="bottom_btn_wrap">
 														<button type="button" class="btn_basic_type01" onclick="sendCodeAction();">인증번호 재발송</button>
 														<button type="button" class="btn_basic_type05" onclick="changeConfirmCell()">인증완료</button>
@@ -305,6 +310,48 @@
 <script src="${pageContext.request.contextPath}/resources/js/board/ask.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/board/email.js"></script>
 <script type="text/javascript">var $j = jQuery.noConflict();</script>
+<script>
+	/* $('.btn_cert_pop').click(function(){
+		const email = $('#help_email').val(); // 이메일 주소 받기
+		console.log("완성된 이메일 : " + email);
+		const checkInput = $('#email_code'); // 인증번호 입력
+
+		$.ajax({
+			type : 'get',
+			url : '<c:url value ="/mailCheck?email="/>'+email,
+			success : function(data){
+				console.log("data : " + data);
+			}
+		});
+	}); */
+</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

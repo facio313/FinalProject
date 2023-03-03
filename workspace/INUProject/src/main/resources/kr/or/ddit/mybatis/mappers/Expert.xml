@@ -17,7 +17,8 @@
 	    expert_account,
 	    expert_holder,
 	    exfield_id,
-	    exjob_id
+	    exjob_id,
+	    expert_applidate
 	) VALUES (
 	  #{memId,jdbcType=VARCHAR}
 	, #{expertIntroduction,jdbcType=VARCHAR}
@@ -34,12 +35,14 @@
 	, #{expertHolder,jdbcType=VARCHAR}
 	, #{exfieldId,jdbcType=VARCHAR}
 	, #{exjobId,jdbcType=VARCHAR}
+	, sysdate
 	)
 </insert>
 
 <select id="selectExpert" parameterType="String" resultType="ExpertVO">
 	SELECT
 	    mem_id,
+	    mem_name,
 	    expert_approval,
 	    expert_approval_date,
 	    expert_introduction,
@@ -57,8 +60,28 @@
 	    exfield_id,
 	    exjob_id
 	FROM
-	    expert
+	    mem_expert
 	WHERE
 		mem_id = #{memId,jdbcType=VARCHAR}
 </select>
+
+
+
+<!-- ==================================== 시스템 관리 부분 ==================================== -->
+<!-- 전문가 신청 삭제 -->
+<delete id="deleteAppliExp" parameterType="ExpertVO">
+	DELETE FROM EXPERT
+	WHERE MEM_ID = #{memId}
+  	AND EXPERT_APPROVAL = 'N'	
+</delete>
+
 </mapper>
+
+
+
+
+
+
+
+
+

@@ -11,6 +11,10 @@ public interface ExeventService {
 	
 	public ExeventVO retrieveExevent(String exeventId);
 	
+	public void retrieveEndExeventList(PagingVO<ExeventVO> exevent);
+	
+	public ExeventVO retrieveEndExevent(String exeventId);
+	
 	public int createExevent(ExeventVO exevent);
 	
 	public AttachVO retrieveFordownload(String attId);

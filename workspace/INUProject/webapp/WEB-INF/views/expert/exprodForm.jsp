@@ -11,12 +11,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <div class="site-wrap">
-
 	<div class="site-mobile-menu site-navbar-target">
 		<div class="site-mobile-menu-header">
 			<div class="site-mobile-menu-close mt-3">
@@ -25,9 +24,6 @@
 		</div>
 		<div class="site-mobile-menu-body"></div>
 	</div>
-	<!-- .site-mobile-menu -->
-
-
 	<section class="site-section">
 		<div class="container">
 
@@ -44,7 +40,7 @@
 				<div class="col-lg-12">
 					<form:form modelAttribute="exprod" method="post"
 						enctype="multipart/form-data">
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<form:select path="exlprodId" id="exlprod">
 								<option value>구분코드</option>
 								<c:forEach items="${exlprod }" var="exlprod">
@@ -53,22 +49,27 @@
 								</c:forEach>
 							</form:select>
 							<form:errors path="exlprodId" element="span" cssClass="text-danger" />
-						</div>
+						</div> --%>
 						<br>
 
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<label for="job-title">시작일</label>
 							<form:input path="exprodStart" type="date"
 								cssClass="form-control" />
 							<form:errors path="exprodStart" element="span"
 								cssClass="text-danger" />
+						</div> --%>
+						<div class="form-group col-md-10" >
+							<input type="text" name="datetimes" class="box" style="width: 270px"/>
+							<form:hidden path="exprodStart" />
+							<form:hidden path="exprodEnd" />
 						</div>
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<label for="job-title">종료일</label>
 							<form:input path="exprodEnd" type="date" cssClass="form-control" />
 							<form:errors path="exprodEnd" element="span"
 								cssClass="text-danger" />
-						</div>
+						</div> --%>
 						<div class="form-group">
 							<label for="job-title">대상</label>
 							<form:input path="exprodTarget" type="text"
@@ -140,19 +141,39 @@
 		</div>
 	</section>
 </div>
-    <script>
-      $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
-        tabsize: 2,
-        height : 500,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
+<!-- SCRIPTS -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+<script>
+/* CKEDITOR */
+CKEDITOR.replace('exprodDetail',{
+	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
+	, height : 450
+});
+
+
+/* daterangepicker */
+$(function() {
+	$('input[name="datetimes"]').daterangepicker({
+		opens: 'left',
+		timePicker: true,
+		startDate: moment().startOf('hour'),
+		endDate: moment().startOf('hour').add(32, 'hour'),
+		locale: {
+			format: 'M/DD hh:mm A'
+		}
+	}, function(start, end, label) {
+		//DB로 가져갈 값
+		let annoStartdate = document.querySelector("[name=exprodStart]");
+		let annoEnddate = document.querySelector("[name=exprodEnd]");
+		exprodStart.value=start.format('YYYY-MM-DD HH:mm:ss');
+		exprodEnd.value=end.format('YYYY-MM-DD HH:mm:ss');
+		console.log('시작날짜',exprodStart.value);
+		console.log('종료날짜',exprodEnd.value);
+	});
+});
+let today = new Date();
+// $('input[name=daterange]').val(today);
+
     </script>

@@ -49,7 +49,6 @@ public class AttachVO implements Serializable{
 		if(realFile==null || realFile.isEmpty()) return;
 		String fullFilePath = saveFolder + File.separator + attSavename;
 		Path path = Paths.get(fullFilePath).toAbsolutePath();
-		File tofile = path.toFile();
 		realFile.transferTo(path.toFile());
 		setAttStreCours(saveFolder + File.separator);
 	}

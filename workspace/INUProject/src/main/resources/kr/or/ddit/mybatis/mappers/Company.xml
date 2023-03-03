@@ -86,8 +86,17 @@
 </insert>
 
 
-
+<!-- 시스템 관리 부분 -->
+<delete id="deleteAppliCmp" parameterType="CompanyVO">
+	DELETE FROM COMPANY
+	WHERE CMP_ID = #{cmpId}
+</delete>
 
 
 
 </mapper>
+
+
+
+
+

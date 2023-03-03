@@ -1,6 +1,7 @@
 package kr.or.ddit.process.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -79,4 +80,49 @@ public interface ProcessDAO {
 	 * @return	List<ItemVO>
 	 */
 	public List<ItemVO> selectItemList(String daNo);
+	
+	/**
+	 * 모달에 띄울 것들, 추가되지 않은 항목만 불러오기
+	 * 그냥 다 갖고 와서 daNo가 없는 거랑 있는 거 나눠도 됨
+	 * @param daNo
+	 * @return List<ItemVO>
+	 */
+	public List<ItemVO> selectItemListNotAdded(String daNo);
+	
+	/**
+	 * 비동기로 항목 삭제하는 것
+	 * @param item
+	 * @return 삭제된 항목 수
+	 */
+	public int deleteItem(ItemVO item);
+	
+	/**
+	 * 비동기로 모달에서 체크한 항목 입력하기
+	 * @param itemList
+	 * @return 입력된 항목 수 
+	 */
+	public int insertItemList(List<ItemVO> itemList);
+	
+	/**
+	 * 항목 추가 시 양식에 들어감
+	 * @param itemFormList
+	 * @return 입력된 항목 수
+	 */
+	public int insertItemFormList(Map<String, Object> map);
+	
+	/**
+	 * 항목 수정 시 양식도 수정됨
+	 * @param map - 바꿀 원래의 itemCodeId, 바꿀 내용 vo
+	 * @return 수정된 항목 수
+	 */
+	public int updateItem(Map<String, Object> map);
+	
+	/**
+	 * 작성했던 항목 양식들 가져오기 
+	 * @param cmpId
+	 * @return List<ItemVO>
+	 */
+	public List<ItemVO> selectItemFormList(Map<String, String> map);
+	
+	public List<String> selectProcessListFor(String daNo);
 }

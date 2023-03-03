@@ -34,8 +34,19 @@
 					<div class="area_tit">
 						<h1 class="content_tit">${coun.counTitle}</h1>
 						<dl class="content_info">
-							<dt>문의 날짜:</dt>
+							<dt>문의 날짜 : </dt>
 							<dd>${coun.counDate}</dd>
+							<dt>작성자 : </dt>
+							<dd>${coun.memName}</dd>
+							<dt>조회수 : </dt>
+							<dd>${coun.counHit}</dd>
+							<c:if test="${not empty coun.counAttach}">
+								<div style="float: right">
+									<dt>첨부파일 : </dt>
+									<dd><a class="downloadBtn" href="${prePath}/lab/counseling/single" data-target="#singleSel">
+									${coun.counAttach.attFilename}</a></dd>
+								</div>
+							</c:if>
 						</dl>
 					</div>
 					<div class="area_content">
@@ -47,7 +58,7 @@
 									<div class="txt">
 										<p>답변</p><br>
 										<c:choose>
-											<c:when test="${not empty coun.reCoun }">
+											<c:when test="${not empty coun.reCoun.counContent}">
 												<p>
 													${coun.reCoun.counContent}
 												</p>
@@ -67,18 +78,36 @@
 					<a href="${prePath}/lab/counseling" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
 						목록
 					</a>
-					<!-- 내 게시글이면 삭제하기-->
-					<a href="${prePath}" class="btn_basic_type01 btn_list" title="삭제하기">
-						삭제하기
-					</a>
-					<!-- 답글 달리거나 내 게시글 아니면 수정불가 -->
-					<a href="${prePath}" class="btn_basic_type01 btn_list" title="삭제하기">
-						수정하기
-					</a>
+					<security:authorize access="isAuthenticated()">
+						<security:authentication property="principal" var="memberVOWrapper"/>
+						<security:authentication property="principal.realMember" var="authMember"/>
+						<!-- 내 게시글이면 삭제하기-->
+						<c:if test="${coun.memId eq authMember.memId}">
+							<c:url value="/lab/counseling/delete" var="deleteUrl">
+								<c:param name="counNo" value="${coun.counNo}" />
+							</c:url>
+							<a href="${deleteUrl}" class="btn_basic_type01 btn_list" title="삭제하기">
+								삭제하기
+							</a>
+						</c:if>
+						<c:if test="${coun.memId eq authMember.memId && empty coun.reCoun.counContent}">
+							<!-- 답글 달리거나 내 게시글 아니면 수정불가 -->
+							<a href="${prePath}" class="btn_basic_type01 btn_list" title="삭제하기">
+								수정하기
+							</a>
+						</c:if>
+					</security:authorize>
 					<!-- 운영자이면서 답변 달려있지 않으면 답장하기, 아니면 답글 수정하기 -->
-					<a href="${prePath}" class="btn_basic_type01 btn_list" title="답글 바로가기">
-						답글달기
-					</a>
+					<security:authorize access="hasRole('ROLE_ADMIN')">
+						<c:if test="${empty coun.reCoun.counContent}">
+							<c:url value="/lab/counseling/insert" var="insertUrl">
+								<c:param name="refCoun" value="${coun.counNo}" />
+							</c:url>
+							<a href="${insertUrl}" class="btn_basic_type01 btn_list" title="답글 바로가기">
+								답글달기
+							</a>
+						</c:if>
+					</security:authorize>
 				</div>
 				<div class="help_find">
 					<div class="find_method">
@@ -91,3 +120,26 @@
 		</div>
 	</div>
 </div>
+<script>
+console.log("coun.reCoun",`${coun.reCoun}`);
+
+$(".downloadBtn").on("click", function(event){
+	event.preventDefault();
+	
+	let file = `${coun.counAttach.attSavename}`;
+	let realName = `${coun.counAttach.attFilename}`
+	if(! file?.length ) return;
+	
+	let href = this.href;
+	let hiddenA = document.createElement("a");
+// 	hiddenA.href = `${href}?what=${file}`;
+	hiddenA.href = href+'?what='+file+'&realName='+realName;
+	hiddenA.click();
+	hiddenA.remove();
+	
+	return false;
+});
+
+
+
+</script>

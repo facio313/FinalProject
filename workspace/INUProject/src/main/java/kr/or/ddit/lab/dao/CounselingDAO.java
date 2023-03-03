@@ -56,5 +56,11 @@ public interface CounselingDAO {
 	 * @return
 	 */
 	public int deleteCoun(@Param("counNo") String counNo);
+	
+	/**
+	 * 조회수 증가
+	 * @param counNo
+	 */
+	public void incrementHit(@Param("counNo") String counNo);
 
 }

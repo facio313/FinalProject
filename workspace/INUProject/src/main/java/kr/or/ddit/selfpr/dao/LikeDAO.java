@@ -15,4 +15,9 @@ public interface LikeDAO {
 	public int selectTotalRecord(PagingVO<LikeVO> pagingVO);
 	
 	public int insertLike(LikeVO like);
+	
+	public int matchingLike(LikeVO like);
+	
+	public int deleteLike(LikeVO like);
+	
 }

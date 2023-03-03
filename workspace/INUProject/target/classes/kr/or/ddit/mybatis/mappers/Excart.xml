@@ -8,11 +8,24 @@
 		and review_state = 'N'
 	</select>
 	
+	<select id="MypageSelectExcartList" parameterType="String" resultType="kr.or.ddit.expert.vo.ExcartVO">
+		select *
+		from mem_seeker_excart_exprod
+		where mem_id = #{memId,jdbcType=VARCHAR}
+	</select>
+	
 	<update id="updateReviewState" parameterType="String">
 		UPDATE excart
 	    SET
 	        review_state = 'Y'
 	    where excart_id = #{excartId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateExcartState" parameterType="ExcartVO">
+		UPDATE excart
+	    SET
+	        excart_state = 'Y'
+	    where exprod_id = #{exprodId,jdbcType=VARCHAR}
+	      and mem_id = #{memId,jdbcType=VARCHAR}
 	</update>
 	
 	<select id="selectExcart" parameterType="String" resultType="kr.or.ddit.expert.vo.ExcartVO">

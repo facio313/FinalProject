@@ -1,5 +1,8 @@
 package kr.or.ddit.announcement.vo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +32,7 @@ public class AnnoVO {
 	private String annoWorkenv;
 	private String annoProbation;
 	private String annoSalary;
+	private Integer annoSalary2; //금액
 	private Integer attId;
 	private String industry0; //code
 	private String industry1; //code
@@ -49,18 +53,8 @@ public class AnnoVO {
 	private String regionName; //대표지역명
 	
 	private double percent; // 오늘 날짜로 몇 퍼인지
-
-	public void setAnnoStartdate(String annoStartdate) {
-		this.annoStartdate = annoStartdate.substring(0, 10);
-	}
-
-	public void setAnnoEnddate(String annoEnddate) {
-		this.annoEnddate = annoEnddate.substring(0, 10);
-	}
-
-	public void setAnnoDate(String annoDate) {
-		this.annoDate = annoDate.substring(0, 10);
-	}
+	private Date start; // fullcalendar
+	private Date end; // fullcalendar
 	
 	public String getWelfareListToJson() {
 		String welfareListToJson = null;
@@ -71,4 +65,6 @@ public class AnnoVO {
 		}
 		return welfareListToJson;
 	}
+
+
 }

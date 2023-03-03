@@ -9,4 +9,7 @@ public interface LikeService {
 	public void retrieveLikeList(PagingVO<LikeVO> pagingVO);
 	public int createLike(LikeVO like);
 	
+	public int matchLike(LikeVO like);
+	
+	public int removeLike(LikeVO like);
 }

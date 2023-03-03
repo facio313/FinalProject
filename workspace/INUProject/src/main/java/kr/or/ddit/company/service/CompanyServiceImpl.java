@@ -87,6 +87,13 @@ public class CompanyServiceImpl implements CompanyService {
 		return rowcnt;
 	}
 
+
+	//회사 신청 삭제
+	@Override
+	public int removeAppliCmp(CompanyVO company) {
+		int rowcnt = companyDAO.deleteAppliCmp(company);
+		return rowcnt;
+	}
 	
 }
 

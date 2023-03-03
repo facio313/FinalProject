@@ -441,7 +441,7 @@
 		let data = [{type:'industry',code:ref}];
 		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/announcement/select",
+			url : "${pageContext.request.contextPath}/selfpr/search",
 			method : "post",
 			data : JSON.stringify(data),
 			dataType : "json",

@@ -45,12 +45,9 @@
 	
 	<!-- 	Controller layer 를 bean 으로 등록하기 위한 필터링 설정 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
-		<context:include-filter type="annotation" 
-					expression="org.springframework.stereotype.Controller"/>
-		<context:include-filter type="annotation" 
-					expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-		<context:include-filter type="annotation" 
-					expression="kr.or.ddit.view.ViewPreparerComponent"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+		<context:include-filter type="annotation" expression="kr.or.ddit.view.ViewPreparerComponent"/>
 	</context:component-scan>
 	
 	<!-- 	HandlerInterceptor : 스프링 컨테이너 밖에 존재하는 웹 필터의 역할을 대신하는 객체 -->

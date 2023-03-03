@@ -6,10 +6,16 @@
 * 2023.02.17   윤호연      1차수정
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
+<%@page import="kr.or.ddit.security.AuthMember"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	int intprNo = (int)request.getAttribute("prNo");
+	String prNo = Integer.toString(intprNo);
+// 	out.print("넘어온 prNo값 : " + prNo);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,23 +56,24 @@
       	height: 100px;
       }
     </style>
-        
 </head>
+<body>
 
-	<!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">인재 홍보</h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/selfpr">SELFPR</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>Detail</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
+<!-- 	<!-- HOME -->
+<%-- 	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section"> --%>
+<!-- 		<div class="container"> -->
+<!-- 	        <div class="row"> -->
+<!-- 				<div class="col-md-7"> -->
+<!-- 		            <h1 class="text-white font-weight-bold">인재 홍보</h1> -->
+<!-- 		            <div class="custom-breadcrumbs"> -->
+<%-- 						<a href="${pageContext.request.contextPath}/selfpr">SELFPR</a> <span class="mx-2 slash">/</span> --%>
+<!-- 						<span class="text-white"><strong>Detail</strong></span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 	
 	
   <section class="site-section">
@@ -74,10 +81,10 @@
       <div class="container">
        <div class="block_jobseeker mb-6">
        
-       		<!-- 좋아요 기능 -->
+       		<!-- 관심인재 기능 -->
 	          <div class="col-3" style="float: right;">
-                <a href="#" onclick="likeseeker(${selfprmem.prNo})" class="btn btn-block btn-light btn-md" style="border: 1px solid black;">
-                	<span id="likeheart" class="icon-heart-o mr-2 text-danger"></span>관심인재 등록</a>
+                 <a href="#" onclick="likeseeker(${selfprmem.prNo}); return false;" class="btn btn-block btn-light btn-md" style="border: 1px solid black;">
+               	 <span id="likeheart" class="icon-heart<c:if test="${matchselfpr.likeresult eq 0 }">-o</c:if> mr-2 text-danger"></span>관심인재 등록</a>
               </div>
               
 	          <div class="block__91147 d-flex align-items-center">
@@ -107,7 +114,7 @@
       <div class="mb-4">
       	<div>
         <h3 class="mb-4, icon-portrait" style="font-size: 1.3em; color: #85c974;"><strong>&nbsp;자기소개</strong>
-        	<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;" >&nbsp;내용 수정하기</a>
+        	<a href="${pageContext.request.contextPath}/selfpr/Update?no=${selfprmem.prNo}" class="icon-add_box" style="float: right; font-size: 70%;">&nbsp;내용 수정하기</a>
         </h3>
       	</div>
         <hr>
@@ -315,21 +322,26 @@
     		   onclick="location.href='${pageContext.request.contextPath}/selfpr/Delete?no=${selfprmem.prNo}'"/>
     </div>
 
-	<!-- 이동 -->
+	<!-- 컨책하기, 목록이동 -->
     </section>
+    
     <section class=" py-3 site-section mb-5">
       <div class="container">
-        <div class="row">
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">이전 글</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-primary border-width-2 d-block">컨택하기</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">다음 글</a>
-          </div>
-        </div>
+<!--         <div class="row"> -->
+<!--           <div class="col-md-4 text-center"> -->
+<!--             <a href="#" class="btn btn-md btn-primary border-width-2 d-block">컨택하기</a> -->
+<!--           </div> -->
+<!--           <div class="col-md-4 text-center"> -->
+<!--             <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">목록으로</a> -->
+<!--           </div> -->
+<!--         </div> -->
+		<div class="col-1" style="left: 980px;">
+	    	<input type="button" value="컨택하기" class="btn btn-primary" onclick="${pageContext.request.contextPath}/resume"/>
+	    </div>
+	   	<div class="col-1" style="left: 740px;">
+	    	<input type="button" value="목록으로" class="btn btn-primary text-white" 
+	    		   onclick="location.href='${pageContext.request.contextPath}/selfpr/Delete?no=${selfprmem.prNo}'"/>
+	    </div>
       </div>
     </section>
     
@@ -350,18 +362,69 @@
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
     
     <script>
-    function likeseeker(prNo){
+
+    // 관심인재 관련
+	    function likeseeker(prNo){
+	    	let matchresult = ${matchselfpr.likeresult}
+	    	if(matchresult==0){
+		    	$.ajax({
+		    		url: '${pageContext.request.contextPath}/selfpr/like/likepr',
+		    		type : 'POST',
+		    		data : {'prNo': prNo},
+		    		success: function(resp){
+						$("#likeheart").removeClass('icon-heart-o');
+						$("#likeheart").addClass('icon-heart');
+						window.location.reload();
+	// 					$.ajax({
+	// 						url: ' ${pageContext.request.contextPath}/selfpr/likeMatch',
+	// 						type : 'POST',
+	// 						data : {'prNo': prNo},
+	// 						success: function(match){
+	// 							console.log(matchresult);
+	// 						}
+	// 					});
+		    		}
+				});
+		    }else {
+	    		$.ajax({
+	    			url: '${pageContext.request.contextPath}/selfpr/like/deleteLikepr',
+	    			type : 'POST',
+	    			data : {'prNo': prNo},
+	    			success: function(remove){
+	    				$("#likeheart").addClass('icon-heart-o');
+	    				$("#likeheart").removeClass('icon-heart');
+	    				window.location.reload();
+	    			}	
+	    		});
+	    	}
+	    }
+    
+    // 들어가자마자 오늘 본 인재에 저장
+    
+   	//TODAYSEE 테이블에 insert
+	$(document).ready(function(){
+    	console.log("TODAYSEE 테이블에 insert 시작..");
+    	
+    	let memId = "${memId2}";
+    	let prNo = "${param.no}";    	
+    	
+    	console.log("memId : " + memId);
+    	console.log("prNo : " + prNo);
+    	
+    	let data = {"memId":memId,"prNo":prNo};
+    	
+    	console.log("data : " + JSON.stringify(data));
+    	
     	$.ajax({
-    		url: '${pageContext.request.contextPath}/selfpr/like/insert',
-    		type : 'GET',
-    		data : {'prNo': prNo},
-    		success: function(resp){
-				$("#likeheart").removeClass('icon-heart-o');
-				$("#likeheart").addClass('icon-heart');
+    		url: "${pageContext.request.contextPath}/selfpr/today",
+    		contentType: "application/json;charset:utf-8",
+    		data: JSON.stringify(data),
+    		type: "post",
+    		success:function(result){
+    			console.log("result : " + result)
     		}
     	});
-    }
-    
+   	});
     </script>
     
 </body>

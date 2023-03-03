@@ -20,6 +20,13 @@ public interface CompanyService {
 	
 	public int createCompany(CompanyVO company);
 	
+	/**
+	 * 회사 신청 삭제
+	 * @param company
+	 * @return
+	 */
+	public int removeAppliCmp(CompanyVO company);
+	
 }
 
 

@@ -10,7 +10,6 @@
     pageEncoding="UTF-8"%>
 	
     <!-- SCRIPTS -->
-    <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/isotope.pkgd.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>

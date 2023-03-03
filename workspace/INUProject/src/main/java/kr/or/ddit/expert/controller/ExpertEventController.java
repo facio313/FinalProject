@@ -40,9 +40,15 @@ public class ExpertEventController {
 		PagingVO<ExeventVO> pagingVO = new PagingVO<ExeventVO>(9,5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
-		
 		service.retrieveExeventList(pagingVO);
+		
+		PagingVO<ExeventVO> pagingVO2 = new PagingVO<ExeventVO>(9,5);
+		pagingVO2.setCurrentPage(currentPage);
+		pagingVO2.setSimpleCondition(searchVO);
+		service.retrieveEndExeventList(pagingVO2);
 		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("pagingVO2", pagingVO2);
+		
 		return "expert/expertEventList";
 				
 	}

@@ -24,6 +24,7 @@ import kr.or.ddit.expert.dao.ExeventDAO;
 import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.member.dao.MemberDAO;
 import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -56,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
 	@Inject
 	private AttachDAO attachDAO;
 	
-	@Value("#{appInfo.saveFiles}")
+	@Value("#{appInfo.memeberProfile}")
 	private File saveFiles;
 
 	private int processAttatchList(MemberVO member) {
@@ -182,10 +183,38 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/*=======================================시스템 관리 부분======================================*/
-	//권한별 회원 목록
+	/* ========================== 회원 관리 부분 ========================== */
+	//일반 회원 목록
 	@Override
-	public List<MemberVO> retrieveAuthMemberList(MemberVO member) {
-		return memberDAO.selectAuthMemberList(member);
+	public List<MemberVO> retrieveSkrList() {
+		return memberDAO.selectSkrList();
+	}
+	//일반 회원 상세
+	@Override
+	public MemberVO retrieveSkr(String memId) {
+		return memberDAO.selectSkr(memId);
+	}
+	
+	//기업 회원 목록
+	@Override
+	public List<MemberVO> retrieveIncList() {
+		return memberDAO.selectIncList();
+	}
+	//기업 회원 상세
+	@Override
+	public MemberVO retrieveInc(String memId) {
+		return memberDAO.selectInc(memId);
+	}
+	
+	//전문가 회원 목록
+	@Override
+	public List<MemberVO> retrieveExpList() {
+		return memberDAO.selectExpList();
+	}
+	//전문가 회원 상세
+	@Override
+	public MemberVO retrieveExp(String memId) {
+		return memberDAO.selectExp(memId);
 	}
 	
 	//차단 회원 목록
@@ -193,13 +222,53 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> retrieveCutList() {
 		return memberDAO.selectCutList();
 	}
+	//차단 회원 상세
+	@Override
+	public MemberVO retrieveCut(String memId) {
+		return memberDAO.selectCut(memId);
+	}
+	//차단하기
+	@Override
+	public int createCut(CutVO cut) {
+		return memberDAO.insertCut(cut);
+	}
+	@Override
+	public int modifyCutRole(MemberVO member) {
+		return memberDAO.updateCutRole(member);
+	}
+	//차단해제
+	@Override
+	public int removeCut(CutVO cut) {
+		return memberDAO.deleteCut(cut);
+	}
+	@Override
+	public int removeCutRole(MemberVO member) {
+		return memberDAO.deleteCutRole(member);
+	}
 	
 	//블랙 회원 목록
 	@Override
 	public List<MemberVO> retrieveBlackList() {
 		return memberDAO.selectBlackList();
 	}
+	//블랙 회원 상세
+	@Override
+	public MemberVO retrieveBlack(String memId) {
+		return memberDAO.selectBlack(memId);
+	}
 	
+	//탈퇴 회원 목록
+	@Override
+	public List<MemberVO> retrieveDelMemList() {
+		return memberDAO.selectDelMemList();
+	}
+	//탈퇴 회원 상세
+	@Override
+	public MemberVO retrieveDelMem(String memId) {
+		return memberDAO.selectDelMem(memId);
+	}
+	
+	/* ========================== 승인 관리 부분 ========================== */
 	//총괄기업 회원 목록
 	@Override
 	public List<MemberVO> retrieveIncruiterList() {
@@ -218,6 +287,14 @@ public class MemberServiceImpl implements MemberService {
 		int rowcnt = memberDAO.updateAcceptInc(incruiter);
 		return rowcnt;
 	}
+	
+	//총괄 신청 삭제
+	@Override
+	public int removeAppliInc(MemberVO member) {
+		int rowcnt = memberDAO.deleteAppliInc(member);
+		return rowcnt;
+	}
+	
 	//회사 승인
 	@Override
 	public int modifyAcceptCmp(IncruiterVO incruiter) {
@@ -279,7 +356,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.updatePw(member);
 		
 	}
-	
+	@Override
+	public SeekerVO retrieveSeeker(String memId) {
+		SeekerVO seeker = memberDAO.selectSeeker(memId);
+		seeker.setAttatchList(attachDAO.selectAttatchList(memId));
+		return seeker;
+	}
 	
 	
 }

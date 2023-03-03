@@ -65,4 +65,43 @@ public interface ProcessService {
 	 * @return	List<ItemVO>
 	 */
 	public List<ItemVO> retrieveItemList(String daNo);
+	
+	/**
+	 * 모달에 띄울 것들, 추가되지 않은 항목만 불러오기
+	 * 그냥 다 갖고 와서 daNo가 없는 거랑 있는 거 나눠도 됨
+	 * @param daNo
+	 * @return List<ItemVO>
+	 */
+	public List<ItemVO> retireveItemListNotAdded(String daNo);
+	
+	/**
+	 * 세부 공고 항목 목록에서 항목 하나 삭제하는 것 - 비동기
+	 * @param item
+	 */
+	public void removeItem(ItemVO item);
+	
+	/**
+	 * 비동기로 모달에서 체크한 항목 입력하기
+	 * , 양식에도 들어감(cmpId)
+	 * @param itemList, cmpId
+	 * @return 입력된 항목 수 
+	 */
+	public void createItemList(List<ItemVO> itemList, String cmpId);
+	
+	/**
+	 * 입력되어 있는 항목 수정하
+	 * , 양식에도 들어감(수정한 양식은 insert로 for cmpId)
+	 * @param item, originCodeId, cmpId
+	 * @return 수정된 항목 수 
+	 */
+	public void modifyItem(ItemVO item, String originCodeId, String cmpId);
+	
+	/**
+	 * 회사의 인사담당자들이 작성한 항목들 전체
+	 * @param cmpId
+	 * @return List<ItemVO>
+	 */
+	public List<ItemVO> retrieveItemFormList(String cmpId, String daNo);
+	
+	public List<String> retrieveProcessListFor(String daNo);
 }

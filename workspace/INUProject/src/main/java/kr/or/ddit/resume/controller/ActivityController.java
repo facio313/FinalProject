@@ -149,7 +149,7 @@ public class ActivityController {
 			if (ServiceResult.OK == result) {
 				viewName = "redirect:/activity";
 			} else {
-				model.addAttribute("message", "서버 오류, 좀 이따 다시 시도해주세요.");
+				model.addAttribute("message", "서버 오류, 좀 이따 다시 시도.");
 				viewName = "resume/items/activityView?actSn" + actSn;
 			}
 		} else {

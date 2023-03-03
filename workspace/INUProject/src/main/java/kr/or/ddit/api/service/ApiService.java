@@ -13,13 +13,13 @@ import lombok.RequiredArgsConstructor;
 public class ApiService {
 	private final ApiDAO apiDao;
 	
-	public void insertCommonCode(CommonCodeVO vo) {
+	public void createCommonCode(CommonCodeVO vo) {
 		apiDao.insertCommonCode(vo);
 	}
-	public void insertRegionCode(RegionCodeVO vo) {
+	public void createRegionCode(RegionCodeVO vo) {
 		apiDao.insertRegionCode(vo);
 	}
-	public void insertJobCode(JobCodeVO vo) {
+	public void createJobCode(JobCodeVO vo) {
 		apiDao.insertJobCode(vo);
 	}
 	

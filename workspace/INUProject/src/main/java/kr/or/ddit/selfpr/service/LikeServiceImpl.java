@@ -26,4 +26,15 @@ public class LikeServiceImpl implements LikeService {
 		return rowcnt;
 	}
 
+	@Override
+	public int matchLike(LikeVO like) {
+		int rowcnt = likeDAO.matchingLike(like);
+		return rowcnt;
+	}
+
+	@Override
+	public int removeLike(LikeVO like) {
+		int rowcnt = likeDAO.deleteLike(like);
+		return rowcnt;
+	}
 }

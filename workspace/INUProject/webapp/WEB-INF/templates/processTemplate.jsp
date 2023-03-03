@@ -37,7 +37,7 @@
  				position: abosolute;
  				top: 50px;
  				padding-top: 50px;
- 				border-radius: 30px;
+ 				border-radius: 10px;
 				background: white;
 			}
 			button {
@@ -50,7 +50,7 @@
 			
 			body::-webkit-scrollbar-thumb {
 			    height: 30%; /* 스크롤바의 길이 */
-			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */
+			    background: rgba(200, 200, 200, 0.8); /* 스크롤바의 색상 */
 			    
 			    border-radius: 10px;
 			}
@@ -65,7 +65,7 @@
 			
 			section::-webkit-scrollbar-thumb {
 			    width: 30%; /* 스크롤바의 길이 */
-			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */
+			    background: rgba(200, 200, 200, 0.8); /* 스크롤바의 색상 */
 			    
 			    border-radius: 10px;
 			}
@@ -79,7 +79,7 @@
 			
 			div::-webkit-scrollbar-thumb {
 			    width: 30%; /* 스크롤바의 길이 */
-			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */
+			    background: rgba(200, 200, 200, 0.8); /* 스크롤바의 색상 */
 			    
 			    border-radius: 10px;
 			}

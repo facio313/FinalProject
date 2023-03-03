@@ -1,6 +1,9 @@
 /* 리스트 */
 .courses-container {
-	padding: 50px;
+	position: relative;
+	width: 100%;
+/* 	left: -5%; */
+/* 	display: inline-block; */
 }
 
 .course {
@@ -9,8 +12,8 @@
 	box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 	display: flex;
 	max-width: 100%;
-	height: 350px;
-/* 	height: auto; */
+	min-height: 350px;
+	height: 100%;
 	margin: 20px;
 	overflow: hidden;
 }
@@ -32,7 +35,10 @@
 	background-color: rgb(4, 87, 56);
 	color: #fff;
 	padding: 30px;
-	width: 30%;
+	min-width: 300px;
+	max-width: 30%;
+	min-height: 350px;
+	height: 100%;
 }
 
 .course-preview a {
@@ -50,6 +56,9 @@
 	padding: 30px;
 	position: relative;
 	width: 100%;
+	min-height: 350px;
+	height: 100%;
+	overflow: auto;
 }
 
 .progress-container {
@@ -57,14 +66,16 @@
 	top: 30px;
 	right: 30px;
 	text-align: right;
-	width: 150px;
+	width: 400px;
+	height: 50px;
 }
 
 .progress {
 	background-color: #ddd;
-	border-radius: 3px;
-	height: 5px;
+	border-radius: 5px;
+	height: 7.5px;
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 .progressAfter {
@@ -74,14 +85,13 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 5px;
-/* 	width: 66%; */
+	height: 7.5px;
 }
 
 .progress-text {
-	font-size: 10px;
+	font-size: 0.8rem;
 	opacity: 0.6;
-	letter-spacing: 1px;
+	letter-spacing: 2.5px;
 }
 
 .listBtn {
@@ -91,9 +101,9 @@
 	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 	color: #fff;
 	font-size: 16px;
-	padding: 12px 25px;
+	padding: 12px 20px;
 	position: absolute;
-	bottom: 30px;
+	bottom: 0px;
 	right: 30px;
 	letter-spacing: 1px;
 }

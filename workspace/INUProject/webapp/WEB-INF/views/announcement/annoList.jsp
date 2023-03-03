@@ -4,7 +4,8 @@
 * ----------  ---------  -----------------
 * 2023. 2. 7.   양서연      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
- --%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ --%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
@@ -24,12 +25,6 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/board.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/pattern.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-view.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/jobs-recruit.css" />
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -92,25 +87,20 @@
 	margin-left: 5px;
 }
 </style>
-
 <!-- NAVBAR -->
 <header class="site-navbar mt-3">
 	<div class="container-fluid"></div>
 </header>
-
 <!-- HOME -->
-<section class="section-hero home-section overlay inner-page bg-image"
-	style="background-image: url('resources/images/hero_1.jpg')"
-	id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
 			<div class="col-md-12">
 				<div class="mb-5 text-center">
-					<h1 class="text-white font-weight-bold">JOB FILTER</h1>
-					<p>조건 걸어서 검색해보자</p>
+					<h1 class="font-weight-bold">JOB FILTER</h1>
 				</div>
-				<form method="post" class="search-jobs-form" id="searchUI">
-					<div class="container" style="color: black;">
+				<form method="post" class="search-jobs-form" id="searchUI" onsubmit="return false" >
+					<div class="list_info">
+					<div>
 						지역 : <select name="metro"
 							class="form-select form-select-sm selectBox">
 							<option value>광역</option>
@@ -120,7 +110,7 @@
 							<option value>기초</option>
 						</select>
 					</div>
-					<div class="container" style="color: black;">
+					<div >
 						업종 : <select name="industry0"
 							class="form-select form-select-sm selectBox">
 							<option value>상위</option>
@@ -132,7 +122,7 @@
 							<option value>하위</option>
 						</select>
 					</div>
-					<div class="container" style="color: black;">
+					<div >
 						직종 : <select name="job0"
 							class="form-select form-select-sm selectBox">
 							<option value>상위</option>
@@ -142,7 +132,7 @@
 							<option value>하위</option>
 						</select>
 					</div>
-					<div class="container" style="color: black;">
+					<div >
 						경력 : <select name="careerName"
 							class="form-select form-select-sm selectBox">
 							<option value>경력사항</option>
@@ -151,20 +141,26 @@
 							<option value="경력">경력</option>
 						</select>
 					</div>
-					<div class="container" style="color: black;">
-						검색 :
-						<div class="search_form ">
-							<div class="box_search">
-								<div class="input_keyword">
-									<input id="temp" name="searchWord" title="키워드, 기업명 입력"
-										placeholder="검색어 입력" type="text" class="inpTypo"
-										style="width: 200px; margin-right: 30px"> <input
-										type="button" id="searchBtn" class="btn btn-primary"
-										value="searchJob" />
-								</div>
-							</div>
+					검색 : 
+						<div class="searchTypoBox" style="display: inline-block;">
+							<input type="hidden" name="cat_mcls" id="cat_mcls" value="">
+							<input id="search_keyword" name="searchWord" style="width: 230px" placeholder="제목 또는 기업명을 입력하세요." type="text" class="inpTypo" value=""
+							onKeypress="javascript:if(event.keyCode==13) {enterSearch()}">
+							<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd">검색</button>
+							<button type="button" class="btnTypoReset" onclick="location.href='#';return false;">선택초기화</button>
 						</div>
 					</div>
+<!-- 					<div class="container" style="color: black;"> -->
+<!-- 						검색 : -->
+<!-- 						<div class="search_form "> -->
+<!-- 							<div class="box_search"> -->
+<!-- 								<div class="input_keyword"> -->
+<!-- 									<input id="temp" name="searchWord" title="키워드, 기업명 입력" placeholder="검색어 입력" type="text" class="inpTypo"	 style="width: 200px; margin-right: 30px"> <input -->
+<!-- 										type="button" id="searchBtn" class="btn btn-primary" value="searchJob" /> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<!-- 					<div> -->
 					<!-- 						<ul> -->
 					<!-- 							<li class="jobtype item" data-value="9" data-group="jobtype9" data-type="" > -->
@@ -211,16 +207,11 @@
 			</div>
 		</div>
 	</div>
-	<a href="#next" class="scroll-button smoothscroll"> <span
-		class=" icon-keyboard_arrow_down"></span>
-	</a>
-</section>
 
 
 <!-- 페이징 -->
 <section class="site-section" id="next">
-	<a href="${pageContext.request.contextPath}/announcement/insert"
-		class="btn btn-block btn-primary btn-md">등록하기</a>
+<%-- 	<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a> --%>
 	<!-- 사람인 래퍼 시작 -->
 	<div class="recruit_list_renew">
 		<div class="wrap_recommend">
@@ -354,7 +345,7 @@
 	<input type="hidden" name="job" /> 
 	<input type="hidden" name="careerName" />
 	<input type="hidden" name="searchWord" />
-</form>	
+</form>
 
 <!-- SCRIPTS -->
 
@@ -378,7 +369,6 @@ function timeForToday(value) {
     if (betweenTimeDay<365) {
         return betweenTimeDay+'일 전 등록';
     }
-
     return Math.floor(betweenTimeDay/365)+'년 전 등록';
 }
 
@@ -393,7 +383,6 @@ let pagingArea = $(".pagingArea").on("click", "a.paging", function(event){
 	searchForm.submit();
 	return false;
 });
-
 
 let makeNewTag00 = function(anno,annoDate,careerNameList,jobTag,empltypeName){
 	return $("<div class='list_item'>").attr("id",anno.annoNo)
@@ -726,7 +715,11 @@ let searchForm = $("#searchForm").on("submit", function(event){
 					let empltypeName = [];
 					let cntC=0;
 					let cntE=0;
-					
+					//~ 03/18(토)
+					//anno.annoEnddate
+					let ed = new Date(anno.annoEnddate);
+					let week = new Array('일', '월', '화', '수', '목', '금', '토');
+					anno.annoEnddate = ed.getMonth()+1+'/'+ed.getDate()+'('+ week[ed.getDay()] +')';
 					$.each(anno.detailList,function(index,detail){
 						$.each(detail.careerNames,function(index,careers){
 							if (!tempC.includes(careers)) {
@@ -746,7 +739,6 @@ let searchForm = $("#searchForm").on("submit", function(event){
 						jobTag.push($("<span>").html(detail.jobName));
 					});
 					$.each(anno.detailList,function(index,detail){
-						console.log("detail",detail);
 						if (!tempE.includes(detail.empltypeName)) {
 							if(cntE==0){
 								tempE.push(detail.empltypeName);
@@ -807,10 +799,17 @@ let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
 	searchForm.submit();
 });
 
-
+function enterSearch(){
+	searchForm[0]['regionCode'].value=$("[name=regionCode]").val();
+	searchForm[0]['industryCode'].value=$("[name=industryCode]").val();
+	searchForm[0]['job'].value=$("[name=job]").val();
+	searchForm[0]['careerName'].value=$("[name=careerName]").val();
+	searchForm[0]['searchWord'].value=$("[name=searchWord]").val();
+	
+	searchForm.submit();
+}
 
 /* 관심찍기 */
-
 
 function likeAnnoFt(){
 	$(".likeAnnoBtn").on("click",function(){
@@ -876,8 +875,6 @@ function likeCmpFt(){
 }
 
 
-
-
 /* 보내자... */
 /* 하위 지역 셀렉트... */
 
@@ -889,7 +886,7 @@ $("[name=metro]").on("change", function(){
 	let data = [{type:'region',code:ref}];
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -921,12 +918,12 @@ $("[name=industry0]").on("change", function(){
 	$("[name='industry1']").append("<option>중위</option>");
 	$("[name='industryCode'] option").remove();   
 	$("[name='industryCode']").append("<option>하위</option>");
-	
+
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
-	
+
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -959,7 +956,7 @@ $("[name=industry1]").on("change", function(){
 	let data = [{type:'industry',code:ref}];
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -996,7 +993,7 @@ $("[name=job0]").on("change", function(){
 	let data = [{type:'job',code:ref}];
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -1028,7 +1025,7 @@ $("[name=job1]").on("change", function(){
 	let data = [{type:'job',code:ref}];
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/announcement/select",
+		url : "${pageContext.request.contextPath}/announcement/annoAjax",
 		method : "post",
 		data : JSON.stringify(data),
 		dataType : "json",
@@ -1060,7 +1057,7 @@ let topData = [
 	, {type:'job', code:''}
 ]
 $.ajax({
-	url : "${pageContext.request.contextPath}/announcement/select",
+	url : "${pageContext.request.contextPath}/announcement/annoAjax",
 	method : "post",
 	data : JSON.stringify(topData),
 	dataType : "json",

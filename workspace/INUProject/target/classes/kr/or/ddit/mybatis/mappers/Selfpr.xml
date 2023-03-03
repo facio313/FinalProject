@@ -199,4 +199,11 @@
 		FROM PR
 		WHERE PR_NO = #{prNo}
 	</delete>
+	
+	<!-- 관심인재 추천 여부 확인쿼리 -->
+	<select id="matchingLike" parameterType="SelfprVO" resultType="int">
+		SELECT COUNT(*)
+		FROM INTEREST
+		WHERE MEM_ID = #{memId2} AND PR_NO = #{prNo}
+	</select>
 </mapper>

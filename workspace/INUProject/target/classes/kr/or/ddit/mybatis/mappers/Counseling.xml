@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.lab.dao.CounselingDAO">
+
+	<sql id="searchFrag">
+		<trim prefix="WHERE">
+			REF_COUN IS NULL AND C.COUN_STATE='B1'
+			<if test="simpleCondition neq null">
+				<choose>
+					<when test="simpleCondition.searchType eq 'memId'">
+						AND C.MEM_ID = #{simpleCondition.searchWord}
+					</when>
+					<when test="simpleCondition.searchType eq 'isrefed'">
+						AND (SELECT COUNT(COUN_NO) FROM COUNSELING WHERE REF_COUN=C.COUN_NO)=0
+					</when>
+				</choose>
+			</if>
+		</trim>
+	</sql>
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
-		FROM COUNSELING
+		FROM COUNSELING C LEFT OUTER JOIN MEMBER M ON(C.MEM_ID = M.MEM_ID)
+		<include refid="searchFrag" />
 	</select>
 	<resultMap type="CounselingVO" id="CounMap">
 		<id property="counNo" column="COUN_NO"/>
@@ -15,13 +32,15 @@
 			    , to_char(C.COUN_DATE, 'YYYY-MM-DD') COUN_DATE
 			    , C.COUN_STATE, C.REF_COUN
 			    , (SELECT COUNT(COUN_NO) FROM COUNSELING WHERE REF_COUN=C.COUN_NO) ISREFED
+			    , (SELECT COUNT(TBL_ID) FROM ATTACH WHERE TBL_ID=C.COUN_NO) ISATTACHED
 		    FROM COUNSELING C LEFT OUTER JOIN MEMBER M ON(C.MEM_ID= M.MEM_ID)
-		    WHERE REF_COUN IS NULL AND C.COUN_STATE='B1'
+		    <include refid="searchFrag" />
 		)
 		SELECT A.*
 		FROM(
 		    SELECT ROWNUM RNUM, COUNBOARD.*
 		    FROM COUNBOARD
+		    ORDER BY COUNBOARD.COUN_DATE DESC
 		) A
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
@@ -39,7 +58,7 @@
 		</association>
 	</resultMap>
 	<select id="selectCoun" parameterType="string" resultMap="counMap">
-		SELECT 
+		SELECT
 		    A.COUN_NO
 		    , A.MEM_ID
 		    , M.MEM_NAME
@@ -47,17 +66,23 @@
 		    , A.COUN_CONTENT
 		    , to_char(A.COUN_DATE,'YYYY-MM-DD') COUN_DATE
 		    , A.COUN_STATE
+		    , A.COUN_HIT
 		    , B.COUN_NO COUN_NO2
 		    , B.MEM_ID MEM_ID2
 		    , B.COUN_TITLE COUN_TITLE2
 		    , B.COUN_CONTENT COUN_CONTENT2
 		    , to_char(B.COUN_DATE,'YYYY-MM-DD') COUN_DATE2
 		    , B.COUN_STATE COUN_STATE2
-		FROM COUNSELING A INNER JOIN COUNSELING B ON(A.COUN_NO = B.REF_COUN)
-						LEFT OUTER JOIN MEMBER M ON(A.MEM_ID= M.MEM_ID)
+		FROM COUNSELING A 
+				LEFT OUTER JOIN COUNSELING B ON(A.COUN_NO = B.REF_COUN)
+				LEFT OUTER JOIN MEMBER M ON(A.MEM_ID= M.MEM_ID)
 		WHERE A.COUN_NO= #{counNo,jdbcType=VARCHAR}
 	</select>
 	<insert id="insertCoun" parameterType="CounselingVO">
+		<selectKey order="BEFORE" resultType="string" keyProperty="counNo">
+			SELECT 'CS' || LPAD(COUNS_SEQ.NEXTVAL,6,0) 
+			FROM DUAL
+		</selectKey>
 		INSERT INTO COUNSELING(
 		    COUN_NO
 		    , MEM_ID
@@ -68,7 +93,7 @@
 		    , REF_COUN
 		)
 		VALUES(
-		    (SELECT 'CS' || LPAD(COUNS_SEQ.NEXTVAL,6,0) FROM DUAL)
+		    #{counNo,jdbcType=VARCHAR}
 		    , #{memId,jdbcType=VARCHAR}
 		    , #{counTitle,jdbcType=VARCHAR}
 		    , #{counContent,jdbcType=CLOB}
@@ -77,4 +102,19 @@
 		    , #{refCoun,jdbcType=VARCHAR}
 		)
 	</insert>
+	
+	<update id="deleteCoun" parameterType="string">
+		UPDATE COUNSELING 
+		SET COUN_STATE = 'B2'
+		WHERE COUN_NO = #{counNo,jdbcType=VARCHAR} 
+			OR REF_COUN = #{counNo,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="incrementHit" parameterType="string">
+		UPDATE COUNSELING
+		SET
+		COUN_HIT = COUN_HIT + 1
+		WHERE COUN_NO = #{counNo}
+	</update>
 </mapper>

@@ -11,9 +11,13 @@ public interface ExcartDAO {
 	
 	public List<ExcartVO> selectExcartList(String memId);
 	
+	public List<ExcartVO> MypageSelectExcartList(String memId);
+	
 	public int updateReviewState(String excartId);
 	
 	public ExcartVO selectExcart(String excartId);
 	
 	public int insertExcart(ExcartVO excart);
+	
+	public int updateExcartState(ExcartVO excart);
 }

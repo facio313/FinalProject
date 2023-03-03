@@ -1,6 +1,7 @@
 package kr.or.ddit.board.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -32,6 +33,13 @@ public class BoardVO extends CommonsAttachVO implements Serializable{
 	private int likeCnt; 		// 공감수
 	private int likeCheck;		// 공감여부
 	private char likeType;		// 공감타입
+	private int replyCnt;		// 댓글개수
+
+	private List<LikeeVO> likeList;
+	private int like;
+	private int fun;
+	private int help;
+	private int cheer;
 
 	@Override
 	public String getTblId() {

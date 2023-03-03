@@ -192,4 +192,104 @@
 		WHERE A.DA_NO = #{daNo}
 		ORDER BY A.ITEM_CODE_ID
 	</select>
+	
+	<select id="selectItemListNotAdded" parameterType="String" resultType="ItemVO">
+		SELECT ITEM_CODE_ID, PROCESS_CODE_ID, ITEM_CODE_NAME
+		FROM ITEM_CODE
+		MINUS
+		SELECT A.ITEM_CODE_ID, A.PROCESS_CODE_ID, A.ITEM_CODE_NAME
+		FROM ITEM_CODE A
+		INNER JOIN ITEM B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		WHERE B.DA_NO = #{daNo}
+	</select>
+	
+	<insert id="insertItemList" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" index="idx">
+			INTO ITEM (
+				DA_NO
+				, ITEM_CODE_ID
+				, ITEM_ASK
+			) VALUES (
+				#{item.daNo}
+				, #{item.itemCodeId}
+				, #{item.itemAsk}
+			)
+		</foreach>
+		
+		SELECT * FROM DUAL
+	</insert>
+	
+	<insert id="insertItemFormList" parameterType="map">
+		INSERT ALL
+		<foreach collection="itemList" item="item" index="idx">
+			INTO ITEM_FORM (
+				CMP_ID
+				, ITEM_CODE_ID
+				, ITEM_FORM_NO
+				, ITEM_FORM_ASK
+				, ITEM_FORM_INSERT_DATE
+			) VALUES (
+				#{cmpId}
+				, #{item.itemCodeId}
+				, (SELECT NVL(MAX(ITEM_FORM_NO), 0) + 1 FROM ITEM_FORM)
+				, #{item.itemAsk}
+				, SYSDATE
+			)
+		</foreach>
+		
+		SELECT * FROM DUAL
+	</insert>
+	
+	<delete id="deleteItem" parameterType="ItemVO">
+		DELETE FROM ITEM
+		WHERE DA_NO = #{daNo}
+		AND ITEM_CODE_ID = #{itemCodeId}
+	</delete>
+	
+	<update id="updateItem" parameterType="hashMap">
+		UPDATE ITEM
+			SET
+				ITEM_CODE_ID = #{item.itemCodeId, jdbcType=VARCHAR}
+				, ITEM_ASK = #{item.itemAsk, jdbcType=VARCHAR}
+		WHERE DA_NO = #{item.daNo, jdbcType=VARCHAR}
+		AND ITEM_CODE_ID = #{originCodeId, jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectItemFormList" parameterType="hashMap" resultType="ItemVO">
+<!--     	SELECT -->
+<!-- 	        B.PROCESS_CODE_ID -->
+<!-- 	        , A.ITEM_CODE_ID -->
+<!-- 	        , B.ITEM_CODE_NAME         -->
+<!-- 	        , A.ITEM_FORM_ASK AS ITEM_ASK -->
+<!-- 	    FROM ITEM_FORM A -->
+<!-- 	    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID -->
+<!-- 	    WHERE A.CMP_ID = #{cmpId} -->
+<!-- 	    AND ITEM_FORM_DELETE_DATE IS NULL -->
+<!-- 		MINUS -->
+<!-- 	    SELECT -->
+<!-- 	        B.PROCESS_CODE_ID -->
+<!-- 	        , A.ITEM_CODE_ID -->
+<!-- 	        , B.ITEM_CODE_NAME         -->
+<!-- 	        , A.ITEM_ASK -->
+<!-- 	    FROM ITEM A -->
+<!-- 	    INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID -->
+<!-- 		ORDER BY 1 -->
+		SELECT A.ITEM_CODE_ID, B.ITEM_CODE_NAME, A.ITEM_FORM_ASK AS ITEM_ASK, B.PROCESS_CODE_ID
+		FROM ITEM_FORM A
+		INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		WHERE A.CMP_ID = #{cmpId}
+		MINUS
+		SELECT A.ITEM_CODE_ID, B.ITEM_CODE_NAME, A.ITEM_ASK, B.PROCESS_CODE_ID
+		FROM ITEM A
+		INNER JOIN ITEM_CODE B ON A.ITEM_CODE_ID = B.ITEM_CODE_ID
+		WHERE A.DA_NO = #{daNo}
+		ORDER BY 1
+	</select>
+	
+	<select id="selectProcessListFor" parameterType="String" resultType="String">
+		SELECT PROCESS_CODE_ID
+		FROM PROCESS
+		WHERE DA_NO = #{daNo}
+	</select>
 </mapper>

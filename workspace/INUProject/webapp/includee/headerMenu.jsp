@@ -34,7 +34,7 @@
                 <a href="${pageContext.request.contextPath}/expert"  class="nav-link dropdown-toggle" data-bs-toggle="dropdown">유료상품</a>
                 <div class="dropdown-menu rounded-0 m-0">
                     <a href="<c:url value='/expert'/>" class="dropdown-item">메인</a>
-                    <a href="<c:url value='/expert/CLASS'/>" class="dropdown-item">클래스</a>
+<%--                     <a href="<c:url value='/expert/CLASS'/>" class="dropdown-item">클래스</a> --%>
                     <a href="<c:url value='/expert/CONSULTING'/>" class="dropdown-item">상담</a>
                     <a href="<c:url value='/expert/event'/>" class="dropdown-item">이벤트</a>
                     <a href="<c:url value='/expert/review'/>" class="dropdown-item">리뷰</a>
@@ -49,11 +49,7 @@
                     <a href="<c:url value='/board/boardMain'/>" class="dropdown-item">홈</a>
                     <a href="<c:url value='/board/boardTotal'/>" class="dropdown-item">글 전체</a>
                     <a href="<c:url value='/interview/interviewList'/>" class="dropdown-item">현직자인터뷰</a>
-                    <a href="<c:url value='#'/>" class="dropdown-item">기업 리뷰</a>
                 </div>
-            </div>
-            <div class="navbar-nav ms-auto">
-                <a href="${pageContext.request.contextPath}/" class="nav-item nav-link active">부가기능</a>
             </div>
             <!-- 운영자 만 가능 -->
 <%-- 			<security:authorize access="isAuthenticated()"> --%>
@@ -77,8 +73,29 @@
             </div>
         	<div class="ks-blank ms-auto"></div>
         </div>
+		<security:authorize access="hasRole('ROLE_SEEKER')">
+		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+		<security:authentication property="principal" var="memberVOWrapper"/>
+		<security:authentication property="principal.realMember" var="authMember"/>
         <a href="${pageContext.request.contextPath}/mypage/seeker">
        		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
        	</a>
+       	</security:authorize>
+		<security:authorize access="hasRole('ROLE_EXPERT')">
+		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+		<security:authentication property="principal" var="memberVOWrapper"/>
+		<security:authentication property="principal.realMember" var="authMember"/>
+        <a href="${pageContext.request.contextPath}/mypage/expert">
+       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+       	</a>
+       	</security:authorize>
+		<security:authorize access="hasRole('ROLE_INCRUITER')">
+		<%-- 								<security:authorize access="hasRole('INCRUITER')"> --%>
+		<security:authentication property="principal" var="memberVOWrapper"/>
+		<security:authentication property="principal.realMember" var="authMember"/>
+        <a href="${pageContext.request.contextPath}/mypage/incruiter">
+       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+       	</a>
+       	</security:authorize>
 	</nav>
 </header>

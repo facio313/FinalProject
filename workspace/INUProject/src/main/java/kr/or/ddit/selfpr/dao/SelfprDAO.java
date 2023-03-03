@@ -35,4 +35,6 @@ public interface SelfprDAO {
 	
 	public int deleteSelfpr(int prNo);
 	
+//	관심인재 확인
+	public int matchingLike(SelfprVO matchselfpr);
 }

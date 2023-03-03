@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.net.aso.a;
 
 /**
  * @author 작성자명
@@ -50,8 +52,16 @@ public class AnnoServiceImpl implements AnnoService {
 		return anno;
 	}
 
+	//공고 추천
 	@Override
-	public int createAnno(AnnoVO anno) {
+	public List<AnnoVO> retrieveRecommendList(String annoNo){
+		List<AnnoVO> annoList = annoDAO.selectRecommend(annoNo);
+		return annoList;
+	}
+	
+	
+	@Override
+	public ServiceResult createAnno(AnnoVO anno) {
 		//공고등록
 		int rowcnt = annoDAO.insertAnno(anno);
 		String annoNo = anno.getAnnoNo();
@@ -93,12 +103,38 @@ public class AnnoServiceImpl implements AnnoService {
 			map.put("annoNo",annoNo);
 			rowcnt += annoDAO.insertWelfareList(map);
 		}
-		return rowcnt;
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
 	@Override
-	public int modifyAnno(AnnoVO anno) {
-		return 0;
+	public ServiceResult modifyAnno(AnnoVO anno) {
+		int rowcnt=0;
+		String annoNo = anno.getAnnoNo();
+		
+		//공고 수정
+		annoDAO.updateAnno(anno);
+		
+		//세부공고 수정
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		for(AnnoDetailVO vo : detailList) {
+			annoDAO.updateDetailAnno(vo);
+		}
+		
+		//세부공고 삭제x
+		//경력 수정x
+		//직무직책 수정x
+		
+		//복지등록..
+		annoDAO.deleteAllWelfare(annoNo);
+		List<String> welfareCodeList = anno.getWelfareCodeList();
+		for(String welfareCode : welfareCodeList) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("welfareCode",welfareCode);
+			map.put("annoNo",annoNo);
+			rowcnt += annoDAO.insertWelfareList(map);
+		}
+		
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 	
 	@Override
@@ -112,40 +148,40 @@ public class AnnoServiceImpl implements AnnoService {
 	}
 
 	@Override
-	public int selectLikeAnno(String annoNo, String memId) {
+	public int retrieveLikeAnno(String annoNo, String memId) {
 		return annoDAO.selectLikeAnno(annoNo, memId);
 	}
 
 	@Override
-	public int insertLikeAnno(String annoNo, String memId) {
+	public int createLikeAnno(String annoNo, String memId) {
 		return annoDAO.insertLikeAnno(annoNo, memId);
 	}
-	
+
 	@Override
-	public int deleteLikeAnno(String annoNo, String memId) {
+	public int removeLikeAnno(String annoNo, String memId) {
 		return annoDAO.deleteLikeAnno(annoNo, memId);
 	}
 
 	@Override
-	public int selectLikeCmp(String cmpId, String memId) {
+	public int retrieveLikeCmp(String cmpId, String memId) {
 		return annoDAO.selectLikeCmp(cmpId, memId);
 	}
-	
+
 	@Override
-	public int insertLikeCmp(String cmpId, String memId) {
+	public int createLikeCmp(String cmpId, String memId) {
 		return annoDAO.insertLikeCmp(cmpId, memId);
 	}
-	
+
 	@Override
-	public int deleteLikeCmp(String cmpId, String memId) {
+	public int removeLikeCmp(String cmpId, String memId) {
 		return annoDAO.deleteLikeCmp(cmpId, memId);
 	}
-	
+
 	@Override
 	public int insertMemLog(String annoNo, String memId) {
 		return annoDAO.insertMemLog(annoNo, memId);
 	}
-	
+
 	//경수
 	@Override
 	public List<AnnoVO> retrieveMyAnnoList(String memId) {

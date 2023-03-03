@@ -10,15 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.expert.dao.OtherDAO;
 import kr.or.ddit.expert.service.ExeventService;
+import kr.or.ddit.expert.service.ExpertService;
 import kr.or.ddit.expert.service.ExprodService;
 import kr.or.ddit.expert.service.ExreviewService;
 import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.expert.vo.ExlprodVO;
+import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.vo.PagingVO;
@@ -35,6 +38,8 @@ public class ExpertController {
 	private ExprodService exprodservice;
 	@Inject
 	private ExreviewService exreviewService;
+	@Inject
+	private ExpertService expertService;
 	
 	@GetMapping("/search")
 	public String expertMainSearch(
@@ -42,13 +47,23 @@ public class ExpertController {
 		,@ModelAttribute("simpleCondition")SearchVO searchVO
 		,Model model
 		) {
-		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
+		PagingVO<ExprodVO> pagingVO = new PagingVO<>(6,5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 		exprodservice.selectExprodList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		
-		return "expert/expertSearch";
+		return "expert/expertList";
+	}
+	
+	@GetMapping("/detail/{memId}")
+	public String expertDetail(
+		@PathVariable("memId") String memId
+		,Model model
+		) {
+		ExpertVO expert = expertService.retrieveMember(memId);
+		model.addAttribute("expert", expert);
+		return "expert/expertDetail";
 	}
 	
 	@GetMapping

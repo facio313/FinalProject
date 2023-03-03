@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 <!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
@@ -25,33 +26,46 @@
 </style>
 </head>
 
+
 <body id="top">
+<!-- principal.realMember : MemberVO -->
+<security:authorize access="isAuthenticated()"><!-- 로그인 되었다면.. -->
+	<security:authentication property="principal.realMember" var="memberVO" />
+</security:authorize>
 	<div id="overlayer"></div>
 	<!-- 작성 -->
 	<section class="site-section">
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-12">
-					<form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post">
+					<form:form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post" action="${pageContext.request.contextPath}/board/boardInsert" modelAttribute="board">
 						<div class="contents_container qna_write_wrap">
-							<input type="hidden" name="category_type" value="topic" id="category_type">
+							<input type="hidden" name="category_type" value="topic" id="category_type" />
 							<div class="qna_write_selection">
 								<span class="qna_category_tit">카테고리 </span>
 
 								<div class="box_qna_category">
 									<div class="inpSel">
-										<select id="replySort" name="board_sub" title="댓글 정렬 선택">
-											<option value="전체글" selected="">전체글</option>
-											<option value="신입">신입</option>
-											<option value="취준">취준</option>
-											<option value="채용공고">채용공고</option>
-											<option value="자소서">자소서</option>
-											<option value="면접">면접</option>
-											<option value="Q&A">Q&A</option>
-											<option value="커리어">커리어</option>
-											<option value="이직">이직</option>
-											<option value="퇴사">퇴사</option>
-											<option value="잡담">잡담</option>
+										<select id="replySort" name="boardSub" title="댓글 정렬 선택">
+											<option value="전체글">전체글</option>
+											<option value="신입"
+												<c:if test="${param.gubun=='1'}">selected</c:if>
+											>신입</option>
+											<option value="취준"
+												<c:if test="${param.gubun=='2'}">selected</c:if>
+											>취준</option>
+											<option value="채용공고"
+												<c:if test="${param.gubun=='3'}">selected</c:if>
+											>채용공고</option>
+											<option value="자소서"
+												<c:if test="${param.gubun=='4'}">selected</c:if>
+											>자소서</option>
+											<option value="면접"
+												<c:if test="${param.gubun=='5'}">selected</c:if>
+											>면접</option>
+											<option value="Q&A"
+												<c:if test="${param.gubun=='6'}">selected</c:if>
+											>Q&amp;A</option>
 										</select>
 									</div>
 								</div>
@@ -60,7 +74,7 @@
 
 						<div class="form-group">
 							<label for="job-title"></label>
-							<input class="form-control" id="job-title" name="boardTitle" placeholder="제목을 입력해주세요" />
+							<input class="form-control" id="job-title" name="boardTitle" placeholder="제목을 입력해주세요" required />
 						</div>
 
 						<div class="form-group">
@@ -70,15 +84,17 @@
 
 						<div class="form-group">
 							<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
-							<label class="btn btn-primary btn-md btn-file">이미지첨부
-							<input type="file"></label>
+							<label class="btn btn-primary btn-md btn-file">이미지첨부</label>
+							<input type="file" name="attachFiles" >
 						</div>
 
 						<div class="row align-items-center mb-5">
 							<div class="col-lg-4 ml-auto">
 								<div class="row">
 									<div class="col-6">
-										<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
+										<button type="submit" class="btn btn-block btn-primary btn-md"
+											<c:if test="${memberVO==null}">disabled</c:if>
+										>게시글등록</button>
 									</div>
 									<div class="col-6">
 										<a href="${pageContext.request.contextPath }/board/boardTotal" class="btn btn-block btn-primary btn-md">취소</a>
@@ -86,7 +102,8 @@
 								</div>
 							</div>
 						</div>
-					</form>
+						<security:csrfInput/>
+					</form:form>
 				</div>
 			</div>
 		</div>

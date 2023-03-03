@@ -23,6 +23,7 @@ public interface CompanyDAO{
 	
 	public int insertCompany(CompanyVO company);
 
-	
+	//회사 신청 삭제
+	public int deleteAppliCmp(CompanyVO company);
 	
 }

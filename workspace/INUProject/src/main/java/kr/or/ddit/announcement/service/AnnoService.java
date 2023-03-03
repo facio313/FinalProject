@@ -3,6 +3,7 @@ package kr.or.ddit.announcement.service;
 import java.util.List;
 
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -22,21 +23,21 @@ import kr.or.ddit.vo.PagingVO;
 public interface AnnoService {
 	public void retrieveAnnoList(PagingVO<AnnoVO> pagingVO);
 	public AnnoVO retrieveAnno(String annoNo);
-	public int createAnno(AnnoVO anno);
-	public int modifyAnno(AnnoVO anno);
+	public ServiceResult createAnno(AnnoVO anno);
+	public ServiceResult modifyAnno(AnnoVO anno);
 	public int removeAnno(String annoNo);
 	public int terminateAnno(String annoNo);
 	
-	
-	public int selectLikeAnno(String annoNo, String memId);
-	public int insertLikeAnno(String annoNo, String memId);
-	public int deleteLikeAnno(String annoNo, String memId);
+	public int retrieveLikeAnno(String annoNo, String memId);
+	public int createLikeAnno(String annoNo, String memId);
+	public int removeLikeAnno(String annoNo, String memId);
 
-	public int selectLikeCmp(String cmpId, String memId);
-	public int insertLikeCmp(String cmpId, String memId);
-	public int deleteLikeCmp(String cmpId, String memId);
+	public int retrieveLikeCmp(String cmpId, String memId);
+	public int createLikeCmp(String cmpId, String memId);
+	public int removeLikeCmp(String cmpId, String memId);
 	
 	public int insertMemLog(String annoNo, String memId);
+	public List<AnnoVO> retrieveRecommendList(String annoNo);
 	
 	public List<AnnoVO> retrieveMyAnnoList(String memId);
 	public AnnoVO retrieveAnnoDetailProcess(String annoNo);

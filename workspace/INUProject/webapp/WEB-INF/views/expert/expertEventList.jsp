@@ -2,7 +2,7 @@
 * [[개정이력(Modification Information)]]
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
-* 2023. 2. 2.      작성자명      최초작성
+* 2023. 2. 2.      허근주      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -11,7 +11,7 @@
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<section class="site-section">
+<section class="site-section block__62272" id="next-section">
 	<div class="col-12 text-center" data-aos="fade">
 		<form:form id="searchUI" modelAttribute="simpleCondition" method="get"
 			onclick="return false;">
@@ -32,21 +32,23 @@
 		<div class="row justify-content-center mb-5" data-aos="fade-up">
 			<div id="filters" class="filters text-center button-group col-md-7">
 				<button class="btn btn-primary active " style="font-size: 20px;"
-					data-filter="*">진행중인 이벤트</button>
+					data-filter="*">전체 이벤트</button>
 				<button class="btn btn-primary" style="font-size: 20px;"
-					data-filter=".web">종료된 이벤트</button>
-
+					data-filter=".processing">진행중인 이벤트</button>
+				<button class="btn btn-primary" style="font-size: 20px;"
+					data-filter=".endExevent">종료된 이벤트</button>
 			</div>
 		</div>
-		<div class="row mb-5">
+		<div class="row no-gutter" id="posts" >
 			<c:set var="exeventList" value="${pagingVO.dataList }"></c:set>
 			<c:choose>
 				<c:when test="${not empty exeventList }">
 					<c:forEach items="${exeventList }" var="exevent">
-						<div class="col-md-6 col-lg-4 mb-5">
+						<div
+							class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 processing block__87154  rounded">
 							<a
 								href="${pageContext.request.contextPath}/expert/event/detail/${exevent.exeventId }"><img
-								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attFilename }"
+								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attSavename } " style="opactiy:0.5; height: 200px; width:450px;"
 								alt="Image" class="img-fluid rounded mb-4"></a>
 							<h3>
 								<a
@@ -62,7 +64,35 @@
 				</c:when>
 				<c:otherwise>
 					<tr>
-						<td colspan="3">검색된 회사가 없음.</td>
+						<td colspan="3">검색된 이벤트가 없음.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>		
+			<c:set var="endExeventList" value="${pagingVO2.dataList }"></c:set>
+			<c:choose>
+				<c:when test="${not empty endExeventList }">
+					<c:forEach items="${endExeventList }" var="endExevent">
+						<div
+									class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 endExevent block__87154  rounded">
+							<a
+								href="${pageContext.request.contextPath}/expert/event/detail/${endExevent.exeventId }"><img
+								src="<%=request.getContextPath()%>/resources/attach/expertFolder/${endExevent.attatchList[0].attSavename } " style="opactiy:0.5; height: 200px; width:450px;"
+								alt="Image" class="img-fluid rounded mb-4"></a>
+							<h3>
+								<a
+									href="${pageContext.request.contextPath}/expert/event/detail/${endExevent.exeventId }"
+									class="text-black">${endExevent.exeventName }</a>
+							</h3>
+							<div>
+								시작일 : ${endExevent.exeventStart } <span class="mx-2">|</span>조회수 :
+								${endExevent.exeventHits }
+							</div>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="3">검색된 이벤트가 없음.</td>
 					</tr>
 				</c:otherwise>
 			</c:choose>
@@ -80,15 +110,11 @@
 	</div>
 </section>
 
-
 <form:form id="searchForm" modelAttribute="simpleCondition" method="get">
 	<form:hidden path="searchType" />
 	<form:hidden path="searchWord" />
 	<input type="hidden" name="page" />
 </form:form>
-
-
-
 
 
 <script type="text/javascript">

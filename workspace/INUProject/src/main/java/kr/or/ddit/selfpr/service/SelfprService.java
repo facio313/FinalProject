@@ -22,4 +22,6 @@ public interface SelfprService {
 	
 	public int removeSelfpr(int prNo);
 		
+// 관심인재 확인
+	public int matchLike(SelfprVO matchselfpr);
 }

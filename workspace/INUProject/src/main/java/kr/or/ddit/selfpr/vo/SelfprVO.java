@@ -80,4 +80,8 @@ public class SelfprVO {
 	private String courseCategory;
 	private String courseInstitution;
 	private String coursePeriod;
+	
+	// 관심인재 좋아요 관련
+	private String memId2;	// 기업 회원 id 저장
+	private int likeresult;	// 좋아요 유무 결과 저장
 }

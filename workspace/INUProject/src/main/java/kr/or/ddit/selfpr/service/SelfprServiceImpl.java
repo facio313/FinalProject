@@ -83,4 +83,11 @@ public class SelfprServiceImpl implements SelfprService {
 		return rowcnt;
 	}
 
+//	관심인재 확인
+	@Override
+	public int matchLike(SelfprVO matchselfpr) {
+		int rowcnt = selfprDAO.matchingLike(matchselfpr);
+		return rowcnt;
+	}
+
 }

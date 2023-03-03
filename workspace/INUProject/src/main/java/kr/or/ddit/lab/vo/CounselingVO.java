@@ -1,5 +1,7 @@
 package kr.or.ddit.lab.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,18 @@ public class CounselingVO {
 	private String counState;
 	private String refCoun;
 	private int isrefed;
+	private int isAttached;
+	private int counHit;
 	
 	private CounselingVO reCoun;
+	
+	private MultipartFile counFile;
+	private CounAttachVO counAttach;
+	
+	public void setCounFile(MultipartFile counFile) {
+		if(counFile!=null) {
+			this.counFile = counFile;
+			this.counAttach = new CounAttachVO(counFile);
+		}
+	}
 }

@@ -13,7 +13,9 @@ import kr.or.ddit.board.service.InterviewService;
 import kr.or.ddit.board.vo.InterviewVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/interview/interviewInsert")
 public class InterviewInsertController {
@@ -27,7 +29,7 @@ public class InterviewInsertController {
 	}
 
 	@GetMapping
-	public String interviewForm() {
+	public String interviewForm(@ModelAttribute("interview") InterviewVO interview) {
 		return "interview/interviewInsert";
 	}
 
@@ -35,6 +37,8 @@ public class InterviewInsertController {
 	@PostMapping
 	public String writeInterview(Model model,
 			@ModelAttribute("interview") InterviewVO interview) {
+		log.info("interview : " + interview);
+
 		String viewName = null;
 
 		int rowcnt = service.createInterview(interview);

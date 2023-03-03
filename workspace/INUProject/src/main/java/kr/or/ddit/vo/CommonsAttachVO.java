@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 @Data
 public abstract class CommonsAttachVO {
 
-
-
 	private List<AttachVO> attatchList;	// has many
 
 	private int[] delAttNos; // 게시글 수정시 삭제할 첨부파일 번호 유지.
