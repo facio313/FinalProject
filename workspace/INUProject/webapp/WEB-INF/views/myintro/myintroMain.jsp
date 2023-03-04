@@ -3,28 +3,47 @@
 * 수정일             수정자            수정내용
 * ----------  ---------  -----------------
 * 2023. 2. 14.      최경수            최초작성
+* 2023. 2. 24.      최경수            틀 수정
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+      <div class="container" style="position: relative; top: -190px; left: 250px; scale: 0.8;">
+        <div class="row pb-0 block__19738 section-counter" style="position: absolute; left: 30%; width: 70%;">
 
-<div class="site-wrap">
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">자기소개서 관리</h1>
-            <div class="custom-breadcrumbs">
-              <a href="${pageContext.request.contextPath}/mypage/seeker">My Page</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>My INTRO</strong></span>
+          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="11">0</strong>
             </div>
+            <span class="caption">총 항목 개수</span>
+          </div>
+
+          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="3">0</strong>
+            </div>
+            <span class="caption">오늘 업데이트한 항목 개수</span>
+          </div>
+
+          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="7">0</strong>
+            </div>
+            <span class="caption">미완성된 항목 개수</span>
+          </div>
+
+          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="550">0</strong>
+            </div>
+            <span class="caption">내 이력서 조회수</span>
           </div>
         </div>
       </div>
-    </section>
-</div>
+
+
 <div class="top shadow-sm" style="height: 70px;">
 	<h1>내가 작성한 자기소개서 목록</h1>
 </div>

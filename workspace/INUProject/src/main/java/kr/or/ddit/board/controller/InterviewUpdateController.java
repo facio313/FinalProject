@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.board.service.InterviewService;
 import kr.or.ddit.board.vo.InterviewVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("interview/interviewUpdate")
 public class InterviewUpdateController {
@@ -25,7 +27,10 @@ public class InterviewUpdateController {
 			Model model,
 			@RequestParam("what") String incumNo
 	) {
+		log.info("incumNo : {}",incumNo);
 		InterviewVO interview = service.retrieveInterview(incumNo);
+		interview.setIncumNo(incumNo);
+		log.info("interview : {}",interview);
 		model.addAttribute("interview", interview);
 		return "interview/interviewUpdate";
 	}
@@ -35,10 +40,12 @@ public class InterviewUpdateController {
 			Model model,
 			@ModelAttribute("interview") InterviewVO interview
 	) {
+		log.info("포스트");
 		String viewName = null;
 		int rowcnt = service.modifyInterview(interview);
+
 		if (rowcnt > 0) {
-			viewName = "redirect:interviewList";
+			viewName = "redirect:/interview/interviewList";
 		} else {
 			viewName = "interview/interviewUpdate";
 		}

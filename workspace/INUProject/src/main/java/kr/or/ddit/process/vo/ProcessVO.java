@@ -23,12 +23,22 @@ public class ProcessVO {
 	
 	private List<ProcessVO> processList;
 
+	private String processCodeName;
+	
 	public void setProcessStartDate(String processStartDate) {
-		this.processStartDate = processStartDate.substring(0, 16);
+		if (processStartDate.length() < 16) {
+			this.processStartDate = processStartDate;
+		} else {
+			this.processStartDate = processStartDate.substring(0, 16);
+		}
 	}
 
 	public void setProcessEndDate(String processEndDate) {
-		this.processEndDate = processEndDate.substring(0, 16);
+		if (processEndDate.length() < 16) {
+			this.processEndDate = processEndDate;
+		} else {
+			this.processEndDate = processEndDate.substring(0, 16);
+		}
 	}
 
 	public void setProcessDeleteDate(String processDeleteDate) {
@@ -39,5 +49,5 @@ public class ProcessVO {
 		this.processInsertDate = processInsertDate.substring(0, 10);
 	}
 	
-	
+	private List<ItemVO> itemList;
 }

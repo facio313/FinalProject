@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class PagingVO<T> {
-	
+
 	public PagingVO(int screenSize, int blockSize) {
 		super();
 		this.screenSize = screenSize;
@@ -24,21 +24,27 @@ public class PagingVO<T> {
 	private int totalRecord; // DB 조회
 	private int screenSize=10; // 임의 설정
 	private int blockSize=5; // 임의 설정
-	
+
 	private int currentPage; // 클라이언트 파라미터
-	
+
 	private int totalPage;
 	private int startRow;
 	private int endRow;
 	private int startPage;
 	private int endPage;
-	
+
 	private List<T> dataList;
-	
+
+	private String memId;
+
 	private SearchVO simpleCondition; // 단순 키워드 검색용
 	private T detailCondition; // 상세 검색용.
 	private Map<String, Object> flexibleCondition;
-	
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
 	public void setDetailCondition(T detailCondition) {
 		this.detailCondition = detailCondition;
 	}
@@ -46,20 +52,20 @@ public class PagingVO<T> {
 	public void setSimpleCondition(SearchVO simpleCondition) {
 		this.simpleCondition = simpleCondition;
 	}
-	
+
 	public void setFlexibleCondition(Map<String, Object> flexibleCondition) {
 		this.flexibleCondition = flexibleCondition;
 	}
-	
+
 	public void setDataList(List<T> dataList) {
 		this.dataList = dataList;
 	}
-	
+
 	public void setTotalRecord(int totalRecord) {
 		this.totalRecord = totalRecord;
 		totalPage = (totalRecord + (screenSize - 1)) / screenSize;
 	}
-	
+
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 		endRow = currentPage * screenSize;
@@ -67,7 +73,7 @@ public class PagingVO<T> {
 		endPage = ((currentPage + (blockSize-1)) / blockSize) * blockSize;
 		startPage = endPage - (blockSize - 1);
 	}
-	
+
 	public int getEndPage() {
 		return endPage > totalPage ? totalPage : endPage;
 	}

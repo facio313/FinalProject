@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.board.service.InterviewService;
 import kr.or.ddit.board.vo.InterviewVO;
+import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
@@ -45,12 +46,19 @@ public class InterviewController {
 	public String interviewList(
 			Model model,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
-			@ModelAttribute("simpleCondition") SearchVO searchVO
+			@ModelAttribute("simpleCondition") SearchVO searchVO,
+			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
 		log.info("왔나?");
 		PagingVO<InterviewVO> pagingVO = new PagingVO<>(9,5);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
+
+		InterviewVO interviewVO = new InterviewVO();
+		interviewVO.setJobSub(gubun);
+
+		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(interviewVO);
 
 		service.retrieveInterviewList(pagingVO);
 
@@ -60,7 +68,6 @@ public class InterviewController {
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
 
 		// System.out.println(pagingVO);
-
 		return "jsonView";
 	}
 
@@ -74,8 +81,5 @@ public class InterviewController {
 		service.updateHis(incumNo);
 		model.addAttribute("interview", interview);
 		return "interview/interviewDetail";
-
 	}
-
-
 }

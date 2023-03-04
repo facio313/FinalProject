@@ -57,16 +57,16 @@
 		FROM CD_EDUCATION
 		ORDER BY 1
 	</select>
-	<select id="selectWalfareList" resultType="hashmap">
-		SELECT WALFARE_CODE "walfareCode", WALFARE_NAME "walfareName", WALFARE_REF "walfareRef"
-		FROM CD_WALFARE 
+	<select id="selectWelfareList" resultType="hashmap">
+		SELECT WELFARE_CODE "welfareCode", WELFARE_NAME "welfareName", WELFARE_REF "welfareRef"
+		FROM CD_WELFARE 
 		<where>
 			<choose>
-				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(walfareRef)">
-					WALFARE_REF = #{walfareRef}
+				<when test="@org.apache.commons.lang3.StringUtils@isNotBlank(welfareRef)">
+					WELFARE_REF = #{welfareRef}
 				</when>
 	            <otherwise>
-					WALFARE_REF IS NULL
+					WELFARE_REF IS NULL
 				</otherwise>
 			</choose>
 		</where>

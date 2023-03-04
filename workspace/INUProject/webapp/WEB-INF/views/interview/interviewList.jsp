@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,36 +25,35 @@
 <style>
 .wrap_title_recruit {position: relative; padding: 0 0 0px;}
 #paging{font-size: 22pt;}
+.wrap_category_type .list_category li a {
+    color: #444;
+    letter-spacing: -1px;
+    line-height: 17px;
+    font-weight: initial;
+}
+.job_interview_list .box_info .company_name {
+    overflow: hidden;
+    padding-top: 6px;
+    color: #666;
+    font-size: 15px;
+    letter-spacing: -1px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: initial;
+}
 </style>
 </head>
 
 <body id="top">
 	<div id="overlayer"></div>
 	<div class="site-wrap">
-		<!-- HOME -->
-		<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" id="home-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-7">
-						<h1 class="text-white font-weight-bold">현직자인터뷰</h1>
-						<div class="custom-breadcrumbs">
-							<a href="${pageContext.request.contextPath }/board/boardMain">Community</a>
-								<span class="mx-2 slash">/</span>
-								<span class="text-white"><strong>Interview</strong></span>
-						</div>
-						<div class="custom-breadcrumbs"></div>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<!-- 작성 -->
 		<div id="sri_section" class="  ">
 			<div id="sri_wrap">
 				<div id="content">
 					<div class="wrap_title_recruit title_type2">
 						<h1 class="title_common">현직자 인터뷰
-							<span class="value">전체 <b>939</b>건</span>
+							<span class="value">전체 <b id="totalCnt"></b>건</span>
 						</h1>
 						<div class="">
 							<div class=""></div>
@@ -67,87 +67,87 @@
 						</div>
 					</div>
 
-					<!-- 직무 list -->
+					<!-- 직업분류 -->
 					<div class="wrap_category_type">
 						<ul class="list_category">
 							<li class="on">
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">전체</a>
+								<a class="<c:if test="${fn:length(param.gubun)<1}">active</c:if>" aria-current="page" href="${pageContext.request.contextPath}/interview/interviewList?gubun=">전체</a>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">기획·전략</a>
-								(159)
+								<a class="<c:if test="${param.gubun=='1'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=1">기획·전략</a>
+								<span id="cnt1"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">마케팅·홍보·조사</a>
-								(159)
+								<a class="<c:if test="${param.gubun=='2'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=2">마케팅·홍보·조사</a>
+								<span id="cnt2"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">회계·세무·재무</a>
-								(30)
+								<a class="<c:if test="${param.gubun=='3'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=3">회계·세무·재무</a>
+								<span id="cnt3"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">인사·노무·HRD</a>
-								(82)
+								<a class="<c:if test="${param.gubun=='4'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=4">인사·노무·HRD</a>
+								<span id="cnt4"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">총무·법무·사무</a>
-								(36)
+								<a class="<c:if test="${param.gubun=='5'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=5">총무·법무·사무</a>
+								<span id="cnt5"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">IT개발·데이터</a>
-								(108)
+								<a class="<c:if test="${param.gubun=='6'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=6">IT개발·데이터</a>
+								<span id="cnt6"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">디자인</a>
-								(71)
+								<a class="<c:if test="${param.gubun=='7'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=7">디자인</a>
+								<span id="cnt7"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">영업·판매·무역</a>
-								(134)
+								<a class="<c:if test="${param.gubun=='8'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=8">영업·판매·무역</a>
+								<span id="cnt8"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">고객상담·TM</a>
-								(14)
+								<a class="<c:if test="${param.gubun=='9'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=9">고객상담·TM</a>
+								<span id="cnt9"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">구매·자재·물류</a>
-								(18)
+								<a class="<c:if test="${param.gubun=='10'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=10">구매·자재·물류</a>
+								<span id="cnt10"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">상품기획·MD</a>
-								(29)
+								<a class="<c:if test="${param.gubun=='11'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=11">상품기획·MD</a>
+								<span id="cnt11"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">운전·운송·배송</a>
-								(5)
+								<a class="<c:if test="${param.gubun=='12'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=12">운전·운송·배송</a>
+								<span id="cnt12"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">서비스</a>
-								(58)
+								<a class="<c:if test="${param.gubun=='13'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=13">서비스</a>
+								<span id="cnt13"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">생산</a>
-								(54)
+								<a class="<c:if test="${param.gubun=='14'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=14">생산</a>
+								<span id="cnt14"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">건설·건축</a>
-								(34)
+								<a class="<c:if test="${param.gubun=='15'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=15">건설·건축</a>
+								<span id="cnt15"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">의료</a>
-								(9)
+								<a class="<c:if test="${param.gubun=='16'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=16">의료</a>
+								<span id="cnt16"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">연구·R&amp;D</a>
-								(42)
+								<a class="<c:if test="${param.gubun=='17'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=17">연구·R&amp;D</a>
+								<span id="cnt17"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">미디어·문화·스포츠</a>
-								(73)
+								<a class="<c:if test="${param.gubun=='18'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=18">미디어·문화·스포츠</a>
+								<span id="cnt18"></span>
 							</li>
 							<li>
-								<a href="#" onmousedown="try{n_trackEvent('public', 'job-interview' , 'category', '');}catch(e){}">금융·보험</a>
-								(10)
+								<a class="<c:if test="${param.gubun=='19'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=19">금융·보험</a>
+								<span id="cnt19"></span>
 							</li>
 						</ul>
 					</div>
@@ -170,9 +170,7 @@
 							<ul id="listTop"></ul>
 						</div>
 						<div class="pagingArea"></div>
-
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -213,14 +211,13 @@ let makeTrTag = function(interview){
 	return $("<li>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/interview/interviewDetail?incumNo="+interview.incumNo).attr("class","inlist_box").append(
 						$("<p>").attr("class","sub_title").append(
-							$("<span>").attr("class", "in_subtit").html(interview.jobName)),
-
+							$("<span>").attr("class", "in_subtit").html(interview.subTitle)),
 						$("<p>").attr("class","title").append(
 							$("<em>").html(interview.incumTitle)),
 
 						$("<div>").attr("class","box_info").append(
 							$("<div>").attr("class","txt_detail").append(
-								$("<p>").attr("class","company_name").html(interview.cmpId),
+								$("<p>").attr("class","company_name").html(interview.cmpName),
 								$("<p>").attr("class","company_part").append(
 									$("<em>").attr("class","inpart").html(interview.department),
 									$("<em>").attr("class","inname").html(interview.incumName)),
@@ -245,6 +242,14 @@ let searchForm = $("#searchForm").on("submit", function(event){
 		data : queryString,
 		dataType : "json",
 		success : function(resp) {
+			console.log("데이터전체:",resp);
+			$("#totalCnt").html(resp.pagingVO.totalRecord);
+
+			// console.log("세부데이터 개수:",resp);
+			if('span[value=1]'){
+				$("#cnt1").html("("+resp.pagingVO.totalRecord+")");
+			}
+
 			listBody.empty();
 			pagingArea.empty();
 			searchForm[0].page.value="";

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305"  prefix="ui"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <head>
 <meta charset="utf-8" />
@@ -22,30 +23,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
+<style>
+.wrap_board.wrap_help .copy {margin-bottom: 20px;color: #444;font-size: 15px;letter-spacing: -1px;line-height: 22px;}
+</style>
+
 </head>
 
 <body id="top">
 	<div class="site-wrap">
-		<!-- HOME -->
-		<section class="section-hero overlay inner-page bg-image" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg')" id="home-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-7">
-						<h1 class="text-white font-weight-bold">내 문의 내역</h1>
-						<div class="custom-breadcrumbs">
-							<a href="${pageContext.request.contextPath}/help/notice">Help</a>
-								<span class="mx-2 slash">/</span>
-								<span class="text-white"><strong>My Ask</strong></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<!-- 작성 -->
-		<div id="sri_section" class="  has_banner">
+		<div id="sri_section" class="  has_banner" style="padding-left:250px;padding-right:250px;">
 			<div id="sri_wrap">
-				<div id="content">
+				<div id="content" style="width: 100%;">
 					<div class="wrap_title_recruit">
 						<h1 class="title_common">내 문의 내역</h1>
 					</div>
@@ -59,7 +48,7 @@
 							<table>
 								<colgroup>
 									<col style="width: 100px">
-									<col style="width: 210px">
+									<col style="width: 230px">
 									<col>
 									<col style="width: 100px">
 									<col style="width: 90px">
@@ -67,24 +56,24 @@
 
 								<tbody id="ask_list">
 									<tr>
-										<td class="count">문의번호</td>
-										<td class="category">문의종류</td>
-										<td class="content_tit">제목</td>
-										<td class="date">등록일</td>
-										<td class="status end">처리상태</td>
+										<th class="count">문의번호</th>
+										<th class="category">문의종류</th>
+										<th class="content_tit">제목</th>
+										<th class="date">등록일</th>
+										<th class="status end">처리상태</th>
 									</tr>
 
 										<c:choose>
 											<c:when test="${not empty askList }">
 												<c:forEach items="${askList }" var="ask">
 													<tr>
-														<td>${ask.askNo }</td>
+														<td id="askNo">${ask.askNo}</td>
 														<td>${ask.askType }</td>
 														<td><c:url value="/ask/detailAsk" var="viewURL">
 																<c:param name="askNo" value="${ask.askNo }" />
 															</c:url> <a href="${viewURL}">${ask.askTitle }</a></td>
 														<td>${ask.askDate }</td>
-														<td>${ask.askStatus }</td>
+														<td>${ask.askStatus}</td>
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -121,8 +110,6 @@
 
 <form id="searchForm">
 	<input type="hidden" name="page" />
-	<!-- <input type="hidden" name="searchType" />
-	<input type="hidden" name="searchWord" /> -->
 </form>
 
 <script type="text/javascript">
@@ -144,8 +131,8 @@
 	let headerTag = function(){
 		return $("<tr>").append(
 			$("<td>").attr("class","count").html("문의번호"),
-			$("<td>").attr("class","category").html("문의종류"),
-			$("<td>").attr("class","content_tit").html("제목"),
+			$("<td style=text-align:left;>").attr("class","category").html("문의종류"),
+			$("<td style=text-align:left;>").attr("class","content_tit").html("제목"),
 			$("<td>").attr("class","date").html("등록일"),
 			$("<td>").attr("class","status end").html("처리상태")
 		);
@@ -153,15 +140,14 @@
 
 	let makeTrTag = function(ask){
 		return $("<tr>").append(
-			$("<td>").html(ask.askNo),
-			$("<td>").html(ask.askType),
-			$("<td>").append(
+			$("<td>").html(ask.askNo.substring(5)),
+			$("<td style=text-align:left;>").html(ask.askType),
+			$("<td style=text-align:left;>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)
 			),
 			$("<td>").html(ask.askDate),
 			$("<td>").html(ask.askStatus)
 		);
-
 	}
 
 
@@ -188,6 +174,11 @@
 				trTags.push(headerTag());
 				if(dataList != null && dataList != ""){
 					$.each(dataList, function(index, ask){
+						if(ask.refContent == null) {
+							ask.askStatus = "확인중";
+						}else{
+							ask.askStatus = "답변완료";
+						}
 						trTags.push(makeTrTag(ask));
 					});
 				}else{

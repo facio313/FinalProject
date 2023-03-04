@@ -33,4 +33,15 @@ public class SeekerVO extends MemberVO{
 	private String memDate;
 	
 	private String memProfile; // 임시(경수) 
+
+	public String getMemBirth() {
+		return memBirth;
+	}
+
+	public void setMemBirth(String memBirth) {
+		this.memBirth = memBirth.substring(0,10);
+	}
+
+	
+	
 }

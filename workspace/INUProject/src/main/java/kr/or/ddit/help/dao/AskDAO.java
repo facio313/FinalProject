@@ -24,4 +24,8 @@ public interface AskDAO {
 
 	// 삭제(관리자만 가능)
 	public int deleteAsk(AskVO ask);
+
+	// 답변 등록
+	public int updateRef(AskVO ask);
+
 }

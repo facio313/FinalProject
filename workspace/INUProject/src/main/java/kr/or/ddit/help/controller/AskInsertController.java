@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.help.service.AskService;
 import kr.or.ddit.help.vo.AskVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.vo.MemberVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/ask/askForm")
 public class AskInsertController {
@@ -42,7 +45,22 @@ public class AskInsertController {
 			viewName = "ask/askForm";
 		}
 		return viewName;
-
 	}
+
+	@PostMapping("/ref")
+	public String insertRef(
+			Model model,
+			@RequestParam("askNo") String askNo,
+			@RequestParam("refContent") String refContent
+	) {
+		AskVO ask = new AskVO();
+		ask.setAskNo(askNo);
+		log.info("여기"+refContent);
+		ask.setRefContent(refContent);
+		service.modifyRef(ask);
+		return "redirect:/ask/detailAsk?askNo=" + askNo;
+	}
+
+
 
 }

@@ -43,18 +43,13 @@ public class ExpertApplicationController {
 	
 	@GetMapping("/application1")
 	public String expertApplication1(
-		 @AuthMember MemberVO authMember
 		) {
-		return "expert/expertApplication1";
+			return "expert/expertApplication1";
 	}
 	@GetMapping("/application2")
 	public String expertApplication2(
-		@AuthMember MemberVO authMember
-		,@ModelAttribute("expert") ExpertVO expert	
+		@ModelAttribute("expert") ExpertVO expert	
 		) {
-		if(authMember==null) {
-			return "redirect:/login";
-		}
 		return "expert/expertApplication2";
 	}
 	@PostMapping("/application2")

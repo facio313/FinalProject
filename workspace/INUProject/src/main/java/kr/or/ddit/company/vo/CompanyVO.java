@@ -25,10 +25,21 @@ public class CompanyVO extends CommonsAttachVO {
 	private String cmpAvrWork;
 	private String cmpAvrSalary;
 	private String cmpMbName;
-	private int cmpCheck;
+	private String cmpCheck;
 	private String cmpContent;
 	private int cmpLogo;
 	private int attId;
+	
+	private int ccheck; //관심기업여부
+	
+	public String getCmpEstblDate() {
+		return cmpEstblDate;
+	}
+
+	public void setCmpEstblDate(String cmpEstblDate) {
+		this.cmpEstblDate = cmpEstblDate.substring(0, 10);
+	}
+
 	@Override
 	public String getTblId() {
 		return cmpId;

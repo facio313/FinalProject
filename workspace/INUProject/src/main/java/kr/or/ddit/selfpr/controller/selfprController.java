@@ -1,10 +1,20 @@
 package kr.or.ddit.selfpr.controller;
 
 import java.util.List;
+
+
 import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.selfpr.dao.SelfprDAO;
 import kr.or.ddit.selfpr.service.SelfprService;
 import kr.or.ddit.selfpr.vo.SelfprVO;
+import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
-import kr.or.ddit.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  * --------     --------    ----------------------
  * 2023. 2. 4.  윤호연                최초작성
  * 2023. 2.13.  윤호연	   1차수정
+ * 2023. 2.24.  윤호연	   2차수정  
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -45,8 +58,18 @@ public class selfprController {
 	private final SelfprService service;
 	private final SelfprDAO selfprDAO;
 	
+	@Resource(name="bootstrapPaginationRender")
+	private PaginationRenderer renderer;
+	
 	@GetMapping
-	public String selfprMain() {
+	public String selfprMain(
+		@AuthMember MemberVO authMember	
+		, Model model
+		, @CookieValue(value = "prNo", required = false) Cookie cookie
+	) {
+		String memId2 = authMember.getMemId();
+		model.addAttribute("memId2", memId2);
+		
 		return "selfpr/selfPrView";
 	}
 	
@@ -56,14 +79,19 @@ public class selfprController {
 		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
-		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
+		PagingVO<SelfprVO> pagingVO = new PagingVO<>(12,10);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setDetailCondition(detailCondition);
 		
 		service.retrieveSelfprList(pagingVO);
-		model.addAttribute("pagingVO", pagingVO);
 		
-		System.out.println(detailCondition);
+//		System.out.println(currentPage);
+//		System.out.println(pagingVO);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		if(!pagingVO.getDataList().isEmpty())
+			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
+		
 		return "jsonView";
 	}
 	
@@ -94,34 +122,122 @@ public class selfprController {
 	
 	@GetMapping("/Detail")
 	public String selfprDetail(
-		@RequestParam(value="no") int prNo
+		@AuthMember MemberVO authMember		
+		, @RequestParam(value="no") int prNo
 		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
 		pagingVO.setDetailCondition(detailCondition);
 		
+		// 관심인재 관련
+		String memId2 = authMember.getMemId();
+//		System.out.println("로그인한 사람:"+ memId2);
+		
+		model.addAttribute("memId2", memId2);
+		model.addAttribute("prNo", prNo);
+//		System.out.println("pr번호 : " + prNo);
+		
+		SelfprVO matchselfpr = new SelfprVO();
+		matchselfpr.setMemId2(memId2);
+		matchselfpr.setPrNo(prNo);
+		
+		int match = service.matchLike(matchselfpr);
+		
+		matchselfpr.setLikeresult(match);
+		model.addAttribute("matchselfpr", matchselfpr);
+		
+		// 이력서, 회원정보 뽑아오기
 		SelfprVO selfprmem = service.retrieveSelfprMember(prNo);
 		List<SelfprVO> selfpredu = service.retrieveSelfprEducation(prNo);
+		List<SelfprVO> selfprcareer = service.retrieveSelfprCareer(prNo);
+		List<SelfprVO> selfprcert = service.retrieveSelfprCert(prNo);
+		List<SelfprVO> selfpract = service.retrieveSelfprAct(prNo);
+		List<SelfprVO> selfpraward = service.retrieveSelfprAward(prNo);
+		List<SelfprVO> selfprcourse = service.retrieveSelfprCourse(prNo);
 		model.addAttribute("selfprmem", selfprmem);
 		model.addAttribute("selfpredu", selfpredu);
-		System.out.println(selfprmem);
+		model.addAttribute("selfprcareer", selfprcareer);
+		model.addAttribute("selfprcert", selfprcert);
+		model.addAttribute("selfpract", selfpract);
+		model.addAttribute("selfpraward", selfpraward);
+		model.addAttribute("selfprcourse", selfprcourse);
 		
 		return "selfpr/selfPrDetail";
 	}
 	
-	@GetMapping("/Insert")
-	public String selfprForm() {
+	// Selfpr Insert
+	
+	@GetMapping("/InsertForm")
+	public String selfprForm(
+		Model model
+	) {
 		return "selfpr/selfPrForm";
 	}
 	
-	@GetMapping("/Interest")
-	public String selfprInter() {
-		return "selfpr/selfPrInter";
+	@PostMapping("/Insert")
+	public String selfprInsert(
+		Model model
+		, @ModelAttribute("selfpr") SelfprVO selfpr 
+		, Errors errors
+	) {
+		String viewName = null;
+		if(!errors.hasErrors()) {
+			int rowcnt = service.createSelfpr(selfpr);
+			System.out.println(rowcnt);
+			if(rowcnt > 0) {
+				viewName = "redirect:/selfpr";
+			}else {
+				model.addAttribute("message","서버 오류");
+				viewName = "selfpr/Insert";
+			}
+		}else {
+			viewName = "selfpr/Insert";
+		}
+		return viewName;
 	}
 	
-	@GetMapping("/Today")
-	public String selfprToday() {
-		return "selfpr/selfPrToday";
+	// Selfpr Update
+	
+	@GetMapping("/Update")
+	public String UpdateForm(
+		@RequestParam(value="no") int prNo
+		, Model model
+	) {
+		SelfprVO selfpr = service.retrieveSelfprMember(prNo);
+		model.addAttribute("selfpr", selfpr);
+		return "selfpr/selfPrUpdateForm";
+	}
+	
+	@PostMapping("/Update")
+	public String UpdateSelfpr(
+		@ModelAttribute("selfpr") SelfprVO selfpr
+		, Errors errors
+		, Model model
+	) {
+		String viewName = null;
+		if(!errors.hasErrors()) {
+			int rowcnt = service.modifySelfpr(selfpr);
+			if(rowcnt > 0) {
+				viewName = "redirect:/selfpr/Detail/?no="+selfpr.getPrNo();
+			}else {
+				model.addAttribute("message", "서버 오류");
+				viewName = "selfpr/selfPrUpdateForm";
+			}
+		}else {
+			viewName = "selfpr/selfPrUpdateForm"; 
+		}
+		return viewName;
+	}
+	
+	// Selfpr Delete
+	@GetMapping("/Delete")
+	public String deleteSelfpr(
+		@RequestParam("no") int prNo
+		, Model model
+	) {
+		service.removeSelfpr(prNo);
+		return "redirect:/selfpr";
 	}
 }
+

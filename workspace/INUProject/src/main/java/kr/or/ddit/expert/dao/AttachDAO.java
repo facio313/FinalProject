@@ -11,7 +11,7 @@ import kr.or.ddit.vo.CommonsAttachVO;
 public interface AttachDAO {
 	public int insertAttatches(Object object);
 	public List<AttachVO> selectAttatchList(String attId);
-	public AttachVO selectAttatch(int attNo);
+	public AttachVO selectAttach(String tblId);
 	public <T>int deleteAttatchs(T vo);
 	public <T>int updateAttatch(T vo);
 	public <T>int deleteAttatch(String tblId);

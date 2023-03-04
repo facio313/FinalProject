@@ -1,15 +1,14 @@
 package kr.or.ddit.selfpr.service;
 
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
-
 import kr.or.ddit.selfpr.dao.SelfprDAO;
 import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.vo.PagingVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class SelfprServiceImpl implements SelfprService {
 	
@@ -18,8 +17,14 @@ public class SelfprServiceImpl implements SelfprService {
 	
 	@Override
 	public void retrieveSelfprList(PagingVO<SelfprVO> pagingVO) {
-		pagingVO.setTotalRecord(selfprDAO.selectTotalRecord(pagingVO));
-		pagingVO.setDataList(selfprDAO.selectSelfprList(pagingVO));
+		int totalRecord = selfprDAO.selectTotalRecord(pagingVO);
+		log.info("토탈레코드:",totalRecord);
+		pagingVO.setTotalRecord(totalRecord);
+		log.info("페이징VO 토탈레코드:",pagingVO.getTotalRecord());
+//		pagingVO.setTotalRecord(selfprDAO.selectTotalRecord(pagingVO));
+		List<SelfprVO> dataList = selfprDAO.selectSelfprList(pagingVO);
+		pagingVO.setDataList(dataList);
+//		pagingVO.setDataList(selfprDAO.selectSelfprList(pagingVO));
 	}
 	
 //	세부사항 가져오는 메소드
@@ -33,7 +38,56 @@ public class SelfprServiceImpl implements SelfprService {
 		List<SelfprVO> selfpredu = selfprDAO.selectSelfprEducation(prNo);
 		return selfpredu;
 	}
+	@Override
+	public List<SelfprVO> retrieveSelfprCareer(int prNo) {
+		List<SelfprVO> selfprcareer = selfprDAO.selectSelfprCareer(prNo);
+		return selfprcareer;
+	}
+	@Override
+	public List<SelfprVO> retrieveSelfprCert(int prNo) {
+		List<SelfprVO> selfprcert = selfprDAO.selectSelfprCert(prNo);
+		return selfprcert;
+	}
+	@Override
+	public List<SelfprVO> retrieveSelfprAct(int prNo) {
+		List<SelfprVO> selfpract = selfprDAO.selectSelfprAct(prNo);
+		return selfpract;
+	}
+	@Override
+	public List<SelfprVO> retrieveSelfprAward(int prNo) {
+		List<SelfprVO> selfpraward = selfprDAO.selectSelfprAward(prNo);
+		return selfpraward;
+	}
+	@Override
+	public List<SelfprVO> retrieveSelfprCourse(int prNo) {
+		List<SelfprVO> selfprcourse = selfprDAO.selectSelfprCourse(prNo);
+		return selfprcourse;
+	}
 
 	
-	
+	@Override
+	public int createSelfpr(SelfprVO selfpr) {
+		int rowcnt = selfprDAO.insertSelfpr(selfpr);
+		return rowcnt;
+	}
+
+	@Override
+	public int modifySelfpr(SelfprVO selfpr) {
+		int rowcnt = selfprDAO.updateSelfpr(selfpr);
+		return rowcnt;
+	}
+
+	@Override
+	public int removeSelfpr(int prNo) {
+		int rowcnt = selfprDAO.deleteSelfpr(prNo);
+		return rowcnt;
+	}
+
+//	관심인재 확인
+	@Override
+	public int matchLike(SelfprVO matchselfpr) {
+		int rowcnt = selfprDAO.matchingLike(matchselfpr);
+		return rowcnt;
+	}
+
 }

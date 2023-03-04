@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
  * [[개정이력(Modification Information)]]
  * 수정일                  수정자               수정내용
  * --------     --------    ----------------------
- * 2023. 2. 20.   박형준             menuTitle 추가
+ * 2023. 2. 20.   박형준             menuTitle, subTitle 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -32,4 +32,5 @@ public class MenuVO {
 	private String menuURL;
 	private String menuColor;
 	private String menuTitle;
+	private String subTitle;
 }

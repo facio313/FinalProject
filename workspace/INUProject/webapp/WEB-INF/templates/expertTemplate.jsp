@@ -12,7 +12,7 @@
 		<meta name="generator" content="Hugo 0.88.1">
 		<meta name="theme-color" content="#7952b3">
 
-		<title>Dashboard Template · Bootstrap v5.2</title>
+		<title>INU</title>
 		
 		<tiles:insertAttribute name="cssSource" />
 		<tiles:insertAttribute name="preScript" />
@@ -37,11 +37,6 @@
 				<tiles:insertAttribute  name="content"/>
 		</div>
 	
-	
-		<footer class="footer mt-auto py-3 bg-dark col-md-12 ms-sm-auto col-lg-12">
-			<tiles:insertAttribute  name="footer"/> 
-		</footer>
-		
 
 	</body>
 	<tiles:insertAttribute  name="postScript"/>

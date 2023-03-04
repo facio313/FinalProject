@@ -65,7 +65,13 @@ public class ResumeController {
 	}
 	
 	@GetMapping
-	public String resumeMain() {
+	public String resumeMain(
+		Model model
+		, @ModelAttribute ResumeVO resume
+		, @AuthMember MemberVO authMember
+	) {
+		List<ResumeVO> resumeList = service.retrieveResumeList(authMember.getMemId());
+		model.addAttribute("resumeList", resumeList);		
 		return "resume/resumeMain";
 	}
 	

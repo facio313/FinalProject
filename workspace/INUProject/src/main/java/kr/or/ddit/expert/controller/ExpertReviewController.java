@@ -54,8 +54,14 @@ public class ExpertReviewController {
 		return "expert/expertReviewList";
 	} 
 	
-	@GetMapping("/detail")
-	public String expertReviewDetail() {
+	@GetMapping("/detail/{exprodId}")
+	public String expertReviewDetail(
+		@PathVariable("exprodId") String exprodId	
+		,Model model
+		) {
+		ExprodVO exprod = new ExprodVO();
+		exprod = exprodService.selectExprod(exprodId);
+		model.addAttribute("exprod", exprod);
 		return "expert/expertReviewDetail";
 	} 
 	@GetMapping("/write")

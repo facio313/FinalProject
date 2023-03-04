@@ -1,5 +1,8 @@
 package kr.or.ddit.apply.vo;
 
+import java.util.List;
+
+import kr.or.ddit.resume.vo.ResumeVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,8 +17,23 @@ public class ApplyVO {
 	private String applyDate;
 	private String applyUpdateDate;
 	private String applyDeleteDate;
-	private Integer applyTotal;
+	private String processCodeId;
 	private String applyResult;
+	private Integer applyTotal;
 	private String applyResultDate;
 	private String annoNo;
+	
+	private ResumeVO resume;
+	
+	private Object selected;
+	
+	private ScoreResumeVO scoreResume;
+	private ScoreIntroVO scoreIntro;
+	private ScoreTestVO scoreTest;
+	private ScoreCompVO scoreComp;
+	private ScoreDiscussVO scoreDiscuss;
+	private ScorePracticeVO scorePractice;
+	private ScoreInternVO scoreIntern;
+	private ScoreIndepthVO scoreIndepth;
+	
 }

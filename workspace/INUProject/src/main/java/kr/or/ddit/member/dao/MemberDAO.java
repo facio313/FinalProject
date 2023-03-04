@@ -5,13 +5,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import kr.or.ddit.expert.vo.ExpertVO;
+import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SeekerVO;
 /**
  * 
- * @author 공통(수정한 부분 밑에 추가로 적어 주세용~)
+ * @author 공통
  * @since 2023. 2. 6.
  * @version 1.0
  * @see javax.servlet.http.HttpServlet
@@ -48,17 +50,13 @@ public interface MemberDAO{
 	 * @return 등록된 레코드 수 (rowcnt) > 0 : 성공, <= 0 : 실패 
 	 */
 	public int insertIncruiter(IncruiterVO incruiter);
-	/**
-	 * 회원 목록 조회
-	 * @param pagingVO TODO
-	 * @return size == 0 인 경우, 조건에 맞는 레코드 없음. 
-	 */
-	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO);
+	
 	/** 회원 상세 조회
 	 * @param memId
 	 * @return 조건에 맞는 레코드 없는 경우, null 반환
 	 */
 	public MemberVO selectMember(@Param("memId") String memId);
+	public SeekerVO selectSeeker(@Param("memId") String memId);
 	
 	/**
 	 * 회원 정보 수정
@@ -72,6 +70,162 @@ public interface MemberDAO{
 	 * @return 삭제된 레코드 수(rowcnt) > 0 : 성공, <= 0 : 실패  
 	 */
 	public int deleteMember(String memId);
+	
+	
+	
+	
+	/*======================================= 시스템 관리 부분 ======================================*/
+	/*======================== 회원 관리 부분 ========================*/
+	/**
+	 * 일반 회원 목록
+	 * @param memAuthCd
+	 * @return
+	 */
+	public List<MemberVO> selectSkrList();
+	/**
+	 * 일반 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectSkr(String memId);
+	
+	/**
+	 * 기업 회원 목록
+	 * @param member
+	 * @return
+	 */
+	public List<MemberVO> selectIncList();
+	/**
+	 * 기업 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectInc(String memId);
+	
+	/**
+	 * 전문가 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> selectExpList();
+	/**
+	 * 전문가 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectExp(String memId);
+	
+	
+	/**
+	 * 차단 회원 목록 
+	 * @return
+	 */
+	public List<MemberVO> selectCutList();
+	/**
+	 * 차단 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectCut(String memId);
+	/**
+	 * 차단 하기
+	 * @param member
+	 * @return
+	 */
+	public int insertCut(CutVO cut);
+	public int updateCutRole(MemberVO member);
+	/**
+	 * 차단 해제
+	 * @param member
+	 * @return
+	 */
+	public int deleteCut(CutVO cut);
+	public int deleteCutRole(MemberVO member);
+	
+	/**
+	 * 블랙 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> selectBlackList();
+	/**
+	 * 블랙 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectBlack(String memId);
+	/**
+	 * 블랙리스트 등록
+	 * @param member
+	 * @return
+	 */
+	public int updateBlack(MemberVO member);
+	/**
+	 * 블랙리스트 해제
+	 * @param member
+	 * @return
+	 */
+	public int deleteBlack(MemberVO member);
+	
+	/**
+	 * 탈퇴 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> selectDelMemList();
+	/**
+	 * 탈퇴 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectDelMem(String memId);
+	
+	/*======================== 승인 관리 부분 ========================*/
+	/**
+	 * 총괄 기업회원 신청 목록
+	 * @return
+	 */
+	public List<MemberVO> selectIncruiterList();
+	
+	/**
+	 * 총괄 기업회원 신청 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectIncruiter(String memId);
+	
+	/**
+	 * 총괄 승인(update)
+	 * @param member
+	 * @return
+	 */
+	public int updateAcceptInc(IncruiterVO incruiter);
+	public int updateAcceptCmp(IncruiterVO incruiter);
+	
+	/**
+	 * 총괄 신청 삭제
+	 * @param incruiter
+	 * @return
+	 */
+	public int deleteAppliInc(MemberVO member);
+	
+	/**
+	 * 전문가 신청 리스트
+	 * @return
+	 */
+	public List<MemberVO> selectExpertList();
+	
+	/**
+	 * 전문가 신청 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO selectExpert(String memId);
+	
+	/**
+	 * 전문가 승인(update)
+	 * @param member
+	 * @return
+	 */
+	public int updateAcceptExpRole(MemberVO member);
+	public int updateAcceptExp(MemberVO member);
 	
 	
 	/*=======================================아이디,비번 찾기 부분======================================*/

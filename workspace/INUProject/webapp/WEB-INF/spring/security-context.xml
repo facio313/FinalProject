@@ -13,6 +13,14 @@
 	<b:bean id="passwordEncoder" class="org.springframework.security.crypto.factory.PasswordEncoderFactories" 
 		factory-method="createDelegatingPasswordEncoder"
 	/>
+	<!-- 권한상속 -->
+	<b:bean id="roleHierarchy" class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+		<b:property name="hierarchy">
+			<b:value>
+				ROLE_EXPERT > ROLE_SEEKER
+			</b:value>
+		</b:property>
+	</b:bean>
 	
 	<!-- 사용자 이름과 암호를 인증 -->
 	<b:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"
@@ -63,6 +71,21 @@
 		<intercept-url pattern="/login/loginForm.jsp" access="isAnonymous()"/>
 		<intercept-url pattern="/login/loginProcess.do" access="isAnonymous()"/>
 		<intercept-url pattern="/login/*" access="isAuthenticated()"/>
+		
+		<intercept-url pattern="/mypage/seeker" access="hasRole('ROLE_SEEKER')" />
+	    <intercept-url pattern="/mypage/incruiter" access="hasRole('ROLE_INCRUITER')"/>
+	    <intercept-url pattern="/mypage/expert" access="hasRole('ROLE_EXPERT')"/>
+	    <intercept-url pattern="/expert/newprod" access="hasRole('ROLE_EXPERT')"/>
+		
+		<intercept-url pattern="/announcement/insert" access="hasRole('ROLE_INCRUITER')"/>
+		<intercept-url pattern="/announcement/update" access="hasRole('ROLE_INCRUITER')"/>
+		<intercept-url pattern="/announcement/delete" access="hasRole('ROLE_INCRUITER')"/>
+		<intercept-url pattern="/announcement/terminate" access="hasRole('ROLE_INCRUITER')"/>
+		
+		<intercept-url pattern="/lab/counseling/insert" access="isAuthenticated()"/>
+		
+		<intercept-url pattern="/selfpr/like/insert" access="hasRole('ROLE_INCRUITER')"/>
+		
 		<intercept-url pattern="/**" access="permitAll"/>
 		
 		<csrf disabled="true"/>

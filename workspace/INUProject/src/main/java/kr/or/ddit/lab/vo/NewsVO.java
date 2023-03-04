@@ -1,5 +1,7 @@
 package kr.or.ddit.lab.vo;
 
+import java.sql.Date;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -19,7 +21,7 @@ public class NewsVO {
 	@NotNull
 	private int newsHit;
 	@NotNull
-	private String newsDate;
+	private Date newsDate;
 	private String newsContent;
 	@NotNull
 	private String memId;

@@ -70,7 +70,7 @@ public class NoticeServiceImpl implements NoticeService{
 	//공지사항 목록
 	@Override
 	public void retrieveNoticeList(PagingVO<NoticeVO> pagingVO) {
-		pagingVO.setTotalRecord(noticeDAO.selectTotalRecord(pagingVO));	//검색 페이징
+		pagingVO.setTotalRecord(noticeDAO.selectTotalRecord(pagingVO));	
 		pagingVO.setDataList(noticeDAO.selectNoticeList(pagingVO));	//목록 페이징
 	}
 

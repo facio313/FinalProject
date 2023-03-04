@@ -95,11 +95,13 @@
 		</div>
 		<div class="form-group">
 			<label for="job-title">시작날짜</label>
+<%-- 			<form:input path="processList[0].processStartDate" min="${anno.annoStartdate}" type="date" cssClass="form-control" /> --%>
 			<form:input path="processList[0].processStartDate" type="date" cssClass="form-control" />
 			<form:errors path="processList[0].processStartDate" element="span" cssClass="text-danger" />
 		</div>
 		<div class="form-group">
 			<label for="job-title">종료날짜</label>
+<%-- 			<form:input path="processList[0].processEndDate" max="${anno.annoEnddate}" type="date" cssClass="form-control" /> --%>
 			<form:input path="processList[0].processEndDate" type="date" cssClass="form-control" />
 			<form:errors path="processList[0].processEndDate" element="span" cssClass="text-danger" />
 		</div>

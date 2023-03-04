@@ -32,7 +32,25 @@ public class ExeventVO extends CommonsAttachVO implements Serializable{
 	private String exeventStart;
 	private String exeventEnd;
 	private int exeventHits;
+	private String preExevent;
+	private String nextExevent;	
 	
+	public String getPreExevent() {
+		if(preExevent!=null) {
+			return preExevent;
+		}else if(preExevent==null){
+			preExevent = null;
+		}
+		return preExevent;
+	}
+	public String getNextExevent() {
+		if(nextExevent!=null) {
+			return nextExevent;
+		}else if(nextExevent==null){
+			nextExevent = null;
+		}
+		return nextExevent;
+	}
 	
 	@Override
 	public String getTblId() {

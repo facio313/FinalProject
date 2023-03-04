@@ -5,6 +5,7 @@
 	<definition name="indexParent" template="/WEB-INF/templates/indexTemplate.jsp">
 		<put-attribute name="preScript" value="/includee/preScript.jsp" />
 		<put-attribute name="headerMenu" value="/includee/headerMenu.jsp" />
+		<put-attribute name="subMenu" value="/includee/subMenu.jsp" />
 		<put-attribute name="postScript" value="/includee/postScript.jsp" />
 		<put-attribute name="floating" value="/includee/floating.jsp" />
 	</definition>
@@ -16,6 +17,7 @@
 	<definition name="processParent" template="/WEB-INF/templates/processTemplate.jsp" preparer="commonViewPreparer">
 	 	<put-attribute name="preScript" value="/includee/preScript.jsp" />
 	 	<put-attribute name="headerMenu" value="/includee/headerMenu.jsp" />
+		<put-attribute name="subMenu" value="/includee/subMenu.jsp" />
 <!-- 	 	<put-attribute name="leftMenu" value="/includee/leftMenu.jsp" /> -->
 <!-- 	 	<put-attribute name="footer" value="/includee/footer.jsp" /> -->
 	 	<put-attribute name="floating" value="/includee/floating.jsp" />

@@ -48,7 +48,7 @@ public class ApiController {
 		Iterator<CommonCodeVO> iter = voSet.iterator();
 		while(iter.hasNext()) {
 			CommonCodeVO vo = iter.next();
-			service.insertCommonCode(vo);
+			service.createCommonCode(vo);
 		}
 		
 		return "";
@@ -64,7 +64,7 @@ public class ApiController {
 		Iterator<RegionCodeVO> iter = voSet.iterator();
 		while(iter.hasNext()) {
 			RegionCodeVO vo = iter.next();
-			service.insertRegionCode(vo);
+			service.createRegionCode(vo);
 		}
 		
 		return "";
@@ -80,7 +80,7 @@ public class ApiController {
 		Iterator<JobCodeVO> iter = voSet.iterator();
 		while(iter.hasNext()) {
 			JobCodeVO vo = iter.next();
-			service.insertJobCode(vo);
+			service.createJobCode(vo);
 		}
 		
 		return "";

@@ -5,21 +5,24 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.board.service.BoardService;
+import kr.or.ddit.board.service.ReplyService;
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.ReplyVO;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
@@ -32,6 +35,9 @@ public class BoardController {
 
 	@Inject
 	private BoardService service;
+
+	@Inject
+	private ReplyService replyService;
 
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
@@ -47,30 +53,79 @@ public class BoardController {
 		return "board/boardTotal";
 	}
 
-	// 게시판 메인
+	/**
+	 * @param model
+	 * @return
+	 * 게시판 메인
+	 */
 	@GetMapping("/boardMain")
 	public String board(
-			Model model
+			Model model,
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			@ModelAttribute("simpleCondition") SearchVO searchVO,
+			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
-		List<BoardVO> boardList = service.retrieveBoardList();
-		model.addAttribute("boardList", boardList);
+		PagingVO<BoardVO> pagingVO = new PagingVO<>(50,1);
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBoardSub(gubun);
+
+		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(boardVO);
+
+		service.retrieveBoardList(pagingVO);
+
+		//HOT 이번주 전체 인기 글
+		List<BoardVO> boardVOList =  service.hotBoard();
+
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("boardVOList",boardVOList);
+
 		return "board/boardMain";
 	}
 
-	// 게시판글 전체조회 + 페이징 + 검색
+
+	/**
+	 * @param model
+	 * @param currentPage
+	 * @param searchVO
+	 * @param boardNo
+	 * @param gubun
+	 * @return
+	 * 게시판 전체조회 + 페이징 + 검색
+	 */
+	/*
+	 요청URI : /board/boardTotal?gubun=0 or /board/boardTotal
+	 null:전체 / 1:신입 / 2:취준 / 3:퇴사 / 4:잡담
+	 */
 	@GetMapping(value="/boardTotal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String totalBoard(
 			Model model,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
-			@RequestParam("boardNo") String boardNo
+			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
 	) {
 		log.info("왓나");
 		PagingVO<BoardVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBoardSub(gubun);
+
+		//검색을 위해서..
+		/*searchVO.setSearchWord(gubun);*/
+		pagingVO.setSimpleCondition(searchVO);
+		pagingVO.setDetailCondition(boardVO);
+
 		service.retrieveBoardList(pagingVO);
+
+		//지난 3일동안 조회수가 높았던 인기글 20개
+		List<BoardVO> boardVOList = service.selectHotBoard();
+
+		if(gubun.equals("7")) {
+			pagingVO.setDataList(boardVOList);
+		}
 
 		model.addAttribute("pagingVO", pagingVO);
 
@@ -86,37 +141,61 @@ public class BoardController {
 	@GetMapping("/boardDetail")
 	public String detailBoard(
 			Model model,
-			@RequestParam("boardNo") String boardNo
-//			Authentication authentication
-//			// @PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
+			@RequestParam("boardNo") String boardNo,
+			Authentication authentication
+//			@PathVariable : 해당 글번호로 이동(URI에 글번호가 들어감)
 //			@PathVariable("boardNo") String boardNo
-	) {
+	) throws Exception {
 		BoardVO board = service.retrieveBoard(boardNo);
 		service.updateHits(boardNo);
-//		String memId = authentication.getName();
-//		if(memId!=null && memId.length()>0) {
-			/*String likeOn = service.likeOn(boardNo, memId);
-			model.addAttribute("likeOn",likeOn);*/
-//		}
+		String memId = authentication.getName();
+		if(memId!=null && memId.length()>0) {
+			String likeOn = service.likeOn(boardNo, memId);
+			model.addAttribute("likeOn",likeOn);
+		}
 		model.addAttribute("board", board);
+
+		// 댓글조회
+		List<ReplyVO> reply = null;
+		reply = replyService.retrieveReply(boardNo);
+		model.addAttribute("reply", reply);
 		return "board/boardDetail";
 	}
 
 	// 좋아요 추가
 	@PostMapping(value="likeInsert",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody // 자바객체를 마샬링해서 응답데이터로 넘겨야 함
-	public HashMap<String, Object> boardLike(
+	public HashMap<String, String> boardLike(
 			@RequestParam String boardNo,
 			@RequestParam String likeType,
 			Authentication authentication
 	) {
-		HashMap<String, Object> m = new HashMap<>();
+		HashMap<String, String> m = new HashMap<>();
 		m.put("boardNo", boardNo);
 		m.put("likeType", likeType);
 		m.put("memId", authentication.getName());
 		try {
 			service.likeInsert(m);
 
+		} catch (Exception e) {
+			m.put("error",e.getMessage());
+		}
+		return m;
+	}
+
+	// 좋아요 t삭제
+	@PostMapping(value="likeDelete",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody // 자바객체를 마샬링해서 응답데이터로 넘겨야 함
+	public HashMap<String, String> boardLikeDelete(
+			@RequestParam String boardNo,
+			@RequestParam String likeType,
+			Authentication authentication
+			) {
+		HashMap<String, String> m = new HashMap<>();
+		m.put("boardNo", boardNo);
+		m.put("memId", authentication.getName());
+		try {
+			service.removeLike(m);
 		} catch (Exception e) {
 			m.put("error",e.getMessage());
 		}
@@ -131,4 +210,12 @@ public class BoardController {
 		return likeCnt + "";
 	}
 
+	// 댓글 개수
+	@ResponseBody
+	@PostMapping(value="replyCount",produces=MediaType.TEXT_PLAIN_VALUE)
+	public String replyCount(@RequestParam String boardNo) {
+		int replyCnt = service.replyCount(boardNo);
+		return replyCnt + "";
+	}
 }
+

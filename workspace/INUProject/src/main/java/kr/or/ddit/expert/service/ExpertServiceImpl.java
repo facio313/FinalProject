@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.expert.dao.ExpertDAO;
+import kr.or.ddit.expert.dao.ExprodDAO;
 import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.vo.AttachVO;
@@ -24,6 +25,8 @@ public class ExpertServiceImpl implements ExpertService {
 	private AttachDAO attachDAO;
 	@Inject
 	private ExpertDAO expertDAO;
+	@Inject
+	private ExprodDAO exprodDAO;
 	
 	@Value("#{appInfo.saveFiles}")
 	private File saveFiles;
@@ -63,7 +66,15 @@ public class ExpertServiceImpl implements ExpertService {
 	@Override
 	public ExpertVO retrieveMember(String memId) {
 		ExpertVO expert = expertDAO.selectExpert(memId);
+		expert.setExprodList(exprodDAO.selectExpertExprodList(memId));
 		return expert;
+	}
+
+	//전문가 신청 삭제
+	@Override
+	public int removeAppliExp(ExpertVO expert) {
+		int rowcnt = expertDAO.deleteAppliExp(expert);
+		return rowcnt;
 	}
 
 }

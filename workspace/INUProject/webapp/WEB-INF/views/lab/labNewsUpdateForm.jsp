@@ -94,7 +94,7 @@
            </div>
           </div>
          </div>
-        </section>
+       </section>
         
    <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

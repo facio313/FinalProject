@@ -1,83 +1,120 @@
 <%--
 * [[개정이력(Modification Information)]]
-* 수정일                 수정자      수정내용
+* 수정일                 수정자         수정내용
 * ----------  ---------  -----------------
-* 2023. 2. 2.      양서연      최초작성
+* 2023. 2. 2.   양서연        최초작성
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %> 
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %> 
+<c:set var="prePath" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${prePath}/resources/css/style.css">
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css">
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css">
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/help.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
 
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
-<script src="${pageContext.request.contextPath }/resources/ckeditor/ckeditor.js"></script>
+<script src="${prePath}/resources/ckeditor/ckeditor.js"></script>
 <style>
 .qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
 .btn-primary {background-color: #045738; border-color: #045738;}
 .ck-editor__editable { height: 400px; }
-.ck-content { font-size: 15px; }
+.ck-content {font-size: 15px;}
 </style>
 <!-- 작성 -->
+<security:authentication property="principal" var="memberVOWrapper"/>
+<security:authentication property="principal.realMember" var="authMember"/>	
 <section class="site-section">
 	<div class="container">
 		<div class="row mb-5">
 			<div class="col-lg-12">
-				<form enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post">
+				<form:form modelAttribute="coun" id="counForm" enctype="multipart/form-data" method="post" class="p-4 p-md-5 border rounded">
+					<form:hidden path="memId" value="${authMember.memId}"/>
 					<div class="contents_container qna_write_wrap">
-						<input type="hidden" name="category_type" value="topic" id="category_type">
 						<div class="qna_write_selection">
-<!-- 							<h1 class="title_common">상담 등록</h1> -->
-<!-- 							<span class="qna_category_tit">상담 등록 </span> -->
-<!-- 							<div class="box_qna_category"> -->
-								<button type="button" class="btn_category_select">상담 등록</button>
-<!-- 							</div> -->
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="job-title"></label>
-						<input class="form-control" id="job-title" name="boardTitle" placeholder="제목을 입력해주세요" />
-					</div>
-
-					<div class="form-group">
-						<label for="job-description"></label>
-						<textarea id="counContent"></textarea>
-					</div>
-
-					<div class="form-group">
-						<label for="company-website-tw d-block">이미지를 첨부하려면 클릭하세요</label><br>
-						<label class="btn btn-primary btn-md btn-file">이미지첨부
-						<input type="file"></label>
-					</div>
-
-					<div class="row align-items-center mb-5">
-						<div class="col-lg-4 ml-auto">
-							<div class="row">
-								<div class="col-6">
-									<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
-								</div>
-								<div class="col-6">
-									<a href="${pageContext.request.contextPath }/board/boardTotal" class="btn btn-block btn-primary btn-md">취소</a>
-								</div>
+							<div class="col-6">
+								<c:choose>
+									<c:when test="${not empty refCoun }">
+										<button type="button" class="btn_category_select">답변 등록</button>
+									</c:when>
+									<c:otherwise>
+										<button type="button" class="btn_category_select">상담 등록</button>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
-				</form>
+					<div class="form-group">
+						<label for="job-title"></label>
+						<form:input class="form-control" path="counTitle" placeholder="제목을 입력해주세요" />
+					</div>
+					<div class="form-group">
+						<label for="job-description"></label>
+						<form:textarea path="counContent" id="editor"></form:textarea>
+					</div>
+					<div class="help_find help_lost wrap_help">
+<!-- 						<div class="wrap_lab"> -->
+<!-- 							<label for="help_upload" class="lab_find">파일첨부</label> -->
+<!-- 						</div> -->
+						<div class="wrap_input">
+							<div class="wrap_file">
+								<input type="file" id="help_upload" name="counFile" class="inp_upload" 
+								title="파일 업로드" name="uploaded_file">
+								<label for="help_upload" class="btn_basic2 type03">파일첨부하기</label>
+							</div>
+							<div class="uploads">
+								<span class="info_upload"> <span class="txt_upload" id="fileName"></span>
+								</span>
+							</div>
+<!-- 							<p class="noti_inp"> -->
+<!-- 								10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다. -->
+<!-- 								<br/>(최대 5개까지 가능) -->
+<!-- 							</p> -->
+						</div>
+					</div>
+					<div class="wrap_board_view wrap_help">
+						<div class="wrap_content_view">
+							<div class="area_btn">
+								<a href="#" id="submitBtn" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
+									답변등록
+								</a>
+								<a href="${prePath}/lab/counseling" class="btn_basic_type01 btn_list" title="취소">
+									취소
+								</a>
+							</div>
+						</div>
+					</div>
+				</form:form>
 			</div>
 		</div>
 	</div>
+	
 </section>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+
 <script>
+console.log("refCoun : ${refCoun}");
 /* CKEDITOR */
 CKEDITOR.replace('counContent',{
-	filebrowserUploadUrl: '${pageContext.request.contextPath}/board/boardImage.do?command=QuickUpload&type=Files&responseType=json'
+	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
+	, height : 400
 });
+$("#submitBtn").on("click", function(event){
+	event.preventDefault();
+	$("#counForm").submit();
+	return false;
+})
+
+let fileTarget = $('#help_upload');
+fileTarget.on('change', function() {
+	let fileValue = fileTarget.val().split("\\");
+	let fileName = fileValue[fileValue.length-1];
+	$("#fileName").html(fileName);
+})
 </script>
 
 

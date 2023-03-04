@@ -15,6 +15,7 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">  
 
+
 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION }">
 	<script>
 		alert("${SPRING_SECURITY_LAST_EXCEPTION.message}");
@@ -33,7 +34,7 @@
 	<div class="container" style="width:600px;">
 		<div class="">
            	<h2 class="mb-4">로그인</h2>
-            <form class="p-4 border rounded" action="<c:url value='/login/loginProcess.do'/>" method="post">
+            <form class="p-4 border rounded" action="<c:url value='/login/loginProcess.do'/>" method="post" id="loginForm">
 				<security:csrfInput/>
 				<div class="row form-group">
 	                <div class="col-md-12 mb-3 mb-md-0">
@@ -52,6 +53,35 @@
 	                  	<input type="password" name="memPass" class="form-control" placeholder="비밀번호">
 	                </div>
 				</div>
+				
+				<!-- 로그인 편의 기능, 개발종료시 지워야함 -->
+				<div class="row mt-3">
+					<div class="col	">
+						<select class="form-select" aria-label="Default select example" onchange="selectedLogin(event);">
+						  <option>사용자선택</option>
+						  <option data-mem-id="zzz98" data-mem-pass="java">관리자(형준)</option>
+						  <option data-mem-id="cks1111" data-mem-pass="java">일반회원(경수)</option>
+						  <option data-mem-id="lcr0000" data-mem-pass="0000">일반회원(채리)</option>
+						  <option data-mem-id="abcabc" data-mem-pass="1234">일반회원(호연)</option>
+						  <option data-mem-id="asdf" data-mem-pass="asdf">기업회원(서연)</option>
+						  <option data-mem-id="A001" data-mem-pass="java">전문가(근주)</option>
+						</select>
+						<script>
+							function selectedLogin(event){
+								let target = $(event.target);
+								let option = target.find("option:selected");
+								let memId = option.data("memId");
+								let memPass = option.data("memPass");
+								if(memId && memPass) {
+									loginForm.memId.value = memId;
+									loginForm.memPass.value = memPass;
+		// 							loginForm.submit();
+								}
+							}
+						</script>
+					</div>
+				</div>
+
 
               	<div class="row form-group">
                		<div class="col-md-12">

@@ -7,7 +7,7 @@
 <!--  2023. 2. 7.  최경수     최초작성               -->
 <!--  Copyright (c) 2023 by DDIT All right reserved -->
 	<select id="selectEducationList" parameterType="String" resultType="EducationVO">
-		SELECT EDU_SN, EDU_MAJOR, EDU_NAME, EDU_ENTERED, EDU_GRADUATED, EDU_STATUS
+		SELECT EDU_SN, EDU_MAJOR, EDU_NAME, EDU_ENTERED, EDU_GRADUATED, EDU_STATUS, EDU_INSERT_DATE
 		FROM EDUCATION
 		WHERE MEM_ID = #{memId}
 		AND EDU_DELETE_DATE IS NULL

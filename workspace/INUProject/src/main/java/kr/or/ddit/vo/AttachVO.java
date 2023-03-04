@@ -35,7 +35,6 @@ public class AttachVO implements Serializable{
 		this.attFancysize = FileUtils.byteCountToDisplaySize(attFilesize);
 	}
 	
-	
 	private String tblId;
 	private Integer attno;
 	private String attFilename;
@@ -53,8 +52,6 @@ public class AttachVO implements Serializable{
 		realFile.transferTo(path.toFile());
 		setAttStreCours(saveFolder + File.separator);
 	}
-
-	
 }	
 
 

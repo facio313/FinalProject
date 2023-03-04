@@ -18,4 +18,7 @@ public interface AskService {
 
 	// 삭제(관리자만 가능)
 	public int removeAsk(AskVO ask);
+
+	// 답변 등록
+	public int modifyRef(AskVO ask);
 }

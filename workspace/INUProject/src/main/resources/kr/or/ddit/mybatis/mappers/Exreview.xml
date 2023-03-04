@@ -51,7 +51,8 @@
     exreview_score,
     exreview_content,
     excart_id,
-    exprod_name
+    exprod_name,
+ 	exprod_id
 	FROM
     mem_excart_exprod_exreview
     WHERE EXREVIEW_ID = #{exreviewId,jdbcType=VARCHAR}
@@ -60,18 +61,29 @@
 	<select id="selectReviewList" parameterType="PagingVO" resultType="ExreviewVO">
 	WITH ORDEREDEVENT AS (
 	SELECT
-	exreview_id,
-    exreview_name,
-    exreview_writer,
-    exreview_pass,
-    exreview_hit,
-    exreview_score,
-    exreview_content,
-    excart_id,
-    exprod_name
+		exreview_id,
+	    exreview_name,
+	    exreview_writer,
+	    exreview_pass,
+	    exreview_hit,
+	    exreview_score,
+	    exreview_content,
+	    excart_id,
+	    exprod_name,
+	    exprod_id,
+	    excart_price,
+	    (SELECT C.EXFIELD_NAME
+		    FROM EXFIELD C
+		    WHERE C.EXFIELD_ID = B.exfield_id) AS EXFIELD_NAME,
+	    (SELECT D.EXJOB_NAME
+		    FROM EXJOB D
+		    WHERE D.EXJOB_ID = B.EXJOB_ID) AS EXJOB_NAME,
+		(select F.MEM_NAME
+		    FROM MEMBER F
+		    WHERE F.MEM_ID = B.EXPERT_ID) AS EXPERT_NAME
 	FROM
-    mem_excart_exprod_exreview
-	ORDER BY EXREVIEW_ID DESC
+    	mem_excart_expert_exreview B
+		ORDER BY EXREVIEW_ID DESC
 	)
 	SELECT A.*
 	FROM (

@@ -54,6 +54,7 @@ public class AskController {
 		service.retrieveAskList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 
+
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
 

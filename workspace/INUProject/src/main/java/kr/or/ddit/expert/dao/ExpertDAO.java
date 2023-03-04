@@ -11,5 +11,6 @@ public interface ExpertDAO {
 	
 	public ExpertVO selectExpert(String memId); 
 	
-	
+	//전문가 신청 반려
+	public int deleteAppliExp(ExpertVO expert);
 }

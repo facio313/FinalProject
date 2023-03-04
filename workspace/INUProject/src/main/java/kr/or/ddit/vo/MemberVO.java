@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.validate.DeleteGroup;
 import kr.or.ddit.validate.InsertGroup;
@@ -72,6 +73,8 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 		this.memPass = memPass;
 	}	
 	
+	private int rnum;
+	
 	@NotBlank(groups= {Default.class, DeleteGroup.class})
 	private String memId;
 	@NotBlank(groups= {Default.class, DeleteGroup.class})
@@ -85,16 +88,31 @@ public class MemberVO extends CommonsAttachVO implements Serializable{
 	private String memAuthCd;
 	private String memJoinDate;
 	
+	private CutVO cutVO;
+	private BlackVO blackVO;
+	
 	//member : incruiter = 1 : 1
 	private IncruiterVO incruiterVO;
 	private SeekerVO seekerVO;
 	private ExpertVO expertVO;
 	
+	private CompanyVO companyVO;
+	
+	
+	public String getMemJoinDate() {
+		return memJoinDate;
+	}
+
+	public void setMemJoinDate(String memJoinDate) {
+		this.memJoinDate = memJoinDate.substring(0,10);
+	}
+
 	@Override
 	public String getTblId() {
-		// TODO Auto-generated method stub
 		return memId;
 	}
+	
+	
 }
 
 

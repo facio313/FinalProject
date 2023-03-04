@@ -1,5 +1,7 @@
 package kr.or.ddit.selfpr.vo;
 
+import java.sql.Date;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -11,7 +13,7 @@ public class SelfprVO {
 	private int prNo;
 	private String prName;
 	private String prContent;
-	private String prDate;
+	private Date prDate;
 	private String memId;
 	private String prWantjob;
 	private String memName;
@@ -26,6 +28,10 @@ public class SelfprVO {
 	private String prWanttype;  // 직급  
 	private String prEdu;		// 학력
 	
+	// detail view에 쏴줄 code
+	private String regionName;	 // 원하는 근무지역
+	private String industryName; // 원하는 산업 
+	
 	// detail 개인정보
 	private String memGender;
 	private String memEmail;
@@ -38,9 +44,44 @@ public class SelfprVO {
 	private String eduMajor;
 	private String eduStatus;
 	private String eduScore;
-	private String eduEntered;
-	private String eduGraduated;
+	private Date eduEntered;
+	private Date eduGraduated;
 	
+	// detail 경력
+	private String careerCategory;
+	private String careerCompany;
+	private String careerTask;
+	private String careerClass;
+	private Date careerJoin;
+	private Date careerResign;
+	private Integer careerAnnual;
 	
+	// detail 자격증
+	private String certNo;
+	private String certName;
+	private Date certDate;
+	private String certInstitution;
 	
+	// detail 주요활동
+	private String actName;
+	private String actCategory;
+	private String actInstitution;
+	private String actPeriod;
+	
+	// detail 수상경력
+	private String awardCompetition;
+	private String awardName;
+	private String awardCategory;
+	private Date awardDate;
+	private String awardInstitution;
+	
+	// detail 교육이수
+	private String courseName;
+	private String courseCategory;
+	private String courseInstitution;
+	private String coursePeriod;
+	
+	// 관심인재 좋아요 관련
+	private String memId2;	// 기업 회원 id 저장
+	private int likeresult;	// 좋아요 유무 결과 저장
 }

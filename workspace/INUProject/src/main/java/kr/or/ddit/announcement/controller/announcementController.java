@@ -1,13 +1,18 @@
 package kr.or.ddit.announcement.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +24,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.dao.AnnoSearchDAO;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.enumpkg.ServiceResult;
+import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVOWrapper;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +55,7 @@ import lombok.extern.slf4j.Slf4j;
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
+
 @Slf4j
 @Controller
 @RequestMapping("/announcement")
@@ -52,6 +63,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AnnouncementController {
 	private final AnnoService service;
 	private final AnnoSearchDAO annoSearchDAO;
+	private final AnnoDAO annoDAO;
+	
 
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
@@ -60,7 +73,7 @@ public class AnnouncementController {
 	public AnnoVO annoVO() {
 		return new AnnoVO();
 	}
-	
+
 	/**
 	 * 공고 목록으로 이동
 	 * @return
@@ -85,11 +98,11 @@ public class AnnouncementController {
 		, @ModelAttribute("detailCondition") AnnoVO detailCondition
 		, @RequestParam Map<String, Object> map
 		, Model model
+		, Authentication authentication
 	) {
-		//map : {page=, regionCode=, industryCode=10803, job=, careerName=, searchWord0=}
 		log.info("map : " + map);
 		
-		PagingVO<AnnoVO> pagingVO = new PagingVO<>(10,5);
+		PagingVO<AnnoVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
         
 		pagingVO.setDetailCondition(detailCondition);
@@ -98,13 +111,22 @@ public class AnnouncementController {
 		AnnoVO vo = pagingVO.getDetailCondition();
 		vo.setKeyword(map);
 		pagingVO.setDetailCondition(vo);
-
+		if(authentication==null) {
+			log.info("어쓰 널임");
+		} else {
+			MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
+			MemberVO realMember = wrapper.getRealMember();
+			pagingVO.setMemId(realMember.getMemId());
+			log.info("어쓰 널 아님 : {}",realMember);
+		}
 		//쿼리실행
 		service.retrieveAnnoList(pagingVO);
+		
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
-
+		
+		log.info("pagingVO값: {}",pagingVO);
 		return "jsonView";
 	}
 
@@ -119,27 +141,76 @@ public class AnnouncementController {
 	public String annoView(
 		@PathVariable String annoNo
 		, Model model
+		, Authentication authentication
 //		, @AuthMember MemberVO authMember
 //		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
 //      String memId = principal.getRealMember().getMemId();
+//		Optional.ofNullable(authentication)
+//				.map(a->{
+//					MemberVOWrapper wrapper = (MemberVOWrapper) a.getPrincipal();
+//					MemberVO realMember = wrapper.getRealMember();
+//				});
+		
 		AnnoVO anno = service.retrieveAnno(annoNo);
+		//삭제된 글
+		if(anno.getAnnoStateCd().equals("B2")||anno.getAnnoStateCd().equals("B3")) {
+			throw new NotExistAnnoException(annoNo);
+		}
+		annoDAO.incrementHit(annoNo);
+		
+		if(authentication==null) {
+			log.info("어쓰 널임");
+		} else {
+			MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
+			MemberVO realMember = wrapper.getRealMember();
+			log.info("어쓰 널 아님 : {}",realMember.getMemId());
+			String memId = realMember.getMemId();
+			String cmpId = anno.getCmpId();
+			int selectLikeAnno = service.retrieveLikeAnno(annoNo, memId);
+			int selectLikeCmp = service.retrieveLikeCmp(cmpId, memId);
+			service.insertMemLog(annoNo, memId);
+			model.addAttribute("selectLikeAnno", selectLikeAnno);
+			model.addAttribute("selectLikeCmp", selectLikeCmp);
+		}
+		
 		model.addAttribute("anno",anno);
-		String memId = "asdf";
-		String cmpId = anno.getCmpId();
-		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
-		int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
-		model.addAttribute("selectLikeAnno", selectLikeAnno);
-		model.addAttribute("selectLikeCmp", selectLikeCmp);
 		return "announcement/annoView";
 	}
-
+	
+	@PostMapping(value="/recommend")
+	public String recommendList(
+		@RequestParam Map<String, String> map
+		, Model model
+	) {
+		log.info("recommendMap : " + map);
+		String annoNo = map.get("annoNo");
+		List<AnnoVO> recommendList = service.retrieveRecommendList(annoNo);
+		
+		model.addAttribute("recommendList", recommendList);
+		
+		return "jsonView";
+	}
+	
+	@PostMapping("view/welAjax")
+	public String annoViewWel(
+		@RequestBody Map<String, String> map
+		, Model model
+	) {
+		String annoNo = map.get("annoNo");
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		log.info("welAjax=====annoNo:{}",annoNo);
+		log.info("welAjax=====anno:{}",anno);
+		model.addAttribute("anno", anno);
+		model.addAttribute("welfareList", anno.getWelfareList());
+		
+		return "jsonView";
+	}
+	
 	@GetMapping("insert")
 	public String insertAnno(
 		Model model
 	) {
-//		String memId = authMember.getMemId();
-//		log.info("memId : {}",memId);
 		return "announcement/annoForm";
 	}
 
@@ -152,23 +223,138 @@ public class AnnouncementController {
 	 * @return
 	 */
 	@PostMapping("insert")
-	public String insertAnnoProcess(
+	public String createAnnoProcess(
 		@Validated(InsertGroup.class) @ModelAttribute("anno") AnnoVO anno
 		, Errors errors
-		, @RequestParam String salaryDetail
+		, @RequestParam Integer salaryDetail
 		, Model model
 	) {
+		//급여
 		String salary = anno.getAnnoSalary();
 		if(!salary.equals("면접후결정")) {
-			salary = salary + " " + salaryDetail + "만원";
+			anno.setAnnoSalary2(salaryDetail);
 		}
-		anno.setAnnoSalary(salary);
-		log.info("anno : {}",anno);
 		
-		service.createAnno(anno);
+		//공고상태코드 생성
+		String startDate = anno.getAnnoStartdate();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String today = dateFormat.format(new Date(System.currentTimeMillis()));
+		try {
+			Date today2 = new Date(dateFormat.parse(today).getTime());
+			Date startDate2 = new Date(dateFormat.parse(startDate).getTime());
+			
+			int compare = today2.compareTo(startDate2);
+			
+			log.info("날짜비교 : {}", compare);
+			log.info("오늘 : {}", today2);
+			log.info("시작일 : {}", startDate2);
+			
+			//compare가 0보다 크면 today2가 더 크다
+			if(compare<0) {
+				//등록대기중
+				anno.setAnnoStateCd("B3");
+			} else {
+				//등록됨
+				anno.setAnnoStateCd("B1");
+			}
+			//0이면 같다
+			//0보다 작으면 startdate2가 더 크다
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-		//혹은 annoView
-		return "redirect:/announcement";
+		String annoNo = "";
+		String viewName = "";
+		if(!errors.hasErrors()) {
+			ServiceResult result = service.createAnno(anno);
+			annoNo = anno.getAnnoNo();
+			if(ServiceResult.OK == result) {
+				viewName = "redirect:/announcement/view/"+annoNo;
+			} else {
+				model.addAttribute("message", "서버 오류, 쫌따 다시");
+				viewName = "announcement/annoForm";
+			}
+		}
+		return viewName;
+	}
+	
+	@GetMapping("update")
+	public String updateAnno(
+		@RequestParam("what") String annoNo
+		, Model model
+	) {
+		log.info("what : {}", annoNo);
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		model.addAttribute("anno",anno);
+		return "announcement/annoEditForm";
+	}
+	
+	@PostMapping("update")
+	public String updateAnnoProces(
+		@Validated(UpdateGroup.class) @ModelAttribute("anno") AnnoVO anno
+		, BindingResult errors
+		, Model model
+		, @RequestParam Integer salaryDetail
+	) {
+		String viewName = null;
+		
+		String salary = anno.getAnnoSalary();
+		if(salary.equals("면접후결정")) {
+			anno.setAnnoSalary2(null);
+		} else {
+			anno.setAnnoSalary2(salaryDetail);
+		}
+		
+		log.info("공고수정 : {}",anno);
+		
+		if(!errors.hasErrors()) {
+			ServiceResult result = service.modifyAnno(anno);
+			if(ServiceResult.OK == result) {
+				viewName="redirect:/announcement/view/"+anno.getAnnoNo();
+			} else {
+				model.addAttribute("message", "서버 오류");
+				viewName = "announcement/annoEditForm";
+			}
+		} else {
+			viewName = "announcement/annoEditForm";
+		}
+		return viewName;
+	}
+	
+	@ResponseBody
+	@PostMapping("delete")
+	public String deleteAnno(
+		Model model
+		, @AuthMember MemberVO authMember
+		, @RequestBody Map<String, String> map
+	) {
+		String result = "fail";
+		String annoNo = map.get("annoNo");
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		String cmpId = anno.getCmpId();
+		
+		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
+			result = service.removeAnno(annoNo) > 0 ? "success" : "fail";
+		}
+		return result;
+	}
+	
+	@PostMapping("terminate")
+	@ResponseBody
+	public String terminateAnno(
+		Model model
+		, @AuthMember MemberVO authMember
+		, @RequestBody Map<String, String> map
+	) {
+		String result = "fail";
+		String annoNo = map.get("annoNo");
+		AnnoVO anno = service.retrieveAnno(annoNo);
+		String cmpId = anno.getCmpId();
+		
+		if(authMember.getIncruiterVO().getCmpId().equals(cmpId)) {
+			result = service.terminateAnno(annoNo) > 0 ? "success" : "fail";
+		}
+		return result;
 	}
 	
 	/**
@@ -187,12 +373,12 @@ public class AnnouncementController {
 		String result = "";
 		String annoNo = map.get("annoNo");
 		String memId = map.get("memId");
-		int selectLikeAnno = service.selectLikeAnno(annoNo, memId);
+		int selectLikeAnno = service.retrieveLikeAnno(annoNo, memId);
 		if(selectLikeAnno>0) {
-			cnt = service.deleteLikeAnno(annoNo, memId);
+			cnt = service.removeLikeAnno(annoNo, memId);
 			if(cnt>0) result = "delete";
 		} else {
-			cnt = service.insertLikeAnno(annoNo, memId);
+			cnt = service.createLikeAnno(annoNo, memId);
 			if(cnt>0) result = "insert";
 		}
 		return result;
@@ -215,17 +401,16 @@ public class AnnouncementController {
 		
 		String cmpId = map.get("cmpId");
 		String memId = map.get("memId");
-		int selectLikeCmp = service.selectLikeCmp(cmpId, memId);
+		int selectLikeCmp = service.retrieveLikeCmp(cmpId, memId);
 		if(selectLikeCmp>0) {
-			cnt = service.deleteLikeCmp(cmpId, memId);
+			cnt = service.removeLikeCmp(cmpId, memId);
 			if(cnt>0) result = "delete";
 		} else {
-			cnt = service.insertLikeCmp(cmpId, memId);
+			cnt = service.createLikeCmp(cmpId, memId);
 			if(cnt>0) result = "insert";
 		}
 		return result;
 	}
-
 
 	/**
 	 * DB 코드 가져오기
@@ -233,7 +418,7 @@ public class AnnouncementController {
 	 * @param param
 	 * @return
 	 */
-	@PostMapping("select")
+	@PostMapping("annoAjax")
 	public String selectList(
 		Model model
 		, @RequestBody(required = false) List<Map<String, Object>> param
@@ -242,10 +427,11 @@ public class AnnouncementController {
 		List<Map<String, Object>> industryList = null;
 		List<Map<String, Object>> jobList = null;
 		List<Map<String, Object>> eduList = null;
-		List<Map<String, Object>> walfareList = null;
+		List<Map<String, Object>> welfareList = null;
 		List<Map<String, Object>> positionList = null;
 		List<Map<String, Object>> empltypeList = null;
-
+		AnnoVO anno = new AnnoVO();
+		
 		for(Map<String, Object> list : param) {
 			String type = (String)list.get("type");
 			String code = (String)list.get("code");
@@ -262,8 +448,8 @@ public class AnnouncementController {
 			if(type.equals("edu")) {
 				eduList = annoSearchDAO.selectEduCd();
 			}
-			if(type.equals("walfare")) {
-				walfareList = annoSearchDAO.selectWalfareList(code);
+			if(type.equals("welfare")) {
+				welfareList = annoSearchDAO.selectWelfareList(code);
 			}
 			if(type.equals("position")) {
 				positionList = annoSearchDAO.selectPositionList(code);
@@ -271,18 +457,23 @@ public class AnnouncementController {
 			if(type.equals("empltype")) {
 				empltypeList = annoSearchDAO.selectEmpltypeList();
 			}
+			if(type.equals("anno")) {
+				anno = service.retrieveAnno(code);
+			}
 		}
 		model.addAttribute("regionList", regionList);
 		model.addAttribute("industryList", industryList);
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("eduList", eduList);
-		model.addAttribute("walfareList", walfareList);
+		model.addAttribute("welfareList", welfareList);
 		model.addAttribute("positionList", positionList);
 		model.addAttribute("empltypeList", empltypeList);
+		
+		model.addAttribute("anno", anno);
+		model.addAttribute("savedWelfareList", anno.getWelfareList());
 
 		return "jsonView";
 	}
-	
 
 	//경수
 	@GetMapping("/myList")

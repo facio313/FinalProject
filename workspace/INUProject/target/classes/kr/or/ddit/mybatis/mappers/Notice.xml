@@ -27,20 +27,6 @@
 				</choose>
 			</if>
 		</where>
-		
-		<!-- <trim prefix=" WHERE " prefixOverrides="AND">
-		    <if test="simpleCondition neq null">
-		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
-		    		AND INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '안내'
-		    	</if>
-		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodBuyer)">
-		    		AND PROD_BUYER = #{detailCondition.prodBuyer}
-		    	</if>
-		    	<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodName)">
-		    		AND INSTR(PROD_NAME, #{detailCondition.prodName}) > 0
-		    	</if>
-		    </if>
-	    </trim> -->
 	</sql>
 	<!-- 검색 -->
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">

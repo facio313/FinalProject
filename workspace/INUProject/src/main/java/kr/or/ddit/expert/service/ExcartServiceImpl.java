@@ -35,4 +35,16 @@ public class ExcartServiceImpl implements ExcartService {
 		return rowcnt;
 	}
 
+	@Override
+	public List<ExcartVO> MypageSelectExcartList(String memId) {
+		List<ExcartVO> excartList =  excartDAO.MypageSelectExcartList(memId);
+		return excartList;
+	}
+
+	@Override
+	public int retrieveExcartState(ExcartVO excart) {
+		int rowcnt = excartDAO.updateExcartState(excart);
+		return rowcnt;
+	}
+
 }

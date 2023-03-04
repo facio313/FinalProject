@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.UserNotFoundException;
+import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
@@ -20,6 +21,7 @@ import kr.or.ddit.vo.SeekerVO;
  * 수정일              수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 2. 6.    박형준            아이디 찾기 추가
+ * 2023. 2. 22.   박형준           시스템 관리 부분 추가
  * Copyright (c) 2023 by DDIT All right reserved
  * </pre>
  */
@@ -38,13 +40,13 @@ public interface MemberService {
 	 */
 	public ServiceResult createIcruiter(IncruiterVO incruiter);
 	
-	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
 	/**
 	 * 회원 정보 상세 조회
 	 * @param memId
 	 * @return 존재하지 않는 경우, {@link UserNotFoundException} 발생.
 	 */
 	public MemberVO retrieveMember(String memId);
+	public SeekerVO retrieveSeeker(String memId);
 	/**
 	 * 회원 수정
 	 * @param member
@@ -60,6 +62,149 @@ public interface MemberService {
 	
 	
 	
+	
+	
+	
+	
+	
+	/*=======================================시스템관리 부분======================================*/
+	/* ========================= 회원 관리 부분 ========================= */
+	/**
+	 * 일반 회원 목록
+	 * @param memAuthCd
+	 * @return
+	 */
+	public List<MemberVO> retrieveSkrList();
+	/**
+	 * 일반 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveSkr(String memId);
+	
+	/**
+	 * 기업 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveIncList();
+	/**
+	 * 기업 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveInc(String memId);
+	
+	/**
+	 * 전문가 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveExpList();
+	/**
+	 * 전문가 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveExp(String memId);
+	
+	/**
+	 * 차단 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveCutList();
+	/**
+	 * 차단 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveCut(String memId);
+	/**
+	 * 차단 하기
+	 * @param member
+	 * @return
+	 */
+	public int createCut(CutVO cut);
+	public int modifyCutRole(MemberVO member);
+	/**
+	 * 차단 해제
+	 * @param member
+	 * @return
+	 */
+	public int removeCut(CutVO cut);
+	public int removeCutRole(MemberVO member);
+	
+	/**
+	 * 블랙 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveBlackList();
+	/**
+	 * 블랙 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveBlack(String memId);
+	
+	/**
+	 * 탈퇴 회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveDelMemList();
+	/**
+	 * 탈퇴 회원 상세
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveDelMem(String memId);
+	
+	/* ========================= 승인 관리 부분 ========================= */
+	/**
+	 * 총괄 기업회원 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveIncruiterList();
+	
+	/**
+	 * 총괄 기업회원 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveIncruiter(String memId);
+	
+	/**
+	 * 총괄 승인
+	 * @param member
+	 * @return
+	 */
+	public int modifyAcceptInc(IncruiterVO incruiter);
+	public int modifyAcceptCmp(IncruiterVO incruiter);
+	
+	/**
+	 * 총괄 신청 삭제
+	 * @param member
+	 * @return
+	 */
+	public int removeAppliInc(MemberVO member);
+	
+	/**
+	 * 전문가 신청 목록
+	 * @return
+	 */
+	public List<MemberVO> retrieveExpertList();
+	
+	/**
+	 * 전문가 신청 세부
+	 * @param memId
+	 * @return
+	 */
+	public MemberVO retrieveExpert(String memId);
+	
+	/**
+	 * 전문가 승인
+	 * @param member
+	 * @return
+	 */
+	public int modifyAcceptExpRole(MemberVO member);
+	public int modifyAcceptExp(MemberVO member);
 	/*=======================================아이디,비번 찾기 부분======================================*/
 	/**
 	 * 일반회원 아이디 찾기

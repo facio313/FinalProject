@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
-import kr.or.ddit.announcement.vo.AnnoWalfareVO;
 import kr.or.ddit.vo.PagingVO;
 
 /**
@@ -79,12 +78,47 @@ public interface AnnoDAO {
 	
 	/**
 	 * 공고당 복지 리스트 등록
-	 * @param walfare
+	 * @param welfare
 	 * @return
 	 */
-	public int insertWalfareList(Map<String, Object> map);
-//	public int insertWalfareList(@Param("walfareCode") String walfareCode, @Param("annoNo") String annoNo);
-//	public int insertWalfareList(AnnoWalfareVO walfareVO);
+	public int insertWelfareList(Map<String, Object> map);
+//	public int insertWelfareList(@Param("welfareCode") String welfareCode, @Param("annoNo") String annoNo);
+//	public int insertWelfareList(AnnoWelfareVO welfareVO);
+	
+	/**
+	 * 모든 복지항목 삭제
+	 * @param annoNo
+	 * @return
+	 */
+	public int deleteAllWelfare(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 공고 업데이트
+	 * @param anno
+	 * @return
+	 */
+	public int updateAnno(AnnoVO anno);
+	
+	/**
+	 * 세부공고 업데이트
+	 * @param detailVO
+	 * @return
+	 */
+	public int updateDetailAnno(AnnoDetailVO detailVO);
+	
+	/**
+	 * 글 상태코드 B2(삭제)로 update
+	 * @param annoNo
+	 * @return
+	 */
+	public int deleteAnno(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 글 상태코드 B4(만료)로 update
+	 * @param annoNo
+	 * @return
+	 */
+	public int terminateAnno(@Param("annoNo") String annoNo);
 	
 	/**
 	 * 관심공고 등록여부 조회
@@ -110,7 +144,6 @@ public interface AnnoDAO {
 	 */
 	public int deleteLikeAnno(@Param("annoNo") String annoNo, @Param("memId") String memId);
 
-	
 	/**
 	 * 관심기업 등록여부 조회
 	 * @param cmpId
@@ -136,6 +169,27 @@ public interface AnnoDAO {
 	public int deleteLikeCmp(@Param("cmpId") String cmpId, @Param("memId") String memId);
 	
 	/**
+	 * 멤버 로그 추가
+	 * @param annoNo
+	 * @param memId
+	 * @return
+	 */
+	public int insertMemLog(@Param("annoNo") String annoNo, @Param("memId") String memId);
+	
+	/**
+	 * 공고 추천
+	 * @param annoNo
+	 * @return
+	 */
+	public List<AnnoVO> selectRecommend(@Param("annoNo") String annoNo);
+	
+	/**
+	 * 조회수 증가
+	 * @param annoNo
+	 */
+	public void incrementHit(@Param("annoNo") String annoNo);
+	
+	/**
 	 * 경수
 	 * 한 회사가 등록한 공고 목록
 	 * @param memId
@@ -143,4 +197,11 @@ public interface AnnoDAO {
 	 */
 	public List<AnnoVO> selectMyAnnoList(String memId);
 	
+	/**
+	 * 경수
+	 * 공고 하나가 가지는 세부공고(process 포함)
+	 * @param annoNo
+	 * @return AnnoVO
+	 */
+	public AnnoVO selectAnnoDetailProcess(String annoNo);
 }

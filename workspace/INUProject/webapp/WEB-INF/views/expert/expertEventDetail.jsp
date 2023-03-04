@@ -31,6 +31,7 @@
               </div>
               <div>
                 <h2>${exevent.exeventName }</h2>
+                <h2><%=request.getContextPath()%>/resources/attach/expertFolder/${exevent.attatchList[0].attFilename }</h2>
                 <div>
                   <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>작성자</span>
                   <span class="m-2"><span class="icon-room mr-2"></span>시작일</span>
@@ -57,8 +58,9 @@
         <c:if test="${not empty exevent.attatchList }">
 			첨부파일 : <br>
             <c:forEach items="${exevent.attatchList }" var="attatch" varStatus="vs">
-             <%--  <img src="${attatch.attStreCours }/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" /> --%>
+              <img src="<%=request.getContextPath()%>/resources/attach/expertFolder/${attatch.attSavename }"  alt="${attatch.attMime }" class="img-fluid" />
              <a>${attatch.attFilename }</a><br>
+<!--              <img alt="" src=""> -->
             </c:forEach>
        </c:if>
         </div>      
@@ -75,20 +77,33 @@
       </div>
     </section>
 
-    <section class=" py-3 site-section mb-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">Previous Project</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-primary border-width-2 d-block">All Projects</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a href="#" class="btn btn-md btn-outline-primary border-width-2 d-block">Next Project</a>
-          </div>
-        </div>
-      </div>
-    </section>
+	<section class=" py-3 site-section mb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 text-center" >
+					<a href="${pageContext.request.contextPath}/expert/event/detail/${exevent.preExevent}"
+						class="btn btn-md btn-outline-primary border-width-2 d-block"
+						id="preBtn">&laquo; 이전</a>
+				</div>
+				<div class="col-md-4 text-center">
+					<a href="${pageContext.request.contextPath}/expert/event" class="btn btn-md btn-primary border-width-2 d-block">전체</a>
+				</div>
+				<div class="col-md-4 text-center">
+					<a href="${pageContext.request.contextPath}/expert/event/detail/${exevent.nextExevent}"
+						class="btn btn-md btn-outline-primary border-width-2 d-block" 
+						id="nextBtn">다음 &raquo;</a>
+				</div>
+			</div>
+		</div>
+	</section>
     
   </div>
+  
+ <script type="text/javascript">
+if(`${exevent.preExevent}`==""){
+	$("#preBtn").click(function () {return false;});
+};
+if(`${exevent.nextExevent}`==""){
+	$("#nextBtn").click(function () {return false;});
+};
+</script>

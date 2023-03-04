@@ -3,6 +3,7 @@
 * 수정일                 수정자      수정내용
 * ----------  ---------  -----------------
 * 2023.02.02  윤호연      최초작성
+* 2023.02.28  윤호연      화면수정
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,6 +12,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype html>
 <html>
@@ -28,22 +30,13 @@
 
 	<!-- MAIN CSS -->
 	    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
+	    
+	<style>
+		.tblType thead th, .tblType tbody th, .tblType tbody td {
+		    font-size: 17px;
+		}
+	</style>
 	</head>
-
-	<!-- HOME -->
-	<section class="section-hero home-section overlay inner-page bg-image" style="background-image: url('<%=request.getContextPath()%>/resources/images/hero_1.jpg');" id="home-section">
-		<div class="container">
-	        <div class="row">
-				<div class="col-md-7">
-		            <h1 class="text-white font-weight-bold">뉴스</h1>
-		            <div class="custom-breadcrumbs">
-						<a href="${pageContext.request.contextPath}/lab">Lab</a> <span class="mx-2 slash">/</span>
-						<span class="text-white"><strong>News</strong></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
 	<section class="site-section">
   	<!-- 검색창 -->
@@ -62,14 +55,17 @@
 	  <input type="hidden" name="page" />
   	</form:form>
 
- 	 <div class="container">
-  	  <div class="row">
 
-   <div class="col-9">
-    <div class="card">
-        <table class="table">
+  	 <div class="tblType">
+        <table>
+          <colgroup>
+			<col width="64" />
+			<col width="" />
+			<col width="600" />
+			<col width="107" />
+		  </colgroup>
           <thead>
-            <tr style="background-color: rgb(215, 218, 216);">
+            <tr>
               <th>분야</th>
               <th>제목</th>
               <th>조회수</th>
@@ -77,17 +73,12 @@
             </tr>
           </thead>
           <tbody>
+          
           <c:set var="newsList" value="${pagingVO.dataList }"/>
           	<c:choose>
           	  <c:when test="${not empty newsList }">
           	  	<c:forEach items="${newsList }" var="news">
 		            <tr>
-		              <!-- <td>
-		              	<c:url value="/lab/News/Detail" var="viewURL">
-							<c:param name="no" value="${news.newsNo }"/>
-						</c:url>
-						<a href="${viewURL }">${news.newsNo }</a>
-					  </td> -->
 		              <td><strong>${news.newsField }</strong></td>
 		              <td>
 		              	<c:url value="/lab/News/Detail" var="viewURL">
@@ -96,7 +87,7 @@
 						<a href="${viewURL }">${news.newsName }</a>
 					  </td>
 		              <td>${news.newsHit }</td>
-		              <td>${news.newsDate }</td>
+		              <td><fmt:formatDate value="${news.newsDate }" pattern="yyyy-MM-dd" type="Date"/></td>
 		            </tr>
           	  	</c:forEach>
           	  </c:when>
@@ -110,7 +101,6 @@
           </tbody>
         </table>
     </div>
-  </div>
 
 	<!-- 오른쪽 Categories -->
 	  <div class="col-lg-3">
@@ -134,23 +124,6 @@
 	  </div>
     <hr>
     <div style="height: 25px"></div>
-
-	<!-- 페이징 -->
-<!-- 	<div class="row pagination-wrap pagingArea"> -->
-<!-- 	  <div class="col-md-6 text-center text-md-right" style="left: 100px"> -->
-<!-- 	      <div class="custom-pagination ml-auto"> -->
-<!-- 	          <a href="#" class="prev">Prev</a> -->
-
-<!-- 		          <div class="d-inline-block pagingArea"> -->
-<%-- 		           	 <c:forEach var="pagenum" begin="${pagingVO.startPage }" end="${pagingVO.endPage }"> --%>
-<%-- 		             	<a href="#">${pagenum }</a> --%>
-<%-- 		           	 </c:forEach> --%>
-<!-- 		          </div> -->
-
-<!-- 	          <a href="#" class="next">Next</a> -->
-<!-- 	      </div> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
 
 	<!-- 페이징 -->
 	<div class="row pagination-wrap">
@@ -188,13 +161,10 @@
 		return false;
 	});
 
-
 	function selectCategory(category) {
 		$('input[name=newsField]').val(category);
 		$('#searchForm').submit();
 	}
-
-	console.log()
 </script>
 
     <!-- SCRIPTS -->

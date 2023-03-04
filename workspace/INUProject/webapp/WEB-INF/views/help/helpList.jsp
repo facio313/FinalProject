@@ -199,7 +199,6 @@
 									$(".list_help > li").not("."+helpCate).hide();	//클래스 helpCate가 다른것은 숨김
 								}
 								
-								
 							});
 							
 						},

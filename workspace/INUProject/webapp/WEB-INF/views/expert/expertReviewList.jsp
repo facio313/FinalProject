@@ -26,7 +26,7 @@
 			       <div class="col-lg-6 mb-4">
 			         <div class="block__87154">
 			           <blockquote>
-			             <a href="<%=request.getContextPath() %>/expert/review/detail"><h4>상품명 : ${exreview.exprodName }</h4></a>
+			             <a href="<%=request.getContextPath() %>/expert/prod/${exreview.exprodId }"><h4>상품명 : ${exreview.exprodName }</h4></a>
 			             <span>별점 : ${exreview.exreviewScore }</span>
 			             <p>내용 : ${exreview.exreviewContent }</p>
 			           	</blockquote>

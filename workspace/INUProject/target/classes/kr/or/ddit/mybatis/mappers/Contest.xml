@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.lab.dao.ContestDAO">
+
+<!-- 진행 중인 공모전 조회 -->
+<select id="selectContestList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.ContestVO">
+	SELECT CONT_NO, CONT_NAME, CONT_CO, CONT_START, CONT_DEAD, CONT_FIELD, CONT_CONTENT
+	FROM CONTEST
+	WHERE CONT_DEAD > SYSDATE
+</select>
+
+<!-- 공모전 총 개수 조회 -->
+<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
+	SELECT COUNT(*)
+	FROM CONTEST
+</select>
+
+</mapper>

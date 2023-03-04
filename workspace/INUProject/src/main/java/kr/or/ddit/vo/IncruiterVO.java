@@ -16,4 +16,13 @@ public class IncruiterVO extends MemberVO{
 	private String memEmail;
 	
 	private String cmpBsnsNo; //사업자 등록번호 (기업회원 아이디 찾을때 필요 - 형준)
+
+	public String getMemDate() {
+		return memDate;
+	}
+
+	public void setMemDate(String memDate) {
+		this.memDate = memDate.substring(0,10);
+	}
+	
 }

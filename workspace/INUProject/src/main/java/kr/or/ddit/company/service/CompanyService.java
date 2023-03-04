@@ -19,6 +19,14 @@ public interface CompanyService {
 	public CompanyVO retrieveCompany(String cmpName);
 	
 	public int createCompany(CompanyVO company);
+	
+	/**
+	 * 회사 신청 삭제
+	 * @param company
+	 * @return
+	 */
+	public int removeAppliCmp(CompanyVO company);
+	
 }
 
 

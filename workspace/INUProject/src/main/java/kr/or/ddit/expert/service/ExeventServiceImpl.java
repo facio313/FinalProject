@@ -31,7 +31,7 @@ public class ExeventServiceImpl implements ExeventService {
 	private ExeventDAO exeventDAO;
 	
 	
-	@Value("#{appInfo.saveFiles}")
+	@Value("#{appInfo.expertFolder}")
 	private File saveFiles;
 
 	@PostConstruct
@@ -83,6 +83,23 @@ public class ExeventServiceImpl implements ExeventService {
 	@Override
 	public ExeventVO retrieveExevent(String exeventId) {
 		ExeventVO exevent = exeventDAO.selectEvent(exeventId);
+//		exevent.setAttatchList(attachDAO.selectAttatchList(exeventId));
+		if(exevent==null)
+			throw new UsernameNotFoundException(String.format(exeventId+"에 해당하는 이벤트 없음."));
+		return exevent;
+	}
+	
+	@Override
+	public void retrieveEndExeventList(PagingVO<ExeventVO> exevent) {
+		exevent.setTotalRecord(exeventDAO.selectEndTotalRecord(exevent));
+		List<ExeventVO> exeventList = exeventDAO.selectEndEventList(exevent);
+		exevent.setDataList(exeventList);
+		exeventList.stream().forEach(System.out::println);
+	}
+	
+	@Override
+	public ExeventVO retrieveEndExevent(String exeventId) {
+		ExeventVO exevent = exeventDAO.selectEndEvent(exeventId);
 //		exevent.setAttatchList(attachDAO.selectAttatchList(exeventId));
 		if(exevent==null)
 			throw new UsernameNotFoundException(String.format(exeventId+"에 해당하는 이벤트 없음."));

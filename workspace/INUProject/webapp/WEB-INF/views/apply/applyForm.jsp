@@ -100,12 +100,12 @@
 							<th>근무시간</th>
 							<td>${detail.daWorktime}</td>
 						</tr>
-						<tr>
-							<th>경력</th>
-							<td><c:forEach items="${detail.careerName}" var="career">
-									· ${career} 
-							</c:forEach></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<th>경력</th> -->
+<%-- 							<td><c:forEach items="${detail.careerName}" var="career"> --%>
+<%-- 									· ${career}  --%>
+<%-- 							</c:forEach></td> --%>
+<!-- 						</tr> -->
 						<tr>
 							<th>경력년수</th>
 							<td>${detail.daCarYeer}</td>
