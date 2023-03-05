@@ -25,8 +25,8 @@ public class AwardVO extends CommonsAttachVO {
 	private String awardInsertDate;
 	private String awardDeleteDate;
 	
-	public String getAwardDate() {
-		return awardDate;
+	public void setAwardInsertDate(String awardInsertDate) {
+		this.awardInsertDate = awardInsertDate.substring(0, 10);
 	}
 	
 	public void setAwardDate(String awardDate) {

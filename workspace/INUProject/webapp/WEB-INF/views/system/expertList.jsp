@@ -69,7 +69,7 @@
 												<td>${expert.expertVO.exjobName }</td>
 												<td>${expert.memJoinDate }</td>
 												<td>
-													<a href="<c:url value='#' />">
+													<a href="<c:url value='/systemManagement/memberList/expertList/${expert.memId }' />">
 														상세보기
 													</a>
 												</td>

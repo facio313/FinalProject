@@ -51,6 +51,13 @@ public interface CounselingDAO {
 	public int insertCoun(CounselingVO coun);
 	
 	/**
+	 * 상담 수정
+	 * @param coun
+	 * @return
+	 */
+	public int updateCoun(CounselingVO coun);
+	
+	/**
 	 * 글 상태코드 B2(삭제)로 update
 	 * @param counNo
 	 * @return

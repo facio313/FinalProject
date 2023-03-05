@@ -23,8 +23,8 @@ public class CertificationVO extends CommonsAttachVO {
 	private String certInsertDate;
 	private String certDeleteDate;
 	
-	public String getCertDate() {
-		return certDate;
+	public void setCertInsertDate(String certInsertDate) {
+		this.certInsertDate = certInsertDate.substring(0, 10);
 	}
 	
 	public void setCertDate(String certDate) {

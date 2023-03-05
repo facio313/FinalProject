@@ -23,6 +23,10 @@ public class CourseVO extends CommonsAttachVO {
 	private String courseInsertDate;
 	private String courseDeleteDate;
 
+	public void setCourseInsertDate(String courseInsertDate) {
+		this.courseInsertDate = courseInsertDate.substring(0, 10);
+	}
+	
 	@Override
 	public String getTblId() {
 		

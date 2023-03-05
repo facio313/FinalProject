@@ -29,7 +29,9 @@ public class InterviewInsertController {
 	}
 
 	@GetMapping
-	public String interviewForm(@ModelAttribute("interview") InterviewVO interview) {
+	public String interviewForm(Model model,@ModelAttribute("interview") InterviewVO interview) {
+		// 회사 이름이랑 아이디 가져와서 모델에다가 담아서 보내기
+
 		return "interview/interviewInsert";
 	}
 

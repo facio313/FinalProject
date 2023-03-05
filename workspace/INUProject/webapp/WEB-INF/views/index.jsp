@@ -74,15 +74,11 @@
 <!-- ============================================빠른메뉴=================================================== -->
     <div class="grid-stack-item"  gs-x="0" gs-y="3" gs-w="3" gs-h="1">
         <div class="grid-stack-item-content">
-			<div class="top shadow-sm" style="height: 70px;; background-color: rgb(255, 255, 255, 0.5);">
-				<span style="position: relative; left: 8px; top:5px;"><img src="${pageContext.request.contextPath}/resources/images/hero_1.jpg" style="width:60px; height:60px;"></span>
-				<span style="position:absolute; left: 68px; top: 5px; font-size: 1.3em;">빠른 메뉴</span><br><span style="position:absolute; left: 68px; top: 40px"><a>설정하러 가지</a></span>
-			</div>
-			<div class="down bg-white" style="height: 100%;">
-				<a href="${pageContext.request.contextPath}/apply"><h6 style="color: black;">지원</h6></a>
-				<a href="${pageContext.request.contextPath}/resume"><h6 style="color: black;">이력서</h6></a>
-				<a href="${pageContext.request.contextPath}/myintro"><h6 style="color: black;">자기소개서</h6></a>
-				<a href="${pageContext.request.contextPath}/process"><h6 style="color: black;">채용과정</h6></a>
+			<div class="down bg-white" style="height: 100%; display: flex; justify-content: space-evenly;">
+				<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">지원서</button></a>
+				<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">이력서</button></a>
+				<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">자소서</button></a>
+				<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-success" style="width: 100%; height: 100%;">채용과정</button></a>
 			</div>
 		</div>
     </div>

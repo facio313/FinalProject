@@ -24,6 +24,10 @@ public class ActivityVO extends CommonsAttachVO {
 	private String actInsertDate;
 	private String actDeleteDate;
 	
+	public void SetActInsertDate(String actInsertDate) {
+		this.actInsertDate = actInsertDate.substring(0, 10);
+	}
+	
 	@Override
 	public String getTblId() {
 		

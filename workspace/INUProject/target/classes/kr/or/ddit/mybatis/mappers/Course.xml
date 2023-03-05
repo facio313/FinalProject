@@ -6,7 +6,7 @@
 <!--  ==========   ======    ==============        -->
 <!--  2023. 2. 7.  최경수     최초작성               -->
 	<select id="selectCourseList" parameterType="String" resultType="CourseVO">
-		SELECT COURSE_SN, COURSE_NAME, COURSE_INSTITUTION, COURSE_CATEGORY, COURSE_PERIOD
+		SELECT COURSE_SN, COURSE_NAME, COURSE_INSTITUTION, COURSE_CATEGORY, COURSE_PERIOD, COURSE_INSERT_DATE
 		FROM COURSE
 		WHERE MEM_ID = #{memId}
 		AND COURSE_DELETE_DATE IS NULL

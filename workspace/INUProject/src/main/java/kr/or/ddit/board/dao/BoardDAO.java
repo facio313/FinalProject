@@ -40,7 +40,7 @@ public interface BoardDAO {
 	 * @param pagingVO
 	 * @return
 	 */
-	public List<BoardVO> selectBoardList(PagingVO<BoardVO> pagingVO);
+	public List<BoardVO> selectBoardList(Map<String, Object> map);
 
 	/**
 	 * 지난 3일동안 조회수가 높았던 인기글 20개
@@ -53,7 +53,7 @@ public interface BoardDAO {
 	 * @param pagingVO
 	 * @return
 	 */
-	public int selectTotalRecord(PagingVO<BoardVO> pagingVO);
+	public int selectTotalRecord(Map<String, Object> map);
 
 	/**
 	 * 새글 등록

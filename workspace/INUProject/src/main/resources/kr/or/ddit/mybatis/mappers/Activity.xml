@@ -7,7 +7,7 @@
 <!--  2023. 2. 7.  최경수     최초작성               -->
 <!--  Copyright (c) 2023 by DDIT All right reserved -->
 	<select id="selectActivityList" parameterType="String" resultType="ActivityVO">
-		SELECT ACT_SN, ACT_NAME, ACT_CATEGORY, ACT_PERIOD
+		SELECT ACT_SN, ACT_NAME, ACT_CATEGORY, ACT_PERIOD, ACT_INSERT_DATE
 		FROM ACTIVITY
 		WHERE MEM_ID = #{memId}
 		AND ACT_DELETE_DATE IS NULL

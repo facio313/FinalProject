@@ -7,6 +7,11 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
@@ -14,7 +19,12 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/animate.min.css">
 <!-- MAIN CSS -->
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">   
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+
+   
 <style type="text/css">
 	@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap");
 
@@ -38,9 +48,7 @@
 	}
 	
 	/* Remove default margin */
-	body,
-	h2,
-	p {
+	body,h2,p {
 	  margin: 0;
 	}
 	
@@ -148,6 +156,7 @@
 	    transition: transform 500ms ease-out;
 	    transition-delay: 500ms;
 	  }
+	}	
 	
 	  .card__title::after {
 	    opacity: 0;
@@ -213,7 +222,7 @@
 	  
 /* 	슬라이드 효과 주기   */
 	  .slider{
-		  height: 450px;
+		  height: 480px;
 		  margin: auto;
 		  position:relative;
 		  width: 100%;
@@ -224,7 +233,7 @@
 		
 		.slide-track{
 		  display:flex;
-		  width: calc(300px * 12);
+ 		  width: calc(300px * 9); 
 		  animation: scroll 10s linear infinite;	
 		}
 		
@@ -232,23 +241,14 @@
 		  animation-play-state:paused;
 		}
 		
-		.scroll {
-		  animation: scroll 10s linear infinite;
-		}
-		
-		.scroll2 {
-		  animation: scroll2 10s linear infinite;
-		}
-
-		
 		@keyframes scroll{
 		  0% {
 		    transform: translateX(0);
 		  }
 		  100%{
-		    transform: translateX(calc(-300px * 7));
+		    transform: translateX(calc(-200px * 7));
 		  }
-
+		}
 
 /*		
 		.slide{
@@ -294,14 +294,16 @@
 		  right:0;
 		  top:0;
 		  transform: rotateZ(180deg);
-		}	
+		}
 		
-	}
-	
+		
 </style>
 <section class="site-section">
 	<div class="container">
-	<p style="font-size: 1.5em; text-align: center;">인기 공모전</p>
+		<div class="wrap_title_recruit">
+		    <h1 class="title_common" style="font-size: 40px;">인기 공모전</h1>
+		</div>
+<!-- 	<p style="font-size: 1.5em; text-align: center;">인기 공모전</p> -->
 	<div style="height: 50px;"></div>
 	<div class="slider">
 	<div class="slide-track">
@@ -311,7 +313,7 @@
 		<article class="card train-card" id="card1">
 		  <img
 		    class="card__background"
-		    src="https://i.imgur.com/QYWAcXk.jpeg"
+		    src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000"
 		    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 		    width="1920"
 		    height="2193"
@@ -359,7 +361,7 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://i.imgur.com/QYWAcXk.jpeg"
+	    src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
@@ -455,7 +457,7 @@
 	<article class="card train-card">
 	  <img
 	    class="card__background"
-	    src="https://i.imgur.com/QYWAcXk.jpeg"
+	    src="https://cdn.clien.net/web/api/file/F01/11452088/9843404e8930b1.jpeg?w=780&h=30000"
 	    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
 	    width="1920"
 	    height="2193"
@@ -479,12 +481,99 @@
 	
 	</div>
 </section>
-
-<section class="site-section">
-	<div class="container">
-		<p style="font-size: 1.5em; text-align: center;">진행 중인 공모전 asdfkal;sdfk;lsdl;k</p>
+<!-- <section class="site-section"> -->
+<section>
+	<div id="content" style="width: 1260px;">
+		<div class="wrap_title_recruit">
+			<h1 class="title_common" style="font-size: 40px">진행 중인 공모전</h1>
+		</div>
+		<div class="wrap_board">
+<!-- 			<div class="search_area"> -->
+<%-- 				<strong class="count" style="font-size: 20px;">총 <span class="num"> ${pagingVO.totalRecord} </span>건 </strong> --%>
+<%-- 				<form:form id="searchUI" modelAttribute="simpleCondition" method="get" onclick="return false;"> --%>
+<!-- 					<div class="search_right"> -->
+<!-- 						<span class="inpSel"> -->
+<%-- 							<form:select path="searchType"> --%>
+<!-- 								<option value>전체</option> -->
+<%-- 								<form:option value="announcement" label="안내" /> --%>
+<%-- 								<form:option value="open" label="오픈" /> --%>
+<%-- 								<form:option value="etc" label="기타" /> --%>
+<%-- 							</form:select> --%>
+<!-- 						</span> -->
+<!-- 						<div class="searchTypoBox"> -->
+<%-- 							<form:input path="searchWord" style="width: 276px" class="inpTypo" placeholder="특수문자를 제외한 키워드를 입력해주세요."/> --%>
+<!-- 							<input type="button" class="btnTypoSearch" value="검색"  id="searchBtn"/> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<%-- 				</form:form> --%>
+<!-- 			</div> -->
+			<div class="tblType">
+				<table>
+					<colgroup>
+						<col width= 10%; />
+						<col width= 15%; />
+						<col width= 50%; />
+						<col width= 12.5%; />
+						<col width= 12.5%; />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>공모분야</th>
+							<th>주관 기관</th>
+							<th>공모전명</th>
+							<th>시작일</th>
+							<th>종료일</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+					</tbody>
+				</table>
+			</div>
+				
+		</div>
+		
 	</div>
 </section>
+	<div style="height: 150px;"></div>
+<!-- </section> -->
+
+	
+<script>
+	
+// 	Tr태그
+	function makeTr(index, con) {
+		return $("<tr>").append(
+			$("<td>").html(con.contField)		
+			, $("<td>").html(con.contCo)		
+			, $("<td>").append($("<a href='${pageContext.request.contextPath}/lab/contest/detail'>").html(con.contName))	
+			, $("<td>").html(con.contStart)		
+			, $("<td>").html(con.contDead)		
+		);
+	}
+	
+	selectList();
+	function selectList(){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/lab/contest",
+			method : "post",
+			dataType : "JSON",
+			success : function(resp) {
+				console.log(resp);
+				let cons = resp.dataList;
+				$.each(cons, function(index, con) {
+					$("tbody").append(makeTr(index, con));
+				});
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+	}
+	
+</script>
    <!-- SCRIPTS -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
@@ -492,14 +581,12 @@
     <script src="<%=request.getContextPath() %>/resources/js/stickyfill.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.fancybox.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.easing.1.3.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/jquery.waypoints.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.animateNumber.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/quill.min.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap-select.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/daumPostcode.js"></script>
-    
     <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
+    
 </html>

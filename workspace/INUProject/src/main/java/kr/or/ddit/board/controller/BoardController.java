@@ -63,7 +63,8 @@ public class BoardController {
 			Model model,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
-			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
+			@RequestParam(value="gubun",required=false,defaultValue="") String gubun,
+			@RequestParam(value="data", required=false) String data
 	) {
 		PagingVO<BoardVO> pagingVO = new PagingVO<>(50,1);
 		BoardVO boardVO = new BoardVO();
@@ -73,7 +74,7 @@ public class BoardController {
 		pagingVO.setSimpleCondition(searchVO);
 		pagingVO.setDetailCondition(boardVO);
 
-		service.retrieveBoardList(pagingVO);
+		service.retrieveBoardList(pagingVO, data);
 
 		//HOT 이번주 전체 인기 글
 		List<BoardVO> boardVOList =  service.hotBoard();
@@ -103,7 +104,8 @@ public class BoardController {
 			Model model,
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
 			@ModelAttribute("simpleCondition") SearchVO searchVO,
-			@RequestParam(value="gubun",required=false,defaultValue="") String gubun
+			@RequestParam(value="gubun",required=false, defaultValue="") String gubun,
+			@RequestParam(value="data", required=false) String data
 	) {
 		log.info("왓나");
 		PagingVO<BoardVO> pagingVO = new PagingVO<>();
@@ -118,10 +120,11 @@ public class BoardController {
 		pagingVO.setSimpleCondition(searchVO);
 		pagingVO.setDetailCondition(boardVO);
 
-		service.retrieveBoardList(pagingVO);
+		service.retrieveBoardList(pagingVO, data);
 
 		//지난 3일동안 조회수가 높았던 인기글 20개
 		List<BoardVO> boardVOList = service.selectHotBoard();
+
 
 		if(gubun.equals("7")) {
 			pagingVO.setDataList(boardVOList);

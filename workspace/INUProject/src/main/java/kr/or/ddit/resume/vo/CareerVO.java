@@ -28,22 +28,18 @@ public class CareerVO extends CommonsAttachVO {
 	private String careerInsertDate;
 	private String careerDeleteDate;
 	
-	public String getCareerJoin() {
-		return careerJoin;
-	}
-	
 	public void setCareerJoin(String careerJoin) {
 		this.careerJoin = careerJoin.substring(0, 10);
-	}
-	
-	public String getCareerResign() {
-		return careerResign;
 	}
 	
 	public void setCareerResign(String careerResign) {
 		this.careerResign = careerResign.substring(0, 10);
 	}
 
+	public void setCareerInsertDate(String careerInsertDate) {
+		this.careerInsertDate = careerInsertDate.substring(0, 10);
+	}
+	
 	@Override
 	public String getTblId() {
 		

@@ -25,5 +25,7 @@ public interface CompanyDAO{
 
 	//회사 신청 삭제
 	public int deleteAppliCmp(CompanyVO company);
+	//회사 상세
+	public CompanyVO selectCmp(String cmpId);
 	
 }

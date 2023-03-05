@@ -7,7 +7,7 @@
 <!--  2023. 2. 7.  최경수     최초작성               -->
 <!--  Copyright (c) 2023 by DDIT All right reserved -->
 	<select id="selectAwardList" parameterType="String" resultType="AwardVO">
-		SELECT AWARD_SN, AWARD_COMPETITION, AWARD_NAME, AWARD_CATEGORY
+		SELECT AWARD_SN, AWARD_COMPETITION, AWARD_NAME, AWARD_CATEGORY, AWARD_INSERT_DATE
 		FROM AWARD
 		WHERE MEM_ID = #{memId}
 		AND AWARD_DELETE_DATE IS NULL

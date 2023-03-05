@@ -4,21 +4,22 @@
 * ----------  ---------  -----------------
 * 2023. 2. 7.   양서연      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
- --%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom-bs.css">
 
-<c:set var="prePath" value="${pageContext.request.contextPath}"/>
+<c:set var="prePath" value="${pageContext.request.contextPath}" />
 <security:authorize access="isAuthenticated()">
-<security:authentication property="principal" var="memberVOWrapper"/>
-<security:authentication property="principal.realMember" var="authMember"/>
-<c:set var="authMemId" value="${authMember.memId }" />
+	<security:authentication property="principal" var="memberVOWrapper" />
+	<security:authentication property="principal.realMember" var="authMember" />
+	<c:set var="authMemId" value="${authMember.memId }" />
 </security:authorize>
-<c:set  var="prePath" value="${pageContext.request.contextPath}"/>
+<c:set var="prePath" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
@@ -92,126 +93,74 @@
 	<div class="container-fluid"></div>
 </header>
 <!-- HOME -->
-	<div class="container">
-		<div class="row align-items-center justify-content-center">
-			<div class="col-md-12">
-				<div class="mb-5 text-center">
-					<h1 class="font-weight-bold">JOB FILTER</h1>
+<div class="container">
+	<div class="row align-items-center justify-content-center" >
+		<div class="col-md-12 ">
+			<div class="mb-5 text-center">
+				<div class="contents_container">
+					<div class="sub_top_wrap tag_list2">
+						<span class="sub_title_tag" style="font-size: 30px">
+							채용공고 상세검색
+						</span>
+					</div>
 				</div>
-				<form method="post" class="search-jobs-form" id="searchUI" onsubmit="return false" >
-					<div class="list_info">
+			</div>
+			<form method="post" class="search-jobs-form" id="searchUI" onsubmit="return false">
+				<div class="list_info" style="margin-left: 100px">
 					<div>
-						지역 : <select name="metro"
-							class="form-select form-select-sm selectBox">
-							<option value>광역</option>
-						</select> <select name="regionCode"
-							class="form-select form-select-sm selectBox">
-							<!-- 						<select name="detailList[0].regionCode"> -->
-							<option value>기초</option>
+						<select name="metro" class="form-select form-select-sm selectBox">
+							<option value>지역선택(광역)</option>
+						</select> 
+						<select name="regionCode" class="form-select form-select-sm selectBox">
+							<option value>지역선택(기초)</option>
 						</select>
 					</div>
-					<div >
-						업종 : <select name="industry0"
-							class="form-select form-select-sm selectBox">
-							<option value>상위</option>
-						</select> <select name="industry1"
-							class="form-select form-select-sm selectBox">
-							<option value>중위</option>
-						</select> <select name="industryCode"
-							class="form-select form-select-sm selectBox">
-							<option value>하위</option>
+					<div>
+						<select name="industry0" class="form-select form-select-sm selectBox">
+							<option value>업종선택(상위)</option>
+						</select> 
+						<select name="industry1" class="form-select form-select-sm selectBox">
+							<option value>업종선택(중위)</option>
+						</select> 
+						<select name="industryCode" class="form-select form-select-sm selectBox">
+							<option value>업종선택(하위)</option>
 						</select>
 					</div>
-					<div >
-						직종 : <select name="job0"
-							class="form-select form-select-sm selectBox">
-							<option value>상위</option>
+					<div>
+						<select name="job0" class="form-select form-select-sm selectBox">
+							<option value>직종선택(상위)</option>
 						</select> <select name="job1" class="form-select form-select-sm selectBox">
-							<option value>중위</option>
+							<option value>직종선택(중위)</option>
 						</select> <select name="job" class="form-select form-select-sm selectBox">
-							<option value>하위</option>
+							<option value>직종선택(하위)</option>
 						</select>
 					</div>
-					<div >
-						경력 : <select name="careerName"
-							class="form-select form-select-sm selectBox">
-							<option value>경력사항</option>
+					<div>
+						<select name="careerName" class="form-select form-select-sm selectBox">
+							<option value>경력사항선택</option>
 							<option value="관계없음">경력무관</option>
 							<option value="신입">신입</option>
 							<option value="경력">경력</option>
 						</select>
 					</div>
-					검색 : 
-						<div class="searchTypoBox" style="display: inline-block;">
-							<input type="hidden" name="cat_mcls" id="cat_mcls" value="">
-							<input id="search_keyword" name="searchWord" style="width: 230px" placeholder="제목 또는 기업명을 입력하세요." type="text" class="inpTypo" value=""
-							onKeypress="javascript:if(event.keyCode==13) {enterSearch()}">
-							<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd">검색</button>
-							<button type="button" class="btnTypoReset" onclick="location.href='#';return false;">선택초기화</button>
-						</div>
-					</div>
-<!-- 					<div class="container" style="color: black;"> -->
-<!-- 						검색 : -->
-<!-- 						<div class="search_form "> -->
-<!-- 							<div class="box_search"> -->
-<!-- 								<div class="input_keyword"> -->
-<!-- 									<input id="temp" name="searchWord" title="키워드, 기업명 입력" placeholder="검색어 입력" type="text" class="inpTypo"	 style="width: 200px; margin-right: 30px"> <input -->
-<!-- 										type="button" id="searchBtn" class="btn btn-primary" value="searchJob" /> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-					<!-- 					<div> -->
-					<!-- 						<ul> -->
-					<!-- 							<li class="jobtype item" data-value="9" data-group="jobtype9" data-type="" > -->
-					<!-- 								<button type="button" class="t_button"> -->
-					<!-- 									병역특례 <i class="bi bi-x-lg" style="color:black"></i> -->
-					<!-- 								</button> -->
-					<!-- 							</li> -->
-					<!-- 						</ul> -->
-					<!-- 					</div> -->
-					<!-- 					<div style="border: 1px solid black"> -->
-					<!-- 						<button name="regionBtn" class="btn btn-outline-dark" type="button" style="width: 200px; margin-right: 20px">지역</button> -->
-					<!-- 						<button name="industryBtn" class="btn btn-outline-dark" type="button" style="width: 200px; margin-right: 20px">업종</button> -->
-					<!-- 						<button name="jobBtn" class="btn btn-outline-dark" type="button" style="width: 200px; margin-right: 20px">직종</button> -->
-					<!-- 						<button name="careerBtn" class="btn btn-outline-dark" type="button" style="width: 200px; margin-right: 20px">경력</button>연차 어떻게 할겨.. -->
-					<!-- 					</div> -->
-					<!-- 정렬기준 : 기업투명도, 마감남은순, 최신등록순   -->
-					<!-- 					<div class="myFilter" style="margin-top: 5px; background-color: navy;"> -->
-					<!-- 						<div class="container"> -->
-					<!-- 							<div class="row row-cols-4"> -->
-					<!-- 								<div class="col t_center" >Column</div> -->
-					<!-- 								<div class="col t_center">Column</div> -->
-					<!-- 								<div class="col t_center">Column</div> -->
-					<!-- 								<div class="col t_center">Column</div> -->
-					<!-- 								<div class="col t_center">Column</div> -->
-					<!-- 								<div class="col t_center">Column</div> -->
-					<!-- 							</div> -->
-					<!-- 						</div> -->
-					<!-- 						<ul id="tagBody"></ul> -->
-					<!-- 					</div> -->
-					<!-- 					<div class="row" style="margin-top: 20px; margin-bottom: 20px"> -->
-					<!-- 						<div class="col-md-12 popular-keywords"> -->
-					<!-- 							<h3>Trending Keywords:</h3> -->
-					<!-- 							<ul class="keywords list-unstyled m-0 p-0"> -->
-					<!-- 		                        <li><a href="#" class="">UI Designer</a></li> -->
-					<!-- 		                        <li><a href="#" class="">Python</a></li> -->
-					<!-- 		                        <li><a href="#" class="">Developer</a></li> -->
-					<!-- 							</ul> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-
-					<!-- 					<input id="temp"  class="form-control" name="searchWord" placeholder="검색어 입력" > -->
-					<!-- 						<button type="submit" id="searchBtn" class="btn btn-primary" >Search Job</button> -->
-				</form>
-			</div>
+				</div>
+				<div class="searchTypoBox" style="display: inline-block; float: right; margin-right: 65px;">
+					<input type="hidden" name="cat_mcls" id="cat_mcls" value="">
+					<input id="search_keyword" name="searchWord" style="width: 230px"
+						placeholder="제목 또는 기업명을 입력하세요." type="text" class="inpTypo"
+						value="" onKeypress="javascript:if(event.keyCode==13) {enterSearch()}">
+					<button type="button" class="btnTypoSearch" id="searchBtn" style="background-color: #3157dd">검색</button>
+					<button type="button" class="btnTypoReset" onclick="location.href='#';return false;">선택초기화</button>
+				</div>
+			</form>
 		</div>
 	</div>
+</div>
 
 
 <!-- 페이징 -->
-<section class="site-section" id="next">
-<%-- 	<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a> --%>
+<section id="next">
+	<%-- 	<a href="${pageContext.request.contextPath}/announcement/insert" class="btn btn-block btn-primary btn-md">등록하기</a> --%>
 	<!-- 사람인 래퍼 시작 -->
 	<div class="recruit_list_renew">
 		<div class="wrap_recommend">
@@ -269,8 +218,7 @@
 									onclick="s_trackApply(this, 'industry_recruit', 'general');"
 									title="[네오바이오텍] 물류관리팀 CS 채용 모집 공고"
 									href="/zf_user/jobs/relay/view?view_type=list&amp;rec_idx=45069696"
-									target="_blank">
-									<span>[네오바이오텍] 물류관리팀 CS 채용 모집 공고</span>
+									target="_blank"> <span>[네오바이오텍] 물류관리팀 CS 채용 모집 공고</span>
 								</a>
 								<div class="toolTipWrap wrap_scrap">
 									<button type="button"
@@ -302,8 +250,7 @@
 						<div class="col support_info">
 							<p class="support_type">
 								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다."
-									onclick="try{quickApplyForm('45069696','','t_category=industry_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;"
-									>
+									onclick="try{quickApplyForm('45069696','','t_category=industry_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;">
 									<span class="sri_btn_immediately">입사지원</span>
 								</button>
 							</p>
@@ -339,11 +286,9 @@
 
 <!-- hidden form -->
 <form id="searchForm">
-	<input type="hidden" name="page" /> 
-	<input type="hidden" name="regionCode" /> 
-	<input type="hidden" name="industryCode" /> 
-	<input type="hidden" name="job" /> 
-	<input type="hidden" name="careerName" />
+	<input type="hidden" name="page" /> <input type="hidden"
+		name="regionCode" /> <input type="hidden" name="industryCode" /> <input
+		type="hidden" name="job" /> <input type="hidden" name="careerName" />
 	<input type="hidden" name="searchWord" />
 </form>
 
@@ -880,7 +825,7 @@ function likeCmpFt(){
 
 $("[name=metro]").on("change", function(){
 	$("[name='regionCode'] option").remove();   
-	$("[name='regionCode']").append("<option>기초</option>");
+	$("[name='regionCode']").append("<option>지역선택(기초)</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'region',code:ref}];
@@ -915,9 +860,9 @@ $("[name=metro]").on("change", function(){
 
 $("[name=industry0]").on("change", function(){
 	$("[name='industry1'] option").remove();   
-	$("[name='industry1']").append("<option>중위</option>");
+	$("[name='industry1']").append("<option>업종선택(중위)</option>");
 	$("[name='industryCode'] option").remove();   
-	$("[name='industryCode']").append("<option>하위</option>");
+	$("[name='industryCode']").append("<option>업종선택(하위)</option>");
 
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
@@ -950,7 +895,7 @@ $("[name=industry0]").on("change", function(){
 });
 $("[name=industry1]").on("change", function(){
 	$("[name='industryCode'] option").remove();   
-	$("[name='industryCode']").append("<option>하위</option>");
+	$("[name='industryCode']").append("<option>업종선택(하위)</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'industry',code:ref}];
@@ -985,9 +930,9 @@ $("[name=industry1]").on("change", function(){
 
 $("[name=job0]").on("change", function(){
 	$("[name='job1'] option").remove();  
-	$("[name='job1']").append("<option>중위</option>");
+	$("[name='job1']").append("<option>직종선택(중위)</option>");
 	$("[name='job'] option").remove();   
-	$("[name='job']").append("<option>하위</option>");
+	$("[name='job']").append("<option>직종선택(하위)</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'job',code:ref}];
@@ -1019,7 +964,7 @@ $("[name=job0]").on("change", function(){
 });
 $("[name=job1]").on("change", function(){
 	$("[name='job'] option").remove();   
-	$("[name='job']").append("<option>하위</option>");
+	$("[name='job']").append("<option>직종선택(하위)</option>");
 	
 	let ref = $(this).val();
 	let data = [{type:'job',code:ref}];

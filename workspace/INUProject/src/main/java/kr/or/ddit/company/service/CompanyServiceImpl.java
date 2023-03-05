@@ -94,6 +94,11 @@ public class CompanyServiceImpl implements CompanyService {
 		int rowcnt = companyDAO.deleteAppliCmp(company);
 		return rowcnt;
 	}
+	//기업 상세
+	@Override
+	public CompanyVO retrieveCmp(String cmpId) {
+		return companyDAO.selectCmp(cmpId);
+	}
 	
 }
 

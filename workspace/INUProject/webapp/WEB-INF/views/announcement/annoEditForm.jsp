@@ -26,12 +26,16 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/resume.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/contents.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/my_jobs.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/help.css" />
 
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -57,12 +61,9 @@
 .text_box {position:relative; display:inline-block; width:100%;}
 .text_box textarea {width:100%; height:152px; color:#666; font-family:"ht_r"; font-size:18px; line-height:28px; padding:20px; border:1px solid #e4dcd3; outline:0; resize:none}
 .text_box .count {position:absolute; right:20px; bottom:20px; color:#666; font-family:"ht_r"; font-size:15px;}
-.box{border:1px solid #e4dcd3}
+.box{border:1px solid #dfdfdf; height: 35px; padding:10px;border-radius: 7px;}
 .divbox input:focus{border-color: rgb(4, 87, 56); outline: none;}
 
-/* .ck-content {  */
-/* 	font-size: 12px;  */
-/* } */
 </style>
 <security:authentication property="principal" var="memberVOWrapper"/>
 <security:authentication property="principal.realMember" var="authMember"/>	
@@ -70,27 +71,18 @@
 <div class="site-wrap" style="background-color: white">
 	<section class="site-section wrap_jv_header">
 		<div class="container">
-			<div class="row align-items-center mb-5">
-				<div class="col-lg-8 mb-4 mb-lg-0">
-					<div class="d-flex align-items-center">
-						<div>
-							<h2 class="jv_title">공고 내용을 입력해주세요</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row mb-5">
-				<div class="col-lg-12">
+			<div class=" mb-5 resume_section">
+				<div class="col-lg-12 resume_write resume_write_add">
 					<form:form modelAttribute="anno" enctype="multipart/form-data" class="p-4 p-md-5 border rounded" method="post">
-						<!-- 1. 담당자 정보 : 담당자 이름, 전화번호, 이메일 주소, 업종, 대표 근무지역(+api)  -->
-						<!-- 2. 모집분야 : 모집분야명, 모집인원, 경력여부*, 담당업무, 근무부서, 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
-						<!-- 3. 자격/조건 : 지원자 학력*, 지원자 성별(성차별금지 남녀고용평등에 관한 법률), 지원자 연령(연령차별 금지에 관한 법률), 연봉/급여, 고용형태*, 수습기간, 근무요일, 근무시간 -->
-						<!-- 4. 채용절차 : 공고 대표 직무*, 지원 접수 기간, 전형절차(, 제출서류) -->
-						<!-- 5. 채용 제목, 근무환경, 복지/처우, 입사 전형, 지원 자격 -->
-						
-						<!-- 1. 담당자 정보 : 담당자 이름, 전화번호, 이메일 주소, 업종, 대표 근무지역(+api)  -->
-						<form:button type="submit" class="btn btn-success" style="color: white; float:right">등록</form:button>
-						<h3 class="jv_title">1.대표 정보</h3>
+						<div class="mb-5 text-center">
+							<div class="contents_container">
+								<div class="sub_top_wrap tag_list2" style="padding-bottom: 50px">
+									<span class="sub_title_tag" style="font-size: 30px">
+										공통정보를 입력해주세요
+									</span>
+								</div>
+							</div>
+						</div>
 						<div style="margin-top: 40px; margin-bottom: 100px">
 							<div class="form-group">
 								<form:hidden path="annoNo"/>
@@ -109,6 +101,8 @@
 										<form:input path="annoTitle" type="text" class="box" style="width: 600px" placeholder="제목을 입력해주세요" required="true"/>
 									</div>
 								</div>
+							</div>
+							<div class="container">
 								<div class="row pp">
 									<div class="col-6 col-md-2" >
 										모집 기간
@@ -122,23 +116,31 @@
 										<form:hidden path="annoEnddate" />
 									</div>
 								</div>
-								<div class="row pp">
+							</div>
+							<div class="container top_btns">
+								<div class="row pp align">
 									<div class="col-6 col-md-2">
 										업종
 										<div class="ref">
 											※필수
 										</div>
 									</div>
-									<div class="form-group col-md-6 ">
-										<form:select path="industry0" class="box">
-											<option value>대분류</option>
-										</form:select>
-										<form:select path="industry1" class="box">
-											<option value>중분류</option>
-										</form:select>
-										<form:select path="industryCode" class="box">
-											<option value>소분류</option>
-										</form:select>
+									<div class="form-group col-md-10">
+										<div class="inpSel">
+											<form:select path="industry0" style="width: 200px">
+												<option value>대분류</option>
+											</form:select>
+										</div>
+										<div class="inpSel">
+											<form:select path="industry1" style="width: 200px">
+												<option value>중분류</option>
+											</form:select>
+										</div>
+										<div class="inpSel">
+											<form:select path="industryCode" style="width: 200px">
+												<option value>소분류</option>
+											</form:select>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -150,9 +152,8 @@
 									</div>
 								</div>
 							</div>
-							<!-- 지원자 학력 -->
-							<div class="container">
-								<div class="row pp">
+							<div class="container top_btns">
+								<div class="row pp align">
 									<div class="col-6 col-md-2">
 										공통 학력
 										<div class="ref">
@@ -160,15 +161,16 @@
 										</div>
 									</div>
 									<div class="form-group col-md-6">
-										<form:select path="eduCode" class="box">
-											<option value>학력선택</option>
-										</form:select>
+										<div class="inpSel">
+											<form:select path="eduCode" class="box">
+												<option value>학력선택</option>
+											</form:select>
+										</div>
 									</div>
 								</div>
 							</div>
-							<!-- 급여 -->
-							<div class="container">
-								<div class="row pp">
+							<div class="container top_btns">
+								<div class="row pp align">
 									<div class="col-6 col-md-2">
 										급여
 										<div class="ref">
@@ -176,16 +178,18 @@
 										</div>
 									</div>
 									<div class="form-group col-md-6">
-										<form:select path="annoSalary" class="box">
-<!-- 											<option value/>급여선택 -->
-											<form:option value="면접후결정"/>면접 후 결정
-											<form:option value="연봉"/>연봉
-											<form:option value="월급"/>월급
-											<form:option value="시급"/>월급
-										</form:select>
+										<div class="inpSel">
+											<form:select path="annoSalary" class="box">
+												<option value/>급여선택
+												<form:option value="면접후결정"/>면접 후 결정
+												<form:option value="연봉"/>연봉
+												<form:option value="월급"/>월급
+												<form:option value="시급"/>월급
+											</form:select>
+										</div>
 										<div style="display: inline-block;">
 											<div id="salaryDetail" style="display: none;">
-												<input type="number" name="salaryDetail" class="box" value="0" min="0" step="0.1" style="width: 100px; height: 26px;"> 만원
+												<input type="number" name="salaryDetail" class="box" value="0" min="0" step="0.1" style="width: 100px; height: 30px;"> 만원
 											</div>
 										</div>
 									</div>
@@ -208,19 +212,23 @@
 									</div>
 								</div>
 							</div>
-							<div class="container">
-									<div class="wrap_recommend">
-								<div class="row pp">
-									<div class="col-6 col-md-2">복리후생</div>
-									<div class="form-group col-md-6">
-										<form:select path="welfareList[0].welfare0" class="box">
-											<option value>대분류</option>
-										</form:select>
-										<form:select path="welfareList[0].welfareCode" class="box">
-											<option value>소분류</option>
-										</form:select>
-									</div>
-										<div class="box_recommend" style="margin-bottom: 30px">
+							<div class="container top_btns">
+								<div class="wrap_recommend align">
+									<div class="row pp">
+										<div class="col-6 col-md-2">복리후생</div>
+										<div class="form-group col-md-10">
+											<div class="inpSel">
+												<form:select path="welfareList[0].welfare0" class="box" style="width: 200px">
+													<option value>대분류</option>
+												</form:select>
+											</div>
+											<div class="inpSel">
+												<form:select path="welfareList[0].welfareCode" class="box" style="width: 200px">
+													<option value>소분류</option>
+												</form:select>
+											</div>
+										</div>
+										<div class="box_recommend" style="margin-bottom: 30px; background-color: white">
 											<p class="tit_recommend">
 												<strong style="font-size: 14px">선택항목</strong>
 											</p>
@@ -244,13 +252,22 @@
 						<!-- 					세부 페이지						 -->
 						
 						
-						<h3 class="jv_title">2. 모집분야(세부)</h3>
-						
+						<div class="mb-5 text-center">
+							<div class="contents_container">
+								<div class="sub_top_wrap tag_list2" style="padding-bottom: 40px">
+									<span class="sub_title_tag" style="font-size: 30px">
+										세부 모집분야를 등록해주세요
+									</span>
+								</div>
+							</div>
+						</div>
 						<!-- 탭머리 -->
 						<div class="row" style="margin-top:40px ;margin-bottom: 50px">
 						    <div>
 						        <div class="profile-head">
-						        <button type="button" id="testBtn" class="btn btn-success" style="color: white; float:right">추가</button>
+							        <div class="align">
+							        	<button type="button" id="testBtn" class="btnSizeM colorGrayReverse" style="float:right">추가</button>
+							        </div>
 						            <ul class="nav nav-tabs" id="myTab" role="tablist">
 						                <li class="nav-item" style="display: none;">
 						                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#detailContainer" role="tab" aria-controls="detailContainer0" aria-selected="true">탭1</a>
@@ -260,13 +277,10 @@
 						    </div>
 						</div>
 						<!-- 탭몸통 -->
-						<div class="tab-content profile-tab" id="myTabContent">
-							
-						
+						<div class="tab-content profile-tab" id="myTabContent"></div>
+						<div class="align">
+							<form:button type="submit" class="btnSizeM colorGrayReverse" style="float:right">등록</form:button>
 						</div>
-						<!-- 탭몸통 끝 -->
-						
-						<form:button type="submit" class="btn btn-success" style="color: white; float:right">등록</form:button>
 						<div class="container">
 							<div style="font-size: 13px; margin-top: 80px;">
 								※ 성별, 연령 입력 불가 안내<br>
@@ -298,19 +312,25 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row pp">
+	<div class="container top_btns">
+		<div class="row pp align">
 			<div class="col-6 col-md-2">직무</div>
-			<div class="form-group col-md-6">
-				<select name="detailList[%n].job0" class="job0 box">
-					<option value>대분류</option>
-				</select>
-				<select name="detailList[%n].job1" class="job1 box">
-					<option value>중분류</option>
-				</select>
-				<select name="detailList[%n].jobCode" class="jobCode box">
-					<option value>소분류</option>
-				</select>
+			<div class="form-group col-md-10 jobContainer">
+				<div class="inpSel">
+					<select name="detailList[%n].job0" class="job0 box" style="width: 200px">
+						<option value>대분류</option>
+					</select>
+	            </div>
+	            <div class="inpSel">
+					<select name="detailList[%n].job1" class="job1 box" style="width: 200px">
+						<option value>중분류</option>
+					</select>
+	            </div>
+	            <div class="inpSel">
+					<select name="detailList[%n].jobCode" class="jobCode box" style="width: 200px">
+						<option value>소분류</option>
+					</select>
+	            </div>
 			</div>
 		</div>
 	</div>
@@ -322,8 +342,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row pp">
+	<div class="container top_btns">
+		<div class="row pp align">
 			<div class="col-6 col-md-2">
 				경력
 				<div class="ref">
@@ -332,29 +352,37 @@
 			</div>
 			<div class="form-group col-md-8" id="careerDiv">
 				<div class="row pp">
-					<div class="col-4 col-sm-3">
-						경력무관 
-						<input type="checkbox" name="detailList[%n].careerNames" value="경력무관" class="career0" />
-					</div>
-					<div class="col-4 col-sm-3">
-						신입 
-						<input type="checkbox" name="detailList[%n].careerNames" value="신입" class="career1"/>
-					</div>
-					<div class="col-4 col-sm-3">
-						경력 
-						<input type="checkbox" name="detailList[%n].careerNames" value="경력" class="career2"/>
+					<div class="company_honest_qna">
+						<div class="qna_list_sort">
+							<div class="icoChk_outline filter">
+								<span class="inpChk icoChk">
+									<input type="checkbox" name="detailList[%n].careerNames" id="경력무관" value="경력무관" class="career0 btn_sort" />
+									<label class="lbl" for="경력무관">경력무관</label>
+								</span>
+								<span class="inpChk icoChk">
+									<input type="checkbox" name="detailList[%n].careerNames" id="신입" value="신입" class="career1 btn_sort"/>
+									<label class="lbl" for="신입">신입</label>
+								</span>
+								<span class="inpChk icoChk">
+									<input type="checkbox" name="detailList[%n].careerNames" id="경력" value="경력" class="career2 btn_sort"/>
+									<label class="lbl" for="경력">경력</label>
+								</span>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="careerYear" style="display: none">
-					<select name="detailList[%n].daCarYeer" class="box">
-						<option value>경력 년수</option>
-						<option value="1년 이상">1년 이상</option>
-						<option value="4년 이상">4년 이상</option>
-						<option value="7년 이상">7년 이상</option>
-						<option value="10년 이상">10년 이상</option>
-						<option value="15년 이상">15년 이상</option>
-						<option value="20년 이상">20년 이상</option>
-					</select>
+					<div class="inpSel">
+						<select name="detailList[%n].daCarYeer">
+							<option value>경력 년수</option>
+							<option value="1년 이상">1년 이상</option>
+							<option value="4년 이상">4년 이상</option>
+							<option value="7년 이상">7년 이상</option>
+							<option value="10년 이상">10년 이상</option>
+							<option value="15년 이상">15년 이상</option>
+							<option value="20년 이상">20년 이상</option>
+						</select>
+	            	</div>
 				</div>
 			</div>
 		</div>
@@ -378,12 +406,18 @@
 	<div class="container">
 		<div class="row pp">
 			<div class="col-6 col-md-2">직급/직책</div>
-			<div class="form-group col-md-8" id="positionCheck" >
+			<div class="form-group col-md-10">
+			    <div class="company_honest_qna">
+			        <div class="qna_list_sort">
+						<div id="positionCheck" class="filter">
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row pp">
+	<div class="container top_btns">
+		<div class="row pp align">
 			<div class="col-6 col-md-2">
 				고용 형태
 				<div class="ref">
@@ -391,9 +425,11 @@
 				</div>
 			</div>
 			<div class="form-group col-md-6">
-				<select name="detailList[%n].empltypeCode" class="box">
-					<option value>고용형태</option>
-				</select>
+				<div class="inpSel">
+					<select name="detailList[%n].empltypeCode" class="box">
+						<option value>고용형태</option>
+					</select>
+	            </div>
 			</div>
 		</div>
 	</div>
@@ -408,18 +444,15 @@
 			<div class="form-group col-md-6">
                 <input type="hidden" id="sample4_postcode" placeholder="우편번호">
 				<input type="text" id="sample4_jibunAddress" class="box" placeholder="지번주소" >
-<!-- 											<input type="button" onclick="sample4_execDaumPostcode()" id="execDaumPostcode" value="주소 찾기" class="box"><br> -->
 				<input type="button" id="execDaumPostcode" value="주소 찾기" class="box"><br>
 				<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
 				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-				<!-- data.sido+" "+data.sigungu -->
 				<input type="hidden" name="detailList[%n].regionVO.regionName"/>
               	</div>
 		</div>
 	</div>
-	<!-- 근무 직급직책*(최대 3개까지 선택 가능), 필수/우대조건 -->
 	<div class="container">
 		<div class="row pp">
 			<div class="col-6 col-md-2">지원 조건</div>
@@ -438,9 +471,6 @@
 	</div>
 </div>
 <!-- 탭몸통1 끝 -->
-<!-- test-start -->
-
-<!-- test-end -->
 <!-- SCRIPTS -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
@@ -504,11 +534,12 @@ $(function(){
 				welfareOption.push(tr);
 			})
 			$.each(positionList, function(index, val){
-				let div = $("<div>").attr("class","chck");
-				let tr = $("<input>").attr("type","checkbox").attr("name","detailList[%n].inpositionCode").prop("value",val.positionCode).attr("style","margin-right: 3px");
-				div.append(tr);
-				div.html(div.html() + val.positionName);
-				positionOption.push(div);
+				let span = $("<span class='inpChk icoChk'>").append(
+								$("<input type='checkbox'>").attr("name","detailList[%n].inpositionCode").prop("value",val.positionCode).attr("id",val.positionCode)
+								.attr("class","btn_sort")
+								, $("<label class='lbl'>").attr("for",val.positionCode).html(val.positionName)
+							).attr("style","margin-right: 16px")
+				positionOption.push(span);
 			})
 			$.each(jobList, function(index, val){
 				let tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
@@ -608,7 +639,6 @@ $(function(){
 
 $("#testBtn").on("click",function(){
 	let x = $(document).find("[id*='detailContainer']").length - 1;
-	console.log("클릭햇다이거, x = ",x);
 	let nextContainer = detailContainer.clone();
 	nextContainer.attr("id","detailContainer"+x); 
 	nextContainer.removeClass("d-none");
@@ -622,6 +652,14 @@ $("#testBtn").on("click",function(){
         nWord.eq(i).attr("name",newName);
     }
 
+	//nextContainer 안에 있는 checkbox id와 siblings.label의 for 변경
+	let chkId = nextContainer.find("input[type='checkbox']");
+	for(i=0;i<chkId.length;i++){
+        let oldId = chkId.eq(i).attr('id');
+        chkId.eq(i).attr("id",oldId+x);
+        chkId.eq(i).siblings('.lbl').attr('for',oldId+x);
+    }
+	
 	myTab.append(
 		$("<li>").attr("class","nav-item").append(
 			$("<a>").attr("class","nav-link").attr("id","tab"+x).attr("role","tab").attr("data-toggle","tab")
@@ -646,7 +684,7 @@ $("#testBtn").on("click",function(){
 	career();
 });
 
-/* 하위 업종 셀렉트 */
+// 하위 업종 셀렉트
 $("[name=industry0]").on("change", function(){
 	$("[name='industry1'] option").remove();
 	$("[name='industry1']").append("<option>중분류</option>");
@@ -719,7 +757,7 @@ $("[name=industry1]").on("change", function(){
 	});
 });
 
-/* 복지 하위 셀렉트 */
+// 복지 하위 셀렉트 
 $("[name='welfareList[0].welfare0']").on("change", function(){
 	let ref = $(this).val();
 	let data = [{type:'welfare',code:ref}];
@@ -750,10 +788,11 @@ $("[name='welfareList[0].welfare0']").on("change", function(){
 	});   
 });
 
-/* 직종 하위 셀렉트 */
+// 직종 하위 셀렉트
 $(document).on("change", ".job0", function(){
 	let job0 = $(this);
-	let job1 = $(this).siblings(".job1");
+	let job1 = $(this).parents(".jobContainer").find(".job1");
+	let jobCode = $(this).parents(".jobContainer").find(".jobCode");
 	let ref = $(this).val();
 	let data = [{type:'job',code:ref}];
 	
@@ -773,17 +812,18 @@ $(document).on("change", ".job0", function(){
 				jobOption.push(tr);
 			})
 			
-			job0.siblings(".job1").find("option").remove();
-			job0.siblings(".job1").append($("<option>").html("중분류"));
-			job1.siblings(".jobCode").find("option").remove();
-			job1.siblings(".jobCode").append($("<option>").html("소분류"));
+			job1.find("option").remove();
+			job1.append($("<option>").html("중분류"));
+			jobCode.find("option").remove();
+			jobCode.append($("<option>").html("소분류"));
 			
 			let detailList = job0.parents("[id*='detailContainer']").data('detailList');
 			
-			if(detailList!=null){
-				job0.siblings(".job1").append(jobOption).val(detailList.job1).trigger("change");
+			if(job1.data('pass')=='pass'){
+				job1.append(jobOption).val();
 			} else {
-				job0.siblings(".job1").append(jobOption).val();
+				job1.append(jobOption).val(detailList.job1).trigger("change");
+				job1.data('pass','pass');
 			}
 		},
 		error : function(jqXHR, status, error) {
@@ -796,6 +836,7 @@ $(document).on("change", ".job0", function(){
 
 $(document).on("change", ".job1", function(){
 	let job1 = $(this);
+	let jobCode = $(this).parents(".jobContainer").find(".jobCode");
 	let ref = $(this).val();
 	let data = [{type:'job',code:ref}];
 	
@@ -814,16 +855,16 @@ $(document).on("change", ".job1", function(){
 				tr = $("<option>").attr("class","code").prop("value",val.jobCode).html(val.jobName);
 				jobOption.push(tr);
 			})
-			job1.siblings(".jobCode").find("option").remove();
-			job1.siblings(".jobCode").append("<option>소분류</option>");
-			job1.siblings(".jobCode").append(jobOption);
+			jobCode.find("option").remove();
+			jobCode.append("<option>소분류</option>");
+			jobCode.append(jobOption);
 			
 			let detailList = job1.parents("[id*='detailContainer']").data('detailList');
-			
-			if(detailList!=null){
-				job1.siblings(".jobCode").append(jobOption).val(detailList.jobCode);
+			if(jobCode.data('pass')=='pass'){
+				jobCode.append(jobOption).val();
 			} else {
-				job1.siblings(".jobCode").append(jobOption).val();
+				jobCode.append(jobOption).val(detailList.jobCode);
+				jobCode.data('pass','pass');
 			}
 		},
 		error : function(jqXHR, status, error) {
@@ -848,7 +889,7 @@ function cloneCK(x){
 	});
 }
 
-/* 복지 태그 */
+// 복지 태그
 let welval = $("[name='welfareList[0].welfareCode']").on("change",function(){
 	let welSelect = $("[name='welfareList[0].welfareCode'] option:selected");
 	console.log(welval.val());
@@ -865,8 +906,7 @@ let welval = $("[name='welfareList[0].welfareCode']").on("change",function(){
 });
 
 
-/* 경력 체크박스 */
-//아이디 다르게 만들던가 클래스 주기
+// 경력 체크박스
 function career(){
 	let career0 = $(".career0");
 	let career1 = $(".career1");
@@ -911,7 +951,7 @@ salary.on("change", function (e) {
     }
 });
 
-/* 도로명주소 */
+// 도로명주소
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 function sample4_execDaumPostcode(x) {
 	new daum.Postcode({
@@ -972,7 +1012,7 @@ function sample4_execDaumPostcode(x) {
     }).open();
 }
     
-/* CKEDITOR */
+// CKEDITOR
 CKEDITOR.replace('annoWorkenv',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
 });
@@ -982,7 +1022,7 @@ CKEDITOR.replace('annoContent',{
 });
 
 
-/* daterangepicker */
+// daterangepicker
 $(function() {
 	$('input[name="datetimes"]').daterangepicker({
 		opens: 'left',

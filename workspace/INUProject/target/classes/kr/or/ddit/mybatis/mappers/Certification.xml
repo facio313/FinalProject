@@ -6,7 +6,7 @@
 <!--  ==========   ======    ==============        -->
 <!--  2023. 2. 7.  최경수     최초작성               -->
 	<select id="selectCertificationList" parameterType="String" resultType="certificationVO">
-		SELECT CERT_SN, CERT_NAME, CERT_INSTITUTION, CERT_DATE
+		SELECT CERT_SN, CERT_NAME, CERT_INSTITUTION, CERT_DATE, CERT_INSERT_DATE
 		FROM CERTIFICATION
 		WHERE MEM_ID = #{memId}
 		AND CERT_DELETE_DATE IS NULL

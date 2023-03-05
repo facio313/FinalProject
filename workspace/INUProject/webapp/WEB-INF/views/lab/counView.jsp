@@ -92,7 +92,10 @@
 						</c:if>
 						<c:if test="${coun.memId eq authMember.memId && empty coun.reCoun.counContent}">
 							<!-- 답글 달리거나 내 게시글 아니면 수정불가 -->
-							<a href="${prePath}" class="btn_basic_type01 btn_list" title="삭제하기">
+							<c:url value="/lab/counseling/update" var="updateUrl">
+								<c:param name="counNo" value="${coun.counNo}" />
+							</c:url>
+							<a href="${updateUrl}" class="btn_basic_type01 btn_list" title="삭제하기">
 								수정하기
 							</a>
 						</c:if>
@@ -121,7 +124,6 @@
 	</div>
 </div>
 <script>
-console.log("coun.reCoun",`${coun.reCoun}`);
 
 $(".downloadBtn").on("click", function(event){
 	event.preventDefault();
@@ -139,7 +141,5 @@ $(".downloadBtn").on("click", function(event){
 	
 	return false;
 });
-
-
 
 </script>

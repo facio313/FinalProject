@@ -41,6 +41,8 @@
 		    att_download
 		FROM
 		    attach
-		WHERE tbl_id = #{tblId}   	
+		WHERE tbl_id = #{tblId}
+				AND att_no = (select max(att_no) from attach where tbl_id = #{tblId})
    </select>
+   
 </mapper>

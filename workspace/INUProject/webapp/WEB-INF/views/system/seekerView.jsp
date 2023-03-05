@@ -31,6 +31,111 @@ td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
 }
+
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal_body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 800px;
+  height: 600px;
+
+  /* padding: 40px; */
+
+  /* text-align: center; */
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+}
+.m_head{
+  height: 10%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color:#e7e5e5;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.m_body{
+  height: 80%;
+  padding: 20px;
+}
+.m_footer{
+  height: 10%;
+  padding: 15px;
+  background-color:#e7e5e5;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  justify-content: end;
+}
+.modal_title{
+  font-size: 18px;
+  color: gray;
+  font-weight: 500;
+}
+.close_btn{
+  font-size: 20px;
+  color: rgb(139, 139, 139);
+  font-weight: 900;
+  cursor: pointer;
+}
+.modal_label{
+  padding-top: 10px;
+}
+.input_box[readonly]{
+  width: 100%;
+  border: 1px solid rgb(189, 189, 189);
+  height: 30px;
+  background-color: #e9ecef;
+  opacity: 1;
+}
+.textBox{
+	width: 100%;
+  border: 1px solid rgb(189, 189, 189);
+  height: 300px;
+}
+.modal_btn{
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bolder;
+  padding-top: 5px;
+  margin-left: 5px;
+  font-family: sans-serif;
+}
+.cancle{
+  background-color: white;
+  color: black;
+}
+.save{
+  background-color: rgb(50, 77, 158);
+  color: white;
+}
+
 </style>
 
 <section class="site-section">
@@ -80,12 +185,6 @@ td {
 				    <td>${seeker.seekerVO.memScore }</td>
 			  	</tr>
 			</table>
-			<form:form modelAttribute="member" action="${pageContext.request.contextPath }/systemManagement/insertCut" name="ccc" method="post">
-				<input type="hidden" name="memId" value="${seeker.memId }"/>
-			</form:form>
-			<form:form action="${pageContext.request.contextPath }/systemManagement/" name="bbb" method="post">
-				<input type="hidden" name="memId" value="${seeker.memId }"/>
-			</form:form>
 			<div class="row align-items-center mb-5">
 				<div class="col-lg-4 ml-auto">
 					<div class="row">
@@ -108,24 +207,52 @@ td {
 	</div>
 </section>
 
+<!-- 모달 테스트 -->
+<form:form modelAttribut="member" name="frm" action='${pageContext.request.contextPath }/systemManagement/insertCut' method="post">
+	<div class="modal" id="modal">
+	  <div class="modal_body">
+	    <div class="m_head">
+	      <div class="modal_title">차단하기</div>
+	      <div class="close_btn" id="close_btn">X</div>
+	    </div>
+	    <div class="m_body">
+	      <div class="modal_label">아이디</div>
+	      <input type="text" class="input_box" id="name_box" name="memId" value="${seeker.memId }" readonly/>
+	      <div class="modal_label">차단 사유</div>
+	      <textarea class="textBox" id="des_box" name="cutContent"></textarea>
+	    </div>
+	    <div class="m_footer">
+	      <input type="button" class="modal_btn save" id="save_btn" value="저장"/>
+	      <div class="modal_btn cancle" id="close_btn">취소</div>
+	    </div>
+	  </div>
+	</div>    
+</form:form>
 
 <script>
-
-	//차단
-	$('#cutBtn').click(function(){
-		var flag = confirm("차단하시겠습니까?") 
-		if(!flag){
-			return;
-		}
-		$.ajax({
-			type : 'get',
-			success : function(data){
-				console.log("data : " + data);
-				alert('성공적으로 처리되었습니다.');
-				document.ccc.submit(); //전자정부에서 많이씀
-			}
-		});
+	$(document).on('click', '#cutBtn', function (e) {
+	  console.log("click event");
+	  $('#modal').addClass('show');
+	
 	});
+	
+	// 모달 닫기
+	$(document).on('click', '#close_btn', function (e) {
+	  console.log("click event");
+	  $('#modal').removeClass('show');
+	
+	});
+
+	$('#save_btn').click(function(){
+		$('#modal').removeClass('show');
+		setTimeout(function () {
+			  alert("차단 되었습니다.");
+			}, 500);
+		setTimeout(function () {
+			document.frm.submit();
+		}, 1500);
+	});
+
 	
 	//블랙
 	$('#blackBtn').click(function(){
@@ -142,6 +269,9 @@ td {
 			}
 		});
 	});
+	
+		
+	
 </script>
 
 

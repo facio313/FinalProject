@@ -2,69 +2,217 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<table class="table table-bordered">
-<tr>
-	<th>이력서제목</th>
-	<td>${resume.resumeTitle}</td>
-</tr>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/help.css">
 
-<tr>
-	<th>이력서이름</th>
-	<td>${resume.resumeName}</td>
-</tr>
-<tr>
-	<th>이력서성별</th>
-	<td>${resume.resumeGender}</td>
-</tr>
-<tr>
-	<th>이력서기본주소</th>
-	<td>${resume.resumeAddr1}</td>
-</tr>
-<tr>
-	<th>이력서이메일</th>
-	<td>${resume.resumeEmail}</td>
-</tr>
-<tr>
-	<th>이력서전화번호</th>
-	<td>${resume.resumeTel}</td>
-</tr>
-<tr>
-	<th>작성날짜</th>
-	<td>${resume.resumeInsertDate}</td>
-</tr>
-</table>
+<style>
+.qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
+.ck-editor__editable { height: 100px; }
+.ck-content { font-size: 15px; }
+.help_find .type2 .inp_find {width: 844px;}
+.help_find li.col_type .inp_find {width: 254px;}
+.help_find .type2 .wrap_input {width: 914px;}
+.help_find .type2 .wrap_lab {width: 230px;}
+.help_find li.col_type .wrap_lab {width: 230px;}
+.help_find li.col_type .wrap_lab:first-child {width: 230px;}
+.help_find li.col_type .wrap_input {width: 342px;}
+.btn_basic2.type03 {border: 1px solid #8f8f8f;color: #fff;background-color: #9c9c9c;}
+.btn_basic2 {display: inline-block;height: 40px;font-size: 15px;line-height: normal;vertical-align: top;}
+.q_num {display: block;padding-bottom: 15px;color: #045738;font-size: 26px;font-weight: bold;letter-spacing: 0;line-height: 18px;}
+.form-group {margin-bottom: 3rem;margin-top: -15px;}
+#qna{height: 40px;width: 40px;border-radius: 50px;margin: auto;margin-top: -27px;margin-right: 412px;}
+.btn btn-block btn-primary btn-md{
+    /* margin-bottom: 20px; */
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.company_honest_qna .contents_container {
+    width: 90%;
+}
 
-<!-- ==================================================학력================================================== -->
-<div class="form-group">
-	<label for="job-title">학력</label>
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th></th>
-				<th>학교명</th>
-				<th>전공분류</th>
-				<th>전공</th>
-				<th>입학일</th>
-				<th>졸업일</th>
-				<th>상태</th>
-				<th>학점</th>
-				<th>기준학점</th>
-				<th>작성날짜</th>
-				<th>삭제</th>
-			</tr>
-		</thead>
-		<tbody id="eduBody">
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="11" id="eduFoot" style="text-align: center;">
-					<button type="button" class="btn btn-primary" id="eduBtn" style="width: 15%;">새로 추가하기</button>
-					<button type="button" class="btn btn-primary" style="width: 15%;" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</div>
+.wrap_community_topic .section_inner {
+    width: 100%;
+    height: auto;
+}
+
+.wrap_community_topic .section_inner:nth-child(even) {
+    float: left;
+}
+.company_honest_qna .contents_container {
+    width: 95%;
+}
+table {
+	border-top: 2px solid gray;
+}
+th {
+	text-align: center;
+	font-weight: bold;
+	background-color: #f7f7f7;
+	padding: 14px;
+	height: 47px;
+	margin: 0;
+	box-sizing: border-box;
+	color: #222;
+	font-size: 14px;
+	letter-spacing: -1px;
+	line-height: 18px;
+	border-color: inherit;
+	border-style: solid;
+	border-width: 0;
+}
+td {
+	text-align: center;
+	border-bottom: 1px solid #e1e1e1;
+	color: #222;
+}
+</style>
+
+	<section class="site-section">
+		<div class="container" style="max-width: 90%;">
+
+			<div class="row mb-5">
+				<div class="col-lg-12">
+
+					<div class="help_find help_contact wrap_help">
+						<div class="cont_find">
+							<div class="qna_write_wrap">
+								<div class="qna_write_selection">
+									<span class="qna_category_tit">이력서</span>
+								</div>
+							</div>
+
+							<fieldset style="display: flex;">
+								<div style="width: 20%; background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center; margin-right: 10px;">&nbsp;</div>
+								<ul class="list_find type2" style="display: inline-block;">
+								
+									<li>
+										<div class="wrap_lab">
+											<label for="incumTitle" class="lab_find">제목</label>
+										</div>
+										<div class="wrap_input">
+											<input type="text" class="inp_find" readonly="readonly" value="${resume.resumeTitle}" style="border: 0px solid black;">
+										</div>
+									</li>
+
+									<li>
+										<div class="wrap_lab">
+											<label for="topTitle" class="lab_find">주소</label>
+										</div>
+										<div class="wrap_input">
+											<input type="text" class="inp_find" readonly="readonly" value="${resume.resumeAddr1}" style="border: 0px solid black;">
+										</div>
+									</li>
+									
+									<li class="col_type">
+										<div class="wrap_lab">
+											<label for="incumName" class="lab_find">이름</label>
+										</div>
+										<div class="wrap_input">
+											<input type="text" class="inp_find" readonly="readonly" value="${resume.resumeName}" style="border: 0px solid black;">
+										</div>
+										<div class="wrap_lab">
+											<label for="cmdName" class="lab_find">성별</label>
+										</div>
+										<div class="wrap_input">
+											<input type="text" class="inp_find" readonly="readonly" value="${resume.resumeGender}" style="border: 0px solid black;">
+										</div>
+									</li>
+
+									<li class="col_type">
+										<div class="wrap_lab">
+											<label for="subTitle" class="lab_find">이메일</label>
+										</div>
+										<div class="wrap_input">
+											<input type="text" class="inp_find" readonly="readonly" value="${resume.resumeEmail}" style="border: 0px solid black;">
+										</div>
+										<div class="wrap_lab">
+											<label for="department" class="lab_find">전화번호</label>
+										</div>
+										<div class="wrap_input">
+											<input type="text" class="inp_find" readonly="readonly" value="${resume.resumeTel}" style="border: 0px solid black;">	
+										</div>
+									</li>
+
+
+
+									<li>
+										<div class="wrap_lab">
+
+											<label for="help_upload" class="lab_find">첨부파일</label>
+										</div>
+										<div class="wrap_input">
+											<div class="uploads" style="display: none;" id="uploadedDiv">
+												<span class="info_upload">
+													<span class="txt_upload" id="uploadedFileNm"></span>
+													<button type="button" class="btn_delete btn_delete" id="fileDeleteBtn">
+														<span class="blind">파일삭제</span>
+													</button>
+												</span>
+											</div>
+											<div class="wrap_file">
+												<p class="noti_inp">졸업증명서.pdf &nbsp;&nbsp;&nbsp; 경력증명서.pdf &nbsp;&nbsp;&nbsp; 시험점수.pdf</p>
+												<p class="noti_inp">교육인증서.pdf &nbsp;&nbsp;&nbsp; 상장.pdf</p>
+											</div>
+										</div>
+									</li>
+								</ul>
+
+							</fieldset>
+							
+							<!-- ==================================================학력================================================== -->
+							<div class="wrap_story_panel">
+								<div class="wrap_section wrap_community_topic" style="margin-top: 36px;">		
+									<div class="section_inner" style="margin-right:15px">
+										<div class="wrap_title">
+								 			<h4 class="title">
+							  					<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>">학력</a>
+								 			</h4>
+								 			<a href="<c:url value='/systemManagement/acceptManagement/appliExpertList'/>">더보기</a>
+										</div>
+										<div class="tblType">
+											<table style="width: 100%;">
+							 					<thead>
+								 					<tr>
+														<th style="width: 5%;">순서</th>
+														<th style="width: 14%;">학교명</th>
+														<th style="width: 14%;">전공분류</th>
+														<th style="width: 16%;">전공</th>
+														<th style="width: 8%;">입학일</th>
+														<th style="width: 8%;">졸업일</th>
+														<th style="width: 8%;">상태</th>
+														<th style="width: 8%;">학점</th>
+														<th style="width: 8%;">기준학점</th>
+														<th style="width: 8%;">작성날짜</th>
+														<th style="width: 3%;">삭제</th>
+								 					</tr>
+								 				</thead>
+												<tbody id="eduBody">
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="11" id="eduFoot" style="text-align: center; height: 5vh; padding: 10px;">
+															<button type="button" class="btn btn-outline-success" id="eduBtn" style="width: 12%;">새로 추가하기</button>
+															<button type="button" class="btn btn-outline-success" style="width: 12%;" data-bs-toggle="modal" data-bs-target="#eduModal">기존 학력 추가하기</button>
+														</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ==================================================학력================================================== -->
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</section>
+
 
 <!-- 학력모달 -->
 <div class="modal fade" id="eduModal" tabindex="-1" aria-labelledby="eduModalLabel" aria-hidden="true">
@@ -115,7 +263,7 @@ let makeEduTrTag = function(index, edu) {
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/education/" + edu.eduSn)
 				.html(edu.eduName);
-	return $("<tr>").append(
+	return $("<tr>").css("height", "4vh").append(
 				$("<td>").html(index + 1)
 				, $("<td>").html(aTag)
 				, $("<td>").html(edu.eduDepartment)
@@ -126,7 +274,7 @@ let makeEduTrTag = function(index, edu) {
 				, $("<td>").html(edu.eduScore)
 				, $("<td>").html(edu.eduStandard)
 				, $("<td>").html(edu.eduInsertDate.substr(0, 10))
-				, $("<td>").append($("<button>").addClass("btn btn-danger").addClass("eduRemoveBtn").val(edu.eduSn).html("삭제"))
+				, $("<td>").append($("<button>").addClass("btn btn-outline-danger").addClass("eduRemoveBtn").css({"width":"60px", "font-size":"15px"}).val(edu.eduSn).html("삭제"))
 			);
 }
 

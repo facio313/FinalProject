@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.lab.dao.CounAttachDAO;
 import kr.or.ddit.lab.dao.CounselingDAO;
@@ -36,6 +37,7 @@ import kr.or.ddit.lab.vo.CounselingVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.SearchVO;
@@ -133,13 +135,44 @@ public class CounselingController {
 		, Errors errors 
 	) {
 		String viewName="";
-		int cnt = service.createCoun(coun);
+		ServiceResult result = service.createCoun(coun);
 		if(!errors.hasErrors()) {
-			if(cnt>0) {
+			if(ServiceResult.OK == result) {
 				viewName = "redirect:/lab/counseling/view/"+coun.getCounNo();
 			} else {
 				viewName = "lab/counForm";
 			}
+		}
+		return viewName;
+	}
+	
+	@GetMapping("update")
+	public String updateCoun(
+		@RequestParam("counNo") String counNo
+		, Model model	
+	) {
+		CounselingVO coun = service.retrieveCoun(counNo);
+		model.addAttribute("coun", coun);
+		return "lab/counForm";
+	}
+	
+	@PostMapping("update")
+	public String updateCounProcess(
+		@Validated(UpdateGroup.class) @ModelAttribute("coun") CounselingVO coun
+		, BindingResult errors
+		, Model model
+	) {
+		String viewName = null;
+		if(!errors.hasErrors()) {
+			ServiceResult result = service.modifyCoun(coun);
+			if(ServiceResult.OK == result) {
+				viewName="redirect:/lab/counseling/view/"+coun.getCounNo();
+			} else {
+				model.addAttribute("message", "서버 오류");
+				viewName = "lab/counForm";
+			}
+		} else {
+			viewName = "lab/counForm";
 		}
 		return viewName;
 	}

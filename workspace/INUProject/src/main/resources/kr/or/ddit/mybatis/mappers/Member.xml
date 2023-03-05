@@ -271,11 +271,12 @@
 		    expert_field, expert_tag, expert_zip,
 		    expert_addr, expert_addr2, expert_tel,
 		    expert_email, expert_bank, expert_account,
-		    expert_holder, exfield_id, exjob_id,
-		    expert_applidate
-		  FROM
-		    mem_expert
-		 WHERE MEM_ID = #{memId}
+		    expert_holder, A.exfield_id, A.exjob_id,
+		    expert_applidate, B.EXFIELD_NAME, C.EXJOB_NAME
+	  FROM mem_expert A
+	  INNER JOIN EXFIELD B ON (A.EXFIELD_ID = B.EXFIELD_ID)
+	  INNER JOIN EXJOB C ON (A.EXJOB_ID = C.EXJOB_ID)
+	  WHERE MEM_ID = #{memId}
 	</select>
 	
 	<!-- 차단 회원 목록 -->
@@ -292,6 +293,7 @@
             LEFT OUTER JOIN CUT B ON(A.MEM_ID = B.MEM_ID)
             WHERE B.CUT_DATE IS NOT NULL
             AND A.MEM_AUTH_CD = 'ROLE_CUT'
+            AND B.CUT_CHECK = 'N'
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -300,6 +302,21 @@
 		    FROM ORDEREDMEMBER
 		) A 
 	</select>
+	<!-- 차단 회원 상세 -->
+	<select id="selectCut" parameterType="string" resultMap="listMap">
+		SELECT A.MEM_ID, MEM_NAME, MEM_DELETE
+	       , MEM_USE, MEM_AUTH_CD, MEM_NICKNAME
+	       , MEM_BIRTH, MEM_GENDER, MEM_ZIP
+	       , MEM_ADDR1, MEM_ADDR2, MEM_EMAIL
+	       , MEM_TEL, MEM_CERTIFICATION
+	       , MEM_CARTTOTAL, MEM_SCORE, MEM_JOINDATE
+	       , CUT_SN, CUT_DATE, CUT_CONTENT, CUT_CHECK
+  		FROM MEM_SEEKER A
+  		LEFT OUTER JOIN CUT B ON (A.MEM_ID = B.MEM_ID)
+  		WHERE A.MEM_AUTH_CD = 'ROLE_CUT'
+    	AND A.MEM_ID = #{memId}
+	</select>
+	
 	<!-- 차단 하기 -->
 	<insert id="insertCut" parameterType="CutVO">
 		<selectKey order="BEFORE" resultType="string" keyProperty="cutSn">
@@ -317,7 +334,7 @@
 		    #{memId,jdbcType=VARCHAR}
 		)
 	</insert>
-	<update id="updateCutRole" parameterType="MemberVO">
+	<update id="updateCutRole" parameterType="string">
 		UPDATE MEMBER
 	   	SET MEM_AUTH_CD = 'ROLE_CUT'
 		WHERE MEM_ID = #{memId}
@@ -329,7 +346,9 @@
  		WHERE MEM_ID = #{memId}
    		AND CUT_SN = #{cutSn}
 	</update>
-	<update id="deleteCutRole" parameterType="MemberVO">
+	
+	<!-- 일반회원 되돌리기 -->
+	<update id="deleteCutRole" parameterType="string">
 		UPDATE MEMBER
 	   	SET MEM_AUTH_CD = 'ROLE_SEEKER'
 		WHERE MEM_ID = #{memId}
@@ -357,6 +376,51 @@
 		    FROM ORDEREDMEMBER
 		) A
 	</select>
+	<!-- 블랙 회원 상세 -->
+	<select id="selectBlack" parameterType="string" resultMap="listMap">
+		SELECT A.MEM_ID, MEM_NAME, MEM_DELETE
+	       , MEM_USE, MEM_AUTH_CD, MEM_NICKNAME
+	       , MEM_BIRTH, MEM_GENDER, MEM_ZIP
+	       , MEM_ADDR1, MEM_ADDR2, MEM_EMAIL
+	       , MEM_TEL, MEM_CERTIFICATION
+	       , MEM_CARTTOTAL, MEM_SCORE, MEM_JOINDATE
+	       , BLACKLIST_SN, BLACKLIST_DATE
+	       , BLACKLIST_CONTENT, BLACKLIST_CHECK
+  		FROM MEM_SEEKER A
+  		LEFT OUTER JOIN BLACKLIST B ON (A.MEM_ID = B.MEM_ID)
+  		WHERE A.MEM_AUTH_CD = 'ROLE_BLACK'
+    	AND A.MEM_ID = #{memId}
+	</select>
+	<!-- 블랙리스트 추가 -->
+	<insert id="insertBlack" parameterType="BlackVO">
+		<selectKey order="BEFORE" resultType="string" keyProperty="blackSn">
+			SELECT 'BLK' || LPAD(BLACKLIST_SEQ.NEXTVAL,6,0) FROM DUAL
+		</selectKey>
+		INSERT INTO BLACKLIST (
+		    BLACKLIST_SN,
+		    BLACKLIST_DATE,
+		    BLACKLIST_CONTENT,
+		    MEM_ID
+		) VALUES (
+		    #{blackListSn,jdbcType=VARCHAR},
+		    SYSDATE,
+		    #{blackListContent,jdbcType=VARCHAR},
+		    #{memId,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="updateBlackRole" parameterType="string">
+		UPDATE MEMBER
+	   	SET MEM_AUTH_CD = 'ROLE_BLACK'
+		WHERE MEM_ID = #{memId}
+	</update>
+	<!-- 블랙리스트 해제 -->
+	<update id="deleteBlack" parameterType="BlackVO">
+		UPDATE BLACKLIST
+   		SET BLACKLIST_CHECK = 'Y'
+ 		WHERE MEM_ID = #{memId}
+   		AND BLACKLIST_SN = #{cutSn}
+	</update>
+	
 	
 	<!-- 탈퇴 회원 목록 -->
 	<select id="selectDelMemList" resultType="MemberVO">

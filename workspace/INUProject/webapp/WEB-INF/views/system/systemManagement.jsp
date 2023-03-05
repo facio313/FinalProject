@@ -23,14 +23,8 @@
 	    <h1 class="title_common" style="font-size: 40px;">시스템 관리</h1>
 	</div>
     <!-- HOME -->
-    <section class="py-5 bg-image overlay-primary fixed overlay" id="next-section" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2 text-white">승인 대기 목록</h2>
-          </div>
-        </div>
-        <div class="row pb-0 block__19738 section-counter">
+      <div class="container" style="position: relative; top: -190px; left: 250px; scale: 0.8;">
+        <div class="row pb-0 block__19738 section-counter" style="position: absolute; left: 30%; width: 70%;">
 
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
@@ -39,13 +33,6 @@
             <span class="caption">기업 총괄 회원 등록 신청</span>
           </div>
           
-          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <div class="d-flex align-items-center justify-content-center mb-2">
-              <strong class="number" data-number="30">0</strong>
-            </div>
-            <span class="caption">기업 등록 신청</span>
-          </div>
-
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
               <strong class="number" data-number="54">0</strong>
@@ -67,43 +54,18 @@
             <span class="caption">올라온 문의사항</span>
           </div>
           
-          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <div class="d-flex align-items-center justify-content-center mb-2">
-              <strong class="number" data-number="120">0</strong>
-            </div>
-            <span class="caption">신고된 게시글</span>
-          </div>
-
-          <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <div class="d-flex align-items-center justify-content-center mb-2">
-              <strong class="number" data-number="550">0</strong>
-            </div>
-            <span class="caption">신고된 댓글</span>
-          </div>
-
-            
+          
         </div>
       </div>
-    </section>
 
   </div>
 
 <!-- SCRIPTS -->
-<script src="<%=request.getContextPath()%>/resources/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/isotope.pkgd.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/stickyfill.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/jquery.fancybox.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/jquery.easing.1.3.js"></script>
-
 <script src="<%=request.getContextPath()%>/resources/js/jquery.waypoints.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/jquery.animateNumber.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/owl.carousel.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/quill.min.js"></script>
-
-
-<script src="<%=request.getContextPath()%>/resources/js/bootstrap-select.min.js"></script>
-
 <script src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
+
    
    

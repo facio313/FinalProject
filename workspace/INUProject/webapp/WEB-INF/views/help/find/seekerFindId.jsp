@@ -121,8 +121,9 @@ $('.mail-check-input').blur(function () {
 		$resultMsg.html('인증번호가 일치합니다.');
 		$resultMsg.css('color','green');
 		$('#mail-Check-Btn').attr('disabled',true);
-// 		$('#check-accept').attr('disabled',false); 개발끝나면 풀기
+ 		$('#check-accept').attr('disabled',false); 
 		$('#memEmail').attr('readonly',true);
+		$('#memName').attr('readonly',true);
 	}else{
 		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
 		$resultMsg.css('color','red');

@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.UserNotFoundException;
+import kr.or.ddit.vo.BlackVO;
 import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
@@ -123,14 +124,19 @@ public interface MemberService {
 	 * @return
 	 */
 	public int createCut(CutVO cut);
-	public int modifyCutRole(MemberVO member);
+	public int modifyCutRole(String memId);
 	/**
 	 * 차단 해제
 	 * @param member
 	 * @return
 	 */
 	public int removeCut(CutVO cut);
-	public int removeCutRole(MemberVO member);
+	/**
+	 * 일반회원으로 되돌리기
+	 * @param memId
+	 * @return
+	 */
+	public int modifyRole(String memId);
 	
 	/**
 	 * 블랙 회원 목록
@@ -143,6 +149,18 @@ public interface MemberService {
 	 * @return
 	 */
 	public MemberVO retrieveBlack(String memId);
+	
+	/**
+	 * 블랙리스트 등록
+	 * @param member
+	 */
+	public int createBlack(BlackVO member);
+	public int modifyBlackRole(String memId);
+	/**
+	 * 블랙리스트 해제
+	 * @param member
+	 */
+	public int removeBlack(MemberVO member);
 	
 	/**
 	 * 탈퇴 회원 목록

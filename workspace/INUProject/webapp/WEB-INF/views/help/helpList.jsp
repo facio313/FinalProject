@@ -2,16 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom-bs.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/fonts/line-icons/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/owl.carousel.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/animate.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/quill.snow.css">
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
@@ -136,8 +126,6 @@
 									),
 									$("<dd>").attr("class","answer").html(help.helpContent),
 									$("<dd>").attr("class","date1").html("등록일 : " + help.helpDate),
-									$("<dd>").attr("class","date2").html("수정일 : " + help.helpModiDate),
-									$("<dd>").attr("class","view").html("조회수 : " + help.helpHit),
 									$("<input>").attr("hidden", "true").html(help.helpCate)
 								),
 								$("<button>").attr("class","close btn_close").html("접기").append(

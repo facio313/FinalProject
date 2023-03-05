@@ -2,6 +2,8 @@ package kr.or.ddit.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,13 +27,14 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2023. 3. 2.
  * @version 1.0
  * @see javax.servlet.http.HttpServlet
- * <pre>
+ *
+ *      <pre>
  * [[개정이력(Modification Information)]]
  * 수정일                          수정자               수정내용
  * --------     --------    ----------------------
  * 2023. 3. 2.      작성자명       최초작성
  * Copyright (c) 2023 by DDIT All right reserved
- * </pre>
+ *      </pre>
  */
 @Slf4j
 @Service
@@ -53,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 			return 0;
 		// 1. metadata 저장 - DB (ATTATCH)
 		log.info("board : {}", board);
-		log.info("attactchList : {}" , attatchList);
+		log.info("attactchList : {}", attatchList);
 		// 2. binary 저장 - Middle Tier : (D:\saveFiles)
 		try {
 			for (AttachVO attatch : attatchList) {
@@ -93,20 +96,24 @@ public class BoardServiceImpl implements BoardService {
 		board.setHelp(help);
 		board.setCheer(cheer);
 
-		if(board==null) {
-			throw new UsernameNotFoundException(String.format(boardNo+"에 해당하는 게시글 없음."));
+		if (board == null) {
+			throw new UsernameNotFoundException(String.format(boardNo + "에 해당하는 게시글 없음."));
 		}
 		return board;
 	}
 
 	// 전체 조회(total), 메인(Main)
 	@Override
-	public void retrieveBoardList(PagingVO<BoardVO> pagingVO) {
-		pagingVO.setTotalRecord(dao.selectTotalRecord(pagingVO));
-		pagingVO.setDataList(dao.selectBoardList(pagingVO));
+	public void retrieveBoardList(PagingVO<BoardVO> pagingVO, String data) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("PagingVO", pagingVO);
+		map.put("data", data);
+		pagingVO.setTotalRecord(dao.selectTotalRecord(map));
+		List<BoardVO> boardList = boardList = dao.selectBoardList(map);
+		pagingVO.setDataList(boardList);
 	}
 
-	//지난 3일동안 조회수가 높았던 인기글 20개
+	// 지난 3일동안 조회수가 높았던 인기글 20개
 	@Override
 	public List<BoardVO> selectHotBoard() {
 		return this.dao.selectHotBoard();
@@ -162,7 +169,7 @@ public class BoardServiceImpl implements BoardService {
 
 //	HOT 이번주 전체 인기 글
 	@Override
-	public List<BoardVO> hotBoard(){
+	public List<BoardVO> hotBoard() {
 		return dao.hotBoard();
 	}
 
@@ -177,24 +184,3 @@ public class BoardServiceImpl implements BoardService {
 		return dao.deleteLike(map);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

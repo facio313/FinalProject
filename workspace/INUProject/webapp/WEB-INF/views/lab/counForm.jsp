@@ -56,9 +56,6 @@
 						<form:textarea path="counContent" id="editor"></form:textarea>
 					</div>
 					<div class="help_find help_lost wrap_help">
-<!-- 						<div class="wrap_lab"> -->
-<!-- 							<label for="help_upload" class="lab_find">파일첨부</label> -->
-<!-- 						</div> -->
 						<div class="wrap_input">
 							<div class="wrap_file">
 								<input type="file" id="help_upload" name="counFile" class="inp_upload" 
@@ -69,10 +66,10 @@
 								<span class="info_upload"> <span class="txt_upload" id="fileName"></span>
 								</span>
 							</div>
-<!-- 							<p class="noti_inp"> -->
-<!-- 								10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다. -->
-<!-- 								<br/>(최대 5개까지 가능) -->
-<!-- 							</p> -->
+							<p class="noti_inp">
+								10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다.
+								<br/>(최대 5개까지 가능)
+							</p>
 						</div>
 					</div>
 					<div class="wrap_board_view wrap_help">
@@ -91,11 +88,9 @@
 			</div>
 		</div>
 	</div>
-	
 </section>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-
 <script>
 console.log("refCoun : ${refCoun}");
 /* CKEDITOR */

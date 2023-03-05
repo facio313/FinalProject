@@ -231,6 +231,7 @@
 										<div class="form-group">
 											<label for="job-description"></label>
 											<textarea name="answer1" class="form-control textIncumContent" id="editor" placeholder="답변을 입력해주세요"></textarea>
+											<button type="button" class="btn btn-primary qnam" onclick="f_remove(this)">-</button>
 										</div>
 						            </div>
 								</div>
@@ -239,7 +240,6 @@
 								<!-- //////////////////////////////////// question 끝 ////////////////////////////////// -->
 								<div>
 									<button type="button" class="btn btn-primary" id="qna">+</button>
-									<button type="button" class="btn btn-primary" id="qna">-</button>
 								</div>
 
 									<div class="row align-items-center mb-5" style="margin-bottom:-1rem !important;">
@@ -249,9 +249,7 @@
 													<button type="submit" class="btn btn-block btn-primary btn-md">게시글등록</button>
 												</div>
 												<div class="col-6">
-													<a
-														href="${pageContext.request.contextPath }/interview/interviewList"
-														class="btn btn-block btn-primary btn-md">취소</a>
+													<a href="${pageContext.request.contextPath }/interview/interviewList" class="btn btn-block btn-primary btn-md">취소</a>
 												</div>
 											</div>
 										</div>
@@ -288,8 +286,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script>
 
-$(function(){
-	let i=1;
+
+let i=1;
+ $(function(){
 
 	$("#qna").click(function(){
 		i++;
@@ -317,6 +316,16 @@ $(function(){
 		}
 	});
 });
+
+// const area = document.querySelector("#divSample");
+
+function f_remove(p_this){
+    console.log("화긴",p_this.parentElement);
+    let area = $(p_this).parents("#divSample");
+    area.empty();
+    i--;
+//     area.remove(p_this.parentElement);
+}
 </script>
 </body>
 </html>

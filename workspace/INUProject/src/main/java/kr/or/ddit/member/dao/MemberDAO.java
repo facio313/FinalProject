@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.expert.vo.ExpertVO;
+import kr.or.ddit.vo.BlackVO;
 import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
@@ -132,14 +133,18 @@ public interface MemberDAO{
 	 * @return
 	 */
 	public int insertCut(CutVO cut);
-	public int updateCutRole(MemberVO member);
+	public int updateCutRole(String memId);
 	/**
 	 * 차단 해제
 	 * @param member
 	 * @return
 	 */
 	public int deleteCut(CutVO cut);
-	public int deleteCutRole(MemberVO member);
+	/**
+	 * 일반회원으로 되돌리기
+	 * @param memId
+	 */
+	public int changeRole(String memId);
 	
 	/**
 	 * 블랙 회원 목록
@@ -157,7 +162,8 @@ public interface MemberDAO{
 	 * @param member
 	 * @return
 	 */
-	public int updateBlack(MemberVO member);
+	public int insertBlack(BlackVO member);
+	public int updateBlackRole(String memId);
 	/**
 	 * 블랙리스트 해제
 	 * @param member

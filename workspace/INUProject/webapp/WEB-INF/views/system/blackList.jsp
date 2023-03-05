@@ -66,7 +66,7 @@
 												<td>${black.blackVO.blackListDate }</td>
 												<td>${black.blackVO.blackListCheck }</td>
 												<td>
-													<a href="<c:url value='#' />">
+													<a href="<c:url value='/systemManagement/memberList/blackList/${black.memId }' />">
 														상세보기
 													</a>
 												</td>

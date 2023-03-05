@@ -103,6 +103,13 @@
 		)
 	</insert>
 	
+	<update id="updateCoun" parameterType="CounselingVO">
+		UPDATE COUNSELING
+		SET COUN_TITLE = #{counTitle,jdbcType=VARCHAR}
+		    , COUN_CONTENT = #{counContent,jdbcType=CLOB}
+		WHERE COUN_NO = #{counNo,jdbcType=VARCHAR}
+	</update>
+	
 	<update id="deleteCoun" parameterType="string">
 		UPDATE COUNSELING 
 		SET COUN_STATE = 'B2'

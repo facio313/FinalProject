@@ -24,6 +24,7 @@ import kr.or.ddit.expert.dao.ExeventDAO;
 import kr.or.ddit.expert.vo.ExeventVO;
 import kr.or.ddit.member.dao.MemberDAO;
 import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.BlackVO;
 import kr.or.ddit.vo.CutVO;
 import kr.or.ddit.vo.IncruiterVO;
 import kr.or.ddit.vo.MemberVO;
@@ -233,8 +234,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.insertCut(cut);
 	}
 	@Override
-	public int modifyCutRole(MemberVO member) {
-		return memberDAO.updateCutRole(member);
+	public int modifyCutRole(String memId) {
+		return memberDAO.updateCutRole(memId);
 	}
 	//차단해제
 	@Override
@@ -242,8 +243,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.deleteCut(cut);
 	}
 	@Override
-	public int removeCutRole(MemberVO member) {
-		return memberDAO.deleteCutRole(member);
+	public int modifyRole(String memId) {
+		return memberDAO.changeRole(memId);
 	}
 	
 	//블랙 회원 목록
@@ -256,6 +257,21 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO retrieveBlack(String memId) {
 		return memberDAO.selectBlack(memId);
 	}
+	//블랙리스트 등록
+	@Override
+	public int createBlack(BlackVO member) {
+		return memberDAO.insertBlack(member);
+	}
+	@Override
+	public int modifyBlackRole(String memId) {
+		return memberDAO.updateBlackRole(memId);
+	}
+	//블랙리스트 해제
+	@Override
+	public int removeBlack(MemberVO member) {
+		return memberDAO.deleteBlack(member);
+	}
+	
 	
 	//탈퇴 회원 목록
 	@Override
@@ -362,6 +378,7 @@ public class MemberServiceImpl implements MemberService {
 		seeker.setAttatchList(attachDAO.selectAttatchList(memId));
 		return seeker;
 	}
+	
 	
 	
 }

@@ -6,7 +6,7 @@
 <!--  ==========   ======    ==============        -->
 <!--  2023. 2. 7.  최경수     최초작성               -->
 	<select id="selectCareerList" parameterType="String" resultType="CareerVO">
-		SELECT CAREER_SN, CAREER_COMPANY, CAREER_TASK, CAREER_CATEGORY
+		SELECT CAREER_SN, CAREER_COMPANY, CAREER_TASK, CAREER_CATEGORY, CAREER_INSERT_DATE
 		FROM CAREER
 		WHERE MEM_ID = #{memId}
 		AND CAREER_DELETE_DATE IS NULL

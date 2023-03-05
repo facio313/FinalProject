@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-view.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/jobs-recruit.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/recruit-template-reset.css" />
+<link rel="stylesheet" href="${prePath}/resources/css/saramin/recruit-template.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/common_ui_keeping.css" />
 
 <!-- MAIN CSS -->
@@ -109,9 +111,6 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">정상처리되었습니다</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-<!--       <div class="modal-body"> -->
-<!-- 		확인 버튼을 누르면  -->
-<!--       </div> -->
       <div class="modal-footer">
         <button type="button" id="modal_confirm_ok_btn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
       </div>
@@ -246,74 +245,182 @@
 						</div>
 						<h2 class="jv_title">공통사항</h2>
 						<table class="table table-bordered">
-							<tr style="color: #2d65f2"><th>공고아이디</th><td>${anno.annoNo}</td></tr>
-							<tr><th>담당자아이디</th><td>${anno.memId}</td></tr>
-							<tr><th>내용</th><td>${anno.annoContent}</td></tr>
-							<tr><th>조회수</th><td>${anno.annoHit}</td></tr>
-							<tr><th>근무환경</th><td>${anno.annoWorkenv}</td></tr>
-							<tr><th>수습기간</th><td>${anno.annoProbation}</td></tr>
-							<tr><th>연봉급여</th>
-							<c:choose>
-								<c:when test="${not empty anno.annoSalary2}">
-									<td>${anno.annoSalary} ${anno.annoSalary2} 만원</td>
-								</c:when>
-								<c:otherwise>
-<%-- 									<td>${anno.annoSalary}</td> --%>
-									<td>면접 후 결정</td>
-								</c:otherwise>
-							</c:choose>
-							</tr>
 							<tr><th>업종</th><td>${anno.industryName}</td></tr>
-							<tr><th>공통학력</th><td>${anno.eduName}</td></tr>
+							<tr><th>근무환경</th><td>${anno.annoWorkenv}</td></tr>
+							<tr><th>내용</th><td>${anno.annoContent}</td></tr>
 						</table>
-						<table class="table table-bordered">
-							<tbody>
-								<c:choose>
-									<c:when test="${not empty detailList}">
-										<c:forEach items="${detailList}" var="detail" varStatus="status">
-											<tr style="color: #2d65f2;"><th>모집분야</th><td>${detail.daFd}</td></tr>
-											<tr><th>세부공고순번</th><td>${status.index+1}</td></tr>
-											<tr><th>모집인원</th><td>${detail.daCount}</td></tr>
-											<tr><th>담당업무</th><td>${detail.daTask}</td></tr>
-											<tr><th>근무부서</th><td>${detail.daDepartment}</td></tr>
-											<tr><th>지원조건</th><td>${detail.daCondition}</td></tr>
-											<tr><th>우대사항</th><td>${detail.daPrefer}</td></tr>
-<%-- 											<tr><th>근무요일</th><td>${detail.daWorkday}</td></tr> --%>
-<%-- 											<tr><th>근무시간</th><td>${detail.daWorktime}</td></tr> --%>
-											<tr><th>경력</th><td>
-												<c:forEach items="${detail.careerNames}" var="career" varStatus="status">
-													${career} <c:if test="${not status.last}">,</c:if>
-												</c:forEach>
-											</td></tr>
-<%-- 											<tr><th>경력년수</th><td>${detail.daCarYeer}</td></tr> --%>
-											<tr><th>지역</th><td>${detail.regionName}</td></tr>
-											<tr><th>고용형태</th><td>${detail.empltypeName}</td></tr>
-											<tr><th>직무</th><td>${detail.jobName}</td></tr>
-											<tr><th>직급/직책</th><td>
-											<c:forEach items="${detail.positionList}" var="position" varStatus="status">
-												${position.positionName} <c:if test="${not status.last }">,</c:if>
-											</c:forEach>
-											</td></tr>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<tr><td colspan="7"> 공고 없음. </td></tr>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-					</div>
-					<div class="mb-5">
-						<h2 class="jv_title">모집분야</h2>
-						<ul class="list-unstyled m-0 p-0">
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-						</ul>
-					</div>
-		            <div class="mb-5">
-						<h2 class="jv_title">채용단계</h2>
-						<ul class="list-unstyled m-0 p-0">
-			                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span></li>
-						</ul>
+						
+						
+						<div class="user_content">
+							<div class="pc_recruit_template ver2 blue arrow">
+								<table class="cont_recruit_template">
+									<tbody>
+										<tr>
+											<td>
+												<h2 class="tit_template">모집부문 및 상세내용</h2>
+												<div class="wrap_tbl_template">
+													<table class="tbl_template">
+														<colgroup>
+															<col width="184">
+															<col>
+														</colgroup>
+														<thead>
+															<tr>
+																<th scope="col">모집부문</th>
+																<th scope="col">상세내용</th>
+															</tr>
+														</thead>
+														<tbody id="detailArea">
+															<!-- 반복문 시작 -->
+														 	<c:forEach items="${detailList}" var="detail" varStatus="status">
+														 		<tr>
+														 			<th scope="row">
+																		<strong class="tit">
+																			<strong class="tit">
+																				${detail.daFd} <!-- 모집분야 -->
+																			</strong>
+																			<span class="txt" style="font-weight: 400;">${detail.daCount} 명</span> <!-- 모집인원 -->
+																			<br>
+																		</strong>
+																	</th>
+																	<td>
+																	<table class="tbl_list">
+																		<tbody>
+																			<tr>
+																				<td>
+																					<!-- 항목별 if문으로 있으면 표시하기 -->
+																					<strong class="tit"><span>직무</span></strong>
+																					<p><span>${detail.jobName}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>담당업무 ( ${detail.jobName} )</span></strong>
+																					<p><span>${detail.daTask}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>근무부서</span></strong>
+																					<p><span>${detail.daDepartment}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>지원조건</span></strong>
+																					<p><span>${detail.daCondition}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>우대사항</span></strong>
+																					<p><span>${detail.daPrefer}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>경력</span></strong>
+																					<p><span>
+																						<c:forEach items="${detail.careerNames}" var="career" varStatus="status">
+																							${career} <c:if test="${not status.last}">,</c:if>
+																						</c:forEach>
+																					</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>지역</span></strong>
+																					<p><span>${detail.regionName}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>고용형태</span></strong>
+																					<p><span>${detail.empltypeName}</span></p>
+																					<p><span><br></span></p>
+																					
+																					<strong class="tit"><span>직급/직책</span></strong>
+																					<p><span>
+																						<c:forEach items="${detail.positionList}" var="position" varStatus="status">
+																							${position.positionName} <c:if test="${not status.last }">,</c:if>
+																						</c:forEach>
+																					</span></p>
+																					<p><span><br></span></p>
+																					
+																					
+																					
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+														 		</tr>
+														 	</c:forEach>
+														 	<!-- 반복문 끝 -->
+														 	<!--${detail.daTask}  -->
+														 	<!-- 세부1 -->
+															<tr>
+																<!-- 세부제목 -->
+																<th scope="row">
+																	<strong class="tit">
+																		<strong class="tit">
+																			Java 기반의<br>서비스 플랫폼 개발자
+																		</strong>
+																		<span class="txt" style="font-weight: 400;">0명</span>
+																		<br>
+																	</strong>
+																</th>
+																<!-- 세부상세 -->
+																<td>
+																	<table class="tbl_list">
+																		<tbody>
+																			<tr>
+																				<td>
+																					<strong class="tit"><span>담당업무</span></strong>
+																					<p><span>ㆍJava 기반의 서비스 플랫폼 분석 / 설계 / 개발</span></p>
+																					<p><span><br></span></p>
+																					<strong class="tit"><span>자격요건</span></strong>
+																					<p><span>ㆍ(비전산 전공자)	경력 5년 이상~10년 이하 보유하신 분</span></p>
+																					<p><span>ㆍ(전산 전공자) 경력 2년 이상~10년 이하 보유하신 분</span></p>
+																					<p><span>&nbsp;&nbsp; ※ 석사 이상인 경우, 경력은 3년 이상 보유하신 분</span></p>
+																					<p>
+																						<span>ㆍJava 개발 가능하신 분</span><br>
+																						<span><span>ㆍRDB(Oracle,	MySQL, MSSQL등) 또는 NO-SQL DB(Mongo DB등) 경험해보신 분</span><br>
+																							<span><span>ㆍWEB 및 API 서버 개발 	가능하신 분 (JSP 기반 개발, RestFul API 개발 등)</span><br>
+																								<span>
+																									<span>ㆍfr</span>
+																									<span>amework(Spring fr</span>
+																									<span>amework, Spring Boots 등) 사용 가능하신 분</span><br>
+																									<span>
+																										<span>ㆍCI/CD 경험하신 분</span>
+																									</span>
+																								</span>
+																							</span>
+																						</span>
+																						<span>&nbsp;</span>
+																						<br><br>
+																					</p>
+																					<strong class="tit"><span>우대사항</span></strong>
+																					<p>
+																						<span>ㆍ전산 관련 전공하신 분</span><br>
+																						<span>
+																							<span>ㆍ모바일 기반 개발 경험헤보신 분 (Mobile Web, App. 내 Hybrid Webview 개발 등)</span><br>
+																							<span>
+																								<span>ㆍJS계열 기술 (Angular JS, React JS 등) 사용 가능하신 분</span><br>
+																								<span>
+																									<span>ㆍDevops 사용 경험해보신 분</span><br>
+																									<span>
+																										<span>ㆍCloud 기반 프로젝트 경험자 (AWS, Azure 등 Public Cloud 기반 개발 경험해보신 분)</span><br>
+																										<span>
+																											<span>ㆍ대용량 시스템 /	서비스 개발 경험해보신 분</span>
+																										</span>
+																									</span>
+																								</span>
+																							</span>
+																						</span>
+																						<span>&nbsp;</span>
+																					</p>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<!-- 세부 끝 -->
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 					<div class="mb-5">
 						<div class="jv_cont jv_benefit expand">
@@ -358,6 +465,348 @@
 					<div style="margin-top: 50px; margin-bottom: 50px">
 						※ 방문, 우편, 팩스 등 오프라인 접수의 경우, 『채용절차의 공정화에 관한 법률 제11조』 에 따라 구직자는 구인자에게 채용서류 반환을 요청 할 수 있으며, 구인자는 본인임을 확인한 후 채용서류를 반환하여야 합니다.
 					</div>
+					
+					
+<!-- 테슷흐 -->
+
+	<div class="user_content">
+		<div class="pc_recruit_template ver2 blue arrow">
+			<table class="cont_recruit_template">
+				<tbody>
+					<tr>
+						<td>
+							<h2 class="tit_template">모집부문 및 상세내용</h2>
+							<div class="wrap_tbl_template">
+								<table class="tbl_template">
+									<colgroup>
+										<col width="184">
+										<col>
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">모집부문</th>
+											<th scope="col">상세내용</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- 세부1 -->
+										<tr>
+											<th scope="row">
+												<strong class="tit">
+													<strong class="tit">
+														Java 기반의<br>서비스 플랫폼 개발자
+													</strong>
+													<span class="txt" style="font-weight: 400;">0명</span>
+													<br>
+												</strong>
+											</th>
+											<td>
+												<table class="tbl_list">
+													<tbody>
+														<tr>
+															<td>
+																<span class="tit">
+																	<p><span style="font-size: 11pt;">담당업무</span></p>
+																	<p><span style="font-size: 11pt;">ㆍJava 기반의 서비스 플랫폼 분석 / 설계 / 개발</span></p>
+																	<p><span style="font-size: 11pt;"><br></span></p>
+																	<p><span style="font-size: 11pt;">자격요건</span></p>
+																	<p><span style="font-size: 11pt;">ㆍ(비전산 전공자)	경력 5년 이상~10년 이하 보유하신 분</span></p>
+																	<p><span style="font-size: 11pt;">ㆍ(전산 전공자) 경력 2년 이상~10년 이하 보유하신 분</span></p>
+																	<p><span style="font-size: 11pt;">&nbsp;&nbsp; ※ 석사 이상인 경우, 경력은 3년 이상 보유하신 분</span></p>
+																	<p>
+																		<span style="font-size: 11pt;">ㆍJava 개발 가능하신 분</span><br>
+																		<span><span style="font-size: 11pt;">ㆍRDB(Oracle,	MySQL, MSSQL등) 또는 NO-SQL DB(Mongo DB등) 경험해보신 분</span><br>
+																			<span><span style="font-size: 11pt;">ㆍWEB 및 API 서버 개발 	가능하신 분 (JSP 기반 개발, RestFul API 개발 등)</span><br>
+																				<span>
+																					<span style="font-size: 11pt;">ㆍfr</span>
+																					<span style="font-size: 11pt;">amework(Spring fr</span>
+																					<span style="font-size: 11pt;">amework, Spring Boots 등) 사용 가능하신 분</span><br>
+																					<span>
+																						<span style="font-size: 11pt;">ㆍCI/CD 경험하신 분</span>
+																					</span>
+																				</span>
+																			</span>
+																		</span>
+																		<span style="font-size: 11pt;">&nbsp;</span>
+																		<br><br>
+																	</p>
+																	<p><span style="font-size: 11pt;">우대사항</span></p>
+																	<p>
+																		<span style="font-size: 11pt;">ㆍ전산 관련 전공하신 분</span><br>
+																		<span>
+																			<span style="font-size: 11pt;">ㆍ모바일 기반 개발 경험헤보신 분 (Mobile Web, App. 내 Hybrid Webview 개발 등)</span><br>
+																			<span id="template_divisions_Career_1">
+																				<span style="font-size: 11pt;">ㆍJS계열 기술 (Angular JS, React JS 등) 사용 가능하신 분</span><br>
+																				<span>
+																					<span style="font-size: 11pt;">ㆍDevops 사용 경험해보신 분</span><br>
+																					<span id="template_divisions_Career_1">
+																						<span style="font-size: 11pt;">ㆍCloud 기반 프로젝트 경험자 (AWS, Azure 등 Public Cloud 기반 개발 경험해보신 분)</span><br>
+																						<span>
+																							<span style="font-size: 11pt;">ㆍ대용량 시스템 /	서비스 개발 경험해보신 분</span>
+																						</span>
+																					</span>
+																				</span>
+																			</span>
+																		</span>
+																		<span style="font-size: 11pt;">&nbsp;</span>
+																	</p>
+																</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										<!-- 세부2 -->
+										<tr class="recruit_division_5 tr_division" style="display: table-row;">
+											<th scope="row">
+												<strong class="tit">
+													셋탑박스용 <br>미들웨어 개발자
+												</strong>
+												<span class="txt"> 0명</span>
+											</th>
+											<td>
+												<table class="tbl_list">
+													<tbody>
+														<tr>
+															<td>
+																<strong class="tit"><span>담당업무</span></strong>
+																<p><span style="font-size: 11pt;">ㆍSK Broadband 셋탑박스용 미들웨어 개발</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍSK Broadband 부가서비스 개발</span>&nbsp;</p>
+																<p><br></p>
+																<p><span style="font-weight: 700;">자격요건</span></p>
+																<p><span style="font-size: 14.6667px;">ㆍ 관련 경력 3년 이상이신 분</span>&nbsp;</p>
+																<p><span style="font-size: 11pt;">ㆍ 4년 이상 C/C++ 개발 경험이 있으신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ Android NDK 개발 경험이 있으신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ C/C++ 라이브러리 / 서비스 개발 경험해보신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ Java 개발 경험이 있으신 분</span>&nbsp;</p>
+																<p><br></p>
+																<p><span style="font-weight: 700;">우대사항</span></p>
+																<p><span style="font-size: 11pt;">ㆍ Android STB 개발 경험이 있으신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ Android Java Application 개발 경험이 있으신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ Android 디바이스 개발 경험이 있으신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ 셋탑박스 개발 경험이 있으신 분 (KT, SKB, U+, 케이블사업자)</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ 임베디드 리눅스 개발 경험이 있으신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ git / repo 등 형상 관리툴 사용이 능숙하신 분</span></p>
+																<table class="tbl_list __se_tbl_ext" style="padding: 0px; margin-top: 0px; margin-right: 0px; margin-left: 0px; font-size: 12px; empty-cells: show; border: 0px none; width: 603px; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;"></table>
+																<p><span style="font-size: 11pt;">ㆍ 해외 출장 / 근무에 결격사유가 없는 분</span>&nbsp;</p>
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<span id="template_divisions_Career_5" data-group="recruit_division_5"></span>
+																<span id="template_divisions_JobGrade_5" data-group="recruit_division_5"></span>
+															</td>
+														</tr>
+														<tr class="display_req_5" style="display: none;">
+															<td id="template_divisions_req_title_5">ㆍ기타 필수사항</td>
+														</tr>
+														<tr class="display_req_5" id="template_divisions_req_5" style="display: none;" data-group="recruit_division_5">
+															<td>
+																<table class="tbl_list_type2">
+																	<tbody></tbody>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<table class="tbl_list display_pre_5" style="display: none;" id="template_divisions_pre_5" data-group="recruit_division_5">
+													<tbody>
+														<tr>
+															<td><strong class="tit">우대사항</strong></td>
+														</tr>
+														<tr>
+															<td>
+																<table class="tbl_list_type2 forward">
+																	<tbody></tbody>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</td>
+					</tr>
+				<tr>
+					<td>
+						<h2 class="tit_template" id="template_job_type_title">
+							<span class="ico"></span>
+							근무조건
+							<font color="#2b6bcd"></font>
+						</h2>
+						<div class="wrap_list_template">
+							<table class="list_template">
+								<tbody>
+									<tr>
+										<td>
+											<span class="dot">ㆍ</span>
+											<span class="tit" id="template_job_type_job_type_title">근무 형태</span>
+											<span class="colon">:</span>
+											<span class="txt" id="template_job_type_job_type">정규직 (수습기간&nbsp;
+												<span style="color: #ababab">3개월)</span>
+											</span>
+										</td>
+									</tr>
+									<tr class="work_shift display_work_shift" style="display: none;">
+										<td>
+											<span class="dot">ㆍ</span>
+											<span class="tit" id="template_job_type_work_shift_title" data-group="work_shift">근무일시</span>
+											<span class="colon">:</span>
+											<span class="txt" id="template_job_type_work_shift" data-group="work_shift"></span>
+										</td>
+									</tr>
+									<tr class="address display_address">
+										<td>
+											<span class="dot">ㆍ</span>
+											<span class="tit" id="template_job_type_address_title">본사 주소</span>
+											<span class="colon">:</span>
+											<span class="txt">
+												<span id="template_job_type_aw_post_address">(06694) 서울 서초구 효령로 17 (방배동, 청진빌딩) / <b>
+													<span style="color: rgb(255, 0, 0);">4호선 사당역 도보 9분 거리</span></b>
+												</span>
+											</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr class="display_hiring_process_list">
+					<td>
+						<h2 class="tit_template" id="template_step_title">
+							<span class="ico"></span>
+							전형절차
+						</h2>
+						<ol class="step_template_type step_template_type10" id="template_step_hiring_process_list">
+							<li>
+								<div class="cont_step">
+									<div class="inner">
+										<strong class="tit_step"> 서류 전형</strong>
+										<span class="txt_step"></span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="cont_step">
+									<div class="inner">
+										<strong class="tit_step"> 면접 전형 (2회)</strong>
+										<span class="txt_step"></span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="cont_step">
+									<div class="inner">
+										<strong class="tit_step"> 최종 합격</strong>
+										<span class="txt_step"></span>
+									</div>
+								</div>
+							</li>
+						</ol>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2 class="tit_template" id="template_how_to_apply_title">
+							<span class="ico"></span>
+							접수기간 및 방법
+						</h2>
+						<div class="wrap_list_template">
+							<table class="list_template">
+								<tbody>
+									<tr>
+										<td>
+											<span class="dot">ㆍ</span>
+											<span class="tit" id="template_how_to_apply_period_title">접수 기간</span>
+											<span class="colon">:</span>
+											<span class="txt emph" id="template_how_to_apply_period" style="color: rgb(255, 0, 0);">채용 시 마감</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span class="dot">ㆍ</span>
+											<span class="tit" id="template_how_to_apply_howtoapply_title">
+												접수 방법
+												<font color="#4bedd7"></font>
+											</span>
+											<span class="colon">:</span>
+											<span class="txt" id="template_how_to_apply_howtoapply">사람인 입사지원</span></td>
+									</tr>
+									<tr>
+										<td>
+											<span class="dot">ㆍ</span>
+											<span class="tit" id="template_how_to_apply_apply_form_title">이력서 양식</span>
+											<span class="colon">:</span>
+											<span class="txt" id="template_how_to_apply_apply_form">사람인 온라인 이력서</span>
+										</td>
+									</tr>
+									<tr class="display_required_documents required_documents" style="display: none;">
+										<td><span class="dot">ㆍ</span><span class="tit" id="template_step_required_documents_title" data-group="required_documents">제출서류</span>
+											<span class="colon">:</span>
+											<span class="txt" id="template_step_required_documents" data-group="required_documents"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr class="customItem" id="template_customItem_3">
+					<td>
+						<h2 class="tit_template">
+							<span class="ico"></span>
+						</h2>
+						<h2 class="tit_template">유의사항</h2>
+						<div class="wrap_list_template">
+							<table class="list_template __se_tbl_ext" style="padding: 0px; margin: 0px; font-size: 12px; empty-cells: show; border: 0px none; color: rgb(51, 51, 51); font-family: '맑은  고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 돋움, Dotum, sans-serif;">
+								<tbody>
+									<tr>
+										<td style="padding-top: 0px; margin: 0px; font-size: 16px; position: relative; line-height: 1.75;">
+											<span style="color: rgb(70, 70, 70);">ㆍ</span>
+											<span style="color: rgb(70, 70, 70);">면접 일정의 경우 개별 통보드릴 예정입니다.</span>
+										</td>
+									</tr>
+									<tr>
+										<td style="padding-top: 0px; margin: 0px; font-size: 16px; position: relative; line-height: 1.75;">
+											<span style="color: rgb(70, 70, 70);">ㆍ모집 부문별로 합격자 통보시기가 다를 수 있으니 참고 부탁 드립니다.</span>
+										</td>
+									</tr>
+									<tr>
+										<td style="padding-top: 0px; margin: 0px; font-size: 16px; position: relative; line-height: 1.75;">
+											<span style="color: rgb(70, 70, 70);">ㆍ최종합격 이후라도 지원서의 내용이 사실과 다르거나 증빙 제출이 불가한 경우, 합격 또는 채용을 취소 할 수 있습니다.<br>
+												ㆍ본인의 귀책사유로 입사일 이후 근무가 불사한 경우, 합격 또는 채용을 취소 할 수 있습니다.<br>
+												ㆍ모집 분야 별로 마감일이 상이할 수 있으니 유의 바랍니다.
+											</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- 테슷흐 -->
+					
+					
+					
 					<!-- 타이머 -->
 					<div class="jv_cont jv_howto">
 						<a class="placeholder" tabindex="-1"></a>
@@ -366,7 +815,6 @@
 							<c:choose>
 								<c:when test="${anno.annoStateCd eq 'B1'}">
 									<div class="status">
-					<!-- 				<p class="copy once"><strong>채용시 마감</strong>되는<br>공고입니다.</p> -->
 										<div class="info_timer" data-remain-time="820560">
 											<span class="txt">남은 기간</span>
 											<span class="day">9</span>
@@ -442,7 +890,6 @@
 							</div>
 						</div>
 						<h3 class="text-primary  mt-3 h5 pl-3 mb-3">${anno.company.cmpName}</h3>
-<%-- 						<h2 class="jv_title">${anno.company.cmpName}</h2> --%>
 						<ul class="list-unstyled pl-3 mb-0">
 							<c:set var="company" value="${anno.company}"/>
 			                <li class="mb-2"><strong class="text-black">업종: </strong>${company.cmpMbName}</li>
@@ -506,7 +953,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="site-section" id="next">
+	<section class="site-section" id="next" style="padding-top: 0px">
 		<div class="container">
 		    <div class="row mb-5 justify-content-center">
 				<div class="col-md-7 text-center">
@@ -535,7 +982,6 @@
 		</div>
 	</section>
 </div>
-
 
 
 <!-- SCRIPTS -->

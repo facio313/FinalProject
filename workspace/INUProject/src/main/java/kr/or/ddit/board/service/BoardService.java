@@ -36,7 +36,7 @@ public interface BoardService {
 	 * 전체 조회 및 메인
 	 * @param pagingVO
 	 */
-	public void retrieveBoardList(PagingVO<BoardVO> pagingVO);
+	public void retrieveBoardList(PagingVO<BoardVO> pagingVO, String data);
 
 	/**
 	 * 신규 글 생성

@@ -45,7 +45,9 @@ import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.fullcalendar.AnnoFullCalendarEvent;
+import kr.or.ddit.ui.fullcalendar.DetailFullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.FullCalendarEvent;
+import kr.or.ddit.ui.fullcalendar.ProcessFullCalendarEvent;
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -524,8 +526,8 @@ public class ProcessController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="events", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<FullCalendarEvent<AnnoVO>> json(
+	@GetMapping(value="/events", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<FullCalendarEvent<AnnoVO>> events(
 		@RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime start
 		, @RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime end
 		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
@@ -534,6 +536,52 @@ public class ProcessController {
 	) {
 		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
 		List<FullCalendarEvent<AnnoVO>> list = annoList.stream().map(AnnoFullCalendarEvent::new).collect(Collectors.toList());
+		return list;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/events/details", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<FullCalendarEvent<AnnoDetailVO>> details(
+		@RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime start
+		, @RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime end
+		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
+		, @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") long dateTime
+		, @AuthMember MemberVO authMember
+	) {
+		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+		List<AnnoDetailVO> detailList = new ArrayList<>();
+		for (AnnoVO vo : annoList) {
+			List<AnnoDetailVO> dList = vo.getDetailList();
+			for (AnnoDetailVO da : dList) {
+				detailList.add(da);
+			}
+		}
+		
+		List<FullCalendarEvent<AnnoDetailVO>> list = detailList.stream().map(DetailFullCalendarEvent::new).collect(Collectors.toList());
+		return list;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/events/details/process", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<FullCalendarEvent<ProcessVO>> process(
+		@RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime start
+		, @RequestParam @DateTimeFormat(iso=ISO.DATE_TIME) LocalDateTime end
+		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
+		, @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") long dateTime
+		, @AuthMember MemberVO authMember
+	) {
+		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+		List<ProcessVO> processList = new ArrayList<>();
+		for (AnnoVO vo : annoList) {
+			List<AnnoDetailVO> dList = vo.getDetailList();
+			for (AnnoDetailVO da : dList) {
+				List<ProcessVO> pList = da.getProcessList();
+				for (ProcessVO pv : pList) {
+					processList.add(pv);
+				}
+			}
+		}
+		List<FullCalendarEvent<ProcessVO>> list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
 		return list;
 	}
 }

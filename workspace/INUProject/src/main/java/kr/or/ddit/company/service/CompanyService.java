@@ -26,6 +26,12 @@ public interface CompanyService {
 	 * @return
 	 */
 	public int removeAppliCmp(CompanyVO company);
+	/**
+	 * 기업 상세
+	 * @param cmpId
+	 * @return
+	 */
+	public CompanyVO retrieveCmp(String cmpId);
 	
 }
 

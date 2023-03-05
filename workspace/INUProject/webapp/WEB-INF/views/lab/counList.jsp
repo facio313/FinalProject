@@ -37,23 +37,24 @@
 						<div class="company_honest_qna">
 							<div class="qna_list_wrap">
 								<div class="qna_list_sort">
-									<div class="icoChk_outline filter">
-										<security:authorize access="hasAnyRole('SEEKER','INCRUITER','EXPERT')">
+									<security:authorize access="hasAnyRole('SEEKER','INCRUITER','EXPERT')">
+										<div class="icoChk_outline filter">
 											<security:authentication property="principal" var="memberVOWrapper"/>
 											<security:authentication property="principal.realMember" var="authMember"/>
 											<span class="inpChk icoChk">
 												<input type="checkbox" id="myBoard" class="btn_sort" value="myBoard"> 
 												<label class="lbl" for="myBoard">내 글 보기</label>
 											</span>
-										</security:authorize>
-										<security:authorize access="hasRole('ROLE_ADMIN')">
+										</div>
+									</security:authorize>
+									<security:authorize access="hasRole('ROLE_ADMIN')">
+										<div class="icoChk_outline filter">
 											<span class="inpChk icoChk">
 												<input type="checkbox" id="notAnsweredBoard" class="btn_sort" value="notAnsweredBoard" > 
 												<label class="lbl" for="notAnsweredBoard">답변대기중인 글 보기</label>
 											</span>
-										</security:authorize>
-										
-									</div>
+										</div>
+									</security:authorize>
 								</div>
 							</div>
 						</div>

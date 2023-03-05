@@ -25,12 +25,12 @@ public class FacilityVO extends CommonsAttachVO {
 	private String facilityInsertDate;
 	private String facilityDeleteDate;
 	
-	public String getFacilityGetdate() {
-		return facilityGetdate;
-	}
-	
 	public void setFacilityGetdate(String facilityGetdate) {
 		this.facilityGetdate = facilityGetdate.substring(0, 10);
+	}
+	
+	public void setFacilityInsertDatae(String facilityInsertDate) {
+		this.facilityInsertDate = facilityInsertDate.substring(0, 10);
 	}
 
 	@Override

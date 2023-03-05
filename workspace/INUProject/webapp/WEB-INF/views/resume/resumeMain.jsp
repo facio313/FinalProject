@@ -1,3 +1,4 @@
+
 <%--
 * [[개정이력(Modification Information)]]
 * 수정일             수정자            수정내용
@@ -37,7 +38,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 	height: auto;
 	border : 1px solid #eaedf4;
 	border-radius: 12px;
-	padding-top: 50px;
+/* 	padding-top: 50px; */
 	margin-top: 2%;
 	margin-bottom: 2%;
 }
@@ -79,20 +80,11 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 
 <!-- 이력서 -->
 <div class="radiuss">
-	<div class="qna_write_wrap">
-		<div class="qna_write_selection">
-			<span class="qna_category_tit" style="font-size: 40px; padding-left: 100px; padding-right: 100px;">이력서</span>
-		</div>
-	</div>
-	<div style="padding-left: 50px; padding-right: 50px;">
-		<hr style="background-color: #5c667b; height: 2px;">
-		<p class="pf">총체적인 이력서 목록과 항목들</p>
-	</div>
-	<div id="content">
+	<div id="content" style="width: 85%;">
 		<div class="company_honest_qna">
-			<div class="contents_container">
+			<div class="contents_container" style="width: 90%;">
 				<ul class="main_banners banners_th"></ul>
-				<div class="wrap_area_left">
+				<div class="wrap_area_left" style="width: 100%;">
 					<div class="wrap_story_panel">
 						<div class="qna_search">
 							<h3 class="title">
@@ -138,7 +130,14 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<li style="margin: 0 0 17px">
 											<a href="${pageContext.request.contextPath}/resume/${resume.resumeSn}" class="link">
 												<span class="txt_subject">
-													<c:out value="${resume.resumeTitle}" />
+													<table class="table table-hover" style="width: 100%;">
+														<tr>
+															<td class="col-8" style="border-top: none;"><c:out value="${resume.resumeTitle}"/></td>
+															<td class="col-1" style="border-top: none; color: gray; font-size: 14px;"><c:out value="${resume.resumeName}"/></td>
+															<td class="col-2" style="border-top: none; color: gray; font-size: 14px;"><c:out value="${resume.resumeEmail}"/></td>
+															<td class="col-1" style="border-top: none; color: gray; font-size: 14px;"><c:out value="${resume.resumeTel}"/></td>
+														</tr>
+													</table>
 												</span>
 											</a>
 											<div class="util">
@@ -150,13 +149,15 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 								</ul>
 							</div>
 						</div>
+						<br>
+						<button type="button" class="btnSizeL btn_qna_write" onclick="location.href='${pageContext.request.contextPath}/resume/form'" style="position: relative; left: 85%; width: 15%;">이력서 작성</button>
 	
 						<!-- 항목 -->
-						<div class="wrap_section wrap_community_topic">
+						<div class="wrap_section wrap_community_topic" style="margin-top: 40px;">
 							<div class="wrap_title">
 								<h3 class="main_tit">이력서 항목</h3>
 							</div>
-							<div class="wrap_slide_category">
+							<div class="wrap_slide_category" style="margin-left: 12%;">
 							   <ul class="list_category js-category" style="max-width: 889px;margin: 0 0 0 32px;">
 									<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
 										<a class="item_cate" href="${pageContext.request.contextPath}/education">
@@ -189,7 +190,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										</a>
 									</li>
 									<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
-										<a class="item_cate selected" href="${pageContext.request.contextPath}/award">
+										<a class="item_cate" href="${pageContext.request.contextPath}/award">
 											수상내역
 										</a>
 									</li>
@@ -199,7 +200,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 							<!-- 학력 -->
 							<div class="community_list">
 								<li>
-									<div class="section_inner">
+									<div class="section_inner" style="width: 49%;">
 										<div class="wrap_title">
 											<h4 class="title">
 												<a href="${pageContext.request.contextPath }/education" class="link_go">학력</a>
@@ -226,7 +227,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 								</li>
 	
 								<!-- 경력 -->
-								<div class="section_inner">
+								<div class="section_inner" style="width: 49%;">
 									<div class="wrap_title">
 										<h4 class="title">
 											<a href="${pageContext.request.contextPath}/career" class="link_go">경력</a>
@@ -234,23 +235,25 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<a href="${pageContext.request.contextPath}/career" class="link_more">더보기</a>
 									</div>
 									<!-- ajax -->
-									<ul class="list_story">
-										<li style="margin: 0 0 17px">
-											<a href="경력목록">
-												<span class="txt_subject">
-													경력 제목
-												</span>
-											</a>
-											<div class="util">
-												<span>경력 입력 날짜</span>
-											</div>
-										</li>
-									</ul>
+									<div id="careerBody">
+										<ul class="list_story">
+											<li style="margin: 0 0 17px">
+												<a href="경력목록">
+													<span class="txt_subject">
+														경력 제목
+													</span>
+												</a>
+												<div class="util">
+													<span>경력 입력 날짜</span>
+												</div>
+											</li>
+										</ul>
+									</div>
 									<!-- ajax -->
 								</div>
 								
 								<!-- 자격증 -->
-								<div class="section_inner">
+								<div class="section_inner" style="width: 49%;">
 									<div class="wrap_title">
 										<h4 class="title">
 											<a href="${pageContext.request.contextPath}/certification" class="link_go">자격증</a>
@@ -258,23 +261,25 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<a href="${pageContext.request.contextPath}/certification" class="link_more">더보기</a>
 									</div>
 									<!-- ajax -->
-									<ul class="list_story">
-										<li style="margin: 0 0 17px">
-											<a href="자격증목록">
-												<span class="txt_subject">
-													자격증 제목
-												</span>
-											</a>
-											<div class="util">
-												<span>자격증 입력 날짜</span>
-											</div>
-										</li>
-									</ul>
+									<div id="certBody">
+										<ul class="list_story">
+											<li style="margin: 0 0 17px">
+												<a href="자격증목록">
+													<span class="txt_subject">
+														자격증 제목
+													</span>
+												</a>
+												<div class="util">
+													<span>자격증 입력 날짜</span>
+												</div>
+											</li>
+										</ul>
+									</div>
 									<!-- ajax -->
 								</div>
 								
 								<!-- 기능 -->
-								<div class="section_inner">
+								<div class="section_inner" style="width: 49%;">
 									<div class="wrap_title">
 										<h4 class="title">
 											<a href="${pageContext.request.contextPath}/facility" class="link_go">기능</a>
@@ -282,23 +287,25 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<a href="${pageContext.request.contextPath}/facility" class="link_more">더보기</a>
 									</div>
 									<!-- ajax -->
-									<ul class="list_story">
-										<li style="margin: 0 0 17px">
-											<a href="기능목록">
-												<span class="txt_subject">
-													기능 제목
-												</span>
-											</a>
-											<div class="util">
-												<span>기능 입력 날짜</span>
-											</div>
-										</li>
-									</ul>
+									<div id="facBody">
+										<ul class="list_story">
+											<li style="margin: 0 0 17px">
+												<a href="기능목록">
+													<span class="txt_subject">
+														기능 제목
+													</span>
+												</a>
+												<div class="util">
+													<span>기능 입력 날짜</span>
+												</div>
+											</li>
+										</ul>
+									</div>
 									<!-- ajax -->
 								</div>
 								
 								<!-- 주요활동 -->
-								<div class="section_inner">
+								<div class="section_inner" style="width: 49%;">
 									<div class="wrap_title">
 										<h4 class="title">
 											<a href="${pageContext.request.contextPath}/activity" class="link_go">주요활동</a>
@@ -306,23 +313,25 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<a href="${pageContext.request.contextPath}/activity" class="link_more">더보기</a>
 									</div>
 									<!-- ajax -->
-									<ul class="list_story">
-										<li style="margin: 0 0 17px">
-											<a href="주요활동목록">
-												<span class="txt_subject">
-													주요활동 제목
-												</span>
-											</a>
-											<div class="util">
-												<span>주요활동 입력 날짜</span>
-											</div>
-										</li>
-									</ul>
+									<div id="actBody">
+										<ul class="list_story">
+											<li style="margin: 0 0 17px">
+												<a href="주요활동목록">
+													<span class="txt_subject">
+														주요활동 제목
+													</span>
+												</a>
+												<div class="util">
+													<span>주요활동 입력 날짜</span>
+												</div>
+											</li>
+										</ul>
+									</div>
 									<!-- ajax -->
 								</div>
 								
 								<!-- 교육이수 -->
-								<div class="section_inner">
+								<div class="section_inner" style="width: 49%;">
 									<div class="wrap_title">
 										<h4 class="title">
 											<a href="${pageContext.request.contextPath}/career" class="link_go">교육이수</a>
@@ -330,23 +339,25 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<a href="${pageContext.request.contextPath}/career" class="link_more">더보기</a>
 									</div>
 									<!-- ajax -->
-									<ul class="list_story">
-										<li style="margin: 0 0 17px">
-											<a href="교육이수목록">
-												<span class="txt_subject">
-													교육이수 제목
-												</span>
-											</a>
-											<div class="util">
-												<span>교육이수 입력 날짜</span>
-											</div>
-										</li>
-									</ul>
+									<div id="courseBody">
+										<ul class="list_story">
+											<li style="margin: 0 0 17px">
+												<a href="교육이수목록">
+													<span class="txt_subject">
+														교육이수 제목
+													</span>
+												</a>
+												<div class="util">
+													<span>교육이수 입력 날짜</span>
+												</div>
+											</li>
+										</ul>
+									</div>
 									<!-- ajax -->
 								</div>
 								
 								<!-- 수상내역 -->
-								<div class="section_inner">
+								<div class="section_inner" style="width: 49%;">
 									<div class="wrap_title">
 										<h4 class="title">
 											<a href="${pageContext.request.contextPath}/career" class="link_go">수상내역</a>
@@ -354,18 +365,20 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 										<a href="${pageContext.request.contextPath}/career" class="link_more">더보기</a>
 									</div>
 									<!-- ajax -->
-									<ul class="list_story">
-										<li style="margin: 0 0 17px">
-											<a href="수상내역목록">
-												<span class="txt_subject">
-													수상내역 제목
-												</span>
-											</a>
-											<div class="util">
-												<span>수상내역 입력 날짜</span>
-											</div>
-										</li>
-									</ul>
+									<div id="awardBody">
+										<ul class="list_story">
+											<li style="margin: 0 0 17px">
+												<a href="수상내역목록">
+													<span class="txt_subject">
+														수상내역 제목
+													</span>
+												</a>
+												<div class="util">
+													<span>수상내역 입력 날짜</span>
+												</div>
+											</li>
+										</ul>
+									</div>
 									<!-- ajax -->
 								</div>
 								
@@ -383,7 +396,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 <script>
 let resumeBody = $("#resumeBody");
 
-let makeTrTag0 = function(index, resume){
+let makeResumeTag = function(index, resume){
 	let aTag = $("<a>")
 				.attr("href", "${pageContext.request.contextPath}/resume/" + resume.resumeSn)
 				.html(resume.resumeTitle);
@@ -404,7 +417,7 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, resume){
-				trTags.push(makeTrTag0(index, resume));
+				trTags.push(makeResumeTag(index, resume));
 			});
 		}else{
 			let tr = $("<tr>").html(
@@ -425,6 +438,8 @@ $.ajax({
 
 <!-- 학력 -->
 <script>
+let blockNum = 4;
+
 let eduBody = $("#eduBody");
 
 let makeEduTag = function(edu, index){
@@ -439,13 +454,12 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		console.log(resp);
 		eduBody.empty();
 		let dataList = resp.educationList;
 		let tags = [];
 		if (dataList) {
 			$.each(dataList, function(index, edu){
-				if (index < 4) {
+				if (index < blockNum) {
 					tags.push(makeEduTag(edu, index));
 				}
 			});
@@ -468,16 +482,11 @@ $.ajax({
 <script>
 let careerBody = $("#careerBody");
 
-let makeTrTag2 = function(career, index){
-	let aTag = $("<a>")
-				.attr("href", "${pageContext.request.contextPath}/career/" + career.careerSn)
-				.html(career.careerCompany);
-	return $("<tr>").append(
-				$("<td>").html(index + 1)
-				, $("<td>").html(aTag)
-				, $("<td>").html(career.careerTask)
-				, $("<td>").html(career.careerCategory)
-			);
+let makeCareerTag = function(career){
+	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
+				$("<a>").attr("href", "${pageContext.request.contextPath}/career/" + career.careerSn).append($("<span>").addClass("txt_subject").html(career.careerTask))
+				, $("<div>").addClass("util").append($("<span>").html(career.careerInsertDate))
+	));
 }
 
 $.ajax({
@@ -490,14 +499,13 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, career){
-				trTags.push(makeTrTag2(career, index));
+				if (index < blockNum){
+					trTags.push(makeCareerTag(career));
+				}
 			});
 		}else{
-			let tr = $("<tr>").html(
-				$("<td>").attr("colspan", "7")
-						.html("경력을 아직 등록하지 않았습니다.")
-			);	
-			trTags.push(tr);
+			let none = $("<a>").append($("<span>").addClass("txt_subject").html("경력을 아직 등록하지 않았습니다."));
+			trTags.push(none);
 		}
 		careerBody.html(trTags);
 	},
@@ -513,16 +521,11 @@ $.ajax({
 <script>
 let certBody = $("#certBody");
 
-let makeTrTag3 = function(cert, index){
-	let aTag = $("<a>")
-				.attr("href", "${pageContext.request.contextPath}/certification/" + cert.certSn)
-				.html(cert.certName);
-	return $("<tr>").append(
-				$("<td>").html(index + 1)
-				, $("<td>").html(aTag)
-				, $("<td>").html(cert.certInstitution)
-				, $("<td>").html(cert.certDate.substr(0, 7))
-			);
+let makeCertTag = function(cert){
+	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
+				$("<a>").attr("href", "${pageContext.request.contextPath}/certification/" + cert.certSn).append($("<span>").addClass("txt_subject").html(cert.certName))
+				, $("<div>").addClass("util").append($("<span>").html(cert.certInsertDate))
+	));
 }
 
 $.ajax({
@@ -535,14 +538,13 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, cert){
-				trTags.push(makeTrTag3(cert, index));
+				if (index < blockNum) {
+					trTags.push(makeCertTag(cert));
+				}
 			});
 		}else{
-			let tr = $("<tr>").html(
-				$("<td>").attr("colspan", "7")
-						.html("자격증을 아직 등록하지 않았습니다.")
-			);	
-			trTags.push(tr);
+			let none = $("<a>").append($("<span>").addClass("txt_subject").html("자격증을 아직 등록하지 않았습니다."));
+			trTags.push(none);
 		}
 		certBody.html(trTags);
 	},
@@ -556,40 +558,35 @@ $.ajax({
 
 <!-- 기능 -->
 <script>
-let facilityBody = $("#facilityBody");
+let facBody = $("#facBody");
 
-let makeTrTag4 = function(facility, index){
-	let aTag = $("<a>")
-				.attr("href", "${pageContext.request.contextPath}/facility/" + facility.facilitySn)
-				.html(facility.facilityName);
-	return $("<tr>").append(
-				$("<td>").html(index + 1)
-				, $("<td>").html(aTag)
-				, $("<td>").html(facility.facilityCategory)
-				, $("<td>").html(facility.facilityLevel)
-			);
+let makeFacilityTag = function(facility){
+	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
+				$("<a>").attr("href", "${pageContext.request.contextPath}/facility/" + facility.facilitySn).append($("<span>").addClass("txt_subject").html(facility.facilityName))
+				, $("<div>").addClass("util").append($("<span>").html(facility.facilityInsertDate))
+	));
 }
+
 
 $.ajax({
 	url : "${pageContext.request.contextPath}/facility",
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		facilityBody.empty();
+		facBody.empty();
 		let dataList = resp.facilityList;
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, facility){
-				trTags.push(makeTrTag4(facility, index));
+				if (index < blockNum) {
+					trTags.push(makeFacilityTag(facility));
+				}
 			});
 		}else{
-			let tr = $("<tr>").html(
-				$("<td>").attr("colspan", "7")
-						.html("경력을 아직 등록하지 않았습니다.")
-			);	
-			trTags.push(tr);
+			let none = $("<a>").append($("<span>").addClass("txt_subject").html("기능을 아직 등록하지 않았습니다."));
+			trTags.push(none);
 		}
-		facilityBody.html(trTags);
+		facBody.html(trTags);
 	},
 	error : function(jqXHR, status, error) {
 		console.log(jqXHR);
@@ -601,18 +598,13 @@ $.ajax({
 
 <!-- 주요활동 -->
 <script>
-let activityBody = $("#activityBody");
+let actBody = $("#actBody");
 
-let makeTrTag5 = function(act, index){
-	let aTag = $("<a>")
-				.attr("href", "${pageContext.request.contextPath}/activity/" + act.actSn)
-				.html(act.actName);
-	return $("<tr>").append(
-				$("<td>").html(index + 1)
-				, $("<td>").html(aTag)
-				, $("<td>").html(act.actCategory)
-				, $("<td>").html(act.actPeriod)
-			);
+let makeActTag = function(act){
+	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
+				$("<a>").attr("href", "${pageContext.request.contextPath}/activity/" + act.actSn).append($("<span>").addClass("txt_subject").html(act.actName))
+				, $("<div>").addClass("util").append($("<span>").html(act.actInsertDate))
+	));
 }
 
 $.ajax({
@@ -620,21 +612,20 @@ $.ajax({
 	method : "get",
 	dataType : "json",
 	success : function(resp) {
-		activityBody.empty();
+		actBody.empty();
 		let dataList = resp.activityList;
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, act){
-				trTags.push(makeTrTag5(act, index));
+				if (index < blockNum) {
+					trTags.push(makeActTag(act));
+				}
 			});
 		}else{
-			let tr = $("<tr>").html(
-				$("<td>").attr("colspan", "7")
-						.html("주요활동을 아직 등록하지 않았습니다.")
-			);	
-			trTags.push(tr);
+			let none = $("<a>").append($("<span>").addClass("txt_subject").html("주요활동을 아직 등록하지 않았습니다."));
+			trTags.push(none);
 		}
-		activityBody.html(trTags);
+		actBody.html(trTags);
 	},
 	error : function(jqXHR, status, error) {
 		console.log(jqXHR);
@@ -648,17 +639,11 @@ $.ajax({
 <script>
 let courseBody = $("#courseBody");
 
-let makeTrTag6 = function(course, index){
-	let aTag = $("<a>")
-				.attr("href", "${pageContext.request.contextPath}/course/" + course.courseSn)
-				.html(course.courseName);
-	return $("<tr>").append(
-				$("<td>").html(index + 1)
-				, $("<td>").html(aTag)
-				, $("<td>").html(course.courseInstitution)
-				, $("<td>").html(course.courseCategory)
-				, $("<td>").html(course.coursePeriod)
-			);
+let makeCourseTag = function(course){
+	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
+				$("<a>").attr("href", "${pageContext.request.contextPath}/course/" + course.courseSn).append($("<span>").addClass("txt_subject").html(course.courseName))
+				, $("<div>").addClass("util").append($("<span>").html(course.courseInsertDate))
+	));
 }
 
 $.ajax({
@@ -671,14 +656,13 @@ $.ajax({
 		let trTags = [];
 		if(dataList){
 			$.each(dataList, function(index, course){
-				trTags.push(makeTrTag6(course, index));
+				if (index < blockNum) {
+					trTags.push(makeCourseTag(course));
+				}
 			});
 		}else{
-			let tr = $("<tr>").html(
-				$("<td>").attr("colspan", "7")
-						.html("교육이수를 아직 등록하지 않았습니다.")
-			);	
-			trTags.push(tr);
+			let none = $("<a>").append($("<span>").addClass("txt_subject").html("교육이수를 아직 등록하지 않았습니다."));
+			trTags.push(none);
 		}
 		courseBody.html(trTags);
 	},
@@ -694,17 +678,11 @@ $.ajax({
 <script>
 let awardBody = $("#awardBody");
 
-let makeTrTag7 = function(award, index){
-	let aTag = $("<a>")
-				.attr("href", "${pageContext.request.contextPath}/award/" + award.awardSn)
-				.html(award.awardCompetition);
-	return $("<tr>").append(
-				$("<td>").html(index + 1)
-				, $("<td>").html(aTag)
-				, $("<td>").html(award.awardName)
-				, $("<td>").html(award.awardInstitution)
-				, $("<td>").html(award.awardCategory)
-			);
+let makeAwardTag = function(award) {
+	return $("<ul>").addClass("list_story").append($("<li>").css("margin", "0 0 17px").append( 
+				$("<a>").attr("href", "${pageContext.request.contextPath}/award/" + award.awardSn).append($("<span>").addClass("txt_subject").html(award.awardCompetition))
+				, $("<div>").addClass("util").append($("<span>").html(award.awardInsertDate))
+	));
 }
 
 $.ajax({
@@ -716,15 +694,14 @@ $.ajax({
 		let dataList = resp.awardList;
 		let trTags = [];
 		if(dataList){
-			$.each(dataList, function(index, award){
-				trTags.push(makeTrTag7(award, index));
+			$.each(dataList, function(index, award) {
+				if (index < blockNum) {
+					trTags.push(makeAwardTag(award));
+				}
 			});
 		}else{
-			let tr = $("<tr>").html(
-				$("<td>").attr("colspan", "7")
-						.html("수상을 아직 등록하지 않았습니다.")
-			);	
-			trTags.push(tr);
+			let none = $("<a>").append($("<span>").addClass("txt_subject").html("수상내역을 아직 등록하지 않았습니다."));
+			trTags.push(none);
 		}
 		awardBody.html(trTags);
 	},

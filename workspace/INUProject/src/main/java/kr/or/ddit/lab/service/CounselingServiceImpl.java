@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistBoardException;
 import kr.or.ddit.lab.dao.CounAttachDAO;
 import kr.or.ddit.lab.dao.CounselingDAO;
@@ -71,12 +72,20 @@ public class CounselingServiceImpl implements CounselingService {
 	}
 
 	@Override
-	public int createCoun(CounselingVO coun) {
+	public ServiceResult createCoun(CounselingVO coun) {
 		int rowcnt  = counDAO.insertCoun(coun);
 		rowcnt += processAttathList(coun);
-		return rowcnt;
+		
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
+	@Override
+	public ServiceResult modifyCoun(CounselingVO coun) {
+		int rowcnt = counDAO.updateCoun(coun);
+		rowcnt += processAttathList(coun);
+		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+	
 	@Override
 	public int deleteCoun(String counNo) {
 		return counDAO.deleteCoun(counNo);

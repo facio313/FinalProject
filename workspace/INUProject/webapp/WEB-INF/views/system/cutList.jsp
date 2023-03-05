@@ -27,7 +27,7 @@
 				<div class="contents_container">
 					<div class="sub_top_wrap tag_list">
 						<span class="sub_title_tag">
-							<strong class="stit">전문가회원목록</strong>
+							<strong class="stit">차단회원목록</strong>
 						</span>
 					</div>
 					<c:set var="cutList" value="${cutList }"/>
@@ -66,7 +66,7 @@
 												<td>${cut.cutVO.cutDate }</td>
 												<td>${cut.cutVO.cutCheck }</td>
 												<td>
-													<a href="<c:url value='#' />">
+													<a href="<c:url value='/systemManagement/memberList/cutList/${cut.memId}' />">
 														상세보기
 													</a>
 												</td>

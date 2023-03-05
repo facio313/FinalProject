@@ -41,7 +41,7 @@
 	</div>
 	<!-- 달력, 일정 -->
 	<div style="position: relative; padding: 25px; height: 90vh;">
-		<div id='calendar' style="position: abolute; padding: 50px; float:left; border-radius: 0.5em; width: 67%; height: 100%; border : 1px solid #eaedf4;" data-source="${pageContext.request.contextPath}/process/events"></div>
+		<div id='calendar' style="position: abolute; padding: 50px; float:left; border-radius: 0.5em; width: 67%; height: 100%; border : 1px solid #eaedf4;" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>
 		<div id='schedular' class="table-responsive" style="position: abolute; padding-top: 50px; padding-bottom: 50px; float:right; border-radius: 0.5em; width: 32%; height: 100%; border : 1px solid #eaedf4;">
 			<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: rgb(4, 87, 56); width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
 				<span style="position: absolute; left: 20px; top: 7px; font-size: 25px; font-weight: 800; color: white;">할 일</span>
@@ -213,17 +213,55 @@
 	    , buttonText: {
             today: '오늘',
             month: '월',
-            week: '주'
+            week: '주',
 	    }
 	    , eventSources : [
+// 			{
+// 				url:"${pageContext.request.contextPath}/process/events",
+// 				dataType:"json",
+// 				extraParams : {
+// 					date : "2022-01-01"
+// 				}
+// 			},
+// 			{
+// 				url:"${pageContext.request.contextPath}/process/events/details",
+// 				dataType:"json",
+// 				extraParams : {
+// 					date : "2022-01-01"
+// 				}
+// 			},
 			{
-				url:calendarEl.dataset.source,
+				url:"${pageContext.request.contextPath}/process/events/details/process",
 				dataType:"json",
 				extraParams : {
 					date : "2022-01-01"
 				}
 			}
-		],
+			
+		]
+		, footerToolbar : {
+			right: 'anno detail process'
+		}
+	    , customButtons: {
+			anno: {
+				text: '공고별',
+				click: function() {
+					alert('clicked the custom button!');
+				}
+	        },
+	        detail: {
+	        	text: '세부공고별',
+	        	click: function() {
+	        		
+	        	}
+	        },
+	        process: {
+	        	text: '채용과정별',
+	        	click: function() {
+	        		
+	        	}
+	        }
+	    }
 	  });
 	  console.log(calendar);
 	  

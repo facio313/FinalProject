@@ -86,13 +86,26 @@
 </insert>
 
 
-<!-- 시스템 관리 부분 -->
+<!-- ========================================== 시스템 관리 부분 ========================================== -->
 <delete id="deleteAppliCmp" parameterType="CompanyVO">
 	DELETE FROM COMPANY
 	WHERE CMP_ID = #{cmpId}
 </delete>
 
-
+<!-- 회사 상세 -->
+<select id="selectCmp" parameterType="string" resultType="CompanyVO">
+	SELECT CMP_ID, CMP_NO, CMP_NAME
+       , CMP_REP_NAME, CMP_BSNS_NO
+       , CMP_ADDR1, CMP_ADDR2, CMP_ZIP
+       , CMP_PHONE, CMP_EMAIL, CMP_URL
+       , CMP_ESTBL_DATE, CMP_SMENP
+       , CMP_EMP_NO, CMP_AVR_WORK
+       , CMP_AVR_SALARY, CMP_MB_NAME
+       , CMP_CHECK, CMP_CONTENT
+       , CMP_LOGO, ATT_ID
+  	FROM COMPANY
+ 	WHERE CMP_ID = #{cmpId}
+</select>
 
 </mapper>
 

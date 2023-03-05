@@ -715,6 +715,11 @@
 .sub_top_wrap.tag_list .sub_title_tag strong.stit {display:inline-block;overflow:hidden;padding-right:4px;max-width:95%;text-overflow:ellipsis;vertical-align:top;white-space:nowrap}
 .sub_top_wrap.tag_list .sub_title_desc {margin-top:8px;width:902px;color:#5c667b;font-size:15px;letter-spacing:-0.6px;line-height:24px}
 .sub_top_wrap .search_wrap:before {display:inline-block;position:absolute;top:0;right:0;width:199px;height:202px;background:url("//www.saraminimage.co.kr/sri/company_review/illust_sub_top.png") no-repeat -280px 0;content:""}
+/* sy edit */
+.sub_top_wrap.tag_list2 {min-height:50px} /* WMG-30429 211125 */
+.sub_top_wrap.tag_list2 .sub_title_tag {display:inline-block;margin-top:50px;padding:8px 0;width:902px;height:56px;box-sizing:border-box;color:#373f57;font-size:36px;letter-spacing:-5px;line-height:56px;vertical-align:top}
+.sub_top_wrap.tag_list2 .sub_title_tag strong.stit {display:inline-block;overflow:hidden;padding-right:4px;max-width:95%;text-overflow:ellipsis;vertical-align:top;white-space:nowrap}
+.sub_top_wrap.tag_list2 .sub_title_desc {margin-top:8px;width:902px;color:#5c667b;font-size:15px;letter-spacing:-0.6px;line-height:24px}
 
 /* MY 프로필 */
 .my_header_wrap {padding:48px 0;background:#f4f6fa}
