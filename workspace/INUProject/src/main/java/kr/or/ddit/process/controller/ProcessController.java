@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,15 +42,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
+import kr.or.ddit.commons.AttachService;
 import kr.or.ddit.process.service.ProcessService;
 import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.system.service.AlarmService;
 import kr.or.ddit.ui.fullcalendar.AnnoFullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.DetailFullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.FullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.ProcessFullCalendarEvent;
+import kr.or.ddit.vo.AlarmVO;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVOWrapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -84,6 +90,12 @@ public class ProcessController {
 	
 	@Inject
 	private AnnoService annoService;
+	
+	@Inject
+	private AttachService attachService;
+	
+	@Inject
+	private AlarmService alarmService;
 	
 	@ModelAttribute
 	public ProcessVO process() {
@@ -239,7 +251,7 @@ public class ProcessController {
 		, @PathVariable String annoNo
 		, @PathVariable String daNo
 		, @ModelAttribute("process") ProcessVO process
-	) throws ParseException { // 예외처리 하기
+	) throws ParseException { // 예외처리 하기, 서비스로 옮기기
 		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
 		
 		List<AnnoDetailVO> detailList = anno.getDetailList();
@@ -251,6 +263,11 @@ public class ProcessController {
 				}
 			}
 			detailList.removeAll(removed);
+		}
+		
+		for(ProcessVO vo : detailList.get(0).getProcessList()) {
+			String tblId = vo.getDaNo() + vo.getProcessCodeId();
+			vo.setAttatchList(attachService.retireveAttatchList(tblId));
 		}
 		
 		String now = LocalDate.now().toString().replace("-", "");
@@ -407,9 +424,22 @@ public class ProcessController {
 	public String form(
 		Model model
 		, @ModelAttribute("process") ProcessVO process
+		, @RequestParam("annoNo") String annoNo
 		, @RequestParam("daNo") String daNo
 	) {
-		AnnoVO anno = annoService.retrieveAnnoDetailProcess(daNo);
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		if (detailList.size() > 1 ) {
+			List<AnnoDetailVO> removed = new ArrayList<>();
+			for (AnnoDetailVO vo : detailList) {
+				if (!vo.getDaNo().equals(daNo)) {
+					removed.add(vo);
+				}
+			}
+			detailList.removeAll(removed);
+		}
+		
 		model.addAttribute("anno",anno);
 		model.addAttribute("daNo", daNo);
 		return "process/processForm";
@@ -420,6 +450,8 @@ public class ProcessController {
 	public String insert(
 		Model model
 		, @ModelAttribute("process") ProcessVO process
+		, @RequestParam String annoNo
+		, @RequestParam String daNo
 	) {
 		//jsp에서 넘어옴
 		List<ProcessVO> list = process.getProcessList();
@@ -436,7 +468,7 @@ public class ProcessController {
 		process.setProcessList(resultList);
 		
 		service.createProcess(process);
-		return "redirect:/process/"; // /{annoNo}/{daNo}
+		return "redirect:/process/" + annoNo + "/" + daNo; // /{annoNo}/{daNo}
 	}
 	
 	// 채용과정 수정폼
@@ -445,22 +477,39 @@ public class ProcessController {
 		Model model
 		, @ModelAttribute("process") ProcessVO process
 		, @RequestParam("daNo") String daNo
+		, @RequestParam("annoNo") String annoNo
 	) {
-
+		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
+		
+		List<AnnoDetailVO> detailList = anno.getDetailList();
+		if (detailList.size() > 1 ) {
+			List<AnnoDetailVO> removed = new ArrayList<>();
+			for (AnnoDetailVO vo : detailList) {
+				if (!vo.getDaNo().equals(daNo)) {
+					removed.add(vo);
+				}
+			}
+			detailList.removeAll(removed);
+		}
+		
+		model.addAttribute("anno",anno);
+		model.addAttribute("daNo", daNo);
 		
 		model.addAttribute("process", process);
 		return "process/processEdit";
 	}
 	
 	// 채용과정 수정
-	@PatchMapping("{daNo}")
+//	@PutMapping("{daNo}")
+	@PostMapping("/edit")
 	public String update(
 		Model model
-		, @PathVariable String daNo
+		, @RequestParam String daNo
+		, @RequestParam String annoNo
 		, @ModelAttribute("process") ProcessVO process
 	) {
 		service.modifyProcess(process);
-		return "redirect:/process/" + daNo;
+		return "redirect:/process/" + annoNo + "/" + daNo;
 	}
 	
 	// 채용과정 삭제
@@ -581,7 +630,25 @@ public class ProcessController {
 				}
 			}
 		}
+		
+//		List<FullCalendarEvent<ProcessVO>> list = new ArrayList<FullCalendarEvent<ProcessVO>>();
+//		for(ProcessVO pv : processList) {
+//			String color = new ProcessFullCalendarEvent(pv).getBackgroundColor();
+//			list.add(new ProcessFullCalendarEvent(pv));
+//		}
+		
 		List<FullCalendarEvent<ProcessVO>> list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
+		return list;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/alarm", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<AlarmVO> alarm(
+		Authentication auth
+		, Model model
+	){
+		String memId = auth.getName();
+		List<AlarmVO> list = alarmService.retrieveAlarmList(memId);
 		return list;
 	}
 }

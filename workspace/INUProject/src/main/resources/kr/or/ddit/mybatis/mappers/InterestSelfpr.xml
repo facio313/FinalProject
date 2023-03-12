@@ -5,14 +5,11 @@
 	<sql id="searchFrag">
 		<trim prefix="AND">
 			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)">
-<!-- 				<choose> -->
-<!-- 					<when test="simpleCondition.searchType eq 'memName'"> -->
-							INSTR(MEM_NAME, #{simpleCondition.searchWord}) > 0						
-<!-- 					</when> -->
-<!-- 					<otherwise> -->
-<!-- 						INSTR(MEM_NAME, #{simpleCondition.searchWord}) > 0 -->
-<!-- 					</otherwise>				 -->
-<!-- 				</choose> -->
+				INSTR(C.MEM_NAME, #{simpleCondition.searchWord}) > 0
+										
+				OR
+				
+				INSTR(B.PR_NAME, #{simpleCondition.searchWord}) > 0
 			</if>
 		</trim>
 	</sql>
@@ -21,7 +18,7 @@
 	<select id="selectLikeList" parameterType="PagingVO" resultType="LikeVO">
 		WITH ORDERDLIKELIST AS(
 			SELECT A.INTE_NO, A.INTE_DATE, A.PR_NO, A.MEM_ID,
-			       B.PR_NAME, B.PR_ANNUAL, B.PR_WANTMN, B.PR_WANTJOB, B.REGION_CODE, B.INDUSTRY_CODE,
+			       B.PR_NAME, B.PR_WANTJOB, B.PR_ANNUAL, B.PR_WANTMN, B.PR_WANTTYPE, B.REGION_CODE, B.INDUSTRY_CODE, B.PR_EDU,
 			       C.MEM_NAME,
 			       D.REGION_NAME,
 			       E.INDUSTRY_NAME
@@ -34,9 +31,9 @@
 			<include refid="searchFrag"></include>
 		)
 		SELECT A.*
-		FROM (
-			SELECT ROWNUM RNUM, ORDERDLIKELIST.*
-			FROM ORDERDLIKELIST
+			FROM (
+				SELECT ROWNUM RNUM, ORDERDLIKELIST.*
+				FROM ORDERDLIKELIST
 		) A
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
@@ -44,7 +41,6 @@
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">
 		SELECT COUNT(*)
 		FROM INTEREST
-		<include refid="searchFrag"></include>
 	</select>
 	
 	<!-- 관심인재 추천 여부 확인 쿼리 -->

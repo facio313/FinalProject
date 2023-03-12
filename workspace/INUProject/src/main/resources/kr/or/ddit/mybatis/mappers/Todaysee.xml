@@ -36,8 +36,9 @@
 	</select>
 	
 	<select id="selectListTodaySee" parameterType="PagingVO" resultType="TodaySeeVO">
+	WITH ORDERTODAYlIST AS(
 		SELECT A.TODAY_NO, A.PR_NO, A.MEM_ID, A.TODAY_DATE, A.TODAY_EDATE,
-		       B.PR_NAME, B.PR_ANNUAL, B.PR_WANTMN, B.PR_WANTJOB, B.REGION_CODE, B.INDUSTRY_CODE,
+		       B.PR_NAME, B.PR_ANNUAL, B.PR_WANTMN, B.PR_WANTJOB, B.REGION_CODE, B.INDUSTRY_CODE, B.PR_WANTTYPE,
 		       C.MEM_NAME,
 		       D.REGION_NAME,
 		       E.INDUSTRY_NAME
@@ -48,6 +49,13 @@
 		INNER JOIN CD_INDUSTRY E ON (B.INDUSTRY_CODE = E.INDUSTRY_CODE)
 		WHERE A.MEM_ID = #{memId}
 		  AND (SYSDATE BETWEEN A.TODAY_DATE AND A.TODAY_EDATE)
+	)
+	SELECT A.*
+		FROM (
+			SELECT ROWNUM RNUM, ORDERTODAYlIST.*
+			FROM ORDERTODAYlIST
+		) A
+	WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectTotalRecord" parameterType="PagingVO" resultType="int">

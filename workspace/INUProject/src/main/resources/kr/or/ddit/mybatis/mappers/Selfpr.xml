@@ -51,12 +51,15 @@
 	
 	<!-- 전체 글 조회 -->
 	
-	<select id="selectSelfprList" parameterType="PagingVO" resultType="kr.or.ddit.selfpr.vo.SelfprVO">
+	<select id="selectSelfprList" parameterType="PagingVO" resultType="SelfprVO">
 		WITH ORDEREDSELFPR AS (
-		    SELECT A.MEM_ID, A.PR_NO, A.PR_NAME, A.PR_CONTENT, A.PR_WANTJOB, A.PR_ANNUAL, A.PR_WANTMN, A.PR_WANTTYPE,
-               B.MEM_NAME
+		    SELECT A.MEM_ID, A.PR_NO, A.PR_DATE, A.PR_NAME, A.PR_CONTENT, A.PR_WANTJOB, A.PR_ANNUAL, A.PR_WANTMN, A.PR_WANTTYPE, 
+		    	   A.REGION_CODE, A.INDUSTRY_CODE, A.PR_EDU,
+               	   B.MEM_NAME,
+               	   C.MEM_GENDER, C.MEM_EMAIL, C.MEM_TEL, C.MEM_ADDR1
             FROM PR A
             INNER JOIN MEMBER B ON (A.MEM_ID = B.MEM_ID)
+            INNER JOIN SEEKER C ON (B.MEM_ID = C.MEM_ID)
             <include refid="searchFrag"></include>           
 		    ORDER BY PR_NO DESC
 		)
@@ -152,6 +155,7 @@
 		</selectKey>
 		INSERT INTO PR (
 		    PR_NO,
+		    MEM_ID,
 		    PR_NAME,
 		    PR_CONTENT,
 		    PR_DATE,
@@ -164,6 +168,7 @@
 		    INDUSTRY_CODE
 		) VALUES (
 		    #{prNo,jdbcType=NUMERIC}
+		    , #{memId,jdbcType=VARCHAR}
 		    , #{prName,jdbcType=VARCHAR}
 		    , #{prContent,jdbcType=VARCHAR}
 		    , SYSDATE

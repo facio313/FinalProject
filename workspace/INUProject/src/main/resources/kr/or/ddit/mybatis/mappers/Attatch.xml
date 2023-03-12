@@ -67,6 +67,28 @@
       	SELECT * FROM DUAL
 
    </insert>
+   
+   <insert id="insertAttach" parameterType="AttachVO">
+    	  INSERT INTO attach (
+		    tbl_id,
+		    att_no,
+		    att_savename,
+		    att_stre_cours,
+		    att_filename,
+		    att_mime,
+		    att_filesize,
+		    att_fancysize
+		) VALUES (
+		    #{tblId,jdbcType=VARCHAR}
+		    , 1
+		    , #{attSavename,jdbcType=VARCHAR}
+		    , #{attStreCours,jdbcType=VARCHAR}
+		    , #{attFilename,jdbcType=VARCHAR}
+		    , #{attMime,jdbcType=VARCHAR}
+		    , #{attFilesize,jdbcType=NUMERIC}
+		    , #{attFancysize,jdbcType=VARCHAR}
+		)      
+   </insert>
 
 
 

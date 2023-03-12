@@ -11,6 +11,7 @@ import kr.or.ddit.announcement.vo.AnnoDetailVO;
 import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
+import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ import oracle.net.aso.a;
 public class AnnoServiceImpl implements AnnoService {
 
 	private final AnnoDAO annoDAO;
+	private final AttachDAO attachDAO;
 	
 	@Override
 	public void retrieveAnnoList(PagingVO<AnnoVO> pagingVO) {
@@ -120,10 +122,6 @@ public class AnnoServiceImpl implements AnnoService {
 			annoDAO.updateDetailAnno(vo);
 		}
 		
-		//세부공고 삭제x
-		//경력 수정x
-		//직무직책 수정x
-		
 		//복지등록..
 		annoDAO.deleteAllWelfare(annoNo);
 		List<String> welfareCodeList = anno.getWelfareCodeList();
@@ -196,4 +194,10 @@ public class AnnoServiceImpl implements AnnoService {
 		return list;
 	}
 
+	//경수
+	@Override
+	public List<AnnoVO> retrieveLikeAnnoList(String memId) {
+		List<AnnoVO> list = annoDAO.selectLikeAnnoList(memId);
+		return list;
+	}
 }

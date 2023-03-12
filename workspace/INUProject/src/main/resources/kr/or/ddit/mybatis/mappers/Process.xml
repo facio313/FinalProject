@@ -29,7 +29,7 @@
 <!-- 			, B.REGION_CODE -->
 <!-- 			, B.EMPLTYPE_CODE -->
 <!-- 			, B.JOB_CODE -->
-<!-- 			, C.ANNO_NO -->
+			, C.ANNO_NO
 <!-- 			, C.CMP_ID -->
 <!-- 			, C.MEM_ID -->
 <!-- 			, C.ANNO_TITLE -->
@@ -65,6 +65,7 @@
 			, A.PROCESS_LIMIT
 			, A.PROCESS_DELETE_DATE
 			, A.PROCESS_INSERT_DATE
+			, C.ANNO_NO
 		FROM PROCESS A
 		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
 		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
@@ -86,6 +87,7 @@
 			, A.PROCESS_LIMIT
 			, A.PROCESS_DELETE_DATE
 			, A.PROCESS_INSERT_DATE
+			, C.ANNO_NO
 		FROM PROCESS A
 		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
 		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
@@ -111,6 +113,7 @@
 			, A.PROCESS_LIMIT
 			, A.PROCESS_DELETE_DATE
 			, A.PROCESS_INSERT_DATE
+			, C.ANNO_NO
 		FROM PROCESS A
 		INNER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
 		INNER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
@@ -134,9 +137,9 @@
 			) VALUES (
 				#{process.daNo,jdbcType=VARCHAR}
 				, #{process.processCodeId,jdbcType=VARCHAR}
-				, #{process.processSn,jdbcType=NUMERIC}
-				, #{process.processStartDate,jdbcType=DATE}
-				, #{process.processEndDate,jdbcType=DATE}
+				, (#{idx} + 1)
+				, TO_DATE(#{process.processStartDate,jdbcType=DATE}, 'YYYY-MM-DD HH24:MI')
+				, TO_DATE(#{process.processEndDate,jdbcType=DATE}, 'YYYY-MM-DD HH24:MI')
 				, #{process.processWay,jdbcType=VARCHAR}
 				, #{process.processScore,jdbcType=NUMERIC}
 				, #{process.tblId,jdbcType=VARCHAR}
@@ -168,6 +171,11 @@
 				PROCESS_DELETE_DATE = SYSDATE
 		WHERE	DA_NO = #{daNo,jdbcType=VARCHAR}
 		AND		PROCESS_CODE_ID = #{processCodeId,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteTotallyProcess" parameterType="String">
+		DELETE FROM PROCESS
+		WHERE DA_NO = #{daNo}
 	</delete>
 	
 <!-- 	<resultMap type="kr.or.ddit.process.vo.ItemVO" id="itemMap"> -->
@@ -292,4 +300,5 @@
 		FROM PROCESS
 		WHERE DA_NO = #{daNo}
 	</select>
+	
 </mapper>

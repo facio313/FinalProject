@@ -41,4 +41,5 @@ public interface AnnoService {
 	
 	public List<AnnoVO> retrieveMyAnnoList(String memId);
 	public AnnoVO retrieveAnnoDetailProcess(String annoNo);
+	public List<AnnoVO> retrieveLikeAnnoList(String memId);
 }

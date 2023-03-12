@@ -6,426 +6,468 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 
 <style>
-	#checkDisp {
-		border: 1px solid red;
-	}
-	#radioDisp {
-		border: 1px solid green;
-	}
-	#disp {
-		border: 1px solid blue;
-	}
+
+.pf {
+ 	font-size: 24px; 
+}
+
+.radiuss{
+	width: 100%;
+	height: auto;
+	border : 1px solid #eaedf4;
+	border-radius: 12px;
+	padding: 80px 99px 100px 99px;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.annoTable table {
+  	width: 100%;
+   	height: 500px;
+ 	border-top: 1px solid #eaedf4;
+  	border-collapse: collapse;
+  	margin: 0px;
+}
+.annoTable th{
+	background: #f7f7f7;
+	border-bottom: 1px solid #eaedf4;
+  	padding: 10px;
+  	width: 155px;
+} 
+
+.annoTable td {
+  	border-bottom: 1px solid #eaedf4;
+  	padding: 20px;
+}
+
+#checkDisp {
+	width: 100%;
+	height: 30vh;
+	display: flex;
+	justifiy-content: center;
+}
+.checkLabel {
+	width: 13%;
+	height: 20vh;
+	margin: 0.5%;
+	padding-top: 7%;
+	font-size: 1.5em;
+	font-weight: 800;
+	line-height: 1;
+	border-radius: 10px;
+	background-color: #FAFBFF;
+	box-shadow: 0 1.5em 2.5em -0.5em rgba(0, 0, 0, 0.1);
+	transition: transform 0.45s ease, background 0.45s ease;
+	text-align: center;
+	word-break: keep-all;
+}
+.checkLabel:hover {
+	background: #4B7BF5;
+	transform: scale(1.04);
+	text-decoration: none;
+	color: white;
+}
+.hovered {
+	background: #4B7BF5;
+	transform: scale(1.04);
+	text-decoration: none;
+	color: white;
+}
+.ck-editor__editable_inline {
+    min-height: 200px;
+}
 </style>
-
-<div id="checkDisp">
-	<h1>추가할 채용과정을 선택하세요</h1>
-	<input type="checkbox" class="btn-check" name="process" value="PRC001" id="check1" checked disabled>
-	<label class="btn btn-primary" for="check1">입사지원서</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC002" id="check2">
-	<label class="btn btn-primary" for="check2">자기소개서</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC003" id="check3">
-	<label class="btn btn-primary" for="check3">필기시험</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC004" id="check4">
-	<label class="btn btn-primary" for="check4">역량평가</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC005" id="check5">
-	<label class="btn btn-primary" for="check5">토론면접</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC006" id="check6">
-	<label class="btn btn-primary" for="check6">실무면접</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC007" id="check7">
-	<label class="btn btn-primary" for="check7">인턴십</label>
-	
-	<input type="checkbox" class="btn-check" name="process" value="PRC008" id="check8" checked disabled>
-	<label class="btn btn-primary" for="check8">임원면접</label>
+<c:set var="detail" value="${anno.detailList[0]}"/>
+<div class="radiuss">
+	<div class="qna_write_wrap">
+		<div class="qna_write_selection">
+			<span class="qna_category_tit" style="font-size: 40px;">세부공고</span>
+		</div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px;">
+	<p class="pf" style="margin-bottom: 30px;">${anno.annoTitle}</p>
+	<table class="annoTable" style="width: 100%;">
+	  <tr>
+	    <th scope="row">법인명</th>
+	    <td>${anno.company.cmpName}</td>
+	    <th scope="row">회사대표자</th>
+	    <td>${anno.company.cmpRepName}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">근무환경</th>
+	    <td style="width:62%;">${anno.annoWorkenv}</td>
+	    <th scope="row">수습기간</th>
+	    <td>${anno.annoProbation}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">공고 시작날짜</th>
+	    <td>${anno.annoStartdate}</td>
+	    <th scope="row">공고 종료날짜</th>
+	    <td>${anno.annoEnddate}}</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">공고 내용</th>
+	    <td colspan="3">${anno.annoContent}</td>
+	  </tr>
+	  <tr>
+	  	<th scope="row">담당업무</th>
+	  	<td>${detail.daFd}</td>
+	  	<th scope="row">근무부서</th>
+	  	<td>${detail.daDepartment}</td>
+	  </tr>
+	  <tr>
+	  	<th scope="row">상세업무</th>
+	  	<td colspan="3">${detail.daTask}</td>
+	</table>
 </div>
 
-<div id="radioDisp">
-	<h1>채용과정 내용</h1>
-	<input type="radio" class="btn-check" name="options" value="PRC001" id="option1" autocomplete="off" checked>
-	<label class="btn btn-success" for="option1" data-color="btn-success">입사지원서</label>
+<div class="radiuss">
+	<div class="qna_write_wrap">
+		<div class="qna_write_selection">
+			<span class="qna_category_tit" style="font-size: 40px;">세부공고 채용과정 등록</span>
+		</div>
+	</div>
+	<hr style="background-color: #5c667b; height: 2px;">
+	<h1 style="margin-bottom: 30px; font-size: 1.5rem;">추가할 채용과정을 선택하세요</h1>
 	
-	<input type="radio" class="btn-check" name="options" value="PRC002" id="option2" autocomplete="off" style="display: none;">
-	<label class="btn " for="option2" style="display: none;">자기소개서</label>
+	<div id="checkDisp">
 	
-	<input type="radio" class="btn-check" name="options" value="PRC003" id="option3" autocomplete="off" style="display: none;">
-	<label class="btn " for="option3" style="display: none;">필기시험</label>
-	
-	<input type="radio" class="btn-check" name="options" value="PRC004" id="option4" autocomplete="off" style="display: none;">
-	<label class="btn " for="option4" style="display: none;">역량평가</label>
-	
-	<input type="radio" class="btn-check" name="options" value="PRC005" id="option5" autocomplete="off" style="display: none;">
-	<label class="btn " for="option5" style="display: none;">토론면접</label>
-	
-	<input type="radio" class="btn-check" name="options" value="PRC006" id="option6" autocomplete="off" style="display: none;">
-	<label class="btn " for="option6" style="display: none;">실무면접</label>
-	
-	<input type="radio" class="btn-check" name="options" value="PRC007" id="option7" autocomplete="off" style="display: none;">
-	<label class="btn " for="option7" style="display: none;">인턴십</label>
-	
-	<input type="radio" class="btn-check" name="options" value="PRC008" id="option8" autocomplete="off">
-	<label class="btn " for="option8" >임원면접</label>
+		<input type="checkbox" class="btn-check" name="process" value="PRC001" id="check1" checked disabled>
+		<label class="checkLabel hovered" for="check1">입사지원서</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC002" id="check2">
+		<label class="checkLabel" for="check2">자기소개서</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC003" id="check3">
+		<label class="checkLabel" for="check3">필기시험</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC004" id="check4">
+		<label class="checkLabel" for="check4">역량평가</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC005" id="check5">
+		<label class="checkLabel" for="check5">토론면접</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC006" id="check6">
+		<label class="checkLabel" for="check6">실무면접</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC007" id="check7">
+		<label class="checkLabel" for="check7">인턴십</label>
+		
+		<input type="checkbox" class="btn-check" name="process" value="PRC008" id="check8" checked disabled>
+		<label class="checkLabel hovered" for="check8">임원면접</label>
+			
+	</div>
+
+	<h1 style="margin-bottom: 30px; font-size: 1.5rem;">채용과정</h1>
+	<div id="radioDisp">
+		<input type="radio" class="btn-check" name="options" value="PRC001" id="option1" autocomplete="off" checked>
+		<label class="btn btn-primary" for="option1" data-color="btn-primary">입사지원서</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC002" id="option2" autocomplete="off" style="display: none;">
+		<label class="btn " for="option2" style="display: none;">자기소개서</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC003" id="option3" autocomplete="off" style="display: none;">
+		<label class="btn " for="option3" style="display: none;">필기시험</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC004" id="option4" autocomplete="off" style="display: none;">
+		<label class="btn " for="option4" style="display: none;">역량평가</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC005" id="option5" autocomplete="off" style="display: none;">
+		<label class="btn " for="option5" style="display: none;">토론면접</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC006" id="option6" autocomplete="off" style="display: none;">
+		<label class="btn " for="option6" style="display: none;">실무면접</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC007" id="option7" autocomplete="off" style="display: none;">
+		<label class="btn " for="option7" style="display: none;">인턴십</label>
+		
+		<input type="radio" class="btn-check" name="options" value="PRC008" id="option8" autocomplete="off">
+		<label class="btn " for="option8" >임원면접</label>
+	</div>
+	<form:form modelAttribute="process" action="${pageContext.request.contextPath}/process?annoNo=${anno.annoNo}&daNo=${daNo}" method="post" enctype="multipart/form-data">
+	<form:hidden path="processList[0].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[1].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[2].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[3].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[4].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[5].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[6].daNo" cssClass="form-control" value="${daNo}"/>
+	<form:hidden path="processList[7].daNo" cssClass="form-control" value="${daNo}"/>
+	<div id="disp">
+		<div id="disp1">
+			<div class="form-group">
+				<form:hidden path="processList[0].processCodeId" cssClass="form-control" value="PRC01" readonly="true"/>
+				<form:errors path="processList[0].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt0" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[0].processStartDate" id="sd0"/>
+				<form:hidden path="processList[0].processEndDate" id="ed0"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[0].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[0].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[0].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[0].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[0].processLimit" cssClass="form-control textIncumContent" id="editor0" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[0].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp2" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[1].processCodeId" cssClass="form-control" value="PRC02" readonly="true"/>
+				<form:errors path="processList[1].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt1" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[1].processStartDate" id="sd1"/>
+				<form:hidden path="processList[1].processEndDate" id="ed1"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[1].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[1].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[1].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[1].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[1].processLimit" cssClass="form-control textIncumContent" id="editor1" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[1].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp3" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[2].processCodeId" cssClass="form-control" value="PRC03" readonly="true"/>
+				<form:errors path="processList[2].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt2" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[2].processStartDate" id="sd2"/>
+				<form:hidden path="processList[2].processEndDate" id="ed2"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[2].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[2].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[2].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[2].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[2].processLimit" cssClass="form-control textIncumContent" id="editor2" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[2].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp4" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[3].processCodeId" cssClass="form-control" value="PRC04" readonly="true"/>
+				<form:errors path="processList[3].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt3" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[3].processStartDate" id="sd3"/>
+				<form:hidden path="processList[3].processEndDate" id="ed3"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[3].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[3].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[3].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[3].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[3].processLimit" cssClass="form-control textIncumContent" id="editor3" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[3].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp5" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[4].processCodeId" cssClass="form-control" value="PRC05" readonly="true"/>
+				<form:errors path="processList[4].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt4" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[4].processStartDate" id="sd4"/>
+				<form:hidden path="processList[4].processEndDate" id="ed4"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[4].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[4].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[4].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[4].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[4].processLimit" cssClass="form-control textIncumContent" id="editor4" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[4].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp6" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[5].processCodeId" cssClass="form-control" value="PRC06" readonly="true"/>
+				<form:errors path="processList[5].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt5" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[5].processStartDate" id="sd5"/>
+				<form:hidden path="processList[5].processEndDate" id="ed5"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[5].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[5].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[5].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[5].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[5].processLimit" cssClass="form-control textIncumContent" id="editor5" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[5].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp7" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[6].processCodeId" cssClass="form-control" value="PRC07" readonly="true"/>
+				<form:errors path="processList[6].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt6" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[6].processStartDate" id="sd6"/>
+				<form:hidden path="processList[6].processEndDate" id="ed6"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[6].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[6].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[6].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[6].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[6].processLimit" cssClass="form-control textIncumContent" id="editor6" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[6].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+		<div id="disp8" style="display: none;">
+			<div class="form-group">
+				<form:hidden path="processList[7].processCodeId" cssClass="form-control" value="PRC08" readonly="true"/>
+				<form:errors path="processList[7].processCodeId" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">시작 - 종료 날짜</label>
+				<input type="text" name="datetimes" id="dt7" class="box box_input form-control" style="width: 300px;">
+				<form:hidden path="processList[7].processStartDate" id="sd7"/>
+				<form:hidden path="processList[7].processEndDate" id="ed7"/>
+			</div>
+			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
+				<label for="job-title">방식</label>
+				<form:select path="processList[7].processWay" cssClass="form-control">
+					<form:option value="온라인">온라인</form:option>
+					<form:option value="대면">대면</form:option>
+					<form:option value="화상">화상</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+				<form:errors path="processList[7].processWay" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group" style="width: 600px; margin-right: 1%;">
+				<label for="job-title">첨부파일</label>
+				<input type="file" name="processList[7].attachFiles" class="form-control" multiple>
+				<form:errors path="processList[7].attachFiles" element="span" cssClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<label for="job-title">상세설명 </label>
+				<form:textarea path="processList[7].processLimit" cssClass="form-control textIncumContent" id="editor7" placeholder="예) 추후 시간이 달라질 수 있음."></form:textarea>
+				<form:errors path="processList[7].processLimit" element="span" cssClass="text-danger" />
+			</div>
+		</div>
+	</div>
+	<div class="form-group" style="display: flex; justify-content: end;">
+		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px; border-radius: 0;"/> 
+		<input type="reset" class="btn btn-danger" value="취소" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${daNo}"'  style="width: 200px; border-radius: 0;"/>		
+	</div>
+	</form:form>
 </div>
-<form:form modelAttribute="process" action="${pageContext.request.contextPath}/process" method="post" enctype="multipart/form-data">
-<form:hidden path="processList[0].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[1].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[2].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[3].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[4].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[5].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[6].daNo" cssClass="form-control" value="${daNo}"/>
-<form:hidden path="processList[7].daNo" cssClass="form-control" value="${daNo}"/>
-<div id="disp">
-	<div id="disp1">
-		<div class="form-group">
-			<label for="job-title">입사지원서</label>
-			<form:input path="processList[0].processCodeId" type="text" cssClass="form-control" value="PRC01" readonly="true"/>
-			<form:errors path="processList[0].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[0].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[0].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-<%-- 			<form:input path="processList[0].processStartDate" min="${anno.annoStartdate}" type="date" cssClass="form-control" /> --%>
-			<form:input path="processList[0].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[0].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-<%-- 			<form:input path="processList[0].processEndDate" max="${anno.annoEnddate}" type="date" cssClass="form-control" /> --%>
-			<form:input path="processList[0].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[0].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[0].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[0].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[0].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[0].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[0].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[0].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[0].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[0].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp2" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">자기소개서</label>
-			<form:input path="processList[1].processCodeId" type="text" cssClass="form-control" value="PRC02" readonly="true"/>
-			<form:errors path="processList[1].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[1].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[1].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[1].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[1].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[1].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[1].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[1].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[1].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[1].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[1].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[1].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[1].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[1].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[1].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp3" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">필기시험</label>
-			<form:input path="processList[2].processCodeId" type="text" cssClass="form-control" value="PRC03" readonly="true"/>
-			<form:errors path="processList[2].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[2].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[2].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[2].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[2].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[2].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[2].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[2].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[2].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[2].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[2].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[2].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[2].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[2].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[2].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp4" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">역량평가</label>
-			<form:input path="processList[3].processCodeId" type="text" cssClass="form-control" value="PRC04" readonly="true"/>
-			<form:errors path="processList[3].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[3].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[3].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[3].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[3].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[3].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[3].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[3].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[3].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[3].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[3].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[3].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[3].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[3].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[3].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp5" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">토론면접</label>
-			<form:input path="processList[4].processCodeId" type="text" cssClass="form-control" value="PRC05" readonly="true"/>
-			<form:errors path="processList[4].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[4].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[4].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[4].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[4].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[4].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[4].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[4].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[4].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[4].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[4].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[4].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[4].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[4].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[4].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp6" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">실무면접</label>
-			<form:input path="processList[5].processCodeId" type="text" cssClass="form-control" value="PRC06" readonly="true"/>
-			<form:errors path="processList[5].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[5].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[5].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[5].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[5].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[5].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[5].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[5].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[5].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[5].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[5].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[5].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[5].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[5].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[5].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp7" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">인턴십</label>
-			<form:input path="processList[6].processCodeId" type="text" cssClass="form-control" value="PRC07" readonly="true"/>
-			<form:errors path="processList[6].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[6].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[6].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[6].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[6].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[6].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[6].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[6].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[6].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[6].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[6].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[6].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[6].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[6].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[6].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-	<div id="disp8" style="display: none;">
-		<div class="form-group">
-			<label for="job-title">임원면접</label>
-			<form:input path="processList[7].processCodeId" type="text" cssClass="form-control" value="PRC08" readonly="true"/>
-			<form:errors path="processList[7].processCodeId" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 세부 공고의 각 과정 순번</label>
-			<form:input path="processList[7].processSn" type="number" cssClass="form-control" />
-			<form:errors path="processList[7].processSn" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">시작날짜</label>
-			<form:input path="processList[7].processStartDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[7].processStartDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">종료날짜</label>
-			<form:input path="processList[7].processEndDate" type="date" cssClass="form-control" />
-			<form:errors path="processList[7].processEndDate" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">온라인, 대면 등</label>
-			<form:input path="processList[7].processWay" type="text" cssClass="form-control" />
-			<form:errors path="processList[7].processWay" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">기준만점</label>
-			<form:input path="processList[7].processScore" type="number" cssClass="form-control" />
-			<form:errors path="processList[7].processScore" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">제약사항 </label>
-			<form:input path="processList[7].processLimit" type="text" cssClass="form-control" />
-			<form:errors path="processList[7].processLimit" element="span" cssClass="text-danger" />
-		</div>
-		<div class="form-group">
-			<label for="job-title">각 과정별 점수 입증 관련 문서 업로드하는 첨부파일 아이디</label>
-			<form:input path="processList[7].tblId" type="text" cssClass="form-control" />
-			<form:errors path="processList[7].tblId" element="span" cssClass="text-danger" />
-		</div>
-	</div>
-</div>
-<div class="form-group">
-	<input type="submit" value="저장 후 세부 항목 작성하러 가기" /> 
-	<input type="reset" value="취소" />		
-</div>
-</form:form>
+
 <script>
 for (let i = 2; i < 8; i++){
 	$("#check"+i).on("click", function(){
@@ -458,5 +500,64 @@ $("input[type=radio]").on("click", function() {
 	for (let i = 0; i < udisp.length; i++) {
 		udisp[i].style.display = "none";
 	}
+});
+
+$("[type=checkBox]").on("click", function() {
+	let id = $(this).attr("id");
+	let thisId = $("[for=" + id + "]");
+	if (thisId.hasClass("hovered")) {
+		thisId.removeClass("hovered");
+		$("#sd" + (Number(id.substring(5)) + 1)).val("");		
+	} else {
+		thisId.addClass("hovered");
+	}
+});
+
+//daterangepicker
+$(function() {
+	for (let i = 0; i < 8; i++) {
+		$('#dt' + i).daterangepicker({
+			opens: 'left',
+			timePicker: true,
+			startDate: moment().startOf('hour'),
+			endDate: moment().startOf('hour').add(32, 'hour'),
+			locale: {
+				format: 'M/DD hh:mm A'
+			}
+		}, function(start, end, label) {
+			let processStartDate = document.querySelector("#sd" + i);
+			let processEndDate = document.querySelector("#ed" + i);
+			processStartDate.value=start.format('YYYY-MM-DD HH:mm:ss');
+			processEndDate.value=end.format('YYYY-MM-DD HH:mm:ss');
+			console.log('시작날짜',processStartDate.value);
+			console.log('종료날짜',processEndDate.value);
+		});
+	}
+});
+let today = new Date();
+
+ClassicEditor.create(document.querySelector('#editor0'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor1'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor2'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor3'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor4'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor5'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor6'), {
+	language : "ko"
+});
+ClassicEditor.create(document.querySelector('#editor7'), {
+	language : "ko"
 });
 </script>

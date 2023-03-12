@@ -16,7 +16,7 @@
 						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '안내' 
 					</when>
 					<when test="simpleCondition.searchType eq 'open'"> 
-						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '오픈'
+						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '오픈' 
 					</when>
 					<when test="simpleCondition.searchType eq 'etc'">
 						INSTR(NOTICE_TITLE, #{simpleCondition.searchWord}) > 0 AND NOTICE_SORT = '기타' 

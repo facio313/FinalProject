@@ -75,6 +75,13 @@ public interface ProcessDAO {
 	public int deleteProcess(String daNo);
 	
 	/**
+	 * 채용과정 삭제 - 여러 개
+	 * @param daNo
+	 * @return 삭제된 채용과정 수
+	 */
+	public int deleteTotallyProcess(String daNo);
+	
+	/**
 	 * 한 상세공고가 갖고 있는 채용과정의 각 항목들
 	 * @param daNo
 	 * @return	List<ItemVO>

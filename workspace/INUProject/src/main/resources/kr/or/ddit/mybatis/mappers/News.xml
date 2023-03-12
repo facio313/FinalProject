@@ -15,8 +15,9 @@
 	
 	<select id="selectNewsList" parameterType="PagingVO" resultType="kr.or.ddit.lab.vo.NewsVO">
 		WITH ORDEREDNEWS AS (
-		    SELECT NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_NO		           
-            FROM NEWS
+		    SELECT A.NEWS_FIELD, A.NEWS_NAME, A.NEWS_SEMINAME, A.NEWS_HIT, A.NEWS_DATE, A.NEWS_NO, B.ATT_SAVENAME		           
+            FROM NEWS A
+            LEFT OUTER JOIN ATTACH B ON A.NEWS_NO = B.TBL_ID
 			<include refid="searchFrag"/>
 		    ORDER BY NEWS_NO DESC
 		)
@@ -40,37 +41,39 @@
 <!-- 		WHERE NEWS_FIELD = #{newsField} -->
 <!-- 	</select> -->
 	
-	<select id="selectNews" parameterType="int" resultType="NewsVO">
-		SELECT NEWS_NO, NEWS_FIELD, NEWS_NAME, NEWS_HIT, NEWS_DATE, NEWS_CONTENT
-		FROM NEWS
+	<select id="selectNews" parameterType="String" resultType="NewsVO">
+		SELECT A.NEWS_NO, A.NEWS_FIELD, A.NEWS_NAME, A.NEWS_SEMINAME, A.NEWS_HIT, A.NEWS_DATE, A.NEWS_CONTENT, B.ATT_SAVENAME
+		FROM NEWS A
+		LEFT OUTER JOIN ATTACH B ON A.NEWS_NO = B.TBL_ID
 		WHERE NEWS_NO = #{newsNo}
+		
 	</select>
 	
 	<insert id="insertNews" parameterType="NewsVO">
-		<selectKey order="BEFORE" resultType="int" keyProperty="newsNo">
-			SELECT NEWS_SEQ.NEXTVAL
+		<selectKey order="BEFORE" resultType="String" keyProperty="newsNo">
+			SELECT 'NEWS'||LPAD(NEWS_SEQ.NEXTVAL, 6, 0)
 			FROM DUAL
 		</selectKey>
 		INSERT INTO NEWS (
 		    NEWS_NO,
 		    NEWS_NAME,
+		    NEWS_SEMINAME,
 		    NEWS_DATE,
 		    NEWS_FIELD,
 		    NEWS_HIT,
-		    NEWS_CONTENT,
-		    MEM_ID
+		    NEWS_CONTENT
 		) VALUES (
-			#{newsNo,jdbcType=NUMERIC}
+			#{newsNo,jdbcType=VARCHAR}
 			, #{newsName,jdbcType=VARCHAR}
+			, #{newsSemiName,jdbcType=VARCHAR}
 			, SYSDATE
 			, #{newsField,jdbcType=VARCHAR}
 			, #{newsHit,jdbcType=NUMERIC}
 			, #{newsContent,jdbcType=VARCHAR}
-			, #{memId,jdbcType=VARCHAR}
 		)
 	</insert>
 	
-	<update id="incrementHit" parameterType="int">
+	<update id="incrementHit" parameterType="String">
 		UPDATE NEWS
 		SET
 		NEWS_HIT = NEWS_HIT + 1
@@ -81,12 +84,13 @@
 		UPDATE NEWS
 		SET
 		    NEWS_NAME = #{newsName,jdbcType=VARCHAR}
+		    , NEWS_SEMINAME = #{newsSemiName,jdbcType=VARCHAR}
 		    , NEWS_FIELD = #{newsField,jdbcType=VARCHAR}
 		    , NEWS_CONTENT = #{newsContent,jdbcType=VARCHAR}
 		WHERE NEWS_NO = #{newsNo}
 	</update>
 	
-	<delete id="deleteNews" parameterType="int">
+	<delete id="deleteNews" parameterType="String">
 		DELETE 
 		FROM NEWS
 		WHERE NEWS_NO = #{newsNo}

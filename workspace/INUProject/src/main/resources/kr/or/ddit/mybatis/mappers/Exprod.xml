@@ -60,6 +60,7 @@
 <!-- 		<include refid="searchFrag"/> -->
 		where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> TO_CHAR(exprod_start,'YYYYMMDD')
     	and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(exprod_end,'YYYYMMDD')
+    	and exprod_aproval = 'Y'
 		<include refid="mainSearch"/>
 	</select>
 	 
@@ -71,7 +72,7 @@
 	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
 	    exprod_target,
 	    exprod_name,
-	    exprod_price,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
 	    exprod_way,
 	    exprod_time,
 	    mem_id,
@@ -87,6 +88,7 @@
 <!--     <include refid="searchFrag"/> -->
 	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
      and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
+     and exprod_aproval = 'Y'
     <include refid="mainSearch"/>
     ORDER BY exprod_id DESC
     )
@@ -96,6 +98,50 @@
 		FROM ORDEREDEVENT
 	)A
 	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
+	</select>
+	
+	<select id="selectTopExprodList" resultType="ExprodVO">
+	WITH ORDEREDEVENT AS (
+	SELECT
+	    exprod_id,
+	    to_char(exprod_start,'YYYYMMDD') as exprod_start,
+	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    mem_id,
+	    mem_name,
+	    exprod_aproval,
+	    exfield_id,
+	    expert_field,
+	    exjob_id,
+    	EXLPROD_ID,
+    	exprod_pr	    
+	FROM
+	    mem_expert_exprod
+	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
+	     and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
+	     and exprod_aproval = 'Y'
+    ORDER BY exprod_id DESC
+    )
+	SELECT A.*
+	FROM (
+		SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		FROM ORDEREDEVENT
+	)A
+    where a.exprod_id in(
+        select    
+        b.exprod_id
+        from(
+            select
+            exprod_id,
+            rank() over (order by count(exprod_id) desc) as rank
+            FROM
+            mem_seeker_excart_exprod    
+            group by exprod_id)b
+        where b.rank<![CDATA[<=]]>5)
 	</select>
 	
 	
@@ -119,11 +165,11 @@
 	    exprod_applidate
 	) VALUES (
 	 #{exprodId,jdbcType=VARCHAR}
-	, #{exprodStart,jdbcType=DATE}
-	, #{exprodEnd,jdbcType=DATE}
+	, TO_DATE(#{exprodStart,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
+	, TO_DATE(#{exprodEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
 	, #{exprodTarget,jdbcType=VARCHAR}
 	, #{exprodName,jdbcType=VARCHAR}
-	, #{exprodPrice,jdbcType=NUMERIC}
+	, REGEXP_REPLACE(#{exprodPrice,jdbcType=VARCHAR}, '[^[:digit:]]')
 	, #{exprodWay,jdbcType=VARCHAR}
 	, #{exprodTime,jdbcType=VARCHAR}
 	, #{exprodDetail,jdbcType=VARCHAR}
@@ -144,7 +190,7 @@
 	    to_char(exprod_end, 'YYYY.MM.DD') as exprod_end,
 	    exprod_target,
 	    exprod_name,
-	    exprod_price,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
 	    exprod_way,
 	    exprod_time,
 	    exprod_detail,
@@ -184,14 +230,14 @@
 	AND MEM_ID=#{memId,jdbcType=VARCHAR}
 	</delete>
 	
-	<update id="updateExprod" parameterType="kr.or.ddit.expert.vo.ExprodVO">
+	<update id="updateExprod" parameterType="ExprodVO">
 	UPDATE exprod
 	SET
 	    exprod_start= to_date(#{exprodStart,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS'),
 	    exprod_end= to_date(#{exprodEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS'),
 	    exprod_target= #{exprodTarget,jdbcType=VARCHAR},
 	    exprod_name= #{exprodName,jdbcType=VARCHAR},
-	    exprod_price= #{exprodPrice,jdbcType=NUMERIC},
+	    exprod_price= REGEXP_REPLACE(#{exprodPrice,jdbcType=VARCHAR}, '[^[:digit:]]'),
 	    exprod_way= #{exprodWay,jdbcType=VARCHAR},
 	    exprod_time= #{exprodTime,jdbcType=VARCHAR},
 	    exlprod_id=  'EL002',
@@ -253,6 +299,15 @@
 	</select>
 	
 	<!-- ==================================== 시스템 관리 부분 ==================================== -->
+	<!-- 상품 갯수 -->
+	<select id="selectTotalCount" parameterType="PagingVO" resultType="int">
+		SELECT COUNT(*)
+	    FROM MEM_EXPERT_EXPROD
+	    WHERE EXPROD_APROVAL = 'N'
+		AND EXPERT_APPROVAL = 'Y'
+		AND MEM_AUTH_CD = 'ROLE_EXPERT'
+	</select>
+	
 	<!-- 상품 신청 목록 -->
 	<select id="selectAppliProdList" parameterType="PagingVO" resultType="ExprodVO">
 		WITH ORDEREDEVENT AS (    
@@ -272,6 +327,7 @@
 		      FROM MEM_EXPERT_EXPROD 
 		     WHERE EXPROD_APROVAL = 'N'
 		       AND EXPERT_APPROVAL = 'Y'
+		       AND MEM_AUTH_CD = 'ROLE_EXPERT'
 		     ORDER BY EXPROD_ID 
 		    )
 		SELECT A.*

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.ddit.announcement.dao.AnnoDAO">
 <!--  [[개정이력(Modification Information)]]       -->
 <!--  수정일                수정자     수정내용               -->
 <!--  ==========   ======    ==============        -->
@@ -8,6 +7,7 @@
 <!--  2023. 2. 20. 최경수     추가               -->
 <!--  Copyright (c) 2023 by DDIT All right reserved -->
 
+<mapper namespace="kr.or.ddit.announcement.dao.AnnoDAO">
 	<sql id="searchFrag">
 		<trim prefix="WHERE">
 			ANNO_STATE_CD='B1'
@@ -94,6 +94,7 @@
 			FROM (
 				SELECT ANNO.*
 				FROM ANNO
+				WHERE ANNO_STATE_CD='B1'
 				ORDER BY ANNO_DATE DESC
 				) K
 		), ANNOBOARD AS(
@@ -499,6 +500,14 @@
 		ANNO_HIT = ANNO_HIT + 1
 		WHERE ANNO_NO = #{annoNo}
 	</update>
+	
+	<!--조회수 상위 15퍼센트여부  -->
+	<select id="per15Chk" resultType="string">
+		<![CDATA[
+			SELECT ANNO_NO FROM (SELECT ANNO_NO, PERCENT_RANK() OVER (ORDER BY ANNO_HIT DESC) as per_rank FROM ANNO) a
+			WHERE a.per_rank <=0.15
+		]]>
+	</select>
 
 
 	<resultMap type="AnnoVO" id="annoProcessListMap" autoMapping="true">
@@ -532,6 +541,7 @@
 		LEFT OUTER JOIN PROCESS E ON C.DA_NO = E.DA_NO
 		LEFT OUTER JOIN PROCESS_CODE G ON E.PROCESS_CODE_ID = G.PROCESS_CODE_ID
 		WHERE B.MEM_ID = #{memId}
+		ORDER BY E.PROCESS_CODE_ID
 	</select>
 
 	<select id="selectAnnoDetailProcess" parameterType="String" resultMap="annoProcessListMap">
@@ -543,6 +553,15 @@
         INNER JOIN COMPANY E ON A.CMP_ID = E.CMP_ID
 		LEFT OUTER JOIN PROCESS_CODE F ON D.PROCESS_CODE_ID = F.PROCESS_CODE_ID
 		WHERE A.ANNO_NO = #{annoNo}
+		ORDER BY D.PROCESS_CODE_ID
+	</select>
+	
+	<select id="selectLikeAnnoList" parameterType="String" resultType="AnnoVO">
+		SELECT A.ANNO_NO, A.ANNO_TITLE, A.ANNO_STATE_CD, C.ATT_SAVENAME
+		FROM ANNO A
+		INNER JOIN LIKE_ANNO B ON A.ANNO_NO = B.ANNO_NO
+		LEFT OUTER JOIN ATTACH C ON A.CMP_ID = C.TBL_ID
+		WHERE B.MEM_ID = #{memId}	
 	</select>
 
 </mapper>

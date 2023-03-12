@@ -2,18 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.apply.dao.ApplyDAO">
 	
-	<select id="selectApplyList" parameterType="String" resultType="ApplyVO">
-		SELECT *
-		FROM APPLY
-		WHERE MEM_ID = #{memId}
-		AND APPLY_DELETE_DATE IS NULL
+	<resultMap type="ApplyVO" id="applyMap" autoMapping="true">
+		<id property="applySn" column="APPLY_SN"/>
+		<association property="resume" javaType="ResumeVO" autoMapping="true"/>
+		<association property="detail" javaType="AnnoDetailVO" autoMapping="true" />
+		<association property="anno" javaType="AnnoVO" autoMapping="true" />
+		<association property="company" javaType="CompanyVO" autoMapping="true"/>
+		<association property="process" javaType="ProcessVO" autoMapping="true"/>
+		<association property="myintro" javaType="MyintroVO" autoMapping="true"></association>
+	</resultMap>
+	
+	<select id="selectApplyList" parameterType="String" resultMap="applyMap">
+		SELECT A.*, B.*, C.*, D.*, E.*, F.PROCESS_CODE_NAME, G.*
+		FROM APPLY A
+		INNER JOIN RESUME B ON A.RESUME_SN = B.RESUME_SN
+		INNER JOIN ANNO_DETAIL C ON A.DA_NO = C.DA_NO
+		INNER JOIN ANNO D ON C.ANNO_NO = D.ANNO_NO
+		INNER JOIN COMPANY E ON D.CMP_ID = E.CMP_ID
+		INNER JOIN PROCESS_CODE F ON A.PROCESS_CODE_ID = F.PROCESS_CODE_ID
+		INNER JOIN MYINTRO G ON A.MYINTRO_SN = G.MYINTRO_SN
+		WHERE A.MEM_ID = #{memId}
+		AND A.APPLY_DELETE_DATE IS NULL
 	</select>
 	
-	<select id="selectApply" parameterType="String" resultType="ApplyVO">
-		SELECT A.*, C.ANNO_TITLE, C.ANNO_NO
+	<select id="selectApply" parameterType="String" resultMap="applyMap">
+		SELECT A.*, B.*, C.*, D.*, E.*, F.PROCESS_CODE_NAME, G.*
 		FROM APPLY A
-		LEFT OUTER JOIN ANNO_DETAIL B ON A.DA_NO = B.DA_NO
-		LEFT OUTER JOIN ANNO C ON B.ANNO_NO = C.ANNO_NO
+		INNER JOIN RESUME B ON A.RESUME_SN = B.RESUME_SN
+		INNER JOIN ANNO_DETAIL C ON A.DA_NO = C.DA_NO
+		INNER JOIN ANNO D ON C.ANNO_NO = D.ANNO_NO
+		INNER JOIN COMPANY E ON D.CMP_ID = E.CMP_ID
+		INNER JOIN PROCESS_CODE F ON A.PROCESS_CODE_ID = F.PROCESS_CODE_ID
+		INNER JOIN MYINTRO G ON A.MYINTRO_SN = G.MYINTRO_SN
 		WHERE A.APPLY_SN = #{applySn}
 
 	</select>
@@ -74,6 +94,12 @@
 				APPLY_DELETE_DATE = SYSDATE
 		WHERE
 			APPLY_SN = #{applySn,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteScore" parameterType="hashMap">
+			DELETE FROM ${process}
+			WHERE
+			APPLY_SN = #{applySn, jdbcType=VARCHAR}
 	</delete>
 	
 	<resultMap type="ApplyVO" id="applicant" autoMapping="true">

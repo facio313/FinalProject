@@ -13,6 +13,9 @@ import kr.or.ddit.apply.dao.ApplyDAO;
 import kr.or.ddit.apply.vo.ApplyVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.process.service.ProcessService;
+import kr.or.ddit.resume.service.ResumeService;
+import kr.or.ddit.resume.vo.ResumeVO;
+import kr.or.ddit.system.service.AlarmService;
 
 /**
  * 
@@ -37,6 +40,12 @@ public class ApplyServiceImpl implements ApplyService {
 	
 	@Inject
 	private ProcessService processService;
+	
+	@Inject
+	private ResumeService resumeService;
+	
+	@Inject
+	private AlarmService alarmService;
 	
 	@Override
 	public ApplyVO retrieveApply(String applySn) {
@@ -67,6 +76,21 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public ServiceResult removeApply(String applySn) {
 		int rowcnt = dao.deleteApply(applySn);
+		List<String> processList = new ArrayList<>();
+		processList.add("SCORE_COMP");
+		processList.add("SCORE_DISCUSS");
+		processList.add("SCORE_INDEPTH");
+		processList.add("SCORE_INTERN");
+		processList.add("SCORE_INTRO");
+		processList.add("SCORE_PRACTICE");
+		processList.add("SCORE_RESUME");
+		processList.add("SCORE_TEST");
+		Map<String, String> map = new HashMap<>();
+		map.put("applySn", applySn);
+		for (String str : processList) {
+			map.put("process", str);
+			dao.deleteScore(map);
+		}
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
@@ -171,6 +195,7 @@ public class ApplyServiceImpl implements ApplyService {
 		String daNo = resultList.get(0).getDaNo();
 		List<String> processList = processService.retrieveProcessListFor(daNo);
 		for (ApplyVO vo : resultList) {
+			
 			String pcid = vo.getProcessCodeId();
 			String result = vo.getApplyResult();
 			for (int i = 0; i < processList.size(); i++) {

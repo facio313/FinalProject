@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.expert.dao.ExpertDAO">
-<insert id="aplicationExpert" parameterType="kr.or.ddit.expert.vo.ExpertVO">
+<insert id="applicationExpert" parameterType="kr.or.ddit.expert.vo.ExpertVO">
 	INSERT INTO expert (
 	    mem_id,
 	    expert_introduction,

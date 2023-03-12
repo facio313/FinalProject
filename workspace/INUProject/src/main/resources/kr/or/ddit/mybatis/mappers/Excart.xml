@@ -54,7 +54,7 @@
 	 #{excartId,jdbcType=VARCHAR}
 	 , #{exprodId,jdbcType=VARCHAR}
 	 , #{memId,jdbcType=VARCHAR}
-	 , #{excartPrice,jdbcType=NUMERIC}
+	 , REGEXP_REPLACE(#{excartPrice,jdbcType=VARCHAR}, '[^[:digit:]]')
 	)
 	</insert>
 </mapper>
