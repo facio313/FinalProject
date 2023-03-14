@@ -12,6 +12,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class CounselingVO {
+	private int rnum;
 	private String counNo;
 	private String memId;
 	private String memName;

@@ -66,7 +66,6 @@ public class AnnouncementController {
 	private final AnnoSearchDAO annoSearchDAO;
 	private final AnnoDAO annoDAO;
 	private final MemberService memberService;
-	
 
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
@@ -96,7 +95,6 @@ public class AnnouncementController {
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String annoList(
 		@RequestParam(value="page",required=false, defaultValue="1") int currentPage
-//		, PagingVO<AnnoVO> pagingVO
 		, @ModelAttribute("detailCondition") AnnoVO detailCondition
 		, @RequestParam Map<String, Object> map
 		, Model model
@@ -119,9 +117,8 @@ public class AnnouncementController {
 			MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
 			MemberVO realMember = wrapper.getRealMember();
 			pagingVO.setMemId(realMember.getMemId());
-			log.info("어쓰 널 아님 : {}",realMember);
 		}
-		//쿼리실행
+		
 		service.retrieveAnnoList(pagingVO);
 		List<String> per15Chk = annoDAO.per15Chk();
 		
@@ -149,13 +146,6 @@ public class AnnouncementController {
 //		, @AuthMember MemberVO authMember
 //		, @AuthenticationPrincipal MemberVOWrapper principal
 	) {
-//      String memId = principal.getRealMember().getMemId();
-//		Optional.ofNullable(authentication)
-//				.map(a->{
-//					MemberVOWrapper wrapper = (MemberVOWrapper) a.getPrincipal();
-//					MemberVO realMember = wrapper.getRealMember();
-//				});
-		
 		AnnoVO anno = service.retrieveAnno(annoNo);
 		MemberVO annoInc = memberService.retrieveIncruiter(anno.getMemId());
 		annoInc.getMemName();
@@ -171,12 +161,13 @@ public class AnnouncementController {
 		} else {
 			MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();
 			MemberVO realMember = wrapper.getRealMember();
-			log.info("어쓰 널 아님 : {}",realMember.getMemId());
 			String memId = realMember.getMemId();
 			String cmpId = anno.getCmpId();
+			
+			service.insertMemLog(annoNo, memId);
+			
 			int selectLikeAnno = service.retrieveLikeAnno(annoNo, memId);
 			int selectLikeCmp = service.retrieveLikeCmp(cmpId, memId);
-			service.insertMemLog(annoNo, memId);
 			model.addAttribute("selectLikeAnno", selectLikeAnno);
 			model.addAttribute("selectLikeCmp", selectLikeCmp);
 		}
@@ -259,8 +250,6 @@ public class AnnouncementController {
 				//등록됨
 				anno.setAnnoStateCd("B1");
 			}
-			//0이면 같다
-			//0보다 작으면 startdate2가 더 크다
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -283,11 +272,9 @@ public class AnnouncementController {
 	@GetMapping("update")
 	public String updateAnno(
 		@RequestParam("what") String annoNo
-//		@RequestBody Map<String, String> map
 		, Model model
 		, Authentication authentication
 	) {
-//		String annoNo = map.get("annoNo");
 		String viewName = "";
 		AnnoVO anno = service.retrieveAnno(annoNo);
 		MemberVOWrapper wrapper = (MemberVOWrapper) authentication.getPrincipal();

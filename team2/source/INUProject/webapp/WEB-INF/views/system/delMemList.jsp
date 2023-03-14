@@ -74,7 +74,7 @@
 														<td>${delMem.memName }</td>
 														<td>${delMem.memAuthCd }</td>
 														<td>${delMem.memJoinDate }</td>
-														<td>${delMem.memDelete }</td>
+														<td>${fn:substring(delMem.memDelete,0,10) }</td>
 														<td>
 															<a href="<c:url value='#' />">
 																상세보기

@@ -13,45 +13,6 @@
 
 <link href="<%=request.getContextPath()%>/resources/cks/processDaView.css" rel="stylesheet"/>
 
-<style>
-.pf {
- 	font-size: 24px; 
-}
-
-.radiuss{
-	width: 100%;
-	height: auto;
-	border : 1px solid #eaedf4;
-	border-radius: 12px;
-	padding: 80px 99px 100px 99px;
-	margin-top: 2%;
-	margin-bottom: 2%;
-}
-
-.annoTable table {
-  	width: 100%;
-   	height: 500px;
- 	border-top: 1px solid #eaedf4;
-  	border-collapse: collapse;
-  	margin: 0px;
-}
-.annoTable th{
-	background: #f7f7f7;
-	border-bottom: 1px solid #eaedf4;
-  	padding: 10px;
-  	width: 155px;
-} 
-
-.annoTable td {
-  	border-bottom: 1px solid #eaedf4;
-  	padding: 20px;
-}
-p {
-	margin-bottom: 0px;
-	display: inline-block;
-}
-</style>
-
 <div class="radiuss" style="padding-bottom: 30px;">
 	<div class="qna_write_wrap">
 		<div class="qna_write_selection">
@@ -219,7 +180,7 @@ p {
 								<button class="listBtn" style="width: 25%; border-radius: 0;" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${detail.daNo}"'>세부 채용과정 보러가기</button>
 							</c:if>
 							<c:if test="${empty detail.processList[0].processCodeId}">
-								<button class="listBtn" style="width: 25%; border-radius: 0;" onclick='location.href="${pageContext.request.contextPath}/process/form?daNo=${detail.daNo}"'>채용과정 등록하기</button>
+								<button class="listBtn" style="width: 25%; border-radius: 0;" onclick='location.href="${pageContext.request.contextPath}/process/form?annoNo=${anno.annoNo}&daNo=${detail.daNo}"'>채용과정 등록하기</button>
 							</c:if>
 							
 						</div>
@@ -290,6 +251,7 @@ for (let i = 0; i < stepss.length; i++) {
 	let percentLine = $(stepss[i]).parent(".pline-container").children(".pline").children(".percent");
 	percentLine.css("width", (howMuchIs * nowProcess.attr("id")) + "%");
 }
+
 </script>
 
 

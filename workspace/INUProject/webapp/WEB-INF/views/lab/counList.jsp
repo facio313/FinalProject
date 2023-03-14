@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/board.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/pattern.css" />
 <link rel="stylesheet" href="${prePath}/resources/css/saramin/layout.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <security:authorize access="isAuthenticated()">
 	<security:authentication property="principal" var="memberVOWrapper"/>
 	<security:authentication property="principal.realMember" var="authMember"/>
@@ -193,8 +195,6 @@ let myBoard = $("#myBoard").on("change",function(){
 	if(myBoard.is(":checked")){
 		$("[name=searchType]").val("memId");
 		$("[name=searchWord]").val(`${authMember.memId}`);
-		console.log("====>",$("[name=searchType]").val());
-		console.log("====>",$("[name=searchWord]").val());
 	} else {
 		$("[name=searchType]").val(null);
 		$("[name=searchWord]").val(null);
@@ -217,9 +217,6 @@ if(notAnsweredBoard.is(":checked")){
 }
 
 //비공개 게시글 클릭이벤트
-//a태그 내에 공고 번호, 작성자 id, 공개 여부 data태그로 넣기
-//공개면 href에 공고 번호 넣어서 이동
-//href id일치하고
 $(document).on("click",".viewHref",function(event){
 	event.preventDefault();
 	let viewHref = $(this);
@@ -228,9 +225,8 @@ $(document).on("click",".viewHref",function(event){
 	let counNo = viewHref.data('counNo');
 	let memId = viewHref.data('memId');
 	let pubChk = viewHref.data('pubChk');
-	console.log("memAuthCd:",memAuthCd);
 	if(pubChk=='N' && memId!=authMemId && memAuthCd!='ROLE_ADMIN'){
-		alert("비공개 게시물입니다.");
+		Swal.fire('비공개 게시물입니다.');
 	} else {
 		location.href = '${prePath}/lab/counseling/view/CS'+counNo;
 	}

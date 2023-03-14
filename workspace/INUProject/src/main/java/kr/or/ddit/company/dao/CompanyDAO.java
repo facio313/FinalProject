@@ -23,6 +23,8 @@ public interface CompanyDAO{
 	
 	public CompanyVO selectUpdateCompany(String cmpId);
 	
+	public List<CompanyVO> selectLikeCompanyList(String memId);
+	
 	public int insertCompany(CompanyVO company);
 	
 	public int updateCompany(CompanyVO company);

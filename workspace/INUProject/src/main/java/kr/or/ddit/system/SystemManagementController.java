@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.ddit.board.service.BoardReportService;
+import kr.or.ddit.board.vo.BoardReportVO;
 import kr.or.ddit.company.service.CompanyService;
 import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.expert.dao.AttachDAO;
@@ -87,6 +89,7 @@ public class SystemManagementController {
 	private final ExpertService expertService;
 	private final AskService askService;
 	private final CounselingService counService;
+	private final BoardReportService boardReportService;
 	
 	//저장된 파일
 	@Value("#{appInfo.saveFiles}")
@@ -641,7 +644,11 @@ public class SystemManagementController {
 	
 	//신고 목록
 	@GetMapping("/reportList")
-	public String reportProcess() {
+	public String reportProcess(
+		Model model
+	) {
+		List<BoardReportVO> reportList = boardReportService.retrieveReportList();
+		model.addAttribute("reportList", reportList);
 		return "system/reportList";
 	}
 }

@@ -86,7 +86,7 @@ public class AnnoFullCalendarEvent extends FullCalendarEventAdapter<AnnoVO>{
 	
 	@Override
 	public String getUrl() {
-		return "../../announcement/view/"+getId();
+		return "/INUProject/announcement/view/"+getId();
 	}
 
 }

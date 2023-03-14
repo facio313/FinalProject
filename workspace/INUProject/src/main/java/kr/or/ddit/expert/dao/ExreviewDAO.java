@@ -20,4 +20,6 @@ public interface ExreviewDAO {
 	public int updateReview(ExreviewVO exreview);
 	
 	public ExreviewVO selectExreview(String exreviewId);
+	
+	public List<ExreviewVO> selectReviewMypageList(String memId);
 }

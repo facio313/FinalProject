@@ -96,7 +96,9 @@
 									<tr>
 										<td style="width : 47% "><a href="" onclick="companyClick(this)"
 											data-dismiss="modal" style="color: black; font-weight: bold;">${company.cmpName }</a></td>
-										<td>${company.cmpRepName }</td>
+										<td style="
+										    width: 24%;
+										">${company.cmpRepName }</td>
 										<td>${company.cmpAddr2 }</td>
 									</tr>
 								</c:forEach>

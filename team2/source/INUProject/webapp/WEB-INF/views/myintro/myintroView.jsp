@@ -25,10 +25,15 @@ th{
   	padding: 10px;
   	width: 250px;
   	text-align: center;
+  	font-size: 20px;
+  	font-weight: 700;
 } 
 td {
   	border-bottom: 1px solid #eaedf4;
   	padding: 20px;
+}
+p { 
+	line-height: 30px;
 }
 </style>
 

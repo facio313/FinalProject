@@ -64,7 +64,7 @@
             			</tbody>
           			</table>
           			<div class="wrap_link">
-            			<a href='<c:url value="/login/loginForm"/>' class="btn_biggest_type01" style="margin: 0 15px;">로그인</a>
+            			<a href='<c:url value="/login/loginForm"/>' class="btn_biggest_type01" style="margin: 0 15px; background-color: #0D6EFD; border-color: #0D6EFD;">로그인</a>
             			<a href='<c:url value="/help/find/seekerFindPw"/>' class="btn_biggest_type03" style="margin: 0 15px;">비밀번호 찾기</a>
           			</div>
         		</div>

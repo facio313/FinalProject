@@ -82,13 +82,47 @@
 	    expert_field,
 	    exjob_id,
     	EXLPROD_ID,
-    	exprod_pr	    
+    	exprod_pr,
+    	E.ATT_SAVENAME     
 	FROM
-	    mem_expert_exprod
+	    mem_expert_exprod B left outer join ATTACH e on b.mem_id = E.TBL_ID
 <!--     <include refid="searchFrag"/> -->
 	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
      and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
      and exprod_aproval = 'Y'
+    <include refid="mainSearch"/>
+    ORDER BY exprod_id DESC
+    )
+	SELECT A.*
+	FROM (
+		SELECT ROWNUM AS RNUM, ORDEREDEVENT.*
+		FROM ORDEREDEVENT
+	)A
+	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
+	</select>
+	<select id="selectExprodMissionList" parameterType="PagingVO" resultType="ExprodVO">
+	WITH ORDEREDEVENT AS (
+	SELECT
+	    exprod_id,
+	    to_char(exprod_start,'YYYYMMDD') as exprod_start,
+	    to_char(exprod_end,'YYYYMMDD') as exprod_end,
+	    exprod_target,
+	    exprod_name,
+	    to_char(exprod_price,'FM999,999,999,999') as exprod_price,
+	    exprod_way,
+	    exprod_time,
+	    mem_id,
+	    mem_name,
+	    exprod_aproval,
+	    exfield_id,
+	    expert_field,
+	    exjob_id,
+    	EXLPROD_ID,
+    	exprod_pr	    
+	FROM
+	    mem_expert_exprod
+<!--     <include refid="searchFrag"/> -->
+    where 1=1
     <include refid="mainSearch"/>
     ORDER BY exprod_id DESC
     )
@@ -118,9 +152,10 @@
 	    expert_field,
 	    exjob_id,
     	EXLPROD_ID,
-    	exprod_pr	    
+    	exprod_pr,
+    	E.ATT_SAVENAME 	    
 	FROM
-	    mem_expert_exprod
+	    mem_expert_exprod B left outer join ATTACH e on b.mem_id = E.TBL_ID
 	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
 	     and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
 	     and exprod_aproval = 'Y'
@@ -141,7 +176,7 @@
             FROM
             mem_seeker_excart_exprod    
             group by exprod_id)b
-        where b.rank<![CDATA[<=]]>5)
+        where b.rank<![CDATA[<=]]>4)
 	</select>
 	
 	
@@ -162,6 +197,7 @@
 	    mem_id,
 	    exprod_aproval,
 	    exlprod_id,
+	    exprod_pr,
 	    exprod_applidate
 	) VALUES (
 	 #{exprodId,jdbcType=VARCHAR}
@@ -176,6 +212,7 @@
 	, #{memId,jdbcType=VARCHAR}
 	, 'N'
 	, 'EL002'
+	, #{exprodPr,jdbcType=VARCHAR}
 	, sysdate
 	)   		
 	</insert>
@@ -195,11 +232,13 @@
 	    exprod_time,
 	    exprod_detail,
 	    mem_id,
+	    exprod_pr,
 	    exprod_aproval,
 	    exlprod_id,
 		LEAD(exprod_id, 1) OVER (ORDER BY exprod_id DESC) AS PRE_exprod,
-		LAG(exprod_id, 1) OVER (ORDER BY exprod_id DESC) AS NEXT_exprod
-	from exprod
+		LAG(exprod_id, 1) OVER (ORDER BY exprod_id DESC) AS NEXT_exprod,
+    	E.ATT_SAVENAME
+	from exprod B left outer join ATTACH e on b.mem_id = E.TBL_ID
 	where 
 	 to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
      and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
@@ -207,7 +246,7 @@
 	where exprod_id = #{exprodId,jdbcType=VARCHAR}
 
 	</select>
-	<!-- 관심공고 -->
+	<!-- 관심상품 -->
 	<select id="selectExprodlike" parameterType="string" resultType="int">
 	SELECT COUNT(*) 
 	FROM exinterest
@@ -242,6 +281,7 @@
 	    exprod_time= #{exprodTime,jdbcType=VARCHAR},
 	    exlprod_id=  'EL002',
 	    exprod_aproval = 'N',
+	    exprod_pr = #{exprodPr,jdbcType=VARCHAR},
 	    exprod_detail =  #{exprodDetail,jdbcType=CLOB}
 	where 
 		exprod_id = #{exprodId,jdbcType=VARCHAR}
@@ -374,5 +414,21 @@
 		WHERE EXPROD_ID = #{exprodId}
   		AND EXPROD_APROVAL = 'N'
 	</delete>
-	
+	<!-- 판매목록조회 -->
+	<select id="selectExcartMypage" parameterType="String" resultType="ExcartVO">
+		SELECT
+		    mem_id,
+		    mem_name,
+		    exprod_id,
+		    excart_price,
+		    excart_date,
+		    review_state,
+		    excart_state,
+		    exprod_name,
+		    expert_id,
+		    exprod_aproval
+		FROM
+		    mem_seeker_excart_exprod
+		where expert_id=#{memId}
+	</select>
 </mapper>

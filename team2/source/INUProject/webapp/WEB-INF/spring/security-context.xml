@@ -48,7 +48,7 @@
 		/>
 
 		<!-- 로그아웃, 세션초기화 -->
-		<logout logout-url="/logout" logout-success-url="/" invalidate-session="true"/>
+		<logout logout-url="/logout" logout-success-url="/login" invalidate-session="true"/>
 
 		<!-- 접근권한
 			hasRole : 해당 역할만
@@ -90,6 +90,7 @@
 		<intercept-url pattern="/lab/News/Form" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/lab/News/Update" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/lab/News/Delete" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/lab/contest/insertForm" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/lab/counseling/insert" access="isAuthenticated()"/>
 		<intercept-url pattern="/lab/counseling/update" access="isAuthenticated()"/>
 		<intercept-url pattern="/lab/counseling/delete" access="isAuthenticated()"/>

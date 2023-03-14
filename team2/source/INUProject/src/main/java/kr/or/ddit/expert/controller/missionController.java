@@ -30,10 +30,11 @@ public class missionController {
 		,@ModelAttribute("simpleCondition") SearchVO searchVO
 		,Model model	
 		) {
-		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
+		PagingVO<ExprodVO> pagingVO = new PagingVO<>(10,10
+				);
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
-		exprodservice.selectExprodList(pagingVO);
+		exprodservice.selectExprodMissionList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		return "expert/mission";
 	}
@@ -48,7 +49,7 @@ public class missionController {
 		PagingVO<ExprodVO> pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
-		exprodservice.selectExprodList(pagingVO);
+		exprodservice.selectExprodMissionList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		return pagingVO;
 	}
@@ -67,6 +68,13 @@ public class missionController {
 		ExprodVO exprod
 		) {
 		exprodservice.updateExprodName(exprod);
+	}
+	@ResponseBody
+	@PostMapping(value ="/updateModal", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void updateModalExprod(
+			ExprodVO exprod
+			) {
+		exprodservice.updateExprod(exprod);
 	}
 	@ResponseBody
 	@PostMapping(value ="/newprod", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)

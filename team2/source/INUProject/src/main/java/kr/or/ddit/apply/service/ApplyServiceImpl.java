@@ -15,6 +15,8 @@ import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.process.service.ProcessService;
 import kr.or.ddit.resume.service.ResumeService;
 import kr.or.ddit.resume.vo.ResumeVO;
+import kr.or.ddit.system.service.AlarmService;
+import kr.or.ddit.vo.AlarmVO;
 
 /**
  * 
@@ -42,6 +44,9 @@ public class ApplyServiceImpl implements ApplyService {
 	
 	@Inject
 	private ResumeService resumeService;
+	
+	@Inject
+	private AlarmService alarmService;
 	
 	@Override
 	public ApplyVO retrieveApply(String applySn) {
@@ -191,26 +196,41 @@ public class ApplyServiceImpl implements ApplyService {
 		String daNo = resultList.get(0).getDaNo();
 		List<String> processList = processService.retrieveProcessListFor(daNo);
 		for (ApplyVO vo : resultList) {
+			
 			String pcid = vo.getProcessCodeId();
 			String result = vo.getApplyResult();
+			ApplyVO origin = dao.selectApply(vo.getApplySn());
+			String memId = origin.getMemId();
+			String daFd = origin.getDetail().getDaFd();
+			String pcn = origin.getProcess().getProcessCodeName();
+			String cmpName = origin.getCompany().getCmpName();
 			for (int i = 0; i < processList.size(); i++) {
 				if (pcid.equals(processList.get(i))) {
+					AlarmVO alarm = new AlarmVO();
+					alarm.setMemId(memId);
+					alarm.setAlarmCategory("채용과정");
+					alarm.setAlarmDetail(pcid);
 					if (!pcid.equals("PRC08")) {
 						if (result.equals("합격")) {
 							vo.setProcessCodeId(processList.get(i + 1));
 							vo.setApplyResult("진행중");
 							dao.updateResult(vo);
+							alarm.setAlarmContent(cmpName + " " + daFd + "공고의" + pcn +"과정에 합격하셨습니다. 다음 과정을 확인해주세요.");
 						} else {
 							dao.updateResult(vo);
+							alarm.setAlarmContent(cmpName + " " + daFd + "에 불합격하셨습니다.");
 						}
 					} else {
 						if (result.equals("합격")) {
 							vo.setApplyResult("최종합격");
 							dao.updateResult(vo);
+							alarm.setAlarmContent(cmpName + " " + daFd + "에 최종합격하셨습니다. 축하합니다!");
 						} else {
 							dao.updateResult(vo);
+							alarm.setAlarmContent(cmpName + " " + daFd + "에 불합격하셨습니다.");
 						}
 					}
+					alarmService.createAlarm(alarm);
 				}
 			}
 

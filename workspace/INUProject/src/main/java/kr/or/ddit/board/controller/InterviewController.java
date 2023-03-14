@@ -65,6 +65,7 @@ public class InterviewController {
 
 		log.info("왔나?");
 		PagingVO<InterviewVO> pagingVO = new PagingVO<>(9,5);
+
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setSimpleCondition(searchVO);
 
@@ -75,11 +76,13 @@ public class InterviewController {
 		pagingVO.setDetailCondition(interviewVO);
 
 		service.retrieveInterviewList(pagingVO);
-
+		log.info("interviewVO>>>>>>>: {}", interviewVO);
 		model.addAttribute("pagingVO", pagingVO);
+		log.info("pagingVO1111111111111>>>>>>>: {}", pagingVO);
 
 		if(!pagingVO.getDataList().isEmpty())
 			model.addAttribute("pagingHTML", renderer.renderPagination(pagingVO));
+		log.info("pagingVO22222222222222222>>>>>>>: {}", pagingVO);
 
 		// System.out.println(pagingVO);
 		return "jsonView";

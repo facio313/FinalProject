@@ -91,6 +91,16 @@
 					<div class="wrap_board_view wrap_help">
 						<div class="wrap_content_view">
 							<div class="area_btn">
+								<security:authorize access="hasRole('ROLE_SEEKER')">
+									<a id="fillSeeker" class="btn_basic_type01 btn_list" style="cursor: pointer;" title="자동 채우기">
+										자동채우기(SEEKER)
+									</a>
+								</security:authorize>
+								<security:authorize access="hasRole('ROLE_ADMIN')">
+									<a id="fillAdmin" class="btn_basic_type01 btn_list" style="cursor: pointer;" title="자동 채우기">
+										자동채우기(ADMIN)
+									</a>
+								</security:authorize>
 								<a href="#" id="submitBtn" class="btn_basic_type01 btn_list" title="이전 목록 바로가기">
 									등록
 								</a>
@@ -107,6 +117,7 @@
 </section>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+
 <script>
 console.log("refCoun : ${refCoun}");
 /* CKEDITOR */
@@ -126,9 +137,9 @@ fileTarget.on('change', function() {
 	let fileName = fileValue[fileValue.length-1];
 	$("#fileName").html(fileName);
 })
+
 </script>
-
-
+<script src="${prePath}/resources/js/coun/counFill.js"></script>
 
 
 

@@ -29,6 +29,7 @@ public class CompanyVO extends CommonsAttachVO {
 	private String cmpContent;
 	private int cmpLogo;
 	private int attId;
+	private String attSavename;
 	
 	private int ccheck; //관심기업여부
 	

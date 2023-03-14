@@ -12,8 +12,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 
 <style>
 
@@ -218,7 +217,7 @@
 			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
 				<label for="job-title">방식</label>
 				<form:select path="processList[0].processWay" cssClass="form-control">
-					<form:option value="온라인">온라인</form:option>
+					<form:option value="온라인" id="way0">온라인</form:option>
 					<form:option value="대면">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
@@ -250,7 +249,7 @@
 			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
 				<label for="job-title">방식</label>
 				<form:select path="processList[1].processWay" cssClass="form-control">
-					<form:option value="온라인">온라인</form:option>
+					<form:option value="온라인" id="way1">온라인</form:option>
 					<form:option value="대면">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
@@ -283,7 +282,7 @@
 				<label for="job-title">방식</label>
 				<form:select path="processList[2].processWay" cssClass="form-control">
 					<form:option value="온라인">온라인</form:option>
-					<form:option value="대면">대면</form:option>
+					<form:option value="대면" id="way2">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
 				</form:select>
@@ -315,7 +314,7 @@
 				<label for="job-title">방식</label>
 				<form:select path="processList[3].processWay" cssClass="form-control">
 					<form:option value="온라인">온라인</form:option>
-					<form:option value="대면">대면</form:option>
+					<form:option value="대면" id="way3">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
 				</form:select>
@@ -347,7 +346,7 @@
 				<label for="job-title">방식</label>
 				<form:select path="processList[4].processWay" cssClass="form-control">
 					<form:option value="온라인">온라인</form:option>
-					<form:option value="대면">대면</form:option>
+					<form:option value="대면" id="way4">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
 				</form:select>
@@ -380,7 +379,7 @@
 				<form:select path="processList[5].processWay" cssClass="form-control">
 					<form:option value="온라인">온라인</form:option>
 					<form:option value="대면">대면</form:option>
-					<form:option value="화상">화상</form:option>
+					<form:option value="화상" id="way5">화상</form:option>
 					<form:option value="기타">기타</form:option>
 				</form:select>
 				<form:errors path="processList[5].processWay" element="span" cssClass="text-danger" />
@@ -411,7 +410,7 @@
 				<label for="job-title">방식</label>
 				<form:select path="processList[6].processWay" cssClass="form-control">
 					<form:option value="온라인">온라인</form:option>
-					<form:option value="대면">대면</form:option>
+					<form:option value="대면" id="way6">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
 				</form:select>
@@ -443,7 +442,7 @@
 				<label for="job-title">방식</label>
 				<form:select path="processList[7].processWay" cssClass="form-control">
 					<form:option value="온라인">온라인</form:option>
-					<form:option value="대면">대면</form:option>
+					<form:option value="대면" id="way7">대면</form:option>
 					<form:option value="화상">화상</form:option>
 					<form:option value="기타">기타</form:option>
 				</form:select>
@@ -462,7 +461,8 @@
 		</div>
 	</div>
 	<div class="form-group" style="display: flex; justify-content: end;">
-		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-right: 20px; width: 200px; border-radius: 0;"/> 
+		<button id="autoComp" type="button" class="btn btn-block btn-success btn-md" style=" border-radius: 0; width: 200px;">자동완성</button>
+		<input type="submit" class="btn btn-primary" value="저장 후 세부 항목 등록" style="margin-left: 20px; margin-right: 20px; width: 200px; border-radius: 0;"/> 
 		<input type="reset" class="btn btn-danger" value="취소" onclick='location.href="${pageContext.request.contextPath}/process/${anno.annoNo}/${daNo}"'  style="width: 200px; border-radius: 0;"/>		
 	</div>
 	</form:form>
@@ -536,28 +536,41 @@ $(function() {
 });
 let today = new Date();
 
-ClassicEditor.create(document.querySelector('#editor0'), {
+CKEDITOR.replace(document.querySelector('#editor0'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor1'), {
+CKEDITOR.replace(document.querySelector('#editor1'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor2'), {
+CKEDITOR.replace(document.querySelector('#editor2'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor3'), {
+CKEDITOR.replace(document.querySelector('#editor3'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor4'), {
+CKEDITOR.replace(document.querySelector('#editor4'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor5'), {
+CKEDITOR.replace(document.querySelector('#editor5'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor6'), {
+CKEDITOR.replace(document.querySelector('#editor6'), {
 	language : "ko"
 });
-ClassicEditor.create(document.querySelector('#editor7'), {
+CKEDITOR.replace(document.querySelector('#editor7'), {
 	language : "ko"
 });
+
+let autoComp = document.querySelector("#autoComp");
+autoComp.addEventListener("click", function(event) {
+	CKEDITOR.instances.editor0.setData('<p>이력서와 입사지원서 항목을 비교하여 점수가 부여됩니다. 점수 부여 시 해당하지 않는 항목은 기준으로 삼지 않습니다.</p>');
+	CKEDITOR.instances.editor1.setData('<p>자기소개서는 전반적인 상황이 아닌 해당 항목에서 겪은 구체적인 경험을 토대로 적은 이야기를 중점적으로 평가합니다.</p>');
+	CKEDITOR.instances.editor2.setData('<p>필기시험지 공지사항을 작성하여 올립니다.</p>');
+	CKEDITOR.instances.editor3.setData('<p>역량평가 시 항목을 미리 추가해두고 그 항목에 대한 점수를 출력합니다.</p>');
+	CKEDITOR.instances.editor4.setData('<p>토론면접 시 항목 이외의 것을 기준으로 점수부여하는 것을 지양합니다.</p>');
+	CKEDITOR.instances.editor5.setData('<p>실무면접 완료 시 결과지를 첨부파일로 저장합니다.</p>');
+	CKEDITOR.instances.editor6.setData('<p>인턴십 공지 관련 문서를 첨부파일로 저장합니다.</p>');
+	CKEDITOR.instances.editor7.setData('<p>사전에 면접관 교육을 진행 후 실시합니다. 압박면접은 없습니다.</p>');
+	console.log(document.querySelector("#way0").value);
+});	
 </script>

@@ -32,7 +32,9 @@
 	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
+<!-- 	<link rel="stylesheet" href="/INUProject/resources/css/saramin/pattern.css"> -->
 <style>
+
 .btn_cert_pop {
 	background-color: #045738;
 	color: #fff;
@@ -51,6 +53,10 @@
 }
 </style>
 </head>
+<script type="text/javascript">
+/* 자동입력 */
+
+</script>
 <section class="site-section">
 	<div class="site-wrap">
 		<div class="sri_section" class="has_banner">
@@ -64,6 +70,9 @@
 							<form:form id="writeForm" modelAttribute="member" method="post"
 								enctype="multipart/form-data">
 								<fieldset>
+								<button type="button" class="btn btn-primary"  id="autoInsert" style="border-radius: 0px">
+										<span>자동입력</span>
+								</button> 
 									<legend class="blind">이메일 문의 입력 폼</legend>
 									<p class="desc_find_type2">
 										평일 09시 에서 17시까지 문의하신 내용은 당일 답변해드립니다. <br> 17시 이후에 문의하신
@@ -82,9 +91,7 @@
 														path="memId" element="span" cssClass="inp_find" id="memId" />
 												</span>
 												<!-- 회원 아이디 중복확인 -->
-												 <button type="button" class="btn btn-primary" onclick="checkId()" id="checkIdBtn" style="
-												    margin-left: 20px;
-												">
+												 <button type="button" class="btn btn-primary" onclick="checkId()" id="checkIdBtn" style="margin-left: 20px; border-radius: 0px;background: #0d6efd;">
 														<span>중복확인</span>
 													</button> 
 											</div>
@@ -142,8 +149,8 @@
 												</span>
 
 												<!-- 인증버튼 -->
-												<button type="button" id="check-accept"
-													class="btn btn-primary" id="mail-Check-Btn" disabled>본인인증</button>
+												<button type="button" id="check-accept" 
+													class="btnSizeM btn-primary" id="mail-Check-Btn"  style="margin-left: 20px; border-radius: 0px">본인인증</button>
 
 					<%-- 							<!-- 인증버튼 눌렀을 때 팝업창 -->
 												<div class="layer_identify open" id="layer_pop_byemail"
@@ -382,7 +389,9 @@
 												id="help_cancel">취소하기</button>
 										</a>
 										<button type="button" class="btn_biggest_type01"
-											id="help_send" onclick="updateBtn()">가입하기</button>
+											id="help_send" onclick="updateBtn()" style="
+    background: #0D6EFD;
+">가입하기</button>
 									</div>
 								</fieldset>
 							</form:form>
@@ -419,8 +428,8 @@
 	src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <%-- <script src="${pageContext.request.contextPath}/resources/js/board/ask.js"></script> --%>
-<script
-	src="${pageContext.request.contextPath}/resources/js/board/email.js"></script>
+<!-- <script -->
+<%-- 	src="${pageContext.request.contextPath}/resources/js/board/email.js"></script> --%>
 <script src="/INUProject/resources/js/daumPostcode.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script
@@ -429,6 +438,8 @@
 	var $j = jQuery.noConflict();
 </script>
 <script type="text/javascript">
+
+
 /* 약관동의 */
 function updateBtn(){
 	if($("#agree_chk").is(":checked")){
@@ -472,6 +483,22 @@ function checkId(){
 		}
 	});
 }
+
+ var autoInsert = document.querySelector("#autoInsert");
+autoInsert.addEventListener("click",function(){
+	$("input[name=memId]").attr('value','INUseeker');
+	$("input[name=memPass]").attr('value','java');
+	$("input[name=memName]").attr('value','김시커');
+	$("input[name=memNickname]").attr('value','시시커커');
+	$("input[name=memEmail]").attr('value','INUproject@naver.com');
+	$("input[name=memZip]").attr('value','34611');
+	$("input[name=memAddr1]").attr('value','대전 동구 우암로 133');
+	$("input[name=memAddr2]").attr('value','101동101호');
+	$("input[name=memBirth]").attr('value','2000-01-01');
+ 	$("input:radio[name=memGender]:radio[value='남']").prop('checked','true');
+ 	$("input[name=memTel]").attr('value','010-1234-5678');
+	
+}) 
 
 /* 	//이름 이메일 비교해서 맞는지 확인
 

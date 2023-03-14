@@ -413,9 +413,15 @@
 <div style="margin-bottom: 30px; display: flex; margin-left: 100px;">
 	<div id="sri_gnb_wrap" style="display: contents;">
 		<div class="profile-img">
+		<div class="seekerProfileArea" style="
+   
+    width: 270px;
+    height: 317px;
+        margin-right: 15px;
+">
 			<img
 				src="<spring:url value="/image/companyFolder/${incruiter.companyVO.attatchList[0].attSavename }"/>"
-				alt="" style="width: 250px" />
+				alt="" style="width: 270px;height: 300px;     border-radius: 15px;" />
 
 			<%--    <div class="form-group">
 			                <!-- <label for="company-website-tw d-block">프로필사진변경</label> <br> -->
@@ -423,6 +429,7 @@
 			                  회원정보수정
 			                </a>
             		  </div> --%>
+            		  </div>
 			<div class="profile" style="margin-top: 50px;">
 				<p class="useid">${incruiter.memId }</p>
 				<p class="usemail">${incruiter.incruiterVO.memEmail }</p>
@@ -513,8 +520,8 @@
 	<div id="sri_wrap">
 		<div class="" style="width: 89%;">
 			<div class="profile-head">
-                <div class="calendarArea" style="border: 5px solid;height: 429px;">
-                    ${incruiter}
+                <div class="calendarArea" style="height: 400px;">
+                    <div id="calendar" style="padding: 3%; background-color: rgb(255,255,255,0.5)" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist" >
                     <li class="nav-item">
@@ -626,7 +633,7 @@
                             </div>
                             <!-- 토글 할일 -->
                             <div class="tab-pane fade" id="apply" role="tabpanel" aria-labelledby="apply-tab">
-								<div class="row" style="height: 60px;">
+								<div class="row" style="height: 35px;">
 
 									<div class="col-md-3">
 										<label><strong>No</strong></label>
@@ -752,7 +759,7 @@
                             </div>
                             <!-- 토글 공고목록 -->
                             <div class="tab-pane fade" id="likeAnno" role="tabpanel" aria-labelledby="likeAnno-tab">
-                                        <div class="row" style="height: 60px;">
+                                        <div class="row" style="height: 35px;">
 
 									<div class="col-md-1">
 										<label><strong>No</strong></label>
@@ -762,12 +769,12 @@
 											<strong>회사명</strong>
 										</p>
 									</div>
-									<div class="col-md-5" style="text-align: center;">
+									<div class="col-md-6" style="text-align: center;">
 										<p>
 											<strong>공고명</strong>
 										</p>
 									</div>
-									<div class="col-md-3" style="margin-left: 30px">
+									<div class="col-md-2" >
 										<p>
 											<strong>기간</strong>
 										</p>
@@ -784,7 +791,7 @@
 										<p>${anno.company.cmpName}</p>
 									</div>
 									<div id="reviewArea" class="col-md-5 reviewArea">
-										<p id="reviewState" class="reviewState">${anno.annoTitle}</p>
+										<p id="reviewState" class="reviewState"><a href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}">${anno.annoTitle}</a></p>
 									</div>
 									<div id="excartArea" class="col-md-3 excartArea">
 										<p id="excartState" class="excartState" style="margin-left: 21px;">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</p>
@@ -894,7 +901,7 @@
 
                             <!-- 토글 유료상품 구매내역 -->
                             <div class="tab-pane fade" id="excart" role="tabpanel" aria-labelledby="excart-tab">
-                                        <div class="row" style="height: 60px;"> 
+                                        <div class="row" style="height: 35px;"> 
                                             <div class="col-md-2">
                                                 <label><strong>번호</strong></label>
                                             </div>
@@ -1104,4 +1111,48 @@ var checkPass = function(){
 		}
 
 	}
+</script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar');
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    initialView: 'dayGridWeek'
+//	    , plugins: [ 'interaction', 'dayGrid']
+	    , headerToolbar: {
+	      	  left: 'prevYear,prev,today',
+	      	  center: 'title',
+	      	  right: 'dayGridMonth,dayGridWeek,next,nextYear'
+	    }
+	    , editable: true
+	    , droppable: true
+	    , locale: 'ko'
+	    , buttonText: {
+          today: '오늘',
+          week: '주',
+          month: '월'
+	    }
+	    , eventSources : {
+			url:"${pageContext.request.contextPath}/process/events/details/process",
+			dataType:"json",
+			extraParams : {
+				date : "2022-01-01"
+			},
+			textColor : 'white'
+		}
+	  });
+	  
+	  calendar.setOption('aspectRatio', 1.2);
+	  calendar.setOption('height', '100%');
+	  calendar.render();
+	  
+	  document.querySelector(".fc-today-button").parentNode.style.width = "111%";
+	  document.querySelector(".fc-anno-button").parentNode.style.width = "430px";
+	  document.querySelector(".fc-anno-button").style.display = "inline-block";
+	  document.querySelector(".fc-anno-button").style.width = "130px";
+	  document.querySelector(".fc-detail-button").style.display = "inline-block";
+	  document.querySelector(".fc-detail-button").style.width = "130px";
+	  document.querySelector(".fc-process-button").style.display = "inline-block";
+	  document.querySelector(".fc-process-button").style.width = "130px";
+	});
 </script>

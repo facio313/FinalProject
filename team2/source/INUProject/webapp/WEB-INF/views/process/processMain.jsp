@@ -96,6 +96,11 @@ a {
 		</div>
 	</div>
 </div>
+
+<div class="radiuss">
+  <canvas id="myChart"></canvas>
+</div>
+
 <!-- 세부공고 목록(카드) -->
 <div class="radiuss">
 	<div class="qna_write_wrap">
@@ -198,6 +203,7 @@ a {
 </div>
 
 <script src="${pageContext.request.contextPath}/resources/js/fullcalendar-6.1.0/dist/index.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
 	document.addEventListener('DOMContentLoaded', function() {
@@ -302,4 +308,25 @@ a {
 	  document.querySelector(".fc-process-button").style.width = "130px";
 	});
 
+	  const ctx = document.getElementById('myChart');
+
+	  new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	      labels: ['10월', '11월', '12월', '1월', '2월', '3월'],
+	      datasets: [{
+	        label: '# of Votes',
+	        data: [12, 19, 3, 5, 2, 3],
+	        borderWidth: 1
+	      }]
+	    },
+	    options: {
+	      scales: {
+	        y: {
+	          beginAtZero: true
+	        }
+	      }
+	    }
+	  });
+	
 </script>

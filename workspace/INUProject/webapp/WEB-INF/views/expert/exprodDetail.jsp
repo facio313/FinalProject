@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 바디 영역 -->
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -204,10 +205,14 @@
 					</div>
 				</div>
 				<h2 style="border-bottom: 2px solid #4876ef; padding: 10px;">후기</h2>
+				<div class="row">
 				<c:forEach items="${exprod.exreviewList }" var="exreviewList">
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="block__87154 bg-white rounded">
-							<blockquote>${exreviewList.exreviewContent }</blockquote>
+							<blockquote style="
+							    height: 174px;
+							    overflow: auto;
+							">${exreviewList.exreviewContent }</blockquote>
 							<div class="block__91147 d-flex align-items-center">
 								<figure class="mr-4">
 									<img
@@ -222,6 +227,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				</div>
 			</div>
 
 			<div class="col-lg-4 ml-auto h-100 jm-sticky-top"
@@ -387,7 +393,7 @@
 								action="${pageContext.request.contextPath}/expert/pay/${exprod.exprodId }">
 								<form:hidden path="excartPrice" value="${exprod.exprodPrice }" />
 							</form:form>
-								<a href="#" role="button" aria-disabled="false" onclick="exprodPay()"
+								<button type="submit" aria-disabled="false" onclick="fn_direct_pay()"
 									class="buttonExpert__HtMxO ExpertButton_buttonExpert__AVgfw typeLarge__MUlwq secondary__mlqIw"><span
 									class="text__v4NwT">구매하기<svg
 											xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -396,7 +402,7 @@
 											<path
 												d="M9.306 7.71 10.623 9H6.99a.99.99 0 0 0-.99.99v.019a.99.99 0 0 0 .99.989h3.482l-.022.13-1.114 1.123c-.35.354-.436.922-.146 1.327a.988.988 0 0 0 1.511.128l3.008-3.035a1.005 1.005 0 0 0 0-1.415l-3-2.964a.985.985 0 0 0-1.403 0 1.007 1.007 0 0 0 0 1.416"></path>
 											<path fill-rule="nonzero"
-												d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm0-2a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"></path></g></svg></span></a>
+												d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm0-2a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"></path></g></svg></span></button>
 							</div>
 						</div>
 					</div>
@@ -457,7 +463,7 @@
 					<a
 						href="/expert/profile/home?storeId=100029900&amp;u=9S3pWc%2Fpdx8bqTiAZZEqN3iFQ8J5qNndhaHB%2BV%2FE3Ac%3D"
 						class="userThumbnail__AQj5I"
-						style="background-image: url(&quot;https://kin-phinf.pstatic.net/20220519_121/1652954278760jr031_JPEG/1652954278743.jpg?type=f200_200&quot;);"><span
+						style="background-image: url(&quot;<spring:url value='/image/memberFolder/${exprod.attSavename}'/>&quot;);"><span
 						class="blind">프로필 사진</span></a>
 					<div class="expertCareerArea__hHHmE">
 						<div class="buttonArea__JuLVw ExpertButton_buttonArea__SNGTT">
@@ -517,9 +523,40 @@
 		</div>
 	</li>
 </ul>
+<script src="<%=request.getContextPath() %>/resources/js/pay.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
-function exprodPay(){
-	document.getElementById('exprodPayForm').submit();
+var price = '${exprod.exprodPrice }';
+console.log(price.replace(',',''))
+function fn_direct_pay(){
+		console.log("onclick")
+		// 결제금액이 0원일경우 바로 결제완료 처리
+		// 카카오 결제 API
+		  //var IMP = window.IMP; // 생략가능
+		  IMP.init('imp23062788');  // 가맹점 식별코드
+		  // IMP.request_pay(param, callback) 결제창 호출
+		  IMP.request_pay({
+		      pg : 'kakaopay', //pg사 선택 (kakao, kakaopay 둘다 가능)
+		      pay_method: 'card',// 기능 없음
+		      merchant_uid : 'merchant_' + new Date().getTime(),
+		      name : '${member.memName }',
+		      amount :  price.replace(',',''), // 빌링키 발급과 함께 1,004원 결제승인을 시도합니다.
+		      //customer_uid 파라메터가 있어야 빌링키 발급을 시도함
+				customer_uid : 'imp23062788',
+				buyer_email : '${expert.expertEmail }',
+				buyer_name : '${expert.memName }',
+				buyer_tel : '${expert.expertTel }',
+				buyer_addr : '대전광역시 중구 계룡로 846 3층',
+		  }, function(rsp) { //callback
+			  if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+					document.getElementById('exprodPayForm').submit();
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			  swal(msg);
+		 });
 }
 	if (`${exprod.preExprod}` == "") {
 		$("#preBtn").click(function() {

@@ -14,38 +14,6 @@
 
 <link href="<%=request.getContextPath()%>/resources/cks/processAnnoList.css" rel="stylesheet" />
 
-<style>
-.pf {
- 	font-size: 24px; 
-}
-.radiuss{
-	width: 75%;
-	height: auto;
-	border : 1px solid #eaedf4;
-	border-radius: 12px;
-	padding: 80px 10px 100px 10px;
-	margin-top: 2%;
-	margin-left: 1%;
-	margin-bottom: 2%;
-	display: inline-block;
-}
-.rightRemote{
-	position: absolute;
-	top: 250px;
-	width: 22%;
-	min-height: 500px;
-	height: auto;
-	border : 1px solid #eaedf4;
-	border-radius: 12px;
-	padding: 80px 10px 100px 10px;
-	margin-top: 2%;
-	margin-left: 1%;
-	margin-bottom: 2%;
-	margin-right: 1%;
-	display: inline-block;
-}
-
-</style>
 <div class="radiuss">
 	<div class="qna_write_wrap">
 		<div class="qna_write_selection">
@@ -62,13 +30,13 @@
 					<div class="course">
 						<div class="course-preview">
 							<h6 style="color: white;">${anno.company.cmpName}</h6>
-							<h2 style="color: white;" onclick='location.href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}"'>${anno.annoTitle}</h2>
+							<h2 style="color: white;" onclick='location.href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}"'>${fn:substring(anno.annoTitle, 0, 20)} ...</h2>
 							<br><br><br>
 							<h5 style="color: white;">[수습기간] ${anno.annoProbation}</h5>
 							<h5 style="color: white;">[연봉] ${anno.annoSalary}</h5>
 							<a href="${pageContext.request.contextPath}/announcement/view/${anno.annoNo}">공고 내용 보러가기<i class="fas fa-chevron-right"></i></a>
 						</div>
-						<div class="course-info">
+						<div class="course-info" style="overflow-x: hidden;">
 							<div class="progress-container">
 								<div class="progress"></div>
 								<div class="progressAfter" style="width: ${anno.percent}%"></div>
@@ -117,7 +85,6 @@
 										</div>
 									</details>
 								</div>						
-							
 								<div>
 									<span>${fn:substring(anno.annoContent, 0, 210)} ...</span>
 									<span>${anno.detailList[0].daFd}</span> / <span>${anno.detailList[1].daFd}</span> / <span>${anno.detailList[2].daFd} ...</span> <br>

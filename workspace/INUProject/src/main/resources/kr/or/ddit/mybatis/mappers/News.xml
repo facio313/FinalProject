@@ -46,7 +46,6 @@
 		FROM NEWS A
 		LEFT OUTER JOIN ATTACH B ON A.NEWS_NO = B.TBL_ID
 		WHERE NEWS_NO = #{newsNo}
-		
 	</select>
 	
 	<insert id="insertNews" parameterType="NewsVO">

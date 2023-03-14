@@ -1,14 +1,16 @@
 package kr.or.ddit.expert.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
+import kr.or.ddit.vo.CommonsAttachVO;
 import kr.or.ddit.vo.MemberVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of="exprodId")
-public class ExprodVO extends ExpertVO{
+public class ExprodVO extends CommonsAttachVO implements Serializable{
 	private int rnum;
 	private String exprodId;
 	private String exprodStart;
@@ -34,8 +36,11 @@ public class ExprodVO extends ExpertVO{
 	private String nextExprod;
 	private String exprodAppliDate;
 	private String exprodApprovalDate;
+	private String attSavename;
+	private ExprodVO exprod;
 	private List<ExcartVO> excartList;
 	private List<ExreviewVO> exreviewList;
+	
 	
 	public String getPreExprod() {
 		if(preExprod!=null) {
@@ -54,6 +59,11 @@ public class ExprodVO extends ExpertVO{
 		}		
 		
 		return nextExprod;
+	}
+	@Override
+	public String getTblId() {
+		// TODO Auto-generated method stub
+		return exprodId;
 	}
 	
 	

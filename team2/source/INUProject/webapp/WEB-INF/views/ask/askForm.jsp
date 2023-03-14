@@ -18,8 +18,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <style>
 .btn_cert_pop {background-color: #045738;color: #fff;}
+.btn_biggest_type01{border: 1px solid #0D6EFD;background-color: #0D6EFD;}
 </style>
 </head>
 
@@ -193,8 +195,8 @@
 											<div class="wrap_input">
 												<div class="uploads"></div>
 												<div class="wrap_file">
-													<input type="file" id="help_upload" class="inp_upload" title="파일 업로드" name="uploaded_file">
-													<label for="help_upload" class="btn_basic2 type03">파일첨부하기</label>
+													<input type="file" id="image_add" class="inp_upload" title="파일 업로드" name="attachFiles" style="display: none" multiple>
+													<label for="image_add" class="btn_basic2 type03">파일첨부하기</label>
 												</div>
 												<p class="noti_inp">
 													10MB 이하의 hwp, pdf, zip, MS Office 파일, 이미지 파일(JPG, GIF, PNG, BMP) 만 등록 가능합니다.
@@ -261,19 +263,73 @@
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/board/ask.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/board/email.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 <script>
- $(function(){
+  $(function(){
 
 // 로그인하지 않은 상태에서 문의하기 들어갈 때
 	if($(".y").val() != "y"){
-		if(confirm("로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?")){
+ 		if(confirm("로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?")){
 			location.href="${pageContext.request.contextPath }/login";
 		}else{
 			location.href="${pageContext.request.contextPath }/";
 		}
 	}
+
 });
+/* 		if(swal({
+		     text: "로그인 후 문의하시면, 내 문의 내역에서 확인 가능합니다. 로그인 하시겠습니까?",
+		     icon: "info" //"info,success,warning,error" 중 택1
+		     buttons: ["네", "아니오"]
+		})).then((YES) => {
+		     if (YES) {
+		    	 location.href="${pageContext.request.contextPath }/login";
+		     }else{
+		    	 location.href="${pageContext.request.contextPath }/";
+		     }
+		}); */
+</script>
+
+<script type="text/javascript">
+/* 	var alert = function(msg, type) {
+		swal({
+			title : '',
+			text : msg,
+			type : type,
+			timer : 1500,
+			customClass : 'sweet-size',
+			showConfirmButton : false
+		});
+	}
+
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "info",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				swal('', '예약이 승인되었습니다.', "success");
+			}else{
+				swal('', '예약이 거부되었습니다.', "failed");
+			}
+
+		});
+	}
+
+	function Alert() {
+		alert('gg', 'success');
+	}
+	function Confirm() {
+		confirm('', '승인할까요?');
+	}*/
 </script>
 </body>
 </html>

@@ -33,6 +33,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+.neofont {
+	font-family: 'NanumSquareNeo-Variable';
+}
 	
 .qna_write_wrap .qna_write_selection {padding: 0 0 22px;}
 .btn-primary {background-color: #045738; border-color: #045738;}
@@ -104,12 +108,13 @@
 							
 							</div>
 
-						<div class="qna_write_post">
+						<div class="qna_write_post" style="min-height: 160px;">
 							<p style="font-family: 'NanumSquareNeo-Variable';">참가대상 입력</p>
 							<textarea id="editor" name="contTarget" class="editor_wrap" style="overflow: auto;" placeholder="공모전 참가대상을 입력해주세요"></textarea>
 							
 							<div class="qna_input_bottom">
 								<input type="file" name="realFile" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
+								<hr style="border-bottom: 1px solid black; width: 915px;">
 								<label for="image_add" class="btn_image_add">공모전 포스터 첨부</label>
 								<p class="noti_inp">10MB 이하의 JPG, GIF, PNG만 등록 가능합니다.</p>
 							</div>
@@ -122,7 +127,40 @@
 						</div>
 						
 						<div style="height: 15px;"></div>
-						<p style="font-family: 'NanumSquareNeo-Variable';">추가 내용 등록</p>
+						<p style="font-family: 'NanumSquareNeo-Variable';">※ 추가 내용 등록</p>
+						
+						<!-- 추가 내용 등록 단추 -->
+						<div class="wrap_section wrap_community_topic">	
+							<div class="wrap_slide_category" style="margin-top: 10px;">				
+								<ul class="list_category js-category" style="max-width: 889px;">
+							        <li id="contsummerybutton" aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
+							        	<a class="item_cate" href="#" onclick="selectcontSummery()">모집개요<span></span></a>
+							        </li>
+							        <li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
+							        	<a class="item_cate" href="#" onclick="selectcontContent()">공모주제<span></span></a>
+							        </li>
+							        <li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
+							        	<a class="item_cate" href="#" onclick="selectcontRoad()">접수방법<span></span></a>
+							        </li>
+							        <li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
+							        	<a class="item_cate" href="#" onclick="selectcontFile()">제출서류<span></span></a>
+							        </li>
+							        <li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
+							        	<a class="item_cate" href="#" onclick="selectcontAsk()">문의사항<span></span></a>
+							        </li>
+							  	</ul>			
+							</div>				
+						</div>		
+						
+						<!-- 추가 내용 들어가려는 div -->
+						<div id="addform">
+						
+						<!-- 추가 내용 폼 들어가는칸 -->
+
+						
+						</div>		
+									
+									
 													
 						<div style="height: 30px;"></div>
 							<div class="qna_write_foot">
@@ -138,9 +176,38 @@
 
 <script>
 
-CKEDITOR.replace('contTarget', {
-	height : 100
+
+$("a").click(function(e){
+    e.preventDefault();
 });
+
+
+// 추가내용 클릭시 생성
+
+function selectcontSummery(){
+	$("#addform").append(
+		`<div id="addcontSummery">
+			<div style="height: 50px;"></div>	
+			<div class="qna_write_post" style="min-height: 100px;">
+				<p class="neofont">모집개요</p>
+				<textarea name="contSummery" class="editor_wrap" style="overflow: auto; height: 140px;" placeholder="공모전 참가대상을 입력해주세요"></textarea>
+			</div>
+		</div>`	
+	);
+}
+
+function selectcontContent(){
+	$("#addform").append(
+		`<div id="addcontContent">
+			<div style="height: 50px;"></div>	
+			<div class="qna_write_post" style="min-height: 100px;">
+				<p class="neofont">공모주제</p>
+				<textarea name="contContent" class="editor_wrap" style="overflow: auto; height: 140px;" placeholder="공모전 주제를 입력해주세요"></textarea>
+			</div>
+		</div>`			
+	);
+}
+
 
 </script>	
 </body>

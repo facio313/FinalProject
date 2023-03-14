@@ -1,6 +1,8 @@
 package kr.or.ddit.company.service;
 
 
+import java.util.List;
+
 import kr.or.ddit.company.vo.CompanyVO;
 import kr.or.ddit.exception.UserNotFoundException;
 import kr.or.ddit.vo.PagingVO;
@@ -19,6 +21,8 @@ public interface CompanyService {
 	public CompanyVO retrieveCompany(String cmpName);
 	
 	public CompanyVO retrieveUpdateCompany(String cmpId);
+	
+	public List<CompanyVO> retrieveLikeCompanyList(String memId);
 	
 	public int createCompany(CompanyVO company);
 	public int modifyCompany(CompanyVO company);

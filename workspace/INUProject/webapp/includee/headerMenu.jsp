@@ -18,10 +18,6 @@
             &nbsp;&nbsp;&nbsp;
             <h1 style="font-weight: 700; color: #3157DD; font-size: 45px;">INU</h1>
         </a>
-        <div style="position: relative; left: 10px; width: 17%; display: inline-block;">
-        	<input style="height: 40px; width: 100%; border: 0; box-shadow: 0 0 5px rgb(0 0 0 / 8%); display: inline-block;"/>
-        	<button style="position: absolute; display: inline-block; height: 40px; width: 40px; border: 0;">🔍︎</button>
-        </div>
         <div class="collapse navbar-collapse" id="navbarCollapse" style="position: relative; left: -60px; min-width: 500px;">
         	<div class="ks-blank ms-auto"></div>
             <div class="nav-item ms-auto">
@@ -68,7 +64,10 @@
                     <a href="<c:url value='/help/notice'/>" class="dropdown-item">공지사항</a>
                     <a href="<c:url value='/help'/>" class="dropdown-item">도움말</a>
                     <a href="<c:url value='/ask/askForm'/>" class="dropdown-item">문의하기</a>
-                    <a href="<c:url value='/ask/askList'/>" class="dropdown-item">내문의내역</a>
+					<!-- 로그인한 경우만 가능 -->
+	                 <security:authorize access="isAuthenticated()">
+	                  <a href="<c:url value='/ask/askList'/>" class="dropdown-item">내문의내역</a>
+	                 </security:authorize>
                 </div>
             </div>
         	<div class="ks-blank ms-auto"></div>
@@ -94,8 +93,15 @@
 		<security:authentication property="principal" var="memberVOWrapper"/>
 		<security:authentication property="principal.realMember" var="authMember"/>
         <a href="${pageContext.request.contextPath}/mypage/incruiter" style="position: absolute; right: 50px;">
-       		<img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/noImage.png" alt="Icon" style="width: 45px; height: 45px;">
+       		<img class="img-fluid" src="<spring:url value="/image/companyFolder/${authMember.incruiterVO.attSavename}"/>" alt="Icon" style="width: 45px; height: 45px;">
        	</a>
+       	</security:authorize>
+		<security:authorize access="hasRole('ROLE_ADMIN')">
+			<security:authentication property="principal" var="memberVOWrapper"/>
+			<security:authentication property="principal.realMember" var="authMember"/>
+	        <a href="<c:url value='/logout'/>" style="position: absolute; right: 50px;">
+	       		<img class="img-fluid" src="${pageContext.request.contextPath }/resources/images/logout_icon.png" alt="Icon" style="width: 45px; height: 45px;">
+	       	</a>
        	</security:authorize>
 	</nav>
 </header>

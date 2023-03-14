@@ -21,24 +21,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/layout.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="${prePath}/resources/css/style.css">
 <security:authorize access="isAuthenticated()">
 	<security:authentication property="principal" var="memberVOWrapper"/>
 	<security:authentication property="principal.realMember" var="authMember"/>
 	<c:set value="${authMember.memId}" var="memId" />
+	<c:set value="${authMember.memAuthCd}" var="memAuthCd" />
 	<input type="hidden" id="mem" data-mem="${authMember.memId}" />
 </security:authorize>
 <script>
 let memId = `${memId}`;
 let memData = $("#mem").data("mem");
-console.log("??? : ",`${coun.memId}`!=memId);
-if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId){
-	alert("비공개 게시물입니다.");
+if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId && `${memAuthCd}`!='ROLE_ADMIN'){
+	Swal.fire('비공개 게시물입니다.');
 	history.back();
 }
-
 </script>
 <div id="sri_section" class="  has_banner">
 	<div id="sri_wrap">
@@ -139,7 +139,6 @@ if(`${coun.pubChk}`=='N' && `${coun.memId}`!=memId){
 	</div>
 </div>
 <script>
-
 $(".downloadBtn").on("click", function(event){
 	event.preventDefault();
 	
@@ -156,5 +155,4 @@ $(".downloadBtn").on("click", function(event){
 	
 	return false;
 });
-
 </script>

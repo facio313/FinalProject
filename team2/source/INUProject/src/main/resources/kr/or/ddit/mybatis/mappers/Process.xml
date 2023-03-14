@@ -173,6 +173,11 @@
 		AND		PROCESS_CODE_ID = #{processCodeId,jdbcType=VARCHAR}
 	</delete>
 	
+	<delete id="deleteTotallyProcess" parameterType="String">
+		DELETE FROM PROCESS
+		WHERE DA_NO = #{daNo}
+	</delete>
+	
 <!-- 	<resultMap type="kr.or.ddit.process.vo.ItemVO" id="itemMap"> -->
 <!-- 		<id property="daNo" column="DA_NO"/> -->
 <!-- 		<id property="processCodeId" column="PROCESS_CODE_ID"/> -->
@@ -291,8 +296,9 @@
 	</select>
 	
 	<select id="selectProcessListFor" parameterType="String" resultType="String">
-		SELECT PROCESS_CODE_ID
-		FROM PROCESS
-		WHERE DA_NO = #{daNo}
+		SELECT A.PROCESS_CODE_ID
+		FROM PROCESS A
+		WHERE A.DA_NO = #{daNo}
 	</select>
+	
 </mapper>

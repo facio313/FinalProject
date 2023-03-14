@@ -281,8 +281,10 @@
 						<!-- 탭몸통 -->
 						<div class="tab-content profile-tab" id="myTabContent"></div>
 						<div class="align">
-							<button type="button" id="fillBtn" class="btnSizeM colorGrayReverse" style="float:right">자동채우기</button>
 							<form:button type="submit" class="btnSizeM colorGrayReverse" style="float:right">등록</form:button>
+							<button type="button" id="fillBtn3" class="btnSizeM colorGrayReverse" style="float:right; margin: 2px">자동3</button>
+							<button type="button" id="fillBtn2" class="btnSizeM colorGrayReverse" style="float:right; margin: 2px">자동2</button>
+							<button type="button" id="fillBtn1" class="btnSizeM colorGrayReverse" style="float:right; margin: 2px">자동1</button>
 						</div>
 						<div class="container">
 							<div style="font-size: 13px; margin-top: 80px;">
@@ -401,7 +403,7 @@
 		<div class="row pp">
 			<div class="col-6 col-md-2">담당 업무</div>
 			<div class="form-group col-md-10">
-				<textarea name="detailList[%n].daTask" rows="4" cols="50"></textarea>
+				<textarea name="detailList[%n].daTask" id="daTask%n" rows="4" cols="50"></textarea>
 			</div>
 		</div>
 	</div>
@@ -459,7 +461,7 @@
 		<div class="row pp">
 			<div class="col-6 col-md-2">지원 조건</div>
 			<div class="form-group col-md-10">
-				<textarea name="detailList[%n].daCondition" rows="4" cols="50"></textarea>
+				<textarea name="detailList[%n].daCondition" id="daCondition%n" rows="4" cols="50"></textarea>
 			</div>
 		</div>
 	</div>
@@ -467,7 +469,7 @@
 		<div class="row pp">
 			<div class="col-6 col-md-2">우대 사항</div>
 			<div class="form-group col-md-10">
-				<textarea name="detailList[%n].daPrefer" rows="4" cols="50"></textarea>
+				<textarea name="detailList[%n].daPrefer" id="daPrefer%n" rows="4" cols="50"></textarea>
 			</div>
 		</div>
 	</div>
@@ -478,13 +480,9 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-//test-start
-
 let detailContainer = $("#detailContainer");
 let myTabContent = $("#myTabContent");
 let myTab = $("#myTab");
-
-//test-end
 
 let topData = [
 	{type:'region', code:''}
@@ -555,8 +553,6 @@ $(function(){
 			$(".job0").append(jobOption);
 			$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
 			
-			
-			
 			$("select[name=industry0]").val("${anno.industry0}").trigger("change");
 			$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
 			$("select[name=annoSalary]").val("${anno.annoSalary}").trigger("change");
@@ -571,9 +567,7 @@ $(function(){
 			console.log(error);
 		}
 	});
-	
 })
-
 
 /* 탭 생성 */
 
@@ -589,6 +583,13 @@ $("#cloneBtn").on("click",function(){
         let nName = nWord.eq(i).attr('name');
         let newName = nName.replace("%n",x);
         nWord.eq(i).attr("name",newName);
+        
+    }
+	let nWordId = myTabContent.find("[id*='%n']");
+	for(i=0;i<nWordId.length;i++){
+        let nId = nWordId.eq(i).attr('id');
+        let newNId = nId.replace("%n",x);
+        nWordId.eq(i).attr("id",newNId);
     }
 
 	//nextContainer 안에 있는 checkbox id와 siblings.label의 for 변경
@@ -617,6 +618,7 @@ $("#cloneBtn").on("click",function(){
 	
 	$("#tab"+x).trigger("click");
 	
+	//ckEditor
 	cloneCK(x);
 	career();
 });
@@ -794,7 +796,6 @@ $(document).on("change",".job1", function(){
 	});
 });
 
-
 function cloneCK(x){
 	CKEDITOR.replace('detailList['+ x +'].daTask',{
 		filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
@@ -808,7 +809,6 @@ function cloneCK(x){
 		filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
 	});
 }
-	
 
 // 복지 태그
 let welval = $("[name='welfareList[0].welfareCode']").on("change",function(){
@@ -936,13 +936,11 @@ function sample4_execDaumPostcode(x) {
 // CKEDITOR
 CKEDITOR.replace('annoWorkenv',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
-
 });
 CKEDITOR.replace('annoContent',{
 	filebrowserUploadUrl: '${pageContext.request.contextPath}/help/notice/noticeAttach?command=QuickUpload&type=Files&responseType=json'
 	, height : 450
 });
-
 
 // daterangepicker
 $(function() {
@@ -965,11 +963,6 @@ $(function() {
 });
 let today = new Date();
 
-
-//자동채우기
-
-
-
 </script>
 
 <script src="${prePath}/resources/js/anno/annoFill.js"></script>
@@ -984,7 +977,6 @@ let today = new Date();
 <script src="${prePath}/resources/js/jquery.animateNumber.min.js"></script>
 <script src="${prePath}/resources/js/owl.carousel.min.js"></script>
 <script src="${prePath}/resources/js/quill.min.js"></script>
-
 
 <script src="${prePath}/resources/js/bootstrap-select.min.js"></script>
 

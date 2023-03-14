@@ -2,8 +2,8 @@ package kr.or.ddit.selfpr.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.selfpr.dao.SelfprDAO;
 import kr.or.ddit.selfpr.service.SelfprService;
@@ -22,6 +22,7 @@ import kr.or.ddit.selfpr.vo.SelfprVO;
 import kr.or.ddit.ui.PaginationRenderer;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
+import kr.or.ddit.vo.SeekerVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +51,8 @@ public class selfprController {
 	
 	private final SelfprService service;
 	private final SelfprDAO selfprDAO;
-	
+	@Inject
+	private MemberService memService;
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
 	
@@ -75,9 +77,7 @@ public class selfprController {
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setDetailCondition(detailCondition);
 		
-		service.retrieveSelfprList(pagingVO);
-		
-		System.out.println(pagingVO);
+		List<SelfprVO> selfprList = service.retrieveSelfprList(pagingVO);
 		
 		model.addAttribute("pagingVO", pagingVO);
 		if(!pagingVO.getDataList().isEmpty())
@@ -118,12 +118,13 @@ public class selfprController {
 		, @ModelAttribute("detailCondition") SelfprVO detailCondition
 		, Model model
 	) {
+		SeekerVO seeker = new SeekerVO();
 		PagingVO<SelfprVO> pagingVO = new PagingVO<>();
 		pagingVO.setDetailCondition(detailCondition);
-		
 		// 관심인재 관련
 		String memId2 = authMember.getMemId();
 //		System.out.println("로그인한 사람:"+ memId2);
+		
 		
 		model.addAttribute("memId2", memId2);
 		model.addAttribute("prNo", prNo);
@@ -140,6 +141,8 @@ public class selfprController {
 		
 		// 이력서, 회원정보 뽑아오기
 		SelfprVO selfprmem = service.retrieveSelfprMember(prNo);
+		String writer = selfprmem.getMemId();
+		seeker = memService.retrieveSeeker(writer);
 		List<SelfprVO> selfpredu = service.retrieveSelfprEducation(prNo);
 		List<SelfprVO> selfprcareer = service.retrieveSelfprCareer(prNo);
 		List<SelfprVO> selfprcert = service.retrieveSelfprCert(prNo);
@@ -153,7 +156,7 @@ public class selfprController {
 		model.addAttribute("selfpract", selfpract);
 		model.addAttribute("selfpraward", selfpraward);
 		model.addAttribute("selfprcourse", selfprcourse);
-		
+		model.addAttribute("seeker", seeker);
 		return "selfpr/selfPrDetail";
 	}
 	

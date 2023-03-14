@@ -1,5 +1,7 @@
 package kr.or.ddit.help.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ddit.expert.dao.AttachDAO;
 import kr.or.ddit.help.service.AskService;
 import kr.or.ddit.help.vo.AskVO;
 import kr.or.ddit.security.AuthMember;
 import kr.or.ddit.ui.PaginationRenderer;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +32,9 @@ public class AskController {
 
 	@Inject
 	private AskService service;
+
+	@Inject
+	private AttachDAO attachDao;
 
 	// @Resource : Name으로 Bean을 지정한다.(필드/메서드에만 적용 가능)
 	@Resource(name="bootstrapPaginationRender")
@@ -84,9 +91,11 @@ public class AskController {
 			}
 		}
 
+		List<AttachVO> files = attachDao.selectAttatchList(askNo);
 		AskVO ask = service.retrieveAsk(askNo);
 		model.addAttribute("ask", ask);
 		model.addAttribute("memId", memId);
+		model.addAttribute("files", files);
 		return "ask/detailAsk";
 	}
 }

@@ -73,14 +73,25 @@ public class ProcessServiceImpl implements ProcessService {
 	@Override
 	public ServiceResult modifyProcess(ProcessVO process) {
 		int rowcnt = 0;
+		rowcnt += dao.deleteTotallyProcess(process.getDaNo());
 		List<ProcessVO> processList = process.getProcessList();
+		List<ProcessVO> resultList = new ArrayList<>();
 		for (ProcessVO vo : processList) {
-			rowcnt = dao.updateProcess(vo);
-			if ( vo.getAttatchList() != null) {
-				rowcnt += attachDAO.deleteAttatchs(vo.getProcessCodeId());
+			if (!vo.getProcessStartDate().equals("")) {
+				resultList.add(vo);
+			}
+		}
+		
+		for (ProcessVO vo : resultList) {
+			if (vo.getAttatchList().size() > 0) {
+				rowcnt += attachDAO.deleteAttatchs(vo);
 				rowcnt += processAttachList(vo);
 			}
 		}
+		
+		process.setProcessList(resultList);
+		
+		rowcnt = dao.insertProcess(process);
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 

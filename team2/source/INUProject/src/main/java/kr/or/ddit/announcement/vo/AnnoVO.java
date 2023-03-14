@@ -63,6 +63,7 @@ public class AnnoVO {
 	private double percent; // 오늘 날짜로 몇 퍼인지
 	private Date start; // fullcalendar
 	private Date end; // fullcalendar
+	private String attSavename;
 	
 	public String getWelfareListToJson() {
 		String welfareListToJson = null;
@@ -73,4 +74,5 @@ public class AnnoVO {
 		}
 		return welfareListToJson;
 	}
+
 }

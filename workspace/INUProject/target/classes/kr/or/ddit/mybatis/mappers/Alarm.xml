@@ -12,6 +12,34 @@
 		FROM ALARM
 		WHERE MEM_ID = #{memId}
 	</select>
+	
+	<select id="selectAlarm" parameterType="String" resultType="AlarmVO">
+		SELECT *
+		FROM ALARM
+		WHERE ALARM_ID = #{alarmId}
+	</select>
+	
+	<insert id="insertAlarm" parameterType="AlarmVO">
+		<selectKey order="BEFORE" resultType="String" keyProperty="alarmId">
+			SELECT 'ALM'||LPAD(ALARM_SEQ.NEXTVAL, 6, '0')
+			FROM DUAL
+		</selectKey>
+		INSERT INTO ALARM(
+			ALARM_ID
+			, MEM_ID
+			, ALARM_CATEGORY
+			, ALARM_DETAIL
+			, ALARM_CONTENT
+			, ALARM_DATE
+		) VALUES (
+			#{alarmId,jdbcType=VARCHAR}
+			, #{memId,jdbcType=VARCHAR}
+			, #{alarmCategory,jdbcType=VARCHAR}			
+			, #{alarmDetail,jdbcType=VARCHAR}
+			, #{alarmContent,jdbcType=VARCHAR}
+			, SYSDATE
+		)
+	</insert>
 
 </mapper>
 

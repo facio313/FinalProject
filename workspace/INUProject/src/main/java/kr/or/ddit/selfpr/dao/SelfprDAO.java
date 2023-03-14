@@ -29,6 +29,7 @@ public interface SelfprDAO {
 	public List<SelfprVO> selectSelfprAct(int prNo);
 	public List<SelfprVO> selectSelfprAward(int prNo);
 	public List<SelfprVO> selectSelfprCourse(int prNo);
+	public List<SelfprVO> selectSelfprMypage(String member);
 	
 	public int insertSelfpr(SelfprVO selfpr); 
 	public int updateSelfpr(SelfprVO selfpr);

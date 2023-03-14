@@ -44,6 +44,7 @@ public class InterviewVO extends CommonsAttachVO implements Serializable{
 	private String topTitle;	// 상위제목(상세보기에서 "" 안에 들어가는 타이틀)
 	private String incumDelDate;// 삭제여부(삭제, 미삭제)
 	private String cmpName;
+	private String imageFile; 		// 파일 담기
 
 	// private String replySort;	//질문선택
 

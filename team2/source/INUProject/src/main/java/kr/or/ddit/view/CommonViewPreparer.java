@@ -110,8 +110,8 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 			"/apply/**"
 			, Arrays.asList(
 					MenuVO.builder()
-					.menuTitle("채용과정")
-					.subTitle("회사 공고의 채용과정을 관리합니다.")
+					.menuTitle("지원")
+					.subTitle("회사 공고에 지원한 내역을 관리합니다.")
 					.build()
 					, MenuVO.builder()
 					.menuText("이력서")
@@ -121,18 +121,14 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuText("자기소개서")
 					.menuURL("/myintro")
 					.build()
-					, MenuVO.builder()
-					.menuText("채용과정")
-					.menuURL("/process")
-					.build()
 					)
 				);
 		menuResources.put(
 			"/myintro/**"
 			, Arrays.asList(
 					MenuVO.builder()
-					.menuTitle("채용과정")
-					.subTitle("회사 공고의 채용과정을 관리합니다.")
+					.menuTitle("자기소개서")
+					.subTitle("나에 대한 소개서를 관리합니다.")
 					.menuText("지원")
 					.menuURL("/apply")
 					.build()
@@ -145,8 +141,8 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuURL("/myintro")
 					.build()
 					, MenuVO.builder()
-					.menuText("채용과정")
-					.menuURL("/process")
+					.menuText("인재홍보")
+					.menuURL("/process/selfpr")
 					.build()
 					)
 				);
@@ -156,18 +152,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					MenuVO.builder()
 					.menuTitle("채용과정")
 					.subTitle("회사 공고의 채용과정을 관리합니다.")
-					.menuText("지원")
-					.menuURL("/apply")
-					.build()
-					, MenuVO.builder()
-					.menuText("이력서")
-					.menuURL("/resume")
-					.build()
-					, MenuVO.builder()
-					.menuText("자기소개서")
-					.menuURL("/myintro")
-					.build()
-					, MenuVO.builder()
 					.menuText("채용과정")
 					.menuURL("/process")
 					.build()
@@ -182,10 +166,8 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				"/resume/**"
 				, Arrays.asList(
 					MenuVO.builder()
-					.menuTitle("채용과정")
-					.subTitle("회사 공고의 채용과정을 관리합니다.")
-					.menuText("지원")
-					.menuURL("/apply")
+					.menuTitle("이력서")
+					.subTitle("회사 공고에 제출할 이력서를 관리합니다.")
 					.build()
 					, MenuVO.builder()
 					.menuText("이력서")
@@ -223,10 +205,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuText("자기소개서")
 					.menuURL("/myintro")
 					.build()
-					, MenuVO.builder()
-					.menuText("채용과정")
-					.menuURL("/process")
-					.build()
 					)
 				);
 		
@@ -235,7 +213,7 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 				, Arrays.asList(
 					MenuVO.builder()
 					.menuTitle("커뮤니티")
-					.subTitle("주제별 게시글을 조회하고 글을 작성할 수 있습니다.")
+					.subTitle("주제별 게시글을 조회하고 글을 작성할 수 있으며 현직자 인터뷰를 조회할 수 있습니다.")
 					.menuText("홈")
 					.menuURL("/board/boardMain")
 					.build()
@@ -243,11 +221,31 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 					.menuText("글 전체")
 					.menuURL("/board/boardTotal")
 					.build()
-/*					, MenuVO.builder()
+					, MenuVO.builder()
 					.menuText("현직자 인터뷰")
 					.menuURL("/interview/interviewList")
-					.build()*/
+					.build()
 					)
+				);
+
+		menuResources.put(
+				"/interview/**"
+				, Arrays.asList(
+						MenuVO.builder()
+						.menuTitle("커뮤니티")
+						.subTitle("주제별 게시글을 조회하고 글을 작성할 수 있으며 현직자 인터뷰를 조회할 수 있습니다.")
+						.menuText("홈")
+						.menuURL("/board/boardMain")
+						.build()
+						, MenuVO.builder()
+						.menuText("글 전체")
+						.menuURL("/board/boardTotal")
+						.build()
+						, MenuVO.builder()
+						.menuText("현직자 인터뷰")
+						.menuURL("/interview/interviewList")
+						.build()
+						)
 				);
 
 		menuResources.put(
@@ -372,10 +370,6 @@ public class CommonViewPreparer implements ViewPreparer, BeanNameAware{
 						, MenuVO.builder()
 						.menuText("오늘 본 인재")
 						.menuURL("/selfpr/today")
-						.build()
-						, MenuVO.builder()
-						.menuText("시스템 추천인재")
-						.menuURL("/selfpr/recommend")
 						.build()
 						)
 				);

@@ -176,7 +176,7 @@
 	
 	.card.green .additional .coords {
 	  margin: 0 1rem;
-	  color: black;
+	  color: white;
 	  font-size: 1rem;
 	  font-family: 'NanumSquareNeo-Variable';
 	}
@@ -194,7 +194,7 @@
 	  left: 1rem;
 	  right: 1rem;
 	  top: auto;
-	  color: black;
+	  color: white;
 	}
 	
 	.card .additional .stats > div {
@@ -371,7 +371,7 @@
 				  </div>
                 </div>
                 <hr style="width: 1000px; height: 1px;">
-                <button class="prsearchBtn" style="font-family: 'NanumSquareNeo-Variable'; background-color: #0D6EFD;" type="button" id="btnsearch">검색</button>
+                <button class="prsearchBtn text-white" style="font-family: 'NanumSquareNeo-Variable'; background-color: #0D6EFD;" type="button" id="btnsearch">검색</button>
                 
                 
               </form>
@@ -385,7 +385,7 @@
         <!-- 구직자만 보여줘야함 -->
         <security:authorize url="/selfpr/InsertForm">
 	       <div class="col-2" style="left: 1400px;">
-		       	<input type="button" value="내 홍보글 작성" id="insert-form" style="background-color: #0D6EFD; color: black" class="btn btn-primary" 
+		       	<input type="button" value="내 홍보글 작성" id="insert-form" style="background-color: #0D6EFD; color: black" class="btn btn-primary text-white" 
 		       		   onclick="location.href='${pageContext.request.contextPath}/selfpr/InsertForm'"/>
 	       </div>
         </security:authorize>
@@ -581,7 +581,7 @@
 			data: $('#searchUI').serialize(),
 			dataType: "json",
 			success: function(resp){
-				console.log(resp);
+				console.log("넘어왔니", resp);
 				
 					let dataList = resp.pagingVO.dataList;
 					console.log(dataList);
@@ -594,8 +594,8 @@
 					if(resp.pagingHTML)
 						pagingArea.html(resp.pagingHTML);
 					
-					}
-				});
+				}
+			});
 	    });
     
     let makeTrTag = function(selfpr){
@@ -606,14 +606,14 @@
 	    
 	    <a href="${pageContext.request.contextPath}/selfpr/Detail/?no=\${selfpr.prNo }"><div class="user-card">
 	        <div class="level center">
-	        	직종 : \${selfpr.prWantjob }
+	        	 직종 : \${selfpr.prWantjob }
 	        </div>
 	        <div class="points center">
 	        	 경력 : \${selfpr.prAnnual }
 	        </div>
 	        
 	        <div class="center">
-				<img class="profileimage" alt="안나옴" src="${pageContext.request.contextPath }/resources/images/Dobby.png" />		        	
+				<img class="profileimage" alt="안나옴" src="<spring:url value='/image/memberFolder/\${selfpr.attSavename}'/>"/>		        	
 	        </div>
 	        
 	      </div>
@@ -622,11 +622,11 @@
 	        <div class="coords">
 	          <span>학력 : \${selfpr.prEdu }</span>
 	          <br>
-	          <span>등록일 : \${selfpr.prDate }</span>
+	          <span>원하는 근무지역 : \${selfpr.regionName }</span>
 	          <br>
-	          <span>\${selfpr.prWanttype }</span>
+	          <span>원하는 직무 : \${selfpr.prWanttype }</span>
 	          <br>
-	          <span>City, Country</span>
+	          <span>원하는 산업 : \${selfpr.industryName }</span>
 	        </div>
 	        <div class="stats">
 	          <div>

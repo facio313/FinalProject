@@ -61,7 +61,7 @@
 						</div>
 
 						<div class="qna_write_post">
-							<form:textarea id="con" path="boardContent" class="editor_wrap h_max" style="overflow: auto;" placeholder="내용을 입력해주세요"></form:textarea>
+							<form:textarea id="editor" path="boardContent" placeholder="내용을 입력해주세요"></form:textarea>
 							<div class="qna_input_bottom">
 								<input type="file" name="attachFiles" id="image_add" style="display: none" multiple accept=".gif, .jpg, .png">
 								<label for="image_add" class="btn_image_add">이미지첨부</label>
@@ -71,7 +71,7 @@
 
 						<div class="uploads">
 							<span class="info_upload">
-								<span class="txt_upload" id="fileName">${attatchList.attFilename }</span>
+								<span class="txt_upload" id="fileName"></span>
 							</span>
 						</div>
 
@@ -106,26 +106,27 @@
 <script src="${pageContext.request.contextPath}/resources/js/quill.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-	// console.log("sub", sub);
-	  function check_submit(){
-		var sub = document.sub;
-    	if(sub.replySort.value=="선택") {
-			alert("카테고리를 선택해주세요");
-			sub.replySort.focus();
-			return false;
-    	}else if(sub.jobTitle.value==""){
-    		alert("제목을 입력해주세요");
-    		sub.jobTitle.focus();
-			return false;
-    	}else if(sub.con.value==""){
-    		alert("내용을 입력해주세요");
-    		sub.con.focus();
-			return false;
-    	}else {
-    		alert("작성한 게시글이 수정되었습니다");
-    	}
-    	};
+//console.log("sub", sub);
+function check_submit(){
+	var sub = document.sub;
+	if(sub.replySort.value=="선택") {
+		swal("카테고리를 선택해주세요","","warning");
+		sub.replySort.focus();
+		return false;
+	}else if(sub.jobTitle.value==""){
+		swal("제목을 입력해주세요","","warning");
+		sub.boardTitle.focus();
+		return false;
+	}else if(sub.con.value==""){
+		swal("내용을 입력해주세요","","warning");
+		sub.con.focus();
+		return false;
+	}else {
+		 //swal("작성한 게시글이 수정되었습니다","","success");
+	}
+	};
 </script>
 </body>
 </html>

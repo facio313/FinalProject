@@ -20,72 +20,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/pattern.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/help.css">
 
-<style>
-.star {
-  position: relative;
-  font-size: 4rem;
-  color: #ddd;
-}
-
-.star input {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.star span {
-  width: 0;
-  position: absolute; 
-  left: 0;
-  color: red;
-  overflow: hidden;
-  pointer-events: none;
-  z-index:9999;
-}
-
-.pf {
- 	font-size: 24px; 
-}
-
-.radiuss{
-	width: 100%;
-	height: auto;
-	border : 1px solid #eaedf4;
-	border-radius: 12px;
-	padding: 20px 99px 100px 99px;
-	margin-top: 2%;
-	margin-bottom: 2%;
-}
-
-.annoTable table {
-  	width: 100%;
-   	height: 500px;
- 	border-top: 1px solid #eaedf4;
-  	border-collapse: collapse;
-  	margin: 0px;
-}
-.annoTable th{
-	background: #f7f7f7;
-	border-bottom: 1px solid #eaedf4;
-  	padding: 10px;
-  	width: 155px;
-  	text-align: left;
-} 
-
-.annoTable td {
-  	border-bottom: 1px solid #eaedf4;
-  	padding: 20px;
-}
-th {
-	text-align: center;
-	font-weight: 800;
-}
-
-</style>
-
 <link href="<%=request.getContextPath()%>/resources/cks/processView.css" rel="stylesheet"/>
 
 <c:set var="detail" value="${anno.detailList[0]}"/>
@@ -101,6 +35,10 @@ th {
 	<hr style="background-color: #5c667b; height: 2px;">
 	<p class="pf">${anno.annoTitle}</p>
 	<table class="annoTable" style="width: 100%;">
+		<colgroup>
+	 		<col width="155">
+	 		<col width="280">
+		</colgroup>
 	  <tr>
 	    <th scope="row">법인명</th>
 	    <td>${anno.company.cmpName}</td>
@@ -117,7 +55,7 @@ th {
 	    <th scope="row">공고 시작날짜</th>
 	    <td>${anno.annoStartdate}</td>
 	    <th scope="row">공고 종료날짜</th>
-	    <td>${anno.annoEnddate}}</td>
+	    <td>${anno.annoEnddate}</td>
 	  </tr>
 	  <tr>
 	    <th scope="row">공고 내용</th>
@@ -426,8 +364,8 @@ let makeLiTag = function(index, item) {
 						, $("<td>").addClass("col-2 itemCodeName").val(item.itemCodeName).html(item.itemCodeName)
 						, $("<td>").addClass("col-6 itemAsk").val(item.itemAsk).html(item.itemAsk)
 						, $("<td>").addClass("col-2 itemBtn").append(
-							$("<button>").addClass("btn btn-outline-danger itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"60px", "display":"inline-block", "font-size":"12px"}).html("수정")
-							, $("<button>").addClass("btn btn-outline-danger itemRemoveBtn").val(item.itemCodeId).css({"width":"60px", "font-size":"12px"}).html("삭제")
+							$("<button>").addClass("btn btn-outline-primary itemUpdateBtn").val(item.processCodeId).attr("name", item.itemCodeId).css({"width":"60px", "display":"inline-block", "font-size":"12px", "border-radius":"0"}).html("수정")
+							, $("<button>").addClass("btn btn-outline-danger itemRemoveBtn").val(item.itemCodeId).css({"width":"60px", "font-size":"12px", "border-radius":"0"}).html("삭제")
 						)
 					)
 				)
@@ -692,9 +630,9 @@ function insertNewItem(event) {
 	let checkBox = itemModalBody.find("input[type=checkBox]:checked");
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
-		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" />';
-		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" />'; // dom객체
-		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox.get(i)).parents("tr").find(".itemAsk").val() + '" />'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" hidden/>';
+		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" hidden/>'; // dom객체
+		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox.get(i)).parents("tr").find(".itemAsk").val() + '" hidden/>'; // jquery객체
 		
 	}
 	
@@ -736,10 +674,10 @@ function insertOriginItem() {
 	let checkBox = itemFormModalBody.find("input[type=checkBox]:checked");
 	let inputTags = "";
 	for (let i = 0; i < checkBox.length; i++) {
-		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" />';
-		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" />'; // dom객체
-		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox[i]).parents("tr").find(".itemAsk").html() + '" />'; // jquery객체
-		inputTags += '<input name="itemList[' + i + '].itemCodeName" value="' + $(checkBox[i]).parents("tr").find(".itemCodeName").html() + '" />'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].daNo" value="${daNo}" hidden/>';
+		inputTags += '<input name="itemList[' + i + '].itemCodeId" value="' + checkBox[i].value + '" hidden/>'; // dom객체
+		inputTags += '<input name="itemList[' + i + '].itemAsk" value="' + $(checkBox[i]).parents("tr").find(".itemAsk").html() + '" hidden/>'; // jquery객체
+		inputTags += '<input name="itemList[' + i + '].itemCodeName" value="' + $(checkBox[i]).parents("tr").find(".itemCodeName").html() + '" hidden/>'; // jquery객체
 	}
 	
 	let makeItemFormForm = '<form:form modelAttribute="process" id="itemFormModalForm"></form:form>';
@@ -815,7 +753,7 @@ function updateOriginItem(button) {
 	////////////////////////////////
 // 	ctd.html('<input type="text" name="icn" value="' + ctdv +'">');
 	atd.html('<input type="text" name="ia" size="50" value="' + atdv +'">');
-	let btn = '<button class="btn btn-outline-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px;">저장</button><button class="btn btn-outline-danger itemCancelBtn" style="width: 100%; border-radius: 0;">취소</button>'
+	let btn = '<button class="btn btn-outline-primary itemSaveBtn" style="width: 100%; margin-bottom: 5px; border-radius: 0;">저장</button><button class="btn btn-outline-danger itemCancelBtn" style="width: 100%; border-radius: 0;">취소</button>'
 	btd.html(btn);
 	
 	$(".itemSaveBtn").on("click", function() {
@@ -863,7 +801,7 @@ let makeScoreTable = function(index, applicant, score) {
 				, $("<td>").addClass("col-2 score").html(score) // 나중에 각 과정 점수로 바꿔주기
 // 				append($("<input>").addClass("form-control").attr("name", applicant.score).attr("placeholder", "해당 지원자의 점수를 입력하세요").attr("size", "30"))
 				, $("<td>").addClass("col-2").append(
-					$("<button>").addClass("btn btn-outline-primary scoreUpdateBtn").css({"width":"100px", "display":"inline-block", "border-radius":"0"}).html("수정")
+					$("<button>").addClass("btn btn-outline-primary scoreUpdateBtn").css({"width":"60px", "display":"inline-block", "border-radius":"0", "font-size":"12px;"}).html("수정")
 				)
 				
 			);
@@ -909,9 +847,8 @@ function showScoreList(itemTable) {
 				scoreTd.append($("<input>").addClass("form-control").val(origin));
 				
 				$(subtn).hide();
-				thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block", "border-radius":"0"}).html("저장"));
+				thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"60px", "display":"inline-block", "border-radius":"0", "font-size":"12px"}).html("저장"));
 				thisTd.find(".newScoreSaveBtn").on("click", function() {
-// 					updateScore(this);
 					let thisButton = this;
 					let itemCodeId = $(this).parents(".items").attr("id");
 					let processCodeId = $(this).parents(".itemUl").attr("id");
@@ -979,7 +916,49 @@ function updateScore(button) {
 		success : function() {
 			scoreInput.empty();
 			scoreInput.html(score);
-			$(button).removeClass("scoreSaveBtn").addClass("scoreUpdateBtn").html("수정");
+			$(button).removeClass("scoreSaveBtn").addClass("scoreUpdateBtn").html("수정").on("click", function() {
+				let subtn = button;
+				let buttonTd = $(button).parent();
+				let scoreTd = $(button).parents("tr").find(".score");
+				let origin = scoreTd.html();
+				scoreTd.empty();
+				scoreTd.append($("<input>").addClass("form-control").val(origin));
+				$(subtn).hide();
+				buttonTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"60px", "display":"inline-block", "border-radius":"0"}).html("저장")).on("click", function() {
+					buttonTd.find(".newScoreSaveBtn").on("click", function() {
+						let buttonButton = button;
+						let itemCodeId = $(button).parents(".items").attr("id");
+						let processCodeId = $(button).parents(".itemUl").attr("id");
+						let score = $(button).parents("tr").find("input").val();
+						let applySn = $(button).parents("tr").find(".index").val();
+						let scoreInput = $(button).parents("tr").find(".score");
+						
+						$.ajax({
+							url : "${pageContext.request.contextPath}/apply/updateScore",
+							method : "patch",
+							contentType : "application/json; charset=UTF-8",
+							data : JSON.stringify({
+								"processCodeId":processCodeId
+								, "itemCodeId":itemCodeId
+								, "score":score
+								, "applySn":applySn
+							}),
+							success : function() {
+								scoreInput.empty();
+								scoreInput.html(score);
+								$("button").remove(".newScoreSaveBtn");
+								$(subtn).show();
+								applyList(processCodeId);
+							},
+							error : function(jqXHR, status, error) {
+								console.log(jqXHR);
+								console.log(status);
+								console.log(error);
+							}
+						});
+					});
+				});
+			});
 			applyList(processCodeId);
 		},
 		error : function(jqXHR, status, error) {
@@ -987,7 +966,7 @@ function updateScore(button) {
 			console.log(status);
 			console.log(error);
 		}
-	}).done(function(data, textStatus, xhr) {
+/* 	}).done(function(data, textStatus, xhr) {
 		$(".scoreUpdateBtn").on("click", function() {
 			let subtn = this;
 			let thisTd = $(this).parent();
@@ -997,9 +976,8 @@ function updateScore(button) {
 			scoreTd.append($("<input>").addClass("form-control").val(origin));
 			
 			$(subtn).hide();
-			thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"100px", "display":"inline-block", "border-radius":"0"}).html("저장"));
+			thisTd.append($("<button>").addClass("btn btn-outline-primary newScoreSaveBtn").css({"width":"60px", "display":"inline-block", "border-radius":"0"}).html("저장"));
 			thisTd.find(".newScoreSaveBtn").on("click", function() {
-//					updateScore(this);
 				let thisButton = this;
 				let itemCodeId = $(this).parents(".items").attr("id");
 				let processCodeId = $(this).parents(".itemUl").attr("id");
@@ -1031,7 +1009,7 @@ function updateScore(button) {
 					}
 				});
 			});
-		});
+		}); */
 	});
 }
 

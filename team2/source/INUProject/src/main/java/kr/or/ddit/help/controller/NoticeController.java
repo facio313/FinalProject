@@ -28,7 +28,7 @@ import kr.or.ddit.vo.SearchVO;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
+ *
  * @author 박형준
  * @since 2023. 2. 1.
  * @version 1.0
@@ -47,22 +47,22 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 	@Resource(name="bootstrapPaginationRender")
 	private PaginationRenderer renderer;
-	
+
 	@Inject
 	private NoticeService service;
 	@Inject
 	private AttachDAO attachDao;
-	
+
 	@PostConstruct
 	public void init() {
 		log.info("주입된 service객체 : {}", service.getClass().getName());
 	}
-	
+
 	@ModelAttribute("notice")
 	public NoticeVO notice() {
 		return new NoticeVO();
 	}
-	
+
 	//공지사항 목록 페이징
 	@GetMapping
 	public String noticeListData(
@@ -73,13 +73,13 @@ public class NoticeController {
 		PagingVO<NoticeVO> pagingVO = new PagingVO<>(10, 5);
 		pagingVO.setCurrentPage(currentPage); //현재페이지
 		pagingVO.setSimpleCondition(searchVO); // 검색 키워드
-		
+
 		service.retrieveNoticeList(pagingVO);
-		
+
 		model.addAttribute("pagingVO", pagingVO);
 		return "help/notice/noticeList";
 	}
-	
+
 	//공지사항 상세
 	@RequestMapping("/{noticeSn}")
 	public String noticeView(
@@ -92,14 +92,14 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "help/notice/noticeView";
 	}
-	
-	
+
+
 	//공지사항 등록폼
 	@GetMapping("/noticeInsert")
 	public String insertForm() {
 		return "help/notice/noticeForm";
 	}
-	
+
 	//공지사항 등록
 	@PostMapping("/noticeInsert")
 	public String noticeInsert(
@@ -129,7 +129,7 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "help/notice/noticeForm";
 	}
-	
+
 	//공지사항 수정
 	@PostMapping("/noticeUpdate")
 	public String noticeUpdate(
@@ -146,7 +146,7 @@ public class NoticeController {
 		}
 		return viewName;
 	}
-	
+
 	//공지사항 삭제
 	@PostMapping("/noticeDelete")
 	public String noticeDelete(
@@ -156,7 +156,7 @@ public class NoticeController {
 		service.removeNotice(noticeSn);
 		return "redirect:/help/notice";
 	}
-	
+
 }
 
 

@@ -5,138 +5,192 @@
 * 2023. 2. 17.     	허근주      최초작성
 * Copyright (c) 2023 by DDIT All right reserved
  --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
+.tg {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.tg td {
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	overflow: hidden;
+	padding: 10px 5px;
+	word-break: normal;
+}
+
+.tg th {
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	overflow: hidden;
+	padding: 10px 5px;
+	word-break: normal;
+}
+
+.tg .tg-0pky {
+	border-color: inherit;
+	text-align: left;
+	vertical-align: top
+}
+
+.tg .tg-0lax {
+	text-align: left;
+	vertical-align: top
+}
+
+<
+style>.updateExprod {
+	text-align: left;
+}
+
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+	display: block;
+}
+
+.modal_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 600px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.modal_input {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 600px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+}
 </style>
-<table class="tg" style="
-    width: 75%;
-    /* max-height: 50%; */
-    height: 700px;
-    margin: 60px;
-    margin-left: 200px;
-    text-align: center;"
-    id = "textTable"
->
-<form:form name="searchUI" action="${pageContext.request.contextPath}/mission/search" modelAttribute="simpleCondition" method="get" >
-<thead>
-  <tr>
-    <th class="tg-0pky" colspan="2">
-    	<input type="text" name="searchId" placeholder="아이디">
-    </th>
-    <th class="tg-0pky" colspan="2">
-    	<input type="text" name="searchWord" placeholder="상품명">
-    </th>
-   	 <c:forEach items="${exlprod }" var="exlprod">
-    <th class="tg-0lax" colspan="2">
-    	<input type="radio"  name="searchType" value ="${exlprod.exlprodId }">${exlprod.exlprodName }
-    </th>
-    </c:forEach>
-  </tr>
-  <tr>
-    <td class="tg-0pky" colspan="2">
-       	<select id="exfield" name ="searchField"onchange="changeExfield()">
-    		<option value ="">중분류</option>
-		<c:forEach items="${exfield }" var="exfield">
-			<option value="${exfield.exfieldId }" >${exfield.exfieldName }
-			</option>
-		</c:forEach>
-    	</select>
-    </td>
-    <td class="tg-0pky" colspan="2">
-    	<select id="exjob" name="searchValue">
-    		<option value ="">소분류</option>
-    			<c:forEach items="${exjob }" var="exjob">
-				<option value="${exjob.exjobId }">${exjob.exjobName }
-				</option>
-			</c:forEach>
-    	</select> 
-    </td>
-    <td class="tg-0lax" colspan="2">
-    	<input type="date" name="startDate">
-    </td>
-    <td class="tg-0lax" colspan="2">
-    	<input type="date" name="endDate">
-    </td>
-  </tr>
-  <tr>
-    <td class="tg-0pky" colspan="3"></td>
-    <td class="tg-0lax"><button type="button" id="appendBtn">추가</button></td>
-    <td class="tg-0lax"><button type="button" id="searchBtn">조회</button></td>
-    <td class="tg-0lax"><button type="button" id="saveBtn">저장</button></td>
-    <td class="tg-0lax"><button type="button" id="excelBtn">엑셀다운</button></td>
-    <td class="tg-0lax"><button type="button" id= "deleteBtn">삭제</button></td>
-  </tr>
-  </thead>
-</form:form>
-	<tbody id = "tbody">
-	  		<tr>
-	  			<td class="tg-0lax"><h4>전문가 아이디</h4>
-	  			</td>
-	  			<td class="tg-0lax" colspan="2"><h4>상품명</h4>
-	  			</td>
-	  			<td class="tg-0lax" ><h4>상품분류</h4>
-	  			</td>
-	  			<td class="tg-0lax" ><h4>중분류</h4>
-	  			</td>
-	  			<td class="tg-0lax" ><h4>소분류</h4>
-	  			</td>
-	  			<td class="tg-0lax" ><h4>시작일</h4>
-	  			</td>
-	  			<td class="tg-0lax" ><h4>종료일</h4>
-	  			</td>
-	  		</tr>
-	  			<c:set var="exprodList" value="${pagingVO.dataList }"></c:set>
-				<!--         <div id="posts" class="row no-gutter"> -->
-				<c:choose>
-					<c:when test="${not empty exprodList }">
-						<c:forEach items="${exprodList }" var="exprod">
-	  					<tr id = "exprodList">
-						  	<td class="tg-0lax">
-						  	<input type="checkbox" id="checkbox" onclick="checkVal()" value="${exprod.exprodId }">${exprod.memId }
-						  	</td>
-						    <td class="exprodName tg-0lax" colspan="2">
-						    		<input id="exprodName" type="text" value= "${exprod.exprodName }" readonly/>
-						    </td>
-				  			<td class="tg-0lax">
-				  					${exprod.exlprodId }
-				  			</td>
-				  			<td class="tg-0lax">
-				  					${exprod.exfieldId }
-				  			</td>
-				  			<td class="tg-0lax">
-				  					${exprod.exjobId }
-				  			</td>
-				  			<td class="tg-0lax">
-				  					${exprod.exprodStart }
-				  			</td>
-				  			<td class="tg-0lax">
-				  					${exprod.exprodEnd }
-				  			</td>
-		 				 </tr>
+<table class="tg"
+	style="width: 75%;
+	/* max-height: 50%; */ height: 700px; margin: 60px; margin-left: 200px; text-align: center;"
+	id="textTable">
+	<form:form name="searchUI"
+		action="${pageContext.request.contextPath}/mission/search"
+		modelAttribute="simpleCondition" method="get">
+		<thead>
+			<tr>
+				<th class="tg-0pky" colspan="2"><input type="text"
+					name="searchId" placeholder="아이디"></th>
+				<th class="tg-0pky" colspan="2">
+				<input type="text"
+					name="searchWord" placeholder="상품명"></th>
+				<c:forEach items="${exlprod }" var="exlprod">
+					<th class="tg-0lax" colspan="2"><input type="radio"
+						name="searchType" value="${exlprod.exlprodId }">${exlprod.exlprodName }
+					</th>
+				</c:forEach>
+			</tr>
+			<tr>
+				<td class="tg-0pky" colspan="2"><select id="exfield"
+					name="searchField" onchange="changeExfield()">
+						<option value="">중분류</option>
+						<c:forEach items="${exfield }" var="exfield">
+							<option value="${exfield.exfieldId }">${exfield.exfieldName }
+							</option>
 						</c:forEach>
-					</c:when>
-				</c:choose>
+				</select></td>
+				<td class="tg-0pky" colspan="2"><select id="exjob" class="exjob"
+					name="searchValue">
+						<option value="">소분류</option>
+						<c:forEach items="${exjob }" var="exjob">
+							<option value="${exjob.exjobId }">${exjob.exjobName }</option>
+						</c:forEach>
+				</select></td>
+				<td class="tg-0lax" colspan="2"><input type="date"
+					name="startDate"></td>
+				<td class="tg-0lax" colspan="2"><input type="date"
+					name="endDate"></td>
+				
+			</tr>
+			<tr>
+				<td class="tg-0pky" colspan="3"></td>
+				<td class="tg-0lax"><button type="button" id="appendBtn">추가</button></td>
+				<td class="tg-0lax"><button type="button" id="searchBtn">조회</button></td>
+				<td class="tg-0lax"><button type="button" id="saveBtn">저장</button></td>
+				<td class="tg-0lax"><button type="button" id="excelBtn">엑셀다운</button></td>
+				<td class="tg-0lax"><button type="button" id="deleteBtn">삭제</button></td>
+			</tr>
+		</thead>
+	</form:form>
+	<tbody id="tbody">
+		<tr>
+			<td class="tg-0lax"><h4>전문가 아이디</h4></td>
+			<td class="tg-0lax" colspan="2"><h4>상품명</h4></td>
+			<td class="tg-0lax"><h4>상품분류</h4></td>
+			<td class="tg-0lax"><h4>중분류</h4></td>
+			<td class="tg-0lax"><h4>소분류</h4></td>
+			<td class="tg-0lax"><h4>시작일</h4></td>
+			<td class="tg-0lax"><h4>종료일</h4></td>
+		</tr>
+		<c:set var="exprodList" value="${pagingVO.dataList }"></c:set>
+		<!--         <div id="posts" class="row no-gutter"> -->
+		<c:choose>
+			<c:when test="${not empty exprodList }">
+				<c:forEach items="${exprodList }" var="exprod">
+					<tr id="exprodList" ondblclick="rowDublclick(this)">
+						<td class="tg-0lax"><input type="checkbox" id="checkbox"
+							onclick="checkbox()" value="${exprod.exprodId }">${exprod.memId }
+						</td>
+						<td class="exprodName tg-0lax" colspan="2" id=checkExprodName>${exprod.exprodName }</td>
+						<td class="tg-0lax">${exprod.exlprodId }</td>
+						<td class="tg-0lax">${exprod.exfieldId }</td>
+						<td class="tg-0lax">${exprod.exjobId }</td>
+						<td class="tg-0lax">${exprod.exprodStart }</td>
+						<td class="tg-0lax">${exprod.exprodEnd }</td>
+						<td class="tg-0lax" style="display: none;">${exprod.exprodId }</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+		</c:choose>
 	</tbody>
 </table>
-
-<table id="appendDiv" style="display: none;"> 
+<div class="modal">
+	<div class="modal_body" id="modal_body">회원정보 수정</div>
+</div>
+<%-- <table id="appendDiv" style="display: none;"> 
  		<tr id = "appendExprod" >
 		  	<td class="tg-0lax">
-		  		<input type="checkbox" id="checkbox" onclick="checkVal()" value="">새로추가
+		  		<input type="checkbox" id="checkbox"  value="">새로추가
 		  	</td>
 		    <td class="exprodName tg-0lax" colspan="2">
-	    		<input id="exprodName" type="text" value= "새로추가" readonly/>
+	    		${exprodName }
 		    </td>
 			<td class="tg-0lax">
 					ㅁㄴㅇ
@@ -166,10 +220,93 @@
 					ㅁㄴㅇ
 			</td>
 		 </tr>
-</table>
-<script src="${pageContext.request.contextPath}/resources/js/xlsx.full.min.js"></script>
+</table> --%>
+<script
+	src="${pageContext.request.contextPath}/resources/js/xlsx.full.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.amd.min.js" integrity="sha512-AlRpjF7UjfDG1M770q8zfavkUdoxrIiRAHkNI0r+e67PGA0qOzORC+pHzaBYGgSUIyy0kC+322KAHeZngxCXeA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 <script>
+/* row 더블클릭시 수정 팝업 */
+function rowDublclick(event){
+	const modal = document.querySelector('.modal');
+    modal.style.display = 'block';
+    console.log(event.childNodes);
+	var expertId = event.childNodes[1].innerText;
+	var exprodName = event.childNodes[3].innerText;
+	var exlprod = event.childNodes[5].innerText;
+	var exfieldval = event.childNodes[7].innerText;
+	var exjob = event.childNodes[9].innerText;
+	var exprodStart = event.childNodes[11].innerText;
+	var exprodEnd = event.childNodes[13].innerText;
+	var exprodId = event.childNodes[15].innerText;
+	console.log(exprodName)
+	innerText = ""
+	innerText += "<div class = 'updateExprod'>아이디 : <input type='text' value='"+expertId+"'id='memId'/></div>"
+	innerText += "<div class = 'updateExprod'>상품명 : <input type='text' value='"+exprodName+"' id='exprodName'/></div>"
+	innerText += `<div class = 'updateExprod'>대분류 :    	 <c:forEach items="${exlprod }" var="exlprod">
+												    <th class="tg-0lax" colspan="2">
+												    	<input type="radio" id="exlprod" name="searchType" value ="${exlprod.exlprodId }">${exlprod.exlprodName }
+												    </th>
+												    </c:forEach></div>`
+	innerText += `<div class = 'updateExprod'>중분류 :        	<select id="exfield" name ="searchField"onchange="changeExfield()" >
+	    		<option value ="">중분류</option>
+			<c:forEach items="${exfield }" var="exfield">
+				<option value="${exfield.exfieldId }" >${exfield.exfieldName }
+				</option>
+			</c:forEach>
+	    	</select></div>`
+	innerText += `<div class = 'updateExprod'>소분류 :     	<select id="exjob" class="exjob" name="searchValue">
+					<option value ="">소분류</option>
+					<c:forEach items="${exjob }" var="exjob">
+					<option value="${exjob.exjobId }">${exjob.exjobName }
+					</option>
+				</c:forEach>
+			</select> </div>`
+	innerText += "<div class = 'updateExprod'>시작일 : <input type='date' id='exprodStart' value='"+exprodStart+"'/></div>"
+	innerText += "<div class = 'updateExprod'>종료일 : <input type='date' id='exprodEnd' value='"+exprodEnd+"'/></div>"
+	innerText += "<input type='hidden' id='exprodId' value='"+exprodId+"'/>"
+	innerText += "<div class = 'updateExprod'><button type='button'onclick='updateBtn()' >수정</button><button type='button' >취소</button></div>"
+	
+	innerText += ""
+	
+	$("#modal_body").html(innerText)
+ }
+ function updateBtn(){
+		var memId = $('#memId').val();
+		console.log(memId);
+		var exprodId = $('#exprodId').val();
+		var exprodName = $('#exprodName').val();
+		var exlrpod = $('#exlprod:checked').val();
+		var exfield = $('#exfield').val();
+		var exjob = $('#exjob').val();
+		var exprodStart = $('#exprodStart').val();
+		var exprodEnd = $('#exprodEnd').val();
+		if(!memId ||!exprodName ||!exprodStart ||!exprodEnd||!exlrpod){
+			alert("빈칸을 모두 입력하세요");
+			return;
+		}else{
+		var data = {exprodId : exprodId,
+					exprodName : exprodName,
+					exlrpod : exlrpod,
+					exfield : exfield,
+					exjob : exjob,
+					exprodStart : exprodStart,
+					exprodEnd : exprodEnd}
+		console.log(data)
+		 $.ajax({
+				url: 'mission/updateModal',
+				method:"post",
+				data : data,
+				datatype: "application/json; charset=UTF-8",
+				success : (resp)=>{
+					window.alert("수정이 완료되었습니다.");
+					document.location.reload(true);
+				},
+				error : (err)=>{
+					console.log(err);
+				}
+		}) 
+		}
+ }
 let tbody = document.querySelector("#tbody");
 let exprodList = document.querySelector("#exprodList");
 var innerText = "";
@@ -182,7 +319,8 @@ let excelBtn = $("#excelBtn").on("click",function(){
 /* 직업필드 선택시 직업 비동기 구현 */
 function changeExfield() {
 	var exfieldSelect = $("#exfield option:selected").val();
-	var exjobSelect = $("#exjob")
+	var exjobSelect = $(".exjob")
+	console.log(exjobSelect)
 	exjobSelect.find('option').each(function() {
 		$(this).remove();
 	})
@@ -253,8 +391,8 @@ let btn = $("#searchBtn").on("click",function(){
 	  			+'</tr>'     
 			for(i=0; i<exprod.length; i++){
 				innerText += '<tr id = "exprodList">'
-				innerText += '<td class="tg-0lax"><input type="checkbox" id="checkbox" onclick="checkVal()" value="'+exprod[i].exprodId+'">'+exprod[i].memId+'</td>'
-				innerText += ' <td class="exprodName tg-0lax" colspan="2"><input id="exprodName" type="text" value= "'+exprod[i].exprodName+'" readonly/></td>'
+				innerText += '<td class="tg-0lax"><input type="checkbox" id="checkbox" onclick="checkbox()" value="'+exprod[i].exprodId+'">'+exprod[i].memId+'</td>'
+				innerText += ' <td class="exprodName tg-0lax" colspan="2" id="checkExprodName">'+exprod[i].exprodName+'</td>'
 				innerText += ' <td class="tg-0lax" >'+exprod[i].exlprodId+'</td>'
 				innerText += ' <td class="tg-0lax" >'+exprod[i].exfieldId+'</td>'
 				innerText += ' <td class="tg-0lax" >'+exprod[i].exjobId+'</td>'
@@ -377,20 +515,50 @@ let deleteBtn = $("#deleteBtn").on("click",function(){
  });
  
  /* checked되면 input태그 생성 */
-function checkVal(){
-	var checked = 'input[id="checkbox"]:checked';
-	var exprodNameArea = $('input[id="checkbox"]:checked').parent().next().children();
-	console.log(exprodNameArea);
-	exprodNameArea.attr('readonly',false);
- }
+function checkbox(){
+	var checkboxes  =document.querySelectorAll("#checkbox")
+	 
+    for (var i=0; i<checkboxes.length; i++)
+    {
+    	checkboxes[i].addEventListener('change', function(event)
+        {
+			var exprodNameArea = event.target.parentNode.nextSibling.nextElementSibling;
+			console.log(exprodNameArea)
+			var exprodName = exprodNameArea.innerText;
+			console.log(exprodName);
+             if (event.target.checked) {
+				exprodNameArea.innerHTML="<input id='exprodName' type='text' value= "+exprodName+" >";
+            }
+            else {
+            	console.log("여기")
+				exprodNameArea.innerHTML= exprodName
+            } 
+        });
+    }
+}
+	
+	/* $("#checkbox").change(function(){
+		console.log(checkboxList)
+		for(var i=0; i<checkboxList.length; i++){
+			if(checkboxList[i].checked==true){
+				console.log(checkboxList[i])
+				exprodNameArea.html('<input id="exprodName" type="text" value= "'+exprodNameAreaText+'"/>');
+			}else{
+				exprodNameArea.html(exprodNameAreaText)
+			}
+		}
+	})
+// 		if($("#checkbox").is(":checked")){
+// 	})
+ }); */
  /* 추가 버튼 클릭시 입력 테이블 생성 */
  let appendBtn = $("#appendBtn").on("click",function(){
  	 var innerText =`	  			
  		<tr id = "appendExprod">
 		  	<td class="tg-0lax">
-		  		<input type="text" id="newId" onclick="checkVal()" value="" placeholder="아이디">
+		  		<input type="text" id="newId"  value="" placeholder="아이디">
 		  	</td>
-		    <td class="exprodName tg-0lax" colspan="2">
+		    <td class="exprodName tg-0lax" colspan="2" id="checkExprodName">
 	    		<input id="newExprodName" type="text" value= "" placeholder="상품명"/>
 		    </td>
 		     <td class="tg-0lax" >
@@ -470,8 +638,8 @@ function checkVal(){
 	  			+'</tr>'     
 			for(i=0; i<exprod.length; i++){
 				innerText += '<tr id = "exprodList">'
-				innerText += '<td class="tg-0lax"><input type="checkbox" id="checkbox" onclick="checkVal()" value="'+exprod[i].exprodId+'">'+exprod[i].memId+'</td>'
-				innerText += ' <td class="exprodName tg-0lax" colspan="2"><input id="exprodName" type="text" value= "'+exprod[i].exprodName+'" readonly/></td>'
+				innerText += '<td class="tg-0lax"><input type="checkbox" id="checkbox" onclick="checkbox()" value="'+exprod[i].exprodId+'">'+exprod[i].memId+'</td>'
+				innerText += ' <td class="exprodName tg-0lax" colspan="2" id="checkExprodName">'+exprod[i].exprodName+'</td>'
 				innerText += ' <td class="tg-0lax" >'+exprod[i].exlprodId+'</td>'
 				innerText += ' <td class="tg-0lax" >'+exprod[i].exfieldId+'</td>'
 				innerText += ' <td class="tg-0lax" >'+exprod[i].exjobId+'</td>'
@@ -512,4 +680,6 @@ function checkVal(){
 		}
 	})
 });
+
+ 
 </script>

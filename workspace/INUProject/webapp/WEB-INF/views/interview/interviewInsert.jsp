@@ -172,21 +172,17 @@
 												<div class="uploads" style="display: none;" id="uploadedDiv">
 													<span class="info_upload">
 														<span class="txt_upload" id="uploadedFileNm"></span>
-														<button type="button" class="btn_delete btn_delete" id="fileDeleteBtn">
-															<span class="blind">파일삭제</span>
-														</button>
 													</span>
 												</div>
 												<div class="wrap_file">
-													<input type="file" id="fileUpload" class="inp_upload" title="파일 업로드" name="attachFiles" multiple accept=".gif, .jpg, .png">
-													<label for="fileUpload" class="btn_basic2 type03">파일 첨부하기</label>
+													<input type="file" id="image_add" class="inp_upload" title="파일 업로드" name="attachFiles" multiple accept=".gif, .jpg, .png">
+													<label for="image_add" class="btn_basic2 type03">파일 첨부하기</label>
 												</div>
 												<p class="noti_inp">10MB 이하의 이미지 파일(JPG, GIF, PNG) 만 등록 가능합니다.<br>
-													※ 반드시 4장의 이미지를 등록해주세요.
+													※ 반드시 5장의 이미지를 등록해주세요.
 												</p>
 											</div>
 										</li>
-
 									</ul>
 
 							<!-- //////////////////////////////// question 시작 ////////////////////////////////////////// -->

@@ -100,10 +100,17 @@
 										</div>
 										<div class="wrap_input">
 											<span class="box_input">
-												<form:input path="eduStatus" type="text" cssClass="form-control" />
+												<form:select path="eduStatus" type="text" cssClass="form-control" style="width: 200px;">
+													<form:option value="">선택</form:option>
+													<form:option value="졸업">졸업</form:option>
+													<form:option value="재학" id="ing">재학</form:option>
+													<form:option value="중퇴">중퇴</form:option>
+													<form:option value="자퇴">자퇴</form:option>
+													<form:option value="기타">기타</form:option>
+												</form:select>
 												<form:errors path="eduStatus" element="span" cssClass="text-danger" />
 											</span>
-											<p class="noti_inp">졸업, 중퇴, 자퇴 등</p>
+											<p class="noti_inp">학력 상태 등</p>
 										</div>										
 									</li>
 
@@ -197,9 +204,14 @@
 												<button type="submit" class="btn btn-block btn-primary btn-md" style=" border-radius: 0;">게시글등록</button>
 											</div>
 											<div class="col-6">
-												<a href="${pageContext.request.contextPath }/education" class="btn btn-block btn-danger btn-md">취소</a>
+												<a href="${pageContext.request.contextPath }/education" class="btn btn-block btn-danger btn-md" style="border-radius: 0;">취소</a>
 											</div>
 										</div>
+										<div class="row" style="margin-top: 30px; margin-bottom: 0px; justify-content: right;">
+											<div class="col-6">
+												<button id="autoComp" type="button" class="btn btn-block btn-success btn-md" style=" border-radius: 0;">자동완성</button>
+											</div>
+										</div>										
 									</div>
 					 			</div>
 							</fieldset>
@@ -212,4 +224,28 @@
 		
 	</div>
 </section>
+
+	<script>
+		let autoComp = document.querySelector("#autoComp");
+		
+		let eduName = document.querySelector("[name=eduName]");
+		let eduDepartment = document.querySelector("[name=eduDepartment]");
+		let eduMajor = document.querySelector("[name=eduMajor]");
+		let eduStatus = document.querySelector("#ing");
+		let eduEntered = document.querySelector("[name=eduEntered]");
+		let eduGraduated = document.querySelector("[name=eduGraduated]");
+		let eduScore = document.querySelector("[name=eduScore]");
+		let eduStandard = document.querySelector("[name=eduStandard]");
+		
+		autoComp.addEventListener("click", function(event) {
+			eduName.value = "대덕인재개발원";
+			eduDepartment.value = "풀스택 개발자";
+			eduMajor.value = "JAVA";
+			eduStatus.setAttribute("selected", true);
+			eduEntered.value = "2022-08-01";
+			eduGraduated.value = "2023-03-17";
+			eduScore.value = "99";
+			eduStandard.value = "100";
+		});
+	</script>
 								

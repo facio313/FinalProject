@@ -21,6 +21,8 @@ public class ExreviewVO extends ExcartVO{
 	private String exfieldName;
 	private String exjobName;
 	private String expertName;
+	private String expertId;
+	private String attSavename;
 
 }
 

@@ -244,8 +244,8 @@ td {
 													<tr>
 														<td></td>
 														<td><a href="${pageContext.request.contextPath}/myintro/${apply.myintro.myintroSn}">${apply.myintro.myintroTitle}</a></td>
-														<td>${apply.myintro.myintroGrowth}</td>
-														<td>${apply.myintro.myintroPersonality}</td>
+														<td>${fn:substring(apply.myintro.myintroGrowth, 0, 50)}</td>
+														<td>${fn:substring(apply.myintro.myintroPersonality, 0, 50)}</td>
 														<td>· · ·</td>
 														<td>${apply.myintro.myintroInsertDate}</td>
 														<td></td>

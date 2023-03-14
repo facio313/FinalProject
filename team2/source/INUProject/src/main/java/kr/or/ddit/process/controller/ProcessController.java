@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,10 +47,12 @@ import kr.or.ddit.process.service.ProcessService;
 import kr.or.ddit.process.vo.ItemVO;
 import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.security.AuthMember;
+import kr.or.ddit.system.service.AlarmService;
 import kr.or.ddit.ui.fullcalendar.AnnoFullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.DetailFullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.FullCalendarEvent;
 import kr.or.ddit.ui.fullcalendar.ProcessFullCalendarEvent;
+import kr.or.ddit.vo.AlarmVO;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemberVOWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -90,6 +93,9 @@ public class ProcessController {
 	
 	@Inject
 	private AttachService attachService;
+	
+	@Inject
+	private AlarmService alarmService;
 	
 	@ModelAttribute
 	public ProcessVO process() {
@@ -494,14 +500,16 @@ public class ProcessController {
 	}
 	
 	// 채용과정 수정
-	@PutMapping("{daNo}")
+//	@PutMapping("{daNo}")
+	@PostMapping("/edit")
 	public String update(
 		Model model
-		, @PathVariable String daNo
+		, @RequestParam String daNo
+		, @RequestParam String annoNo
 		, @ModelAttribute("process") ProcessVO process
 	) {
 		service.modifyProcess(process);
-		return "redirect:/process/" + daNo;
+		return "redirect:/process/" + annoNo + "/" + daNo;
 	}
 	
 	// 채용과정 삭제
@@ -574,8 +582,16 @@ public class ProcessController {
 		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
 		, @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") long dateTime
 		, @AuthMember MemberVO authMember
+		, Authentication auth
 	) {
-		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+		String role = auth.getAuthorities().toString();
+		String memId = authMember.getMemId();
+		List<AnnoVO> annoList = new ArrayList<>();
+		if (role.contains("SEEKER")) {
+			annoList = annoService.retrieveMyAnnoListSeeker(memId);
+		} else if (role.contains("INCRUITER")) {
+			annoList = annoService.retrieveMyAnnoList(memId);
+		}
 		List<FullCalendarEvent<AnnoVO>> list = annoList.stream().map(AnnoFullCalendarEvent::new).collect(Collectors.toList());
 		return list;
 	}
@@ -588,13 +604,28 @@ public class ProcessController {
 		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
 		, @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") long dateTime
 		, @AuthMember MemberVO authMember
+		, Authentication auth
 	) {
-		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+		String role = auth.getAuthorities().toString();
+		String memId = authMember.getMemId();
+		List<AnnoVO> annoList = new ArrayList<>();
 		List<AnnoDetailVO> detailList = new ArrayList<>();
-		for (AnnoVO vo : annoList) {
-			List<AnnoDetailVO> dList = vo.getDetailList();
-			for (AnnoDetailVO da : dList) {
-				detailList.add(da);
+		
+		if (role.contains("SEEKER")) {
+			annoList = annoService.retrieveMyAnnoListSeeker(memId);
+			for (AnnoVO vo : annoList) {
+				List<AnnoDetailVO> dList = vo.getDetailList();
+				for (AnnoDetailVO da : dList) {
+					detailList.add(da);
+				}
+			}
+		} else if (role.contains("INCRUITER")) {
+			annoList = annoService.retrieveMyAnnoList(memId);
+			for (AnnoVO vo : annoList) {
+				List<AnnoDetailVO> dList = vo.getDetailList();
+				for (AnnoDetailVO da : dList) {
+					detailList.add(da);
+				}
 			}
 		}
 		
@@ -610,15 +641,32 @@ public class ProcessController {
 		, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date
 		, @RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") long dateTime
 		, @AuthMember MemberVO authMember
+		, Authentication auth
 	) {
-		List<AnnoVO> annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+		String role = auth.getAuthorities().toString();
+		String memId = authMember.getMemId();
+		List<AnnoVO> annoList = new ArrayList<>();
 		List<ProcessVO> processList = new ArrayList<>();
-		for (AnnoVO vo : annoList) {
-			List<AnnoDetailVO> dList = vo.getDetailList();
-			for (AnnoDetailVO da : dList) {
-				List<ProcessVO> pList = da.getProcessList();
-				for (ProcessVO pv : pList) {
-					processList.add(pv);
+		if (role.contains("SEEKER")) {
+			annoList = annoService.retrieveMyAnnoListSeeker(authMember.getMemId());
+			for (AnnoVO vo : annoList) {
+				List<AnnoDetailVO> dList = vo.getDetailList();
+				for (AnnoDetailVO da : dList) {
+					List<ProcessVO> pList = da.getProcessList();
+					for (ProcessVO pv : pList) {
+						processList.add(pv);
+					}
+				}
+			}
+		} else if (role.contains("INCRUITER")) {
+			annoList = annoService.retrieveMyAnnoList(authMember.getMemId());
+			for (AnnoVO vo : annoList) {
+				List<AnnoDetailVO> dList = vo.getDetailList();
+				for (AnnoDetailVO da : dList) {
+					List<ProcessVO> pList = da.getProcessList();
+					for (ProcessVO pv : pList) {
+						processList.add(pv);
+					}
 				}
 			}
 		}
@@ -630,6 +678,17 @@ public class ProcessController {
 //		}
 		
 		List<FullCalendarEvent<ProcessVO>> list = processList.stream().map(ProcessFullCalendarEvent::new).collect(Collectors.toList());
+		return list;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/alarm", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<AlarmVO> alarm(
+		Authentication auth
+		, Model model
+	){
+		String memId = auth.getName();
+		List<AlarmVO> list = alarmService.retrieveAlarmList(memId);
 		return list;
 	}
 }

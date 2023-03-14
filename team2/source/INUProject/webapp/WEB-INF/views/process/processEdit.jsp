@@ -89,7 +89,7 @@
 </style>
 <c:set var="detail" value="${anno.detailList[0]}"/>
 <c:forEach items="${detail.processList}" var="process">
-	<span class="exist" style="display: none;">${process.processCodeId}</span>
+	<span class="exist">${process.processCodeId}</span>
 </c:forEach>
 <div class="radiuss">
 	<div class="qna_write_wrap">
@@ -197,7 +197,7 @@
 		<input type="radio" class="btn-check" name="options" value="PRC008" id="option8" autocomplete="off">
 		<label class="btn " for="option8" >임원면접</label>
 	</div>
-	<form:form modelAttribute="process" action="${pageContext.request.contextPath}/process?annoNo=${anno.annoNo}&daNo=${daNo}" method="put" enctype="multipart/form-data">
+	<form:form modelAttribute="process" action="${pageContext.request.contextPath}/process/edit?annoNo=${anno.annoNo}&daNo=${daNo}" method="post" enctype="multipart/form-data">
 	<form:hidden path="processList[0].daNo" cssClass="form-control" value="${daNo}"/>
 	<form:hidden path="processList[1].daNo" cssClass="form-control" value="${daNo}"/>
 	<form:hidden path="processList[2].daNo" cssClass="form-control" value="${daNo}"/>
@@ -375,8 +375,8 @@
 			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
 				<label for="job-title">시작 - 종료 날짜</label>
 				<input type="text" name="datetimes" id="dt5" class="box box_input form-control" style="width: 300px;">
-				<form:hidden path="processList[5].processStartDate" id="sd0"/>
-				<form:hidden path="processList[5].processEndDate" id="ed0"/>
+				<form:hidden path="processList[5].processStartDate" id="sd5"/>
+				<form:hidden path="processList[5].processEndDate" id="ed5"/>
 			</div>
 			<div class="form-group" style="width: 300px; margin-right: 1%; display: inline-block;">
 				<label for="job-title">방식</label>
@@ -510,6 +510,7 @@ $("[type=checkBox]").on("click", function() {
 	let thisId = $("[for=" + id + "]");
 	if (thisId.hasClass("hovered")) {
 		thisId.removeClass("hovered");
+		$("#sd" + (Number(id.substring(5)) + 1)).val("");		
 	} else {
 		thisId.addClass("hovered");
 	}
@@ -565,15 +566,12 @@ ClassicEditor.create(document.querySelector('#editor7'), {
 
 window.addEventListener('DOMContentLoaded', function() {
 	let exist = $(".exist");
-	let label = $(".checkLabel");
 	for (let i = 0; i < exist.length; i++) {
-		for (let j = 0; j < label.length; j++) {
-			if (exist[i].innerHTML.substring(4) == label[j].id.substring(5)) {
-				if (i > 1) {
-					$("#check" + i).trigger("click");
-				}
-			}
+		let id = exist[i].innerHTML.substring(4);
+		if (!$("#check" + id).is(":checked")) {
+			$("#check" + id).trigger("click");
 		}
 	}
+	
 });
 </script>

@@ -476,13 +476,6 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <script>
-//test-start
-
-let tempJob1=null;
-let tempJobCode=null;
-
-//test-end
-
 let detailContainer = $("#detailContainer");
 let myTabContent = $("#myTabContent");
 let myTab = $("#myTab");
@@ -557,7 +550,6 @@ $(function(){
 			$(".job0").append(jobOption);
 			$("select[name='detailList[%n].empltypeCode']").append(empltypeOption);
 			
-			
 			$("select[name=industry0]").val("${anno.industry0}").trigger("change");
 			$("select[name=eduCode]").val("${anno.eduCode}").trigger("change");
 			$("select[name=annoSalary]").val("${anno.annoSalary}").trigger("change");
@@ -618,9 +610,7 @@ $(function(){
 
 				$("select[name='detailList["+ index +"].job0']").val(val.job0).trigger("change");
 
-				//x 전역으로 빼지 말고 -> id에 detailContainer가 포함된 것 개수 셈 1개면 0, 2개면 1 붙임 (-1해서 붙임)
 				let x = $(document).find("[id*='detailContainer']").length - 2;
-				console.log('x찾기 =====>',x);
 				let currentContainer = $("#detailContainer"+x);
 				currentContainer.data('detailList',val);
 				console.log('data속성 =======>',currentContainer.data('detailList'));

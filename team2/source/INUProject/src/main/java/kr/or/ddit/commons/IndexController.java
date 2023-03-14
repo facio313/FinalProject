@@ -1,10 +1,8 @@
 package kr.or.ddit.commons;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,41 +12,69 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.announcement.service.AnnoService;
 import kr.or.ddit.announcement.vo.AnnoVO;
-import kr.or.ddit.member.service.MemberService;
-import kr.or.ddit.vo.IncruiterVO;
-import kr.or.ddit.vo.SeekerVO;
+import kr.or.ddit.expert.service.ExprodService;
+import kr.or.ddit.expert.vo.ExprodVO;
 
 @Controller
 public class IndexController{
 	
 	@Inject
-	private MemberService memService;
+	private AnnoService annoService;
 	
 	@Inject
-	private AnnoService annoService;
+	private AnnoDAO annoDAO;
+	@Inject
+	private ExprodService exprodservice;
 	
 	@RequestMapping("/index.do")
 	public String index(Model model, Authentication auth) throws ParseException {
 		
+		if (auth == null) {
+			return "redirect:/login";
+		} else if (auth.getName().contains("ADMIN")) {
+			return "redirect:/systemManagement/memberList";
+		}
+		
+		List<String> per15List = annoDAO.per15Chk();
+		List<AnnoVO> annoList = new ArrayList<>();
+		for (String str : per15List) {
+			annoList.add(annoService.retrieveAnno(str));
+		}
+		model.addAttribute("annoList", annoList);
+		
+		List<AnnoVO> list = new ArrayList<>();
+		List<AnnoVO> likeList = new ArrayList<>();
+		List<ExprodVO> topExprodList = new ArrayList<>(); 
+		String now = "";
+		
 		try {
 			String memId = auth.getName();
 			String role = auth.getAuthorities().toString();
+			topExprodList = exprodservice.selectTopExprodList();
 			if (role.contains("SEEKER")) {
-//				SeekerVO seeker = memService.retrieveSeeker(memId);
-//				model.addAttribute("seeker", seeker);
+				list = annoService.retrieveMyAnnoListSeeker(memId);
+				likeList = annoService.retrieveLikeAnnoList(memId);
+				now = LocalDate.now().toString().replace("-", "");
+
 			} else if (role.contains("INCRUITER")) {
-				List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
-				String now = LocalDate.now().toString().replace("-", "");
-				model.addAttribute("now", now);
-				model.addAttribute("list", list);				
+				list = annoService.retrieveMyAnnoList(memId);
+				likeList = annoService.retrieveLikeAnnoList(memId);
+				now = LocalDate.now().toString().replace("-", "");
+			} else if (role.contains("ADMIN")) {
+				return "redirect:systemManagement/memberList";
 			}
+			model.addAttribute("likeList", likeList);
+			model.addAttribute("list", list);				
+			model.addAttribute("now", now);
+			model.addAttribute("topExprodList", topExprodList);
 			
 		} catch (NullPointerException e) {
 			return "index";
 		}
-		
+
 		return "index";
 	}
 }

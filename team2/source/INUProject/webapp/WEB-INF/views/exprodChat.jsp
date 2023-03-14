@@ -10,12 +10,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!doctype html>
-<html>    
+<html style="
+    overflow: hidden;
+">    
 <title>INU</title>
 <script src="/INUProject/resources/header/lib/wow/wow.min.js"></script>
 <!-- <script src="/INUProject/resources/header/js/main.js"></script> -->
 <script src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>   
 <link href="/INUProject/resources/header/bootstrap.min.css" rel="stylesheet">
+<link href="/INUProject/resources/header/css/style.css" rel="stylesheet">
 <style>
 * {
     padding: 0;
@@ -182,10 +185,13 @@ a {
 	</main>
 	</div>
 </div> --%>
-<header class="ks-header nav-bar bg-transparentt radius">
+<header class="ks-header nav-bar bg-transparentt radius" style="
+    width: 100%;
+">
     <nav class="navbar navbar-expand-lg navbar-light py-0 px-4 bg-transparent radius">
-            <h1 style="font-weight: 700; color: green;">INU</h1>
-      		<button onclick="used()">사용완료</button>
+            <h1 style="font-weight: revert; color: green;     font-size: xx-large;
+            " >INU</h1>
+      		<button class = "btn" onclick="used()" style="background-color: aliceblue;">사용완료</button>
 	</nav>
 </header>
 <body style="background:#A8C0D6; ">

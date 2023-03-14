@@ -15,6 +15,12 @@
 li{
 	height: 60px;
 }
+.content {
+    max-width: 960px;
+}
+.help_find .wrap_lab{
+	width: 359px;
+}
 </style>
 <link href="<%=request.getContextPath()%>/resources/cks/processView.css"
 	rel="stylesheet" />
@@ -75,6 +81,9 @@ li{
 					</div>
 					<div class="help_find help_lost wrap_help">
 						<div class="cont_find">
+								<button type="button" class="btn btn-primary"  id="autoInsert" style="border-radius: 0px; background: #045738">
+										<span>자동입력</span>
+								</button> 
 							<form:form modelAttribute="expert" method="post"
 								enctype="multipart/form-data">
 								<p class="desc_find_type2 border-bottom">
@@ -162,8 +171,10 @@ li{
 											</span>
 										</div>
 									</li>
-									<li>
-										<div class="wrap_lab">
+									<li style="
+    height: 200px;
+">
+										<div class="wrap_lab" >
 											<span class="ico_required"> <span class="blind">
 													필수항목 </span>
 											</span> <label for="help_email" class="lab_find"> 주소 </label>
@@ -171,23 +182,27 @@ li{
 										<div class="wrap_input">
 											<span class="box_input2"> <input type="button"
 												class="inp_find" onclick="sample3_execDaumPostcode()"
-												value="우편번호 찾기" style="width: 508px;"> <label
+												value="우편번호 찾기" > <label
 												for="job-title">사업장 우편번호</label>
-											</span> <span class="box_input1"> <form:input
+											</span> 
+											<span class="box_input1"> 
+												<form:input
 													path="expertZip" type="text" cssClass="inp_find"
 													id="sample3_postcode" placeholder="우편번호"
-													style="width: 100%;" /> <form:errors path="expertZip"
-													element="span" cssClass="text-danger" style="width: 100%;" />
-											</span> <span class="box_input1"> <label for="job-title">사업장주소</label>
+													style="width: 100%;" /> 
+												<form:errors path="expertZip"
+													element="span" cssClass="text-danger"  />
+											</span> 
+											<span class="box_input1"> <label for="job-title">사업장주소</label>
 												<form:input path="expertAddr" type="text"
 													cssClass="inp_find" placeholder="사업장주소"
-													style="width: 100%;" /> <form:errors path="expertAddr"
-													element="span" cssClass="text-danger" style="width: 100%;" />
+													style="width: 100%;" id="sample3_address" /> <form:errors path="expertAddr"
+													element="span" cssClass="text-danger"  />
 											</span> <span class="box_input1"> <label for="job-title">사업장
 													상세주소</label> <form:input path="expertAddr2" type="text"
-													cssClass="inp_find" placeholder="상세주소" style="width: 100%;" />
+													cssClass="inp_find" placeholder="상세주소" id="sample3_detailAddress" />
 												<form:errors path="expertAddr2" element="span"
-													cssClass="text-danger" style="width: 100%;" />
+													cssClass="text-danger"  />
 											</span>
 										</div>
 										<div id="wrap"
@@ -332,6 +347,23 @@ li{
 
 </section>
 <script type="text/javascript">
+	var autoInsert = document.querySelector("#autoInsert");
+	autoInsert.addEventListener("click",function(){
+		$("input[name=expertIntroduction]").attr('value','질문의 답은 내안에 있어요');
+		$("input[name=expertJoinpath]").attr('value','인터넷');
+		$("input[name=expertField]").attr('value','웹개발자');
+		$("input[name=expertTag]").attr('value','웹개발');
+		$("input[name=expertZip]").attr('value','22530');
+		$("input[name=expertAddr]").attr('value','인천 동구 방축로 105');
+		$("input[name=expertAddr2]").attr('value','17동 235호');
+		$("input[name=expertTel]").attr('value','02-2224-0200');
+		$("input[name=expertEmail]").attr('value','inu@naver.com');
+		$("input[name=expertBank]").attr('value','국민은행');
+	 	$("input[name=expertAccount]").attr('value','182389-28-23232');
+	 	$("input[name=expertHolder]").attr('value','김전문가');
+	 	$("select[name=exfieldId]").val('EF003').prop("selected",true);
+	 	$("select[name=exjobId]").val('EJ007').prop("selected",true);
+	}) 
 	function changeExfield() {
 		var exfieldSelect = $("#exfield option:selected").val();
 		var exjobSelect = $("#exjob")

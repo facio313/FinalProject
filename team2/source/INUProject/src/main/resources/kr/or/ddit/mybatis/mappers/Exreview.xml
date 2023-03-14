@@ -69,6 +69,7 @@
 	    exreview_score,
 	    exreview_content,
 	    excart_id,
+	    expert_id,
 	    exprod_name,
 	    exprod_id,
 	    excart_price,
@@ -81,8 +82,9 @@
 		(select F.MEM_NAME
 		    FROM MEMBER F
 		    WHERE F.MEM_ID = B.EXPERT_ID) AS EXPERT_NAME
+		,E.ATT_SAVENAME 
 	FROM
-    	mem_excart_expert_exreview B
+    	mem_excart_expert_exreview B left outer join ATTACH e on b.expert_id = E.TBL_ID
 		ORDER BY EXREVIEW_ID DESC
 	)
 	SELECT A.*
@@ -91,5 +93,19 @@
 		FROM ORDEREDEVENT
 		)A
 	WHERE RNUM BETWEEN #{startRow}	AND #{endRow}
+	</select>
+	<!-- 마이페이지 리뷰 조회 -->
+	<select id="selectReviewMypageList" parameterType="String" resultType="ExreviewVO">
+		SELECT
+		    mem_id,
+		    mem_name,
+		    exprod_id,
+		    exprod_name,
+		    excart_id,
+		    EXREVIEW_NAME,
+		    EXREVIEW_DATE
+		FROM
+		    mem_excart_expert_exreview
+		where expert_id = #{memId}
 	</select>
 </mapper>

@@ -155,14 +155,14 @@ function fn_direct_pay(){
 	      pg : 'kakaopay', //pg사 선택 (kakao, kakaopay 둘다 가능)
 	      pay_method: 'card',// 기능 없음
 	      merchant_uid : 'merchant_' + new Date().getTime(),
-	      name : '1000',
-	      amount : 1000, // 빌링키 발급과 함께 1,004원 결제승인을 시도합니다.
+	      name : ${member.memName },
+	      amount :  (${exprod.exprodPrice }).replace(',',''), // 빌링키 발급과 함께 1,004원 결제승인을 시도합니다.
 	      //customer_uid 파라메터가 있어야 빌링키 발급을 시도함
-	      customer_uid : 'imp23062788',
-	      buyer_email : 'iamport@siot.do',
-	      buyer_name : '대전오슈',
-	      buyer_tel : '042-222-8202',
-	      buyer_addr : '대전광역시 중구 계룡로 846 3층',
+			customer_uid : 'imp23062788',
+			buyer_email : ${expert.expertEmail },
+			buyer_name : ${expert.memName },
+			buyer_tel : ${expert.expertTel },
+			buyer_addr : '대전광역시 중구 계룡로 846 3층',
 	  }, function(rsp) { //callback
 		  if ( rsp.success ) {
 		        var msg = '결제가 완료되었습니다.';

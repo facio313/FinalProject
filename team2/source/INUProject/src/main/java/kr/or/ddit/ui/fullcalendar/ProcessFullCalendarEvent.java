@@ -109,7 +109,7 @@ public class ProcessFullCalendarEvent extends FullCalendarEventAdapter<ProcessVO
 	@Override
 	public String getUrl() {
 		StringBuilder str = new StringBuilder();
-		str.append("../process/").append(getSource().getAnnoNo()).append(getSource().getDaNo()).append("/");
+		str.append("/INUProject/process/").append(getSource().getAnnoNo()).append("/").append(getSource().getDaNo()).append("/");
 		return str.toString();
 	}
 

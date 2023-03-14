@@ -76,7 +76,10 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public int modifyInterview(InterviewVO interview) {
 		int rowcnt = dao.updateInterview(interview);
-		rowcnt += processAttatchList(interview);
+		if (interview.getAttatchList() != null) {
+			rowcnt += attachDAO.deleteAttatch(interview.getIncumNo());
+			rowcnt += processAttatchList(interview);
+		}
 		return rowcnt;
 	}
 

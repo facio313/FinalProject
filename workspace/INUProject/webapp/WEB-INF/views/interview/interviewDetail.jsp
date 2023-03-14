@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <head>
  <meta charset="utf-8">
@@ -24,7 +25,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 
 <style>
-.post_btns{text-align: right; padding: 10px 16px 12px 12px;}
+.post_btns {text-align: right;padding: 1px;margin: 12px;}
 </style>
 </head>
 <body id="top">
@@ -34,6 +35,7 @@
 <input type="hidden" id="memId" value="${memId}">
 	<div id="overlayer"></div>
 	<div class="site-wrap">
+
 		<!-- 작성 -->
 		<div id="sri_section" class="  ">
 			<div id="sri_wrap">
@@ -42,13 +44,12 @@
 						<c:param name="what" value="${interview.incumNo }" />
 					</c:url>
 					<div class="contents_container detail_wrap">
-						<div class="post_btns">
-							<a href="${pageContext.request.contextPath }/interview/interviewList" class="btn_back_list" onmousedown="DETAILPAGE.Detail.gaEvent('qst_detail', 'resume_total')">전체게시글 </a>
-
 							<!-- 운영자만 수정 및 삭제 가능 -->
 							<%-- <p>${interview.memId } vs ${memId}</p> --%>
 
-							<c:if test="${memId==memId}">
+
+						<div class="post_btns">
+							<c:if test="${not empty memId}">
 								<a href="${viewURL }" class="btns btnSizeXS colorBlueReverse">수정</a>
 								<form action="${pageContext.request.contextPath}/interview/interviewDelete" method="post" class="btns  btnSizeXS colorGrayReverse">
 									<input type="hidden" name="memId" value="${memId}" />
@@ -56,14 +57,21 @@
 									<button type="submit">삭제</button>
 								</form>
 							</c:if>
-						</div>
+							</div>
 
 						<div class="wrap_interview_part">
 							<h1 class="blind">${interview.cmpId  } ${interview.incumTitle }</h1>
 							<div class="area_intro">
+
 								<div class="mark_img">
-									<img style="max-width: 100%;" alt="${interview.attatchList[0].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[0].attSavename}">
+									<img src='<spring:url value="/image/interviewFolder/${interview.attatchList[0].attSavename}"/>'>
+
+<%--  										<a href="/INUProject/cheri/${interview.attatchList[0].attSavename}" download="체리.jpg">
+ 											<img src="/INUProject/cheri/${interview.attatchList[0].attSavename}">
+ 										</a> --%>
+									<%-- "${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[0].attSavename}" alt="직무인터뷰 관련 사진" --%>
 								</div>
+
 								<div class="box_info">
 									<p class="company_name">
 										<span class="in_name">${interview.cmpName  }</span>
@@ -72,8 +80,30 @@
 									<div class="box_txt">
 										<p class="company_part">${interview.department  } ${interview.incumName }</p>
 										<div class="day_line">
-											<span class="day">${interview.incumDate }</span> <span
-												class="view_count">${interview.incumHits }</span>
+											<span class="day">${interview.incumDate }</span>
+											<span class="view_count">${interview.incumHits }</span>
+											<div class="box_sns">
+												<div class="share">
+													<button type="button" class="spr_rview btn_share">공유하기</button>
+													<ul class="spr_rview list_share">
+														<li>
+															<a href="#" class="spr_rview facebook" title="페이스북 공유하기">
+																<span class="blind">페이스북</span>
+															</a>
+														</li>
+														<li>
+															<a href="#" class="spr_rview twitter" title="트위터 공유하기">
+																<span class="blind">트위터</span>
+															</a>
+														</li>
+														<li>
+															<button type="button" class="spr_rview copy_url" title="주소 복사하기">
+																<span class="blind">URL복사</span>
+															</button>
+														</li>
+													</ul>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -86,29 +116,29 @@
 									<i class="ico_quotation_marks down_mark">따옴표</i>
 								</p>
 								<div class="subtit_type01">
-									<div class="content_interview interview_type01">
+									<div class="content_interview interview_type05">
 										<p class="sub_title"> </p>
 
 										<!-- 1번 -->
 										<div class="box_inner mix_cont">
 											<div class="img">
-												<img style="max-width: 100%;" alt="${interview.attatchList[1].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[1].attSavename}">
+											<img src='<spring:url value="/image/interviewFolder/${interview.attatchList[1].attSavename}"/>'>
 											</div>
 											<div class="box_question">
 												<p class="question">
-													<em class="q_num"></em>
-													Q1.${interview.question1 }
+													<em class="q_num">Q1</em>
+													${interview.question1 }
 												</p>
 												<div class="answer">${interview.answer1 }</div>
 											</div>
 										</div>
 
 										<!-- 2~4번 -->
-										<div class="box_inner">
+										<div class="box_inner inner_position_r">
 											<div class="box_question">
 												<p class="question">
-													<em class="q_num"></em>
-													Q2.${interview.question2 }
+													<em class="q_num">Q2</em>
+													${interview.question2 }
 												</p>
 												<div class="answer">${interview.answer2 }</div>
 											</div>
@@ -116,8 +146,8 @@
 										<div class="box_inner">
 											<div class="box_question">
 												<p class="question">
-													<em class="q_num"></em>
-													Q3.${interview.question3 }
+													<em class="q_num">Q3</em>
+													${interview.question3 }
 												</p>
 												<div class="answer">${interview.answer3 }</div>
 											</div>
@@ -125,35 +155,35 @@
 										<div class="box_inner">
 											<div class="box_question">
 												<p class="question">
-													<em class="q_num"></em>
-													Q4.${interview.question4 }
+													<em class="q_num">Q4</em>
+													${interview.question4 }
 												</p>
 												<div class="answer">${interview.answer4 }</div>
 											</div>
 										</div>
 
 										<!-- 5번 -->
-										<div class="content_interview interview_type05">
+										<div class="content_interview interview_type01">
 											<p class="sub_title"> </p>
-											<div class="box_inner mix_cont">
+											<div class="box_inner">
 												<div class="img">
-													<img style="max-width: 100%;" alt="${interview.attatchList[2].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[2].attSavename}">
+														<img src='<spring:url value="/image/interviewFolder/${interview.attatchList[2].attSavename}"/>'>
 												</div>
 												<div class="box_question">
 													<p class="question">
-														<em class="q_num"></em>
-														Q5.${interview.question5 }
+														<em class="q_num">Q5</em>
+														${interview.question5 }
 													</p>
 													<div class="answer">${interview.answer5 }</div>
 												</div>
 											</div>
 
 											<!-- 6번 -->
-											<div class="box_inner inner_position_r">
+											<div class="box_inner">
 												<div class="box_question">
 													<p class="question">
-														<em class="q_num"></em>
-														Q6.${interview.question6 }
+														<em class="q_num">Q6</em>
+														${interview.question6 }
 													</p>
 													<div class="answer">${interview.answer6 }</div>
 												</div>
@@ -163,8 +193,8 @@
 											<div class="box_inner">
 												<div class="box_question">
 													<p class="question">
-														<em class="q_num"></em>
-														Q7.${interview.question7 }
+														<em class="q_num">Q7</em>
+														${interview.question7 }
 													</p>
 													<div class="answer">${interview.answer7 }</div>
 												</div>
@@ -172,8 +202,8 @@
 											<div class="box_inner">
 												<div class="box_question">
 													<p class="question">
-														<em class="q_num"> </em>
-														Q8.${interview.question8 }
+														<em class="q_num">Q8</em>
+														${interview.question8 }
 													</p>
 													<div class="answer">${interview.answer8 }</div>
 												</div>
@@ -183,17 +213,14 @@
 										<!-- 9번 -->
 										<div class="content_interview interview_type02">
 											<div class="img">
-												<img style="max-width: 100%;" alt="${interview.attatchList[3].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/${interview.attatchList[3].attSavename}">
-												<c:if test="${empty interview.attatchList[3].attSavename }">
-													<img style="max-width: 100%;" alt="${interview.attatchList[3].attFilename}" src="${pageContext.request.contextPath}/resources/attach/interviewFolder/기본이미지.jpg">
-												</c:if>
+													<img src='<spring:url value="/image/interviewFolder/${interview.attatchList[3].attSavename}"/>'>
 											</div>
 											<p class="sub_title"></p>
 											<div class="box_inner">
 												<div class="box_question">
 													<p class="question">
-														<em class="q_num"></em>
-														Q9.${interview.question9 }
+														<em class="q_num">Q9</em>
+														${interview.question9 }
 													</p>
 													<div class="answer">${interview.answer9 }</div>
 												</div>
@@ -203,8 +230,8 @@
 											<div class="box_inner">
 												<div class="box_question">
 													<p class="question">
-														<em class="q_num"></em>
-														Q10.${interview.question10 }
+														<em class="q_num">Q10</em>
+														${interview.question10 }
 													</p>
 													<div class="answer">${interview.answer10 }</div>
 												</div>
@@ -213,6 +240,11 @@
 									</div>
 								</div>
 							</div>
+							<!-- 목록 -->
+							<div class="btn_group al_right">
+								<a href="${pageContext.request.contextPath }/interview/interviewList"  class="btn_basic_type02" title="이전 목록 바로가기">목록</a>
+							</div>
+
 						</div>
 					</div>
 				</div>

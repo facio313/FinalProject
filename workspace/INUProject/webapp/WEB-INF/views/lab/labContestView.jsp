@@ -5,13 +5,13 @@
 * 2023.03.03  윤호연      최초작성
 * Copyright (c) ${year} by DDIT All right reserved
  --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.ddit.or.kr/class305" prefix="ui" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/jquery.fancybox.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fonts/icomoon/style.css">
@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/help.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/components.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/saramin/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/saramin/board.css">
 
    
 <style type="text/css">
@@ -312,6 +313,11 @@
 		  transform: rotateZ(180deg);
 		}
 		
+		.imgSize{
+			width: 250px;
+			height: 250px;
+		}
+		
 		
 </style>
 <section class="site-section">
@@ -547,18 +553,24 @@
 		
 	</div>
 </section>
-	<div style="height: 150px;"></div>
+
+	<security:authorize url="/lab/contest/insertForm">
+	<div class="col-2" style="left: 1400px;">
+     	<input type="button" value="공모전 등록" id="insert-form" style="background-color: #0D6EFD; color: black" class="btn btn-primary" 
+     		   onclick="location.href='${pageContext.request.contextPath}/lab/contest/insertForm'"/>
+    </div>
+    </security:authorize>
 	
-	<button onclick="location.href='${pageContext.request.contextPath}/lab/contest/insertForm'">작성하기</button>
-	
-  	<div class="col-1">
-       <div class="pagingArea"></div>
+  	<div class="col-1" style="left: 300px;">
+        <div class="pagingArea"></div>
     </div>
     
+    <div style="height: 50px;"></div>
+    
       <!-- hidden form -->
-	<form id="searchForm">
-		<input type="hidden" id="searchUI" name="searchUI">
-	</form>    
+	<form:form id="searchForm" modelAttribute="simpleCondition" method="post">
+		<input type="hidden" name="page" />
+	</form:form>   
 	
 <script>
 	

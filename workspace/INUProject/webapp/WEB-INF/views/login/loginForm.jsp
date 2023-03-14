@@ -5,16 +5,8 @@
 
 <!-- Custom styles for this template -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom-bs.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/fonts/line-icons/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/owl.carousel.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/animate.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/quill.snow.css">
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">  
-
 
 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION }">
 	<script>
@@ -30,8 +22,8 @@
   	</div>
 </div> -->
 
-<section class="site-section" style="display:flex; justify-content : center;">
-	<div class="container" style="width:30%;">
+<section class="site-section" style="display:flex; justify-content : center; background: rgba(0, 0, 0, 0)">
+	<div class="container" style="width:35%; background-color: rgba(255, 255, 255, .8); padding: 2%; border-radius: 8px;">
 		<div class="">
            	<h2 class="mb-4">로그인</h2>
             <form class="p-4 border rounded" action="<c:url value='/login/loginProcess.do'/>" method="post" id="loginForm">
@@ -59,12 +51,10 @@
 					<div class="col	">
 						<select class="form-select" aria-label="Default select example" onchange="selectedLogin(event);">
 						  <option>사용자선택</option>
-						  <option data-mem-id="zzz98" data-mem-pass="java">관리자(형준)</option>
-						  <option data-mem-id="cks1111" data-mem-pass="java">일반회원(경수)</option>
-						  <option data-mem-id="lcr0000" data-mem-pass="0000">일반회원(채리)</option>
-						  <option data-mem-id="abcabc" data-mem-pass="1234">일반회원(호연)</option>
-						  <option data-mem-id="asdf" data-mem-pass="asdf">기업회원(서연)</option>
-						  <option data-mem-id="A001" data-mem-pass="java">전문가(근주)</option>
+						  <option data-mem-id="zzz98" data-mem-pass="java">관리자</option>
+						  <option data-mem-id="cks1111" data-mem-pass="java">일반회원</option>
+						  <option data-mem-id="asdf2" data-mem-pass="asdf">기업회원</option>
+						  <option data-mem-id="A001" data-mem-pass="java">전문가</option>
 						</select>
 						<script>
 							function selectedLogin(event){

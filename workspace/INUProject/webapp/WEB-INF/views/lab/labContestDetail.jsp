@@ -299,12 +299,19 @@
 		textarea.select();
 		document.execCommand("copy");
 		document.body.removeChild(textarea);
-		alert("링크 주소가 복사되었습니다.")
+		
 	};
 	
 	function supplyURL(){
 		location.href = '${contest.contURL}';
 	}
+	
+	swal({
+		  title: "Good job!",
+		  text: "You clicked the button!",
+		  icon: "success",
+		});
+	
 
 </script>
 

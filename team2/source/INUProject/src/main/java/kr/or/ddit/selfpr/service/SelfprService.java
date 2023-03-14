@@ -6,7 +6,7 @@ import kr.or.ddit.vo.PagingVO;
 
 public interface SelfprService {
 
-	public void retrieveSelfprList(PagingVO<SelfprVO> pagingVO);
+	public List<SelfprVO> retrieveSelfprList(PagingVO<SelfprVO> pagingVO);
 	
 //	세부사항 가져오는 메소드
 	public SelfprVO retrieveSelfprMember(int prNo);
@@ -16,6 +16,7 @@ public interface SelfprService {
 	public List<SelfprVO> retrieveSelfprAct(int prNo);
 	public List<SelfprVO> retrieveSelfprAward(int prNo);
 	public List<SelfprVO> retrieveSelfprCourse(int prNo);
+	public List<SelfprVO> retrieveSelfprMypage(String memId);
 	
 	public int createSelfpr(SelfprVO selfpr);
 	public int modifySelfpr(SelfprVO selfpr);

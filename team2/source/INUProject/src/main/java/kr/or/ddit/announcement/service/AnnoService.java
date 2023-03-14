@@ -40,5 +40,8 @@ public interface AnnoService {
 	public List<AnnoVO> retrieveRecommendList(String annoNo);
 	
 	public List<AnnoVO> retrieveMyAnnoList(String memId);
+	public List<AnnoVO> retrieveMyAnnoListSeeker(String memId);
 	public AnnoVO retrieveAnnoDetailProcess(String annoNo);
+	public List<AnnoVO> retrieveLikeAnnoList(String memId);
+	public List<AnnoVO> retrieveLikeAnnoListMypage(String memId);
 }

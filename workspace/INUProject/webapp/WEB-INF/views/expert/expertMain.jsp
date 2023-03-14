@@ -154,18 +154,22 @@
 					<c:forEach items="${exprodList }" var="exprod">
 						<div class="block__87154  rounded item">
 							<a
-								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
-								class="item-wrap"> <span class="icon" >${exprod.exprodPr }</span>
+								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"style="
+								opacity: 0.7;
+							"
+								class="item-wrap"> <span class="icon" ><h4 style="font-weight: 900;border-top: solid;border-bottom: solid;margin-top: 10px; color: white;">${exprod.exprodPr }</h4></span>
 								<img class="img-fluid"
 								src="<%=request.getContextPath()%>/resources/images/MAIN.png"
 								style="opactiy: 0.5; height: 200px; width: 450px;" />
 							</a>
 							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'; height: 71px;">${exprod.exprodName }</h3>
 							<div class="block__91147 d-flex align-items-center"
-								onclick="expertDetail();">
+								onclick="expertDetail();" style="
+								max-height: 43px;
+							">
 								<figure class="mr-4">
 									<img
-										src="<%=request.getContextPath()%>/resources/images/Dobby.png"
+										src="<spring:url value='/image/memberFolder/${exprod.attSavename}'/>"
 										alt="Image" class="img-fluid" />
 								</figure>
 								<div>
@@ -187,8 +191,8 @@
 	<div class="col-12 text-center" data-aos="fade" style="
     margin-bottom: 49px;
 ">
-		<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">진행중인
-			이벤트</h1>
+		<a href="<%=request.getContextPath() %>/expert/event">
+			<h1 class="main_tit" style="font-family: 'NanumSquareNeo-Variable'">진행중인 이벤트</h1></a>
 	</div>
 	<div class="container">
 		<div id="filters" class="filters text-center button-group col-md-7">
@@ -245,22 +249,30 @@
 		<div class="owl-carousel owl-theme">
 			<!--         <div id="posts" class="row no-gutter"> -->
 			<c:choose>
-				<c:when test="${not empty exprodList }">
-					<c:forEach items="${topExprodList }" var="exprod">
-						<div class="block__87154  rounded item">
+				<c:when test="${not empty topExprodList }">
+					<c:forEach items="${topExprodList }" var="exprod" varStatus="status">
+						<div class="block__87154  rounded item" >
 							<a
-								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
-								class="item-wrap"> <span class="icon" >${exprod.exprodPr }</span>
+								href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"style="
+								opacity: 0.8;
+							"
+								class="item-wrap"> <span class="icon" style="color: red; font-size: 24px; "><em style="    position: relative;
+							color: red;
+							display: inline-block;
+							vertical-align: top;
+							font-weight: 900"> 판매${status.index+1 }위 </em><h4 style="font-weight: 900;border-top: solid;margin-top: 10px; color: white;">${exprod.exprodPr }</h4></span>
+				  		
 								<img class="img-fluid"
-								src="<spring:url value='/image/expertFolder/exprodTop.jpg'/>"
-								style="opactiy: 0.5; height: 200px; width: 450px;" />
+										src="<spring:url value='/image/expertFolder/exprodTop1.jpg'/>" style="opactiy:0.5; height: 200px; width:450px;"/>
 							</a>
-							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'; height: 71px;">${exprod.exprodName }</h3>
+							<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'; height: 71px; word-break: keep-all;">${exprod.exprodName }</h3>
 							<div class="block__91147 d-flex align-items-center"
-								onclick="expertDetail();">
+								onclick="expertDetail();" style="
+								max-height: 43px;
+							">
 								<figure class="mr-4">
 									<img
-										src="<%=request.getContextPath()%>/resources/images/Dobby.png"
+										src="<spring:url value='/image/memberFolder/${exprod.attSavename}'/>"
 										alt="Image" class="img-fluid" />
 								</figure>
 								<div>
@@ -318,7 +330,7 @@
 							<a href="/expert/profile/home?storeId=100038351"
 								class="cardMain__tghgE"><div class="thumbnailArea__ya8yf">
 									<div class="thumbnail__ZS68O"
-										style="background-image: url(&quot;https://kin-phinf.pstatic.net/20230207_239/1675773135442lMzIB_JPEG/1675773135412.jpg?type=f200_200&quot;);"></div>
+										style="background-image: url(&quot;<spring:url value='/image/memberFolder/${exreviewList.attSavename}'/>&quot;);"></div>
 								</div> <strong class="name__cvkY2">${exreviewList.expertName }</strong>
 								<div class="categoryArea__HD2sd">
 									<span class="category__vgKWL">${exreviewList.exfieldName }</span><i

@@ -2,6 +2,7 @@ package kr.or.ddit.expert.service;
 
 import java.util.List;
 
+import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExprodVO;
 import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.expert.vo.LikeExprodVO;
@@ -15,6 +16,10 @@ public interface ExprodService {
 	public int updateExprod(ExprodVO exprod);
 	
 	public void selectExprodList(PagingVO<ExprodVO> pagingVO);
+	
+	public void selectExprodMissionList(PagingVO<ExprodVO> pagingVO);
+	
+	public List<ExcartVO> retrieveExcartMypage(String memId);
 	
 	public List<ExprodVO> selectTopExprodList();
 	

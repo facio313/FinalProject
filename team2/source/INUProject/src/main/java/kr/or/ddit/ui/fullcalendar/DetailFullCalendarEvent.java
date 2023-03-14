@@ -110,7 +110,7 @@ public class DetailFullCalendarEvent extends FullCalendarEventAdapter<AnnoDetail
 	
 	@Override
 	public String getUrl() {
-		return "../../process/"+ getSource().getAnnoNo() + "/"+ getSource().getDaNo();
+		return "/INUProject/process/"+ getSource().getAnnoNo() + "/"+ getSource().getDaNo();
 	}
 
 }

@@ -28,6 +28,7 @@
 #paging{font-size: 22pt;}
 .wrap_category_type .list_category li a {color: #444;letter-spacing: -1px;line-height: 17px;font-weight: initial;}
 .job_interview_list .box_info .company_name {overflow: hidden;padding-top: 6px;color: #666;font-size: 15px;letter-spacing: -1px;text-overflow: ellipsis;white-space: nowrap;font-weight: initial;}
+.btn-primary {color: #212529;background-color: #0D6EFD;border-color: #0D6EFD;}
 </style>
 </head>
 <body id="top">
@@ -63,79 +64,79 @@
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='1'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=1">기획·전략</a>
-								<span id="cnt1"></span>
+<!-- 								<span id="cnt1"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='2'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=2">마케팅·홍보·조사</a>
-								<span id="cnt2"></span>
+<!-- 								<span id="cnt2"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='3'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=3">회계·세무·재무</a>
-								<span id="cnt3"></span>
+<!-- 								<span id="cnt3"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='4'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=4">인사·노무·HRD</a>
-								<span id="cnt4"></span>
+<!-- 								<span id="cnt4"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='5'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=5">총무·법무·사무</a>
-								<span id="cnt5"></span>
+<!-- 								<span id="cnt5"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='6'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=6">IT개발·데이터</a>
-								<span id="cnt6"></span>
+<!-- 								<span id="cnt6"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='7'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=7">디자인</a>
-								<span id="cnt7"></span>
+<!-- 								<span id="cnt7"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='8'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=8">영업·판매·무역</a>
-								<span id="cnt8"></span>
+<!-- 								<span id="cnt8"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='9'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=9">고객상담·TM</a>
-								<span id="cnt9"></span>
+<!-- 								<span id="cnt9"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='10'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=10">구매·자재·물류</a>
-								<span id="cnt10"></span>
+<!-- 								<span id="cnt10"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='11'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=11">상품기획·MD</a>
-								<span id="cnt11"></span>
+<!-- 								<span id="cnt11"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='12'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=12">운전·운송·배송</a>
-								<span id="cnt12"></span>
+<!-- 								<span id="cnt12"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='13'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=13">서비스</a>
-								<span id="cnt13"></span>
+<!-- 								<span id="cnt13"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='14'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=14">생산</a>
-								<span id="cnt14"></span>
+<!-- 								<span id="cnt14"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='15'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=15">건설·건축</a>
-								<span id="cnt15"></span>
+<!-- 								<span id="cnt15"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='16'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=16">의료</a>
-								<span id="cnt16"></span>
+<!-- 								<span id="cnt16"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='17'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=17">연구·R&amp;D</a>
-								<span id="cnt17"></span>
+<!-- 								<span id="cnt17"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='18'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=18">미디어·문화·스포츠</a>
-								<span id="cnt18"></span>
+<!-- 								<span id="cnt18"></span> -->
 							</li>
 							<li>
 								<a class="<c:if test="${param.gubun=='19'}">active</c:if>" href="${pageContext.request.contextPath}/interview/interviewList?gubun=19">금융·보험</a>
-								<span id="cnt19"></span>
+<!-- 								<span id="cnt19"></span> -->
 							</li>
 						</ul>
 					</div>
@@ -215,7 +216,9 @@ let makeTrTag = function(interview){
 									$("<span>").attr("class","view_count").html(interview.incumHits))),
 							$("<div>").attr("class","img_view").append(
 								$("<span>").attr("class","img").append(
-									$("<img>").attr("src","https://pds.saramin.co.kr/career-information/asset_thumbnail/202302/01/rpdolq_63pd-2so1pr_asset.png")))
+									$("<img>").attr("src","${pageContext.request.contextPath}/image/interviewFolder/"+interview.imageFile)
+								)
+							)
 						)));
 }
 
@@ -251,6 +254,7 @@ let searchForm = $("#searchForm").on("submit", function(event){
 			if(dataList.length>0){
 				$.each(dataList, function(index, interview){
 					trTags.push(makeTrTag(interview));
+					console.log("interview>>>>>>>>>>>>>>>>>",interview.imageFile);
 				});
 			}else {
 				// db에 데이터가 없을 때

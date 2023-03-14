@@ -102,7 +102,7 @@
 								</c:when>
 								<c:otherwise>
 									<tr>
-										<td>목록 없음.</td>
+										<td colspan="12">목록 없음.</td>
 									</tr>
 								</c:otherwise>
 							</c:choose>

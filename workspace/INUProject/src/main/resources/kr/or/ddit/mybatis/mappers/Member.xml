@@ -31,6 +31,7 @@
 		<result property="memApproval" column="MEM_APPROVAL"/>
 		<result property="memDate" column="MEM_DATE"/>
 		<result property="memDelete" column="MEM_DELETE"/>
+		<result property="attSavename" column="CMP_ATT_SAVENAME"/>
 	</resultMap>
 	<resultMap type="seekerVO" id="seekerMap">
 		<result property="memNickname" column="MEM_NICKNAME"/>
@@ -70,12 +71,14 @@
 		     , C.MEM_NICKNAME, C.MEM_BIRTH, C.MEM_GENDER, C.MEM_ZIP, C.MEM_ADDR1, C.MEM_ADDR2, C.MEM_EMAIL, C.MEM_TEL, C.MEM_CERTIFICATION, C.MEM_CARTTOTAL, C.MEM_SCORE
 		     , E.EXPERT_APPROVAL, E.EXPERT_APPROVAL_DATE, E.EXPERT_INTRODUCTION, E.EXPERT_JOINPATH, E.EXPERT_FIELD, E.EXPERT_TAG, E.EXPERT_ZIP, E.EXPERT_ADDR, E.EXPERT_ADDR2
 		     , E.EXPERT_TEL, E.EXPERT_EMAIL, E.EXPERT_BANK, E.EXPERT_ACCOUNT, E.EXPERT_HOLDER, E.EXFIELD_ID, E.EXJOB_ID
-		     , F.TBL_ID, F.ATT_NO, F.ATT_STRE_COURS, F.ATT_SAVENAME, F.ATT_FILENAME, F.ATT_MIME, F.ATT_FILESIZE, F.ATT_FANCYSIZE, F.ATT_DOWNLOAD		     
+		     , F.TBL_ID, F.ATT_NO, F.ATT_STRE_COURS, F.ATT_SAVENAME, F.ATT_FILENAME, F.ATT_MIME, F.ATT_FILESIZE, F.ATT_FANCYSIZE, F.ATT_DOWNLOAD
+             , G.ATT_SAVENAME AS CMP_ATT_SAVENAME
 		FROM (SELECT * FROM MEMBER WHERE MEM_ID = #{memId}) A 
 					  LEFT OUTER JOIN INCRUITER B ON(A.MEM_ID = B.MEM_ID)
 		              LEFT OUTER JOIN SEEKER C ON(A.MEM_ID = C.MEM_ID)
 		              LEFT OUTER JOIN EXPERT E ON(A.MEM_ID = E.MEM_ID)
 		              LEFT OUTER JOIN ATTACH F ON(A.MEM_ID = F.TBL_ID OR B.CMP_ID = F.TBL_ID)
+					  LEFT OUTER JOIN ATTACH G ON(B.CMP_ID = G.TBL_ID)
 	</select>
 	<insert id="insertMember" parameterType="SeekerVO">
 		INSERT INTO member (
@@ -190,6 +193,7 @@
                    , MEM_TEL, MEM_JOINDATE		           
 		    FROM MEM_SEEKER 
             WHERE MEM_AUTH_CD = 'ROLE_SEEKER'
+            AND MEM_DELETE IS NULL
 		    ORDER BY MEM_NAME
 		)
 		SELECT A.*
@@ -251,9 +255,7 @@
             CMP_SMENP,
             CMP_MB_NAME
     	FROM MEM_INCRUITER
-        WHERE (MEM_AUTH_CD = 'ROLE_INCRUITER1'
-        OR MEM_AUTH_CD = 'ROLE_INCRUITER2'
-    	OR MEM_AUTH_CD = 'ROLE_INCRUITER3')    
+        WHERE MEM_AUTH_CD = 'ROLE_INCRUITER'        
         AND MEM_APPROVAL = 'Y'
         AND CMP_CHECK = 'Y'        
     	ORDER BY MEM_NAME

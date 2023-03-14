@@ -70,11 +70,20 @@
 									<div class="profile_pic_wrap">
 										<a href="#" target="_blank">
 											<div class="profile_pic profile1">
-												<svg><img src="${pageContext.request.contextPath}/resources/images/saramin/iu1.jfif"></img></svg>
+												<svg><img src="${pageContext.request.contextPath}/resources/images/noImage.png"></img></svg>
 											</div>
 										</a>
 									</div>
-									<span class="nickname">${board.memId }</span>
+									<span class="nickname">
+										<security:authorize access="hasRole('ROLE_ADMIN')">
+											<a href="<c:url value='/systemManagement/memberList/seekerList/${board.memId }'/>">
+												${board.memId }
+											</a>
+										</security:authorize>
+										<security:authorize access="hasAnyRole('ROLE_SEEKER','ROLE_INCRUITER','ROLE_EXPERT')">
+												${board.memId }
+										</security:authorize>
+									</span>
 									<span class="post_date">${board.boardDate } 작성</span>
 								</div>
 								<div class="post_data_wrap">
@@ -88,7 +97,7 @@
 								<div>${board.boardContent }</div>
 								<c:forEach var="i" begin="0" end="4">
 									<img style="max-width: 100%;" alt="${board.attatchList[i].attFilename}"
-									src="${pageContext.request.contextPath}/resources/attach/boardFolder/${board.attatchList[i].attSavename}">
+									src='<spring:url value="/image/boardFolder/${board.attatchList[i].attSavename}"/>'/>
 								</c:forEach>
 							</div>
 
@@ -226,6 +235,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap-select.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <form>
 	<input type="hidden" name="likeCheck"/>
 	<input type="hidden" name="boardNo" value="${board.boardNo }"/>
@@ -389,11 +400,31 @@
 <script>
 	// 게시글 삭제
 	function check_submit() {
-		if (confirm("입력하신 글을 정말 삭제하시겠어요? 삭제하신 글은 복구하실 수 없습니다..ㅠㅠ 글 수정을 원할 경우, 수정 버튼 클릭 후 수정해주세요.")) {
+	/* 	if (confirm("입력하신 글을 정말 삭제하시겠어요? 삭제하신 글은 복구하실 수 없습니다..ㅠㅠ 글 수정을 원할 경우, 수정 버튼 클릭 후 수정해주세요.")) {
 			alert("게시글이 삭제 되었습니다.");
 		}else{
 			return false;
-		}
+		} */
+
+		Swal.fire({
+			  title: "입력하신 글을 정말 삭제하시겠어요??",
+			  text: "삭제하신 글은 복구하실 수 없습니다..ㅠㅠ 글 수정을 원할 경우, 수정 버튼 클릭 후 수정해주세요.",
+			  icon: "info",
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '네',
+			  cancelButtonText: '아니요'
+			})
+			.then((result) => {
+			  if (result.isConfirmed) {
+			    swal("삭제되었습니다.", {
+			      icon: "success",
+			    });
+			  } else {
+			    swal("삭제에 실패했습니다.");
+			  }
+			});
 	};
 </script>
 </body>

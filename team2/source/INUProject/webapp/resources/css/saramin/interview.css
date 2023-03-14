@@ -2675,7 +2675,7 @@ span.tab_menu02 strong {padding:0;color:#1469b3;font-weight:normal;background:ur
 .job_interview_list li .ico_label {display:none}
 .job_interview_list li.best_interview .ico_label {display:block;box-sizing:border-box;padding:12px 0 0 0;position:absolute;right:-1px;top:-1px;width:40px;height:50px;background:url(//www.saraminimage.co.kr/sri/common/ico/ico_viewpage.png) -23px 0 no-repeat;color:#fff;font-size:12px;font-style:normal;text-align:center}
 .job_interview_list .sub_title {margin-top:-2px;display:flex;flex-flow:row wrap;justify-content: space-between}
-.job_interview_list .in_subtit {width:77%;color:#045738;font-size:15px;font-weight:bold;display:inline-block;overflow:hidden;text-overflow:ellipsis;word-break:break-all;white-space:nowrap;vertical-align:top}
+.job_interview_list .in_subtit {width:77%;color:#3157DD;font-size:15px;font-weight:bold;display:inline-block;overflow:hidden;text-overflow:ellipsis;word-break:break-all;white-space:nowrap;vertical-align:top}
 .job_interview_list .flag_applying {width:23%;font-size:15px;padding:0px 2px 0px 7px;box-sizing: border-box}
 .job_interview_list .title {position:relative;padding-top:31px;letter-spacing:-2px;overflow:hidden}
 .job_interview_list .title:after {display:block;content:'';position:absolute;left:0;top:17px;width:20px;height:1px;background:#222}

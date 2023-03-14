@@ -35,4 +35,6 @@ public class TodaySeeVO {
 	private String industryName;
 	private String regionName;	
 	
+	private String attSavename;
+	
 }

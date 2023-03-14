@@ -14,7 +14,7 @@
 }
 
 .wrap_community_topic .section_inner {
-    width: 490px;
+    width: 32.668%;
     height: 520px;
 }
 
@@ -412,7 +412,7 @@
 		                    									<td>${delMem.rnum }</td>
 					                    						<td>${delMem.memId }</td>
 					                    						<td>${delMem.memName }</td>
-					                    						<td>${delMem.memDelete }</td>
+					                    						<td>${fn:substring(delMem.memDelete,0,10) }</td>
 		                    								</tr>
 		                    							</c:forEach>
 		                    						</c:when>

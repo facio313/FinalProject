@@ -31,6 +31,7 @@
 	href="${pageContext.request.contextPath}/resources/css/saramin/components.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/saramin/help.css" />
+<link rel="stylesheet" href="/INUProject/resources/css/saramin/pattern.css">
 <style>
 .scroller {
 	overflow-y: auto;
@@ -58,13 +59,16 @@
 							<h3 class="text-black my-1 border-bottom pb-2"
 								style="margin-bottom: 0ch;">회사정보</h3>
 							<div class="wrap_input">
-								<button type="button" id="companyModal" class="btn btn-primary"
+								<button type="button" id="companyModal" class="btnSizeM btn-primary"
 									data-toggle="modal" data-target="#exampleModal">회사검색
 									</button>
 							</div>
 						<!-- 기업등록 -->
 						<div class="help_find help_lost wrap_help" id="companyInsert">
 							<div class="cont_find">
+								<button type="button" class="btn btn-primary"  id="autoInsert" style="border-radius: 0px">
+										<span>자동입력</span>
+								</button> 
 								<ul class="list_find">
 								<form:form id="companyForm" name="companyForm"
 									modelAttribute="company" method="post"
@@ -350,7 +354,9 @@
 									<div class="wrap_link">
 									<div class="row align-items-center mb-5" style="justify-content: center;">
 										<button type="submit" form="incruiterInsert"
-											class="btn_biggest_type01" id=insertCompanyBtn >등록</button>
+											class="btn_biggest_type01" id=insertCompanyBtn style="
+    background: #0D6EFD;
+">등록</button>
 									</div>
 									</div>
 								</form:form>
@@ -364,6 +370,9 @@
 					<!-- 인사담당자 등록 -->
 					<div class="help_find help_lost wrap_help" >
 						<div class="cont_find">
+								<button type="button" class="btn btn-primary"  id="autoInsertIncruiter" style="border-radius: 0px">
+										<span>자동입력</span>
+								</button> 
 							<form:form id="insertIncruiter" name="insertIncruiter"
 								modelAttribute="incruiter" method="post"
 								class="p-4 p-md-5 border rounded">
@@ -482,7 +491,9 @@
 												id="help_cancel">취소하기</button>
 										</a>
 										<button type="button" class="btn_biggest_type01"
-											id="help_send" onclick="updateBtn()">가입하기</button>
+											id="help_send" onclick="updateBtn()" style="
+    background: #0D6EFD;
+">가입하기</button>
 									</div>
 							</form:form>
 								</div>
@@ -532,5 +543,34 @@
 <!-- slick-slider js 소스 -->
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+<script>
+var autoInsert = document.querySelector("#autoInsert");
+autoInsert.addEventListener("click",function(){
+	$("input[name=cmpNo]").attr('value','541-06-02156');
+	$("input[name=cmpName]").attr('value','명진기업');
+	$("input[name=cmpRepName]").attr('value','박종욱');
+	$("input[name=cmpBsnsNo]").attr('value','121-81-88239');
+	$("input[name=cmpZip]").attr('value','	22530');
+	$("input[name=cmpAddr1]").attr('value','인천 동구 방축로 105');
+	$("input[name=cmpAddr2]").attr('value','17동 235호');
+	$("input[name=cmpPhone]").attr('value','02-2224-0200');
+	$("input[name=cmpEmail]").attr('value','inu@naver.com');
+	$("input[name=cmpUrl]").attr('value','INUProject.co.kr');
+	$("input[name=cmpEstblDate]").attr('value','2007-12-03');
+	$("input[name=cmpSmenp]").attr('value','중소기업');
+ 	$("input[name=cmpEmpNo]").attr('value','5명');
+ 	$("input[name=cmpAvrWork]").attr('value','10년');
+ 	$("input[name=cmpAvrSalary]").attr('value','3000천만');
+ 	$("input[name=cmpMbName]").attr('value','기타 도로화물 운송업명');
+ 	$("textarea[name=cmpContent]").val('운수 및 창고업');
+}) 
+var autoInsertIncruiter = document.querySelector("#autoInsertIncruiter");
+autoInsertIncruiter.addEventListener("click",function(){
+	$("input[name=memId]").attr('value','INUincruiter');
+	$("input[name=memPass]").attr('value','java');
+	$("input[name=memName]").attr('value','김직원');
+	$("input[name=memEmail]").attr('value','INUproject@naver.com');
+ 	$("input[name=memTel]").attr('value','010-1234-5678');
+}) 
+</script>
 	

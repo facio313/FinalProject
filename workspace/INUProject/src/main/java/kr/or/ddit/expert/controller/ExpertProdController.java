@@ -106,6 +106,7 @@ public class ExpertProdController {
 		,Model model
 		) {
 		exprod =  exprodservice.selectExprod(exprodId);
+		model.addAttribute("form", "상품수정");
 		model.addAttribute("exprod", exprod);
 		return "expert/exprodForm";
 	}
@@ -121,7 +122,7 @@ public class ExpertProdController {
 	    if(valid) {
 	       int result = exprodservice.updateExprod(exprod);
 	       if(result > 0) {
-	            viewName = "redirect:/expert";
+	            viewName = "redirect:/mypage/expert";
 	       }
 	       else {
 	          model.addAttribute("message","서버 오류, 쫌다 다시");
@@ -141,7 +142,9 @@ public class ExpertProdController {
 	@GetMapping("/newprod")
 	public String exprodInsertForm(
 		@ModelAttribute("exprod") ExprodVO exprod	
+		, Model model
 		) {
+		model.addAttribute("form", "상품등록");
 		return "expert/exprodForm";
 	}
 	@PostMapping("/newprod")
@@ -159,7 +162,7 @@ public class ExpertProdController {
 	    if(valid) {
 	       int result = exprodservice.InsertExprod(exprod);
 	       if(result > 0) {
-	            viewName = "redirect:/expert";
+	            viewName = "redirect:/mypage/expert";
 	       }
 	       else {
 	          model.addAttribute("message","서버 오류, 쫌다 다시");

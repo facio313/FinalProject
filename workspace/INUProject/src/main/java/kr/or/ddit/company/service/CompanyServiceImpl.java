@@ -79,6 +79,12 @@ public class CompanyServiceImpl implements CompanyService {
 		return company;
 		
 	}
+	@Override
+	public List<CompanyVO> retrieveLikeCompanyList(String memId) {
+		List<CompanyVO> company = companyDAO.selectLikeCompanyList(memId);
+		return company;
+		
+	}
 
 	@Override
 	public void retrieveCompanyList(PagingVO<CompanyVO> pagingVO) {

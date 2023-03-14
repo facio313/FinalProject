@@ -278,7 +278,7 @@
 		        
 		         <!-- 프로필 사진 -->
 		        <div class="center">
-					<img class="profileimage" alt="안나옴" src="${pageContext.request.contextPath }/resources/images/Dobby.png" />		        	
+					<img class="profileimage" alt="안나옴" src="<spring:url value='/image/memberFolder/${selfprToday.attSavename}'/>" />		        	
 		        </div>
 		        
 		      </div>

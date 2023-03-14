@@ -66,7 +66,6 @@ public interface AnnoDAO {
 	 * @return
 	 */
 	public int insertAnnoCareer(@Param("careerName") String careerName, @Param("daNo") String daNo);
-//	public int insertAnnoCareer(Map<String, Object> map);
 
 	/**
 	 * 세부공고당 직급직책조건 등록
@@ -74,7 +73,6 @@ public interface AnnoDAO {
 	 * @return
 	 */
 	public int insertAnnoPosition(@Param("positionCode") String positionCode, @Param("daNo") String daNo);
-//	public int insertAnnoPosition(Map<String, Object> map);
 	
 	/**
 	 * 공고당 복지 리스트 등록
@@ -82,8 +80,6 @@ public interface AnnoDAO {
 	 * @return
 	 */
 	public int insertWelfareList(Map<String, Object> map);
-//	public int insertWelfareList(@Param("welfareCode") String welfareCode, @Param("annoNo") String annoNo);
-//	public int insertWelfareList(AnnoWelfareVO welfareVO);
 	
 	/**
 	 * 모든 복지항목 삭제
@@ -218,4 +214,21 @@ public interface AnnoDAO {
 	 * @return List<AnnoVO>
 	 */	
 	public List<AnnoVO> selectLikeAnnoList(String memId);
+	
+	/**
+	 * 근주
+	 * 찜한 공고
+	 * @param memId
+	 * @return List<AnnoVO>
+	 */	
+	public List<AnnoVO> selectLikeAnnoListMypage(String memId);
+	
+	/**
+	 * 경수
+	 * 지원한 공고 목록
+	 * @param memId
+	 * @return List<AnnoVO>
+	 */
+	public List<AnnoVO> selectMyAnnoListSeeker(String memId);
 }
+

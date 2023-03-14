@@ -28,6 +28,4 @@ public interface InterviewService {
 
 	// 조회수
 	public int updateHis(String incumNo);
-
-
 }

@@ -39,24 +39,45 @@
  				top: 50px;
  				left: 0;
 			}
+			
 			body::-webkit-scrollbar {
 			    width: 8px;  /* 스크롤바의 너비 */
 			}
 			
 			body::-webkit-scrollbar-thumb {
 			    height: 50%; /* 스크롤바의 길이 */
-			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */
+/* 			    background: rgba(145, 145, 145, 0.8); /* 스크롤바의 색상 */ */
 			    
 			    border-radius: 10px;
 			}
 			
 			body::-webkit-scrollbar-track {
-			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/
+/* 			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/ */
 			}
-
+			
+			div::-webkit-scrollbar {
+			    width: 8px;  /* 스크롤바의 너비 */
+			}
+			div::-webkit-scrollbar-thumb {
+			    width: 30%; /* 스크롤바의 길이 */
+/* 			    background: rgba(200, 200, 200, 0.8); /* 스크롤바의 색상 */ */
+			    
+			    border-radius: 10px;
+			}
+			div::-webkit-scrollbar-track {
+/* 			    background: rgba(245, 245, 245, 0.3);  /*스크롤바 뒷 배경 색상*/ */
+			}
+		    img#bgpic {
+	            position: fixed; right: 0; bottom: 0;
+	            min-width: 100%; min-height: 100%;
+	            width: auto; height: auto; z-index: -100;
+		    }
 		</style>
 		
 	</head>
+
+	<img id="bgpic" src="/INUProject/resources/images/bgpic.jpg"/>	
+	
 	<body>
 		<tiles:insertAttribute name="headerMenu"/>
 		<main class="col-md-10 ks-lm-radius mx-auto">
@@ -65,4 +86,7 @@
 		<tiles:insertAttribute name="postScript"/>
 		<tiles:insertAttribute name="floating"/>
 	</body>
+	<script>
+		$("header").removeClass("bg-white").css("background", "rgba(255, 255, 255, 0.8)");
+	</script>	
 </html>

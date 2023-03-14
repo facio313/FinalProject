@@ -34,6 +34,7 @@ public class PagingVO<T> {
 	private int endPage;
 
 	private List<T> dataList;
+	private int interviewData;
 
 	private String memId;
 
@@ -64,6 +65,9 @@ public class PagingVO<T> {
 	public void setTotalRecord(int totalRecord) {
 		this.totalRecord = totalRecord;
 		totalPage = (totalRecord + (screenSize - 1)) / screenSize;
+	}
+	public void setInterviewData(int interviewData) {
+		this.interviewData = interviewData;
 	}
 
 	public void setCurrentPage(int currentPage) {

@@ -138,6 +138,11 @@ cmp_id = #{cmpId,jdbcType=VARCHAR}
  	WHERE CMP_ID = #{cmpId}
 </select>
 
+<select id="selectLikeCompanyList" parameterType="String" resultType="CompanyVO">
+SELECT A.CMP_ID, A.CMP_NAME, A.CMP_SMENP, A.CMP_MB_NAME
+FROM COMPANY A INNER JOIN LIKE_COMPANY B ON A.CMP_ID = B.CMP_ID 
+WHERE B.MEM_ID = #{mem_id}
+</select>
 </mapper>
 
 

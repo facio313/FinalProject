@@ -40,6 +40,12 @@ public class ExreviewServiceImpl implements ExreviewService{
 		ExreviewVO exreview = exreviewDAO.selectExreview(exreviewId);
 		return exreview;
 	}
+	
+	@Override
+	public List<ExreviewVO> retrieveReviewMypageList(String memId) {
+		List<ExreviewVO> exreview = exreviewDAO.selectReviewMypageList(memId);
+		return exreview;
+	}
 
 	@Override
 	public void selectReveiwList(PagingVO<ExreviewVO> pagingVO) {

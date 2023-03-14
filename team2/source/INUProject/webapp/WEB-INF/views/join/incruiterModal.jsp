@@ -78,12 +78,14 @@
 				<!-- 검색영역 끝 -->
 				<!-- 검색결과 시작 -->
 			</div>
-			<table border="1" style="width: 100%;" class="table table-bordered table-hover table-dark">
+			<table border="1" style="width: 100%;background-color: #2d65f2;font-size: large;text-align-last: center;color: white;" class="table table-bordered table-hover ">
+					<tbody>
 					<tr style="text-align: center;">
 						<th style="font-weight: border; width : 47% ">회사이름</th>
-						<th style="font-weight: border;">대표자</th>
+						<th style="font-weight: border;" style="width: 25%;">대표자</th>
 						<th style="font-weight: bolder;">회사위치</th>
 					</tr>
+				</tbody>
 			</table>
 			<div class="scroller well well-gray group_srch_result">
 				<!-- <span class="clr-red">검색된 결과가 없습니다.<span> -->
@@ -126,7 +128,7 @@
 				<button type="button" class="btn btn-dark" id="insertComBtn"
 					data-dismiss="modal">회사등록</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary" >확인</button>
+				<button type="button" class="btnSizeM btn-primary" >확인</button>
 			</div>
 		</div>
 	</div>

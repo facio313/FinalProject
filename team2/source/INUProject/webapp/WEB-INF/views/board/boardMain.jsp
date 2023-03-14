@@ -144,7 +144,7 @@ element.style {padding: 9px 12px 11px 12px;height: 40px;/* border: 1px solid #d7
 									   <ul class="list_category js-category" style="max-width: 889px;margin: 0 0 0 32px;">
 											<li aria-hidden="false" style="float: left; list-style: none; position: relative; width: 114px; margin-right: 12px;">
 											<!-- selected -->
-												<a class="item_cate" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">
+												<a class="item_cate selected" href="${pageContext.request.contextPath}/board/boardTotal?gubun=">
 													전체글
 												</a>
 											</li>

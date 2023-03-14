@@ -34,7 +34,7 @@
 			</div>
 			<!-- 이름 이메일 비교해서 맞는지 해줘야함 -->
 			<div class="input-group-addon">
-				<button type="button" class="btn btn-primary" id="mail-Check-Btn" disabled>본인인증</button>
+				<button type="button" class="btn btn-primary" id="mail-Check-Btn" style="background-color: #0D6EFD; border-color: #0D6EFD;" disabled>본인인증</button>
 			</div>
 			<hr>
 			<div class="row form-group">
@@ -47,7 +47,7 @@
 			<!-- 개발끝나면 disabled 주기 -->
            	<div class="row form-group">
            		<div class="col-md-12">
-               		<input type="submit" value="인증확인"  id="check-accept" class="btn px-4 btn-primary text-white">
+               		<input type="submit" value="인증확인"  id="check-accept" class="btn px-4 btn-primary text-white" style="background-color: #0D6EFD; border-color: #0D6EFD;">
                	</div>
            	</div>
         </form>

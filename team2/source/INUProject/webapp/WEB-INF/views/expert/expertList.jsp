@@ -21,7 +21,63 @@
 	justify-content: center;
 }
 </style>
+<style>
+/* 더잠실체  */
+@font-face {
+	font-family: 'TheJamsil5Bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
 
+/* 나눔스퀘어 네오 */
+@font-face {
+	font-family: 'NanumSquareNeo-Variable';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.owl-item cloned {
+	width: 400px;
+}
+
+.img-fluid:hover {
+	opacity: 0.5;
+}
+
+.site-section {
+	padding-bottom: 0px;
+}
+
+.company_honest_qna .contents_container {
+	width: 90%;
+}
+
+.main_tit {
+	color: #373f57;
+	font-size: 30px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	line-height: 32px;
+}
+.exprodName_tit {
+	color: #373f57;
+	font-size: 21px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	line-height: 32px;
+}
+
+.wrap_board .tblType tbody td {
+	height: 0px;
+}
+
+</style>
 
 <section class="site-section block__62272" id="next-section">
 <!-- 바디 영역 -->
@@ -72,16 +128,19 @@
 								<div
 									class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4 ${exprod.exfieldId } block__87154  rounded">
 									<a
-										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }"
-										class="item-wrap"> <span class="icon" style="color: white;">${exprod.exprodPr }</span>
+										href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" style="
+    opacity: 0.7;
+"
+										class="item-wrap"> <span class="icon" style="color: white;"><h4 style="font-weight: 900;border-top: solid;border-bottom: solid;margin-top: 10px; color: white;">${exprod.exprodPr }</h4></span>
 										<img class="img-fluid"
 										src="<%=request.getContextPath()%>/resources/images/MAIN.png" style="opactiy:0.5; height: 200px; width:450px;"/>
 									</a>
-									<a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="text-black"    style=" height: 48px;">${exprod.exprodName }</a>
-									<div class="block__91147 d-flex align-items-center" onclick="expertDetail();">
+									<h3 class="exprodName_tit"style="font-family: 'NanumSquareNeo-Variable'; height: 71px;">${exprod.exprodName }</h3>
+									<div class="block__91147 d-flex align-items-center" onclick="expertDetail();" style="
+								max-height: 43px;">
 										<figure class="mr-4">
 											<img
-												src="<%=request.getContextPath()%>/resources/images/Dobby.png"
+												src="<spring:url value='/image/memberFolder/${exprod.attSavename}'/>"
 												alt="Image" class="img-fluid" />
 										</figure>
 										<div>

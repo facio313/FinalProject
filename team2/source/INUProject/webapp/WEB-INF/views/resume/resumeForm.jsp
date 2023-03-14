@@ -106,7 +106,7 @@
 														<form:option value="여성">여성</form:option>
 														<form:option value="남성">남성</form:option>
 														<form:option value="그외">그외</form:option>
-														<form:option value="비공개">비공개</form:option>
+														<form:option id="hidden" value="비공개">비공개</form:option>
 													</form:select>
 													<form:errors path="resumeGender" element="span" cssClass="text-danger inp_find" />
 												</span>
@@ -178,7 +178,12 @@
 													<button type="submit" class="btn btn-block btn-primary btn-md" style=" border-radius: 0;">게시글등록</button>
 												</div>
 												<div class="col-6">
-													<a href="${pageContext.request.contextPath }/resume" class="btn btn-block btn-danger btn-md">취소</a>
+													<a href="${pageContext.request.contextPath }/resume" class="btn btn-block btn-danger btn-md" style="border-radius: 0;">취소</a>
+												</div>
+											</div>
+											<div class="row" style="margin-top: 30px; margin-bottom: 0px; justify-content: right;">
+												<div class="col-6">
+													<button id="autoComp" type="button" class="btn btn-block btn-success btn-md" style=" border-radius: 0;">자동완성</button>
 												</div>
 											</div>
 										</div>
@@ -190,4 +195,24 @@
 				</div>
 			</div>
 		</div>
-	</section>		
+	</section>
+	
+	<script>
+		let autoComp = document.querySelector("#autoComp");
+		
+		let resumeTitle = document.querySelector("[name=resumeTitle]");
+		let resumeAddr1 = document.querySelector("[name=resumeAddr1]");
+		let resumeName = document.querySelector("[name=resumeName]");
+		let resumeGender = document.querySelector("#hidden");
+		let resumeEmail = document.querySelector("[name=resumeEmail]");
+		let resumeTel = document.querySelector("[name=resumeTel]");
+		
+		autoComp.addEventListener("click", function(event) {
+			resumeTitle.value = "여러분의 마음을 JAVA오겠습니다.";
+			resumeAddr1.value = "대전광역시 중구 대흥동 500-5 305호";
+			resumeName.value = "최경수";
+			resumeGender.setAttribute("selected", true);
+			resumeEmail.value = "auto@complete.com";
+			resumeTel.value = "010-7419-5344";
+		});
+	</script>

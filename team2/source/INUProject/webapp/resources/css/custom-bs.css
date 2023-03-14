@@ -5243,8 +5243,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .page-item.active .page-link {
 	z-index: 1;
 	color: #fff;
-	background-color: #045738;
-	border-color: #045738
+	background-color: #0D6EFD;
+	border-color: #0D6EFD
 }
 
 .page-item.disabled .page-link {

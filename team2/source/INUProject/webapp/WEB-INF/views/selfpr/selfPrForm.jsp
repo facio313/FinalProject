@@ -71,6 +71,7 @@
 		<div style="height: 25px;"></div>
           <div class="row align-items-center justify-content-center">
             <div class="col-md-12">
+            <button onclick="insertfull()" class="btn btn-primary btn-md text-white" style="cursor: pointer; background-color: #0D6EFD;">자동 채우기</button>
             
               <form action="${pageContext.request.contextPath}/selfpr/Insert" method="post" class="p-4 p-md-5 border rounded" id="searchUI">
               	<input type="hidden" name="memId" value="${memId}" />
@@ -82,7 +83,7 @@
 					<!-- 1번째 -->
 	                <div class="selectboxwidth">
 					<p style="text-align: center;">희망산업분야선택(대분류)</p>
-		                  <select name="industry0" class="form-select form-select-sm selectBox">
+		                  <select name="industry0" id="industry0" class="form-select form-select-sm selectBox">
 							 <option value>기초</option>
 						  </select>
 					</div>	
@@ -90,7 +91,7 @@
 	                  <!-- 2번째 -->
 					<div class="selectboxwidth">
 	                 	  <p style="text-align: center;">희망근무지역선택(광역)</p>
-		                  <select name="metro" class="form-select form-select-sm selectBox">
+		                  <select name="metro" id="metro" class="form-select form-select-sm selectBox">
 							 <option value>기초</option>
 						  </select>
 					</div>	
@@ -98,7 +99,7 @@
 	                  <!-- 3번째 -->
 	                <div class="selectboxwidth">
 	                	<p style="text-align: center;">희망직급선택</p>
-	                    <select class="form-select form-select-sm selectBox" name="prWanttype">
+	                    <select class="form-select form-select-sm selectBox" name="prWanttype" id="prWanttype">
 	                      <option class="bs-title-option" value="none">희망직급 선택</option>
 	                      <option value="사원급">사원급</option>
 	                      <option value="주임급">주임급</option>
@@ -111,7 +112,7 @@
 	                  <!-- 4번째 -->
 	                <div class="selectboxwidth">
 	               	<p style="text-align: center;">해당직무경력선택</p>
-	                   <select class="form-select form-select-sm selectBox" name="prAnnual">
+	                   <select class="form-select form-select-sm selectBox" name="prAnnual" id="prAnnual">
 	                      <option class="bs-title-option" value="none">직무경력 선택</option>
 	                      <option value="신입">신입</option>
 	                      <option value="1년차 미만">1년차 미만</option>
@@ -126,7 +127,7 @@
 	                  <!-- 5번째 -->
 	                   <div class="selectboxwidth">
 	                  	<p style="text-align: center;">본인학력선택</p>
-	                      <select class="form-select form-select-sm selectBox" name="prEdu">
+	                      <select class="form-select form-select-sm selectBox" name="prEdu" id="prEdu">
 	                        <option class="bs-title-option" value="none">본인학력 선택</option>
 	                        <option value="초,중졸">초,중졸</option>
 	                        <option value="고졸">고졸</option>
@@ -145,7 +146,7 @@
                   <!-- 6번째 -->
                   <div class="selectboxwidth">
                  	<p style="text-align: center;">희망분야산업선택(중분류)</p>
-	                  <select name="industry1" class="form-select form-select-sm selectBox">
+	                  <select name="industry1" id="industry1" class="form-select form-select-sm selectBox">
 						  <option value>중위</option>
 					  </select>
 			      </div>
@@ -153,7 +154,7 @@
                   <!-- 7번째 -->
                   <div class="selectboxwidth">
                     <p style="text-align: center;">희망근무지역선택(기초)</p>
-	                  <select name="regionCode" class="form-select form-select-sm selectBox">
+	                  <select name="regionCode" id="regionCode" class="form-select form-select-sm selectBox">
 						 <option value>기초</option>
 					  </select>
 				  </div>	
@@ -164,7 +165,7 @@
 				<!-- 8번째 (industryCode)하위 -->
 				<div class="selectboxwidth">	
 				   <p style="text-align: center;">희망분야산업선택(소분류)</p> 
-					 <select name="industryCode" class="form-select form-select-sm selectBox">
+					 <select name="industryCode" id="industryCode" class="form-select form-select-sm selectBox">
 							<option value>하위</option>
 					 </select>
 				</div>
@@ -179,7 +180,7 @@
        <div class="container">
 	       <p style="font-size: 1.3em; color: red;">※ 위 체크박스에 본인이 체크한 사항과, 이력서 페이지에서 대표로 등록한 이력서의 내용이 연동됩니다.</p>
 	       <div style="height: 25px;"></div>
-		       	<input type="button" onclick="location.href='${pageContext.request.contextPath}/resume'" value="이력서로 이동" class="btn btn-primary btn-md text-white">
+		       	<input type="button" style="background-color: #0D6EFD;" onclick="location.href='${pageContext.request.contextPath}/resume'" value="이력서로 이동" class="btn btn-primary btn-md text-white">
        </div>
 	
 	<!-- 입력 폼 -->
@@ -192,19 +193,19 @@
               <div class="row form-group">
                 <div class="col-md-12">
                   <label class="text-black">자신을 표현하는 한마디 (인재 홍보 메인에 표시될 내용을 작성해주세요)</label> 
-                  <input type="text" class="form-control" name="prName" placeholder="(ex.매사 성실한 사람입니다.)">
+                  <input type="text" class="form-control" name="prName" id="prName" placeholder="(ex.매사 성실한 사람입니다.)">
                 </div>
               </div>
               
               <div class="row form-group">
 	                <div class="col-md-6">
 	                  <label class="text-black">희망연봉</label> 
-	                  <input type="text" class="form-control" name="prWantmn" placeholder="(ex.3000만원)">
+	                  <input type="text" class="form-control" name="prWantmn" id="prWantmn" placeholder="(ex.3000만원)">
 	                </div>
 	              
 	                <div class="col-md-6">
 	                  <label class="text-black">희망직무</label> 
-	                  <input type="text" class="form-control" name="prWantjob" placeholder="(ex.총무)">
+	                  <input type="text" class="form-control" name="prWantjob" id="prWantjob" placeholder="(ex.총무)">
 	                </div>
               </div>
               
@@ -213,13 +214,13 @@
               <div class="row form-group">
                 <div class="col-md-12">
                   <label class="text-black">간단 자기소개글</label> 
-                  <textarea name=prContent cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..."></textarea>
+                  <textarea name=prContent cols="30" rows="7" class="form-control" id="prContent" placeholder="Write your notes or questions here..."></textarea>
                 </div>
               </div>
 
              <div class="col-md-12">
                <br>
-               <input type="submit" value="등록하기" class="btn btn-primary btn-md text-white">
+               <input type="submit" style="background-color: #0D6EFD;" value="등록하기" class="btn btn-primary btn-md text-white">
              </div>
             
             </form>
@@ -385,6 +386,23 @@
   		}
   	});
     
+    
+    function insertfull(){
+//     	$("#industry0").val("1").prop("selected",true);
+//     	$("#industry1").val("1").prop("selected",true);
+//     	$("#industryCode").val("108").prop("selected",true);
+//     	$("#metro").val("30000").prop("selected",true);
+//     	$("#regionCode").val("30170").prop("selected",true);
+    	$("#prWanttype").val("사원급").prop("selected",true);
+    	$("#prAnnual").val("신입").prop("selected",true);
+    	$("#prEdu").val("고졸").prop("selected",true);
+    	
+    	$("[name=prName]").val("무언가");
+    	$("[name=prWantmn]").val("무언가");
+    	$("[name=prWantjob]").val("무언가");
+    	$("[name=prContent]").val("무언가");
+    	
+    }
     
     </script>
     

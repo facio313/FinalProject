@@ -32,4 +32,6 @@ public class LikeVO {
 	
 	private String industryName;
 	private String regionName;	
+	
+	private String attSavename;
 }

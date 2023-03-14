@@ -78,20 +78,12 @@ public class AnnoServiceImpl implements AnnoService {
 
 			//경력등록
 			for(String careerName : vo.getCareerNames()) {
-//				Map<String, Object> map = new HashMap<>();
-//				map.put("careerName", careerName);
-//				map.put("daNo", daNo);
-//				rowcnt += annoDAO.insertAnnoCareer(map);
 				rowcnt += annoDAO.insertAnnoCareer(careerName,daNo);
 			}
 			//직무직책등록
 			List<String> positionList = vo.getInpositionCode();
 			if(positionList!=null) {
 				for(String positionCode : positionList) {
-	//				Map<String, Object> map = new HashMap<>();
-	//				map.put("positionCode", positionCode);
-	//				map.put("daNo", daNo);
-	//				rowcnt += annoDAO.insertAnnoPosition(map);
 					rowcnt += annoDAO.insertAnnoPosition(positionCode,daNo);
 				}
 			}
@@ -194,4 +186,23 @@ public class AnnoServiceImpl implements AnnoService {
 		return list;
 	}
 
+	//경수
+	@Override
+	public List<AnnoVO> retrieveLikeAnnoList(String memId) {
+		List<AnnoVO> list = annoDAO.selectLikeAnnoList(memId);
+		return list;
+	}
+	
+	//근주
+	@Override
+	public List<AnnoVO> retrieveLikeAnnoListMypage(String memId) {
+		List<AnnoVO> list = annoDAO.selectLikeAnnoListMypage(memId);
+		return list;
+	}
+
+	@Override
+	public List<AnnoVO> retrieveMyAnnoListSeeker(String memId) {
+		List<AnnoVO> list = annoDAO.selectMyAnnoListSeeker(memId);
+		return list;
+	}
 }

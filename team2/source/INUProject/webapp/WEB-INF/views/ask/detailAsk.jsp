@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags"  prefix="spring"%>
 
 <head>
 <meta charset="utf-8" />
@@ -39,13 +40,29 @@
 								<dt>문의 날짜:</dt>
 								<dd>${ask.askDate }</dd>
 							</dl>
+							<c:if test="${not empty files}">
+								<dl class="content_info" style="font-size: 15px;">
+									<dt>첨부파일 :</dt>
+									<dd>
+										<c:forEach items="${files }" var="files">
+											<a style="color: #0D6EFD;"
+												href="<c:url value='/systemManagement/fileDownLoad?tblId=${files.tblId }'/>">${files.attFilename }</a>
+											<span>${files.attFancysize }</span>
+										</c:forEach>
+									</dd>
+								</dl>
+							</c:if>
 						</div>
 						<div class="area_content">
 							<div class="inner">
 								<!-- 공지 컨텐츠 -->
 								<div style="white-space: pre-line">${ask.askContent }</div>
+								<c:forEach var="i" begin="0" end="4">
+									<img style="max-width: 100%;" alt="${ask.attatchList[i].attFilename}"
+										src='<spring:url value="/image/askFolder/${ask.attatchList[i].attSavename}"/>' />
+								</c:forEach>
 
-							<c:set var="ref" value="${ask.refContent }" />
+								<c:set var="ref" value="${ask.refContent }" />
 							<c:if test="${not empty ref}">
 									<!-- 답글 있을 때 -->
 								<div class="replies">
@@ -76,9 +93,9 @@
 						<a href="${pageContext.request.contextPath }/ask/askForm" class="btn_basic_type01" title="문의하기 바로가기">
 							재문의하기
 						</a>
-							<%-- <c:if test="${not empty memId}"> --%>
+							<c:if test="${not empty memId}">
 								<button type="button" class="btn_basic_type01 btn_list" title="답글 바로가기">답글달기</button>
-							<%-- </c:if> --%>
+							</c:if>
 							<p class="desc_method">
 								아직도 궁금한 점이 남아있다면, 고객센터로 문의해 주세요. ( 전화문의 : <span class="tel">042-123-4567</span>)
 							</p>
@@ -193,30 +210,6 @@
 			}
 			if (!confirm('등록 하시겠습니까?'))
 				return;
-
-			/* var postProc = DETAILPAGE.Detail.reportPostProcess || 'reload';
-			$(f).ajaxForm({
-				url : '#',
-				type : 'post',
-				dataType : 'json',
-				success : function(result) {
-					if (result.status === 'success') {
-						alert('등록 되었습니다.');
-						$('#dimmed').hide();
-						$('.lpop_report').hide();
-						if (postProc === 'redirect_home') {
-							location.href = '#';
-						} else {
-							window.location.reload();
-						}
-					} else if (result.status === 'fail') {
-						alert(result.msg);
-					}
-				},
-				error : function(error) {
-					alert('오류가 발생하였습니다.');
-				}
-			}).submit(); */
 		});
 
 	</script>

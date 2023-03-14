@@ -5,150 +5,13 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<style>
-a {
-	color: black;
-	text-decoration: none;
-}
-/* 달력, 일정 */
-ul {
-	padding: 0px;
-}
-li {
-/*     border-radius: 3px; */
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
-}
-.table-header {
-  background-color: #95A5A6;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
-}
-.table-row {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.col-1 {
-  flex-basis: 20%;
-  color: black;
-  left: -25px;
-}
-.col-2 {
-  flex-basis: 40%;
-  color: white;
-  left: -35px;
-}
-.col-3 {
-  flex-basis: 35%;
-  width: 30px;
-  left: 50px;
-  color: white;
-}
-.col-4 {
-  flex-basis: 5%;
-  left: 10px;
-  color: white;
-}
-input {
-	border: none;
-}
-/* 선형 진행도 */
-.pline-container {
-  position: absolute;
-  width: 94%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.steps {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.step {
-  width: 10px;
-  height: 10px;
-  background: #fff;
-  border: 2px solid #0D6EFD;
-  border-radius: 50%;
-  transition: background 1s;
-}
-.step.selected {
-  border: 2px solid #0D6EFD;   
-}
-.step.completed {
-  border: 2px solid #0D6EFD;
-  background: #0D6EFD; 
-}
-.pline {
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  border-bottom: 2px solid #ACACA6;
-  z-index: -1;
-}
-.percent {
-  position: absolute;
-  top: 3px;
-  width: 0;
-  height: 100%;
-  border-bottom: 4px solid #0D6EFD;
-  z-index: 1;
-  transition: width 1s;
-}
-.process-container {
-  position: absolute;
-  top: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.process {
-  display: inline-block;
-  top: 30px;
-  width: 100px;
-  height: 100px;
-  transition: background 1s;
-}
-.pContainer {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	padding-top: 30px;
-}
-.plContainer {
-	position: relative;
-	width: 16%;
-	display: inline-block;
-	font-size: 20px;
-	font-weight: 700;
-}
-.ppContainer {
-	position: relative;
-	margin-bottom: 10px;
-	width: 80%;
-	height: 20%;
-	display: inline-block;
-}
-.accordion-button:not(.collapsed) {
-	background-color: #0D6EFD;
-	color: white;
-}
-</style>
+<link href="<%=request.getContextPath()%>/resources/index/index.css" rel="stylesheet"/>
 
 <!-- gridstack -->
 <link href="<%=request.getContextPath()%>/resources/index/node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
 <link href="<%=request.getContextPath()%>/resources/index/grid.css" rel="stylesheet"/>
 <script src="${pageContext.request.contextPath}/resources/index/node_modules/gridstack/dist/gridstack-all.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 <div class="grid-stack">
 <!-- ============================================프로필=================================================== -->
 <!-- spring security용 -->
@@ -162,7 +25,7 @@ input {
 					<div class="grid-stack-item-content" style="background-image: url('<spring:url value="/image/memberFolder/${authMember.attach.attSavename}"/>'); background-size: cover; background-position: center;">
 				</c:when>
 				<c:when test="${not empty authMember.incruiterVO.cmpId}">
-					<div class="grid-stack-item-content" style="background-image: url('<spring:url value="/image/companyFolder/${authMember.attach.attSavename}"/>'); background-size: cover; background-position: center;">
+					<div class="grid-stack-item-content" style="background-image: url('<spring:url value="/image/companyFolder/${authMember.incruiterVO.attSavename}"/>'); background-size: cover; background-position: center;">
 				</c:when>
 				<c:otherwise>
 					<div class="grid-stack-item-content" style="background-image: url(${pageContext.request.contextPath}/resources/images/profile.jpg); background-size: cover; background-position: center;">
@@ -198,16 +61,16 @@ input {
 <!-- ============================================달력=================================================== -->    
     <div class="grid-stack-item"  gs-x="3" gs-y="0" gs-w="6" gs-h="5">
         <div class="grid-stack-item-content">
-			<div id="calendar" style="padding: 3%; background-color: rgb(255,255,255,0.5)" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>
+			<div id="calendar" style="padding: 3%; background-color: rgb(255,255,255)" data-source="${pageContext.request.contextPath}/process/events/details/process"></div>
 		</div>
     </div>
 <!-- ============================================일정=================================================== -->
     <div class="grid-stack-item"  gs-x="9" gs-y="0" gs-w="3" gs-h="4">
         <div class="grid-stack-item-content">
+			<div class="top shadow-sm" style="height: 70px; background-color: rgb(255, 255, 255, 0.5);">
+				<span style="position:absolute; left: 30px; top: 5px; font-size: 2em; font-weight: 700;">할 일</span><br><span style="position:absolute; left: 30px; top: 45px">할 일 모아보기</span>
+			</div>  
 			<div id='schedular' class="table-responsive" style="padding-top: 20px; width: 100%; height: 100%;">
-				<div style="position: relative; margin-right: 10px; margin-bottom: 15px; background-color: #126CF5; width: 95%%; height: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-					<span style="position: absolute; left: 20px; top: 7px; font-size: 25px; font-weight: 800; color: white;">할 일</span>
-				</div>
 				<ul class="responsive-table">
 				  <li class="table-header">
 				    <div class="col col-1">No</div>
@@ -258,11 +121,27 @@ input {
 <!-- ============================================빠른메뉴=================================================== -->
     <div class="grid-stack-item"  gs-x="0" gs-y="3" gs-w="3" gs-h="1">
         <div class="grid-stack-item-content">
-			<div class="down bg-white" style="height: 100%; display: flex; justify-content: space-evenly;">
-				<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">지원서</button></a>
-				<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">이력서</button></a>
-				<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">자소서</button></a>
-				<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">채용과정</button></a>
+			<div class="down" style="height: 100%; display: flex; justify-content: space-evenly; background-color: rgba(255, 255, 255, 0.5)">
+				<c:choose>
+					<c:when test="${not empty authMember.seekerVO.memNickname}">
+						<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">지원서</button></a>
+						<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">이력서</button></a>
+						<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">자소서</button></a>
+						<a href="${pageContext.request.contextPath}/selfpr" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">인재홍보</button></a>
+					</c:when>
+					<c:when test="${not empty authMember.incruiterVO.cmpId}">
+						<a href="${pageContext.request.contextPath}/announcement/insert" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">공고작성</button></a>
+						<a href="${pageContext.request.contextPath}/process/list" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">공고목록</button></a>
+						<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">채용과정</button></a>
+						<a href="${pageContext.request.contextPath}/selfpr" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">인재홍보</button></a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/apply" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">지원서</button></a>
+						<a href="${pageContext.request.contextPath}/resume" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">이력서</button></a>
+						<a href="${pageContext.request.contextPath}/myintro" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all;">자소서</button></a>
+						<a href="${pageContext.request.contextPath}/process" style="display: inline-block; width: 25%; padding: 7px;"><button class="btn btn-outline-primary" style="width: 100%; height: 100%; border-radius: 16px; word-break: keep-all; padding: 0;">채용과정</button></a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
     </div>
@@ -278,7 +157,7 @@ input {
 						<c:when test="${not empty anno.detailList}">
 							<c:forEach items="${anno.detailList}" var="detail">
 							<div style="height: 30%; padding-left: 30px;">
-								<div class="plContainer">${detail.daFd}</div>
+								<div class="plContainer" style="word-break: keep-all;">${detail.daFd}</div>
 								<div class="ppContainer">
 									<c:choose>
 										<c:when test="${not empty detail.processList[0].processCodeId}">
@@ -308,7 +187,7 @@ input {
 										  	</div>
 									  	</c:when>
 									  	<c:otherwise>
-									  		<div>
+									  		<div style="position: relative; left: 30px;">
 									  			등록된 채용과정이 없습니다.
 									  		</div>
 									  	</c:otherwise>
@@ -318,7 +197,7 @@ input {
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<div>
+							<div style="position: relative; left: 30px; top: 30px;">
 								현재 진행중인 공고가 없음.
 							</div>
 						</c:otherwise>
@@ -329,22 +208,24 @@ input {
     </div>
 <!-- ============================================찜목록=================================================== -->
     <div class="grid-stack-item"  gs-x="6" gs-y="5" gs-w="3" gs-h="3">
-        <div class="grid-stack-item-content">
+        <div class="grid-stack-item-content" style="background-color: rgb(255, 255, 255, 0.5);">
 			<div class="top shadow-sm" style="height: 70px; background-color: rgb(255, 255, 255, 0.5);">
 				<span style="position:absolute; left: 30px; top: 5px; font-size: 2em; font-weight: 700;">찜한 공고</span><br><span style="position:absolute; left: 30px; top: 45px">나의 찜 보러 가기</span>
 			</div>
-			<div class="down bg-white" style="height: 100%; overflow: auto;">
+			<div class="down" style="height: 100%; overflow: auto;">
 				<c:choose>
 					<c:when test="${not empty likeList}">
 						<c:forEach items="${likeList}" var="list">
 							<div style="width: 100%; height: 70px; padding: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.16);">
 								<img src='<spring:url value="/image/companyFolder/${list.attSavename}"/>' style="width: 100px; height: 60px;">
-								<a href="${pageContext.request.contextPath}/announcement/view/${list.annoNo}">${fn:substring(list.annoTitle, 0, 20)} ...</a>
+								<a href="${pageContext.request.contextPath}/announcement/view/${list.annoNo}">${fn:substring(list.annoTitle, 0, 15)} ...</a>
 							</div>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						찜한 공고가 없습니다.
+						<div style="position: relative; left: 30px; top: 30px;">
+							찜한 공고가 없습니다.
+						</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -352,14 +233,14 @@ input {
     </div>
 <!-- ============================================알림=================================================== -->
     <div class="grid-stack-item"  gs-x="9" gs-y="4" gs-w="3" gs-h="4">
-        <div class="grid-stack-item-content">
+        <div class="grid-stack-item-content" style="overflow: auto;">
 			<div class="top shadow-sm" style="height: 70px; background-color: rgb(255, 255, 255, 0.5);">
 				<span style="position:absolute; left: 30px; top: 5px; font-size: 2em; font-weight: 700;">알림</span><br><span style="position:absolute; left: 30px; top: 45px">알림 모아보기</span>
 			</div>        
-			<div class="accordion" id="accordionExample">
+			<div class="accordion" id="accordionExample" style="background-color: rgba(255, 255, 255, 0.5)">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingOne">
-						<button id="alarmBtn" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="font-size: 1.125rem; font-weight: 700;">
+						<button id="alarmBtn" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="font-size: 1.125rem; font-weight: 700;">
 							채용과정
 						</button>
 					</h2>
@@ -381,7 +262,7 @@ input {
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingTwo">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-size: 1.125rem; font-weight: 700;">
-							클래스
+							유료상품
 						</button>
 					</h2>
 					<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -396,37 +277,25 @@ input {
 							<tbody class="alarm-body">
 								<tr>
 									<td>1</td>
-									<td>현직 개발자를 위한 java 고급</td>
+									<td>전문가 신청이 정상적으로 접수되었습니다.</td>
 									<td><input type="checkBox"></td>
 								</tr>
 								<tr>
 									<td>2</td>
-									<td>나도 할 수 있다! 파.이.썬.</td>
+									<td>구매하신 상품을 이용하실 시간입니다.</td>
 									<td><input type="checkBox"></td>
 								</tr>
-								<tr>
-									<td>3</td>
-									<td>스프링 프레임워크 정복기</td>
-									<td><input type="checkBox"></td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>무덤에서 요람까지 : jQuery</td>
-									<td><input type="checkBox"></td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>Design Pattern</td>
-									<td><input type="checkBox"></td>
-								</tr>
+							
 							</tbody>
 						</table>
 					</div>
 				</div>
 				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="font-size: 1.125rem; font-weight: 700;">
-							상담
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingFour">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseFour" style="font-size: 1.125rem; font-weight: 700;">
+							인재홍보
 						</button>
 					</h2>
 					<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -464,28 +333,112 @@ input {
     
     <!-- ============================================유료상품=================================================== -->
     <div class="grid-stack-item"  gs-x="12" gs-y="12" gs-w="12" gs-h="3">
-        <div class="grid-stack-item-content">
-        
+        <div class="grid-stack-item-content" style="background-color: rgb(255, 255, 255, 0.2);">
+        	<div class="top shadow-sm" style="height: 57px; background-color: rgb(255, 255, 255, 0.5);">
+			<span style="position:relative; font-size: 2em; left: 50px; top: 10px; font-weight: 700;">이번 주 <em style="    position: relative;
+    color: #4a65f6;
+    display: inline-block;
+    vertical-align: top;
+    font-weight: 900"> TOP4 </em> 상품</span>
+		</div>  
+			<section class="cards" style="
+    max-height: 308px;
+">
+		<c:forEach items="${topExprodList }" var="exprod" begin="0" end="4" varStatus="status">
+			<article class="card card--1">
+				<div class="card__info-hover">
+				 	<div class="card__clock-info">
+				  		<span class="card__time" style="color: red; font-size: 24px;"><em style="    position: relative;
+    color: red;
+    display: inline-block;
+    vertical-align: top;
+    font-weight: 900"> 판매${status.index+1 }위 </em></span>
+				  		<h4 style="font-weight: 900;border-top: solid;margin-top: 10px;">${exprod.exprodPr }</h4>
+				  		
+				  	</div>
+				</div>
+			  	<div class="card__img" style="background-image: url('<spring:url value='/image/expertFolder/exprodTop.jpg'/>'); background-size: cover; background-position: center;"></div>
+			  	<a href="<%=request.getContextPath() %>/expert/prod/${exprod.exprodId }" class="card_link">
+			    	<div class="card__img--hover" style="background-image: url('<spring:url value='/image/expertFolder/exprodTop${status.index }.jpg'/>'); background-size: cover; background-position: center; "></div>
+			  	</a>
+			  	 <div class="card__info" style="
+				    max-height: 64px;
+				">
+			  	<h4 class="exprodName" style="font-size: 1.125rem; font-weight: 600; word-break: keep-all;">${exprod.exprodName }</h4>
+<!-- 			    	<h3 class="card__title" style="word-break: keep-all; margin-top: 0px;"></h3> -->
+<%-- 			    	<span class="card__by">기간 : <a href="#" class="card__author" title="author">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</a></span> --%>
+			  	</div> 
+			</article>
+		</c:forEach> 
+	</section>
 		</div>
     </div>
 </div>
 <!-- ============================================TOP20 공고목록=================================================== -->
-<div class="bg-white" style="background-color: rgb(255, 255, 255); border-radius:16px;">
-	<div><span><h1>TOP20 공고 목록</h1></span></div>
-	<table class="table table-hover table-bordered ">
-		<thead>
-			<tr>
-				<th>순위</th>
-				<th>공고회사</th>
-				<th>공고명</th>
-				<th>자격</th>
-				<th>날짜</th>
-			</tr>
-		</thead>
-		<tbody id="annoBody">
-		
-		</tbody>
-	</table>
+<div style="padding: 3%; position: relative; width: 110%; left: -5%; height: auto; background-color: rgba(245, 245, 245, 0.5); margin-top: 75px; border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);">
+	<div class="top shadow-sm" style="height: 70px;  background-color: rgba(255, 255, 255, 0.5); width: 30%;">
+		<span style="position:relative; font-size: 2em; left: 50px; top: 10px; font-weight: 700;">TOP 12 공고</span>
+	</div>  
+	<section class="cards">
+		<c:forEach items="${annoList}" var="anno" begin="0" end="3">
+			<article class="card card--1">
+				<div class="card__info-hover">
+				 	<div class="card__clock-info">
+				  		<span class="card__time">♥ 372</span>
+				  	</div>
+				</div>
+			  	<div class="card__img" style="background-image: url('<spring:url value="/image/companyFolder/${anno.attSavename}"/>'); background-size: cover; background-position: center; box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);"></div>
+			  	<a href="#" class="card_link">
+			    	<div class="card__img--hover" style="background-image: url('<spring:url value="/image/companyFolder/${anno.attSavename}"/>'); background-size: cover; background-position: center;"></div>
+			  	</a>
+			  	<div class="card__info">
+			    	<span class="card__category"> ${anno.company.cmpName}</span>
+			    	<h3 class="card__title" style="word-break: keep-all;">${anno.annoTitle}</h3>
+			    	<span class="card__by">기간 : <a href="#" class="card__author" title="author">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</a></span>
+			  	</div>
+			</article>
+		</c:forEach>
+	</section>
+	<section class="cards">
+		<c:forEach items="${annoList}" var="anno" begin="4" end="7">
+			<article class="card card--1">
+				<div class="card__info-hover">
+				 	<div class="card__clock-info">
+				  		<span class="card__time">♥ 372</span>
+				  	</div>
+				</div>
+			  	<div class="card__img" style="background-image: url('<spring:url value="/image/companyFolder/${anno.attSavename}"/>'); background-size: cover; background-position: center;"></div>
+			  	<a href="#" class="card_link">
+			    	<div class="card__img--hover" style="background-image: url('<spring:url value="/image/companyFolder/${anno.attSavename}"/>'); background-size: cover; background-position: center;"></div>
+			  	</a>
+			  	<div class="card__info">
+			    	<span class="card__category"> ${anno.company.cmpName}</span>
+			    	<h3 class="card__title">${anno.annoTitle}</h3>
+			    	<span class="card__by">기간 : <a href="#" class="card__author" title="author">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</a></span>
+			  	</div>
+			</article>
+		</c:forEach>
+	</section>	
+	<section class="cards">
+		<c:forEach items="${annoList}" var="anno" begin="8" end="11">
+			<article class="card card--1">
+				<div class="card__info-hover">
+				 	<div class="card__clock-info">
+				  		<span class="card__time">♥ 372</span>
+				  	</div>
+				</div>
+			  	<div class="card__img" style="background-image: url('<spring:url value="/image/companyFolder/${anno.attSavename}"/>'); background-size: cover; background-position: center;"></div>
+			  	<a href="#" class="card_link">
+			    	<div class="card__img--hover" style="background-image: url('<spring:url value="/image/companyFolder/${anno.attSavename}"/>'); background-size: cover; background-position: center;"></div>
+			  	</a>
+			  	<div class="card__info">
+			    	<span class="card__category"> ${anno.company.cmpName}</span>
+			    	<h3 class="card__title">${anno.annoTitle}</h3>
+			    	<span class="card__by">기간 : <a href="#" class="card__author" title="author">${fn:substring(anno.annoStartdate, 0, 10)} ~ ${fn:substring(anno.annoEnddate, 0, 10)}</a></span>
+			  	</div>
+			</article>
+		</c:forEach>
+	</section>	
 </div>
 
 <script>
@@ -661,4 +614,13 @@ document.addEventListener('DOMContentLoaded', function() {
  		}
  		xhr.send();
  	}).trigger("click");
+ 	
+/* window.onload = function() {
+	let auth = ${authMember.memAuthCd} + "";
+	if (auth == "ROLE_ADMIN") {
+		location.href = '${pageContext.request.contextPath}/systemManagement/memberList';
+	} else if (auth == "" || auth == null) {
+		location.href = '${pageContext.request.contextPath}/login';
+	}
+} */
  </script>

@@ -1,3 +1,41 @@
+.pf {
+ 	font-size: 24px; 
+}
+
+.radiuss{
+	width: 100%;
+	height: auto;
+	border : 1px solid #eaedf4;
+	border-radius: 12px;
+	padding: 20px 99px 100px 99px;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.annoTable table {
+  	width: 100%;
+   	height: 500px;
+ 	border-top: 1px solid #eaedf4;
+  	border-collapse: collapse;
+  	margin: 0px;
+}
+.annoTable th{
+	background: #f7f7f7;
+	border-bottom: 1px solid #eaedf4;
+  	padding: 10px;
+  	width: 155px;
+  	text-align: left;
+} 
+
+.annoTable td {
+  	border-bottom: 1px solid #eaedf4;
+  	padding: 20px;
+}
+th {
+	text-align: center;
+	font-weight: 800;
+}
+
 /* 회사내용 */
 .responsive-table {
 	/* 	padding: 50px; */

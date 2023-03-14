@@ -18,6 +18,8 @@ public class IncruiterVO extends MemberVO{
 	private CompanyVO companyVO;
 	private String cmpBsnsNo; //사업자 등록번호 (기업회원 아이디 찾을때 필요 - 형준)
 
+	private String attSavename;
+	
 	public String getMemDate() {
 		return memDate;
 	}

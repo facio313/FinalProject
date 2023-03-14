@@ -296,9 +296,9 @@
 	</select>
 	
 	<select id="selectProcessListFor" parameterType="String" resultType="String">
-		SELECT PROCESS_CODE_ID
-		FROM PROCESS
-		WHERE DA_NO = #{daNo}
+		SELECT A.PROCESS_CODE_ID
+		FROM PROCESS A
+		WHERE A.DA_NO = #{daNo}
 	</select>
 	
 </mapper>

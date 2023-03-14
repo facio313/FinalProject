@@ -92,11 +92,11 @@
                   				<div class="section_inner" style="">
                     				<div class="wrap_title">
                       					<h4 class="title">
-                        					<a href="<c:url value='/systemManagement/memberList/incruiterList'/>">
+                        					<a href="<c:url value='/systemManagement/ask'/>">
                         						취업상담목록
                         					</a>
                       					</h4>
-                      					<a href="<c:url value='/systemManagement/memberList/incruiterList'/>">
+                      					<a href="<c:url value='/systemManagement/ask'/>">
                       						더보기
                       					</a>
                     				</div>
@@ -139,7 +139,7 @@
 	
 	let makeTrTag = function(ask){
 		return $("<tr>").append(
-			$("<td>").html(ask.askNo.substring(4)),
+			$("<td>").html(ask.rnum),
 			$("<td>").html(ask.askType),
 			$("<td>").append(
 				$("<a>").attr("href","${pageContext.request.contextPath}/ask/detailAsk?askNo="+ask.askNo).html(ask.askTitle)
@@ -150,12 +150,12 @@
 	
 	let makeNewTag = function(coun){
 		return $("<tr>").append(
-			$("<td>").attr("class","count").html(coun.counNo)
+			$("<td>").attr("class","count").html(coun.rnum)
 			, $("<td style='text-align: center;'>").attr("class","category").html(coun.memName)
 			, $("<td style='text-align: center;'>").attr("class","content_tit").append(
 				$("<a class='viewHref'>")
 //	 			.attr("href","${prePath}/lab/counseling/view/CS"+coun.counNo)
-				.attr("href","#")
+				.attr("href","${pageContext.request.contextPath}/lab/counseling/view/"+coun.counNo)
 				.html(coun.counTitle)
 				.data("counNo",coun.counNo)
 				.data("memId",coun.memId)
@@ -207,7 +207,9 @@
 				if(dataList2){
 					let i = 0;
 					$.each(dataList2, function(index, coun){
-						coun.counNo = coun.counNo.substring(2);
+						if(coun.counTitle.length > 14){
+							coun.counTitle = coun.counTitle.substring(0 , 14)+"....."
+						}
 						if(coun.isAttached>0){
 							coun.counTitle = coun.counTitle +'<i class="bi bi-paperclip"></i>';
 						}
@@ -215,9 +217,6 @@
 							coun.counTitle = '<i class="bi bi-lock-fill"></i>      '+coun.counTitle;
 						}	
 						console.log(coun.counTitle.length);
-						if(coun.counTitle.length > 17){
-							coun.counTitle = coun.counTitle.substring(0 , 17)
-						} 
 						newTags.push(makeNewTag(coun));
 						i = i + 1;
 						if(i == 8)
@@ -241,14 +240,5 @@
 		return false;
 	}).submit();
 
-	/* let searchUI = $("#searchUI").on("click", "#searchBtn", function(){
-		let inputs = searchUI.find(":input[name]");
-		$.each(inputs, function(index, input){
-			let name = this.name;
-			let value = $(this).val();
-			searchForm.find("[name="+name+"]").val(value);
-		});
-		searchForm.submit();
-	}); */
 
 </script>

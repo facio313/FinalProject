@@ -64,7 +64,7 @@ public class BoardController {
 			@RequestParam(value="gubun",required=false,defaultValue="") String gubun,
 			@RequestParam(value="data", required=false) String data
 	) {
-		PagingVO<BoardVO> pagingVO = new PagingVO<>(50,1);
+		PagingVO<BoardVO> pagingVO = new PagingVO<>(70,1);
 		BoardVO boardVO = new BoardVO();
 		boardVO.setBoardSub(gubun);
 
