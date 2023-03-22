@@ -64,7 +64,8 @@
 	</mvc:interceptors>
 	<!-- 	정적 자원이 일괄 관리 되는 경우 활용. -->
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0" />
-	<mvc:resources location="file:///D:/team2/source/attach/" mapping="/image/**" cache-period="0" ></mvc:resources>
+<!-- 	<mvc:resources location="file:///D:/team2/source/attach/" mapping="/image/**" cache-period="0" ></mvc:resources> -->
+	<mvc:resources location="file:///Users/cksmacbook/Desktop/DDIT/Project/FinalProject/source/attach/" mapping="/image/**" cache-period="0" ></mvc:resources>
 	<bean id="bootstrapPaginationRender" class="kr.or.ddit.ui.BootstrapPaginationRender" />
 
 	<bean id="paginationManager" class="kr.or.ddit.ui.DefaultPaginationManager">

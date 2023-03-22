@@ -124,7 +124,7 @@
 <!--     <include refid="searchFrag"/> -->
     where 1=1
     <include refid="mainSearch"/>
-    ORDER BY exprod_id DESC
+    ORDER BY exprod_id
     )
 	SELECT A.*
 	FROM (
@@ -159,7 +159,7 @@
 	 where to_char(sysdate,'YYYYMMDD') <![CDATA[>=]]> exprod_start
 	     and to_char(sysdate,'YYYYMMDD') <![CDATA[<=]]> exprod_end
 	     and exprod_aproval = 'Y'
-    ORDER BY exprod_id DESC
+    ORDER BY exprod_id 
     )
 	SELECT A.*
 	FROM (

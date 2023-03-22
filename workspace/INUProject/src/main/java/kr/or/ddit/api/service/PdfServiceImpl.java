@@ -4,26 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringReader;
-import java.net.URL;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -43,22 +30,18 @@ import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
-import kr.or.ddit.announcement.dao.AnnoDAO;
 import kr.or.ddit.api.dao.PdfAttachDAO;
 import kr.or.ddit.api.vo.PdfAttachVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PdfServiceImpl implements PdfService {
-	private final AnnoDAO annoDao;
 	private final PdfAttachDAO attachDAO;
-	private final WebApplicationContext context;
 	
 	@Value("#{appInfo.resumeFolder}")
 	private File saveFiles;
@@ -81,7 +64,6 @@ public class PdfServiceImpl implements PdfService {
 		, String htmlStr
 		, HttpServletRequest request
 	) {
-		ClassPathResource result = null;
 		int cnt = 0;
 		try {
 			String serverPath = request.getSession().getServletContext().getRealPath("/") + "resources/css/";

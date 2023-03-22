@@ -1,12 +1,9 @@
 package kr.or.ddit.expert.controller;
 
-import java.util.Map;
 
 import javax.inject.Inject;
-import javax.websocket.server.PathParam;
+//import javax.websocket.server.PathParam;
 
-import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ddit.expert.service.ExcartService;
 import kr.or.ddit.expert.vo.ExcartVO;
@@ -46,7 +41,7 @@ public class ExpertPayController {
 	
 	@GetMapping("/pay/{exprodId}")
 	public String expertPay(
-		@PathParam("exprodId") String exprodId
+//		@PathParam("exprodId") String exprodId
 		) {
 		return "expert/expertPay";
 	}

@@ -156,21 +156,21 @@
 	<!-- 내가 작성한 홍보글 조회 쿼리 -->
 	<select id="selectSelfprMypage" parameterType="String" resultType="SelfprVO">
 	SELECT
-	    pr_no,
-	    pr_name,
-	    pr_content,
-	    pr_date,
-	    mem_id,
-	    myresume_id,
-	    pr_wantjob,
-	    pr_annual,
-	    pr_wantmn,
-	    pr_wanttype,
-	    pr_edu,
-	    region_code,
-	    industry_code
+	    PR_NO,
+	    PR_NAME,
+	    PR_CONTENT,
+	    PR_DATE,
+	    MEM_ID,
+	    MYRESUME_ID,
+	    PR_WANTJOB,
+	    PR_ANNUAL,
+	    PR_WANTMN,
+	    PR_WANTTYPE,
+	    PR_EDU,
+	    REGION_CODE,
+	    INDUSTRY_CODE
 	FROM
-	    pr
+	    PR
 	WHERE MEM_ID = #{mem_id}
 	</select>
 	

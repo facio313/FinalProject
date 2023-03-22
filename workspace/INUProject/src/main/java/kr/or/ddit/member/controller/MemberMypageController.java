@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.websocket.server.PathParam;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +29,6 @@ import kr.or.ddit.expert.vo.ExcartVO;
 import kr.or.ddit.expert.vo.ExpertVO;
 import kr.or.ddit.expert.vo.ExreviewVO;
 import kr.or.ddit.member.service.MemberService;
-import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.resume.service.ResumeService;
 import kr.or.ddit.resume.vo.ResumeVO;
 import kr.or.ddit.security.AuthMember;

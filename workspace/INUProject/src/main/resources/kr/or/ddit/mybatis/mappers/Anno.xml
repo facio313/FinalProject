@@ -574,7 +574,10 @@
 	</select>
 
 	<select id="selectMyAnnoListSeeker" parameterType="String" resultMap="annoProcessListMap">
-		SELECT A.*, B.*, D.*, E.*
+		SELECT A.ANNO_NO, A.CMP_ID, A.ANNO_TITLE, A.ANNO_STARTDATE, A.ANNO_ENDDATE
+			, B.DA_NO, B.DA_FD
+			, D.PROCESS_CODE_ID, D.PROCESS_START_DATE, D.PROCESS_END_DATE
+			, E.PROCESS_CODE_NAME
 		FROM ANNO A
 		INNER JOIN ANNO_DETAIL B ON A.ANNO_NO = B.ANNO_NO
 		INNER JOIN APPLY C ON B.DA_NO = C.DA_NO
