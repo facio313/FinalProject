@@ -170,26 +170,6 @@ public class ProcessController {
 	) throws ParseException { // 예외처리 하기
 		String memId = authMember.getMemId();
 		List<AnnoVO> list = annoService.retrieveMyAnnoList(memId);
-		
-		// 서비스로 옮기기
-		String now = LocalDate.now().toString().replace("-", "");
-		DateFormat format = new SimpleDateFormat("yyyyMMdd");
-		Date n = format.parse(now);
-		double nDays = n.getTime()/(1000*60*60*24);
-		for (AnnoVO vo : list) {
-			Date sd = format.parse(vo.getAnnoStartdate().replace("-", ""));
-			double sDays = sd.getTime()/(1000*60*60*24);
-			Date ed = format.parse(vo.getAnnoEnddate().replace("-", ""));
-			double eDays = ed.getTime()/(1000*60*60*24);
-			double percent = 0;
-			if (sDays <= nDays && nDays <= eDays) {
-				percent = (double)(100/(eDays-sDays))*(nDays-sDays);
-			} else if (eDays < nDays) {
-				percent = 100;
-			} 
-			vo.setPercent(percent);
-		}
-		
 		model.addAttribute("list", list);
 		return "process/processAnnoList";
 	}
@@ -202,43 +182,7 @@ public class ProcessController {
 		, @AuthMember MemberVO authMember
 	) throws ParseException { // 예외처리 하기
 		AnnoVO anno = annoService.retrieveAnnoDetailProcess(annoNo);
-		
 		String now = LocalDate.now().toString().replace("-", "");
-		// 서비스로 옮기기
-		// 선형진행도
-		DateFormat format = new SimpleDateFormat("yyyyMMdd");
-		Date n = format.parse(now);
-		double nDays = n.getTime()/(1000*60*60*24);
-		List<AnnoDetailVO> detailList = anno.getDetailList();
-		for (AnnoDetailVO vo : detailList) {
-			List<ProcessVO> processList = vo.getProcessList();
-			double percent = 0;
-			if (processList.size() > 1){
-				int index = 0;
-				Date sd = null;
-				double sDays = 0;
-				Date ed = null;
-				double eDays = 0;
-				for (ProcessVO pvo : processList) {
-					if (index == 0) {
-						sd = format.parse(pvo.getProcessStartDate().replace("-", ""));
-						sDays = sd.getTime()/(1000*60*60*24);
-					} else if (index == processList.size() - 1) {
-						ed = format.parse(pvo.getProcessEndDate().replace("-", ""));
-						eDays = ed.getTime()/(1000*60*60*24);
-					}
-					index++;
-				}
-				if (sDays <= nDays && nDays <= eDays) {
-					percent = (double)(100/(eDays-sDays))*(nDays-sDays);
-				} else if (eDays < nDays) {
-					percent = 100;	
-				}
-					
-			}
-			vo.setPercent(percent);
-		}
-		
 		model.addAttribute("now", now);
 		model.addAttribute("anno", anno);
 		return "process/processDaView";
@@ -468,7 +412,7 @@ public class ProcessController {
 		process.setProcessList(resultList);
 		
 		service.createProcess(process);
-		return "redirect:/process/" + annoNo + "/" + daNo; // /{annoNo}/{daNo}
+		return "redirect:/process/" + annoNo + "/" + daNo;
 	}
 	
 	// 채용과정 수정폼
@@ -546,12 +490,11 @@ public class ProcessController {
 	}
 	
 	// 세부공고 - 항목 수정
-	// https://blog.naver.com/PostView.naver?blogId=admass&logNo=222116280957&parentCategoryNo=&categoryNo=4&viewDate=&isShowPopularPosts=false&from=postView
 	@ResponseBody
 	@PutMapping(value="/item", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public void ajaxUpdateItem(
 		@RequestBody ObjectNode saveObj
-		, @AuthMember MemberVO member // 되나 이거?
+		, @AuthMember MemberVO member
 	) throws JsonProcessingException, IllegalArgumentException { // 나중에 예외처리 해야 함
 		 ObjectMapper mapper = new ObjectMapper();
 		 ItemVO item = mapper.treeToValue(saveObj.get("item"), ItemVO.class);

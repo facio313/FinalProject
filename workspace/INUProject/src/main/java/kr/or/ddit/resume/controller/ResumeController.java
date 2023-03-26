@@ -1,6 +1,7 @@
 package kr.or.ddit.resume.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -166,38 +168,13 @@ public class ResumeController {
 	@PostMapping("/{resumeSn}")
 	public String resumeItemInsert(
 		@PathVariable String resumeSn
-		, @ModelAttribute("education") EducationVO education
-		, @ModelAttribute("career") CareerVO career
-		, @ModelAttribute("certification") CertificationVO certification
-		, @ModelAttribute("facility") FacilityVO facility
-		, @ModelAttribute("activity") ActivityVO activity
-		, @ModelAttribute("course") CourseVO course
-		, @ModelAttribute("award") AwardVO award
+		, @RequestBody Map<String, String> vo
 		, Model model
 		, @AuthMember MemberVO authMember
 	) {
-		if (education.getEduName() != null) {
-			service.createItem(resumeSn, education);
+		if (vo != null) {
+			service.createItem(resumeSn, vo);
 		}
-		if (career.getCareerCompany() != null) {
-			service.createItem(resumeSn, career);
-		}
-		if (certification.getCertName() != null) {
-			service.createItem(resumeSn, certification);
-		}
-		if (facility.getFacilityName() != null) {
-			service.createItem(resumeSn, facility);
-		}
-		if (activity.getActName() != null) {
-			service.createItem(resumeSn, activity);
-		}
-		if (course.getCourseName() != null) {
-			service.createItem(resumeSn, course);
-		}
-		if (award.getAwardName() != null) {
-			service.createItem(resumeSn, award);
-		}
-		
 		return "jsonView";
 	}
 	

@@ -1,6 +1,8 @@
 package kr.or.ddit.resume.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -72,7 +74,7 @@ public interface ResumeService {
 	 * @param resumeSn, vo
 	 * @return OK, FAIL, PKDUPLICATED 
 	 */
-	public ServiceResult createItem(String resumeSn, Object vo);
+	public ServiceResult createItem(String resumeSn, Map<String, String> vo);
 	
 	/**
 	 * 이력서 안에 있는 항목 지우기

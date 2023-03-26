@@ -1,11 +1,17 @@
 package kr.or.ddit.resume.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.resume.dao.ActivityDAO;
@@ -146,30 +152,38 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public ServiceResult createItem(String resumeSn, Object vo) {
+	public ServiceResult createItem(String resumeSn, Map<String, String> vo) {
 		int rowcnt = 0;
 		String resumeItemSn = "";
-		if (vo instanceof EducationVO) {
-			rowcnt += edu.inserteEducation((EducationVO) vo);
-			resumeItemSn = ((EducationVO) vo).getTblId();
-		} else if (vo instanceof CareerVO) {
-			rowcnt += career.insertCareer((CareerVO) vo);
-			resumeItemSn = ((CareerVO) vo).getTblId();
-		} else if (vo instanceof CertificationVO) {
-			rowcnt += cert.insertCertification((CertificationVO) vo);
-			resumeItemSn = ((CertificationVO) vo).getTblId();
-		} else if (vo instanceof FacilityVO) {
-			rowcnt += facility.insertFacility((FacilityVO) vo);
-			resumeItemSn = ((FacilityVO) vo).getTblId();
-		} else if (vo instanceof ActivityVO) {
-			rowcnt += activity.insertActivity((ActivityVO) vo);
-			resumeItemSn = ((ActivityVO) vo).getTblId();
-		} else if (vo instanceof CourseVO) {
-			rowcnt += course.insertCourse((CourseVO) vo);
-			resumeItemSn = ((CourseVO) vo).getTblId();
-		} else if (vo instanceof AwardVO) {
-			rowcnt += award.insertAward((AwardVO) vo);
-			resumeItemSn = ((AwardVO) vo).getTblId();
+		ObjectMapper objectMapper = new ObjectMapper();
+		if (vo.containsKey("eduName")) {
+			EducationVO eduVO = objectMapper.convertValue(vo, EducationVO.class);
+			rowcnt += edu.inserteEducation(eduVO);
+			resumeItemSn = eduVO.getEduSn();
+		} else if (vo.containsKey("careerTask")) {
+			CareerVO carVO = objectMapper.convertValue(vo, CareerVO.class);
+			rowcnt += career.insertCareer(carVO);
+			resumeItemSn = carVO.getCareerSn();
+		} else if (vo.containsKey("certName")) {
+			CertificationVO certVO = objectMapper.convertValue(vo,  CertificationVO.class);
+			rowcnt += cert.insertCertification(certVO);
+			resumeItemSn = certVO.getCertSn();
+		} else if (vo.containsKey("facilityName")) {
+			FacilityVO facVO = objectMapper.convertValue(vo, FacilityVO.class);
+			rowcnt += facility.insertFacility(facVO);
+			resumeItemSn = facVO.getFacilitySn();
+		} else if (vo.containsKey("actName")) {
+			ActivityVO actVO = objectMapper.convertValue(vo, ActivityVO.class);
+			rowcnt += activity.insertActivity(actVO);
+			resumeItemSn = actVO.getActSn();
+		} else if (vo.containsKey("courseName")) {
+			CourseVO crsVO = objectMapper.convertValue(vo, CourseVO.class);
+			rowcnt += course.insertCourse(crsVO);
+			resumeItemSn = crsVO.getCourseSn();
+		} else if (vo.containsKey("awardName")) {
+			AwardVO awdVO = objectMapper.convertValue(vo, AwardVO.class);
+			rowcnt += award.insertAward(awdVO);
+			resumeItemSn = awdVO.getAwardSn();
 		}
 		ResumeItemVO item = new ResumeItemVO(resumeSn, resumeItemSn);
 		rowcnt += dao.insertItem(item);

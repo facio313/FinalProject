@@ -843,11 +843,32 @@ eduBtn.on("click", function() {
 		event.preventDefault();
 		
 		let method = this.method;
-		let queryString = $(this).serialize();
+		let eduName = $(this).children("[name=eduName]").val();
+		let eduDepartment = $(this).children("[name=eduDepartment]").val();
+		let eduMajor = $(this).children("[name=eduMajor]").val();
+		let eduEntered = $(this).children("[name=eduEntered]").val();
+		let eduGraduated = $(this).children("[name=eduGraduated]").val();
+		let eduStatus = $(this).children("[name=eduStatus]").val();
+		let eduScore = $(this).children("[name=eduScore]").val();
+		let eduStandard = $(this).children("[name=eduStandard]").val();
+		let memId = $(this).children("[name=memId]").val();
 		
 		$.ajax({
 			method : method,
-			data :queryString,
+			contentType : 'application/json; charset=UTF-8',
+			data : JSON.stringify(
+				{
+					"eduName" : eduName
+					, "eduDepartment" : eduDepartment
+					, "eduMajor" : eduMajor
+					, "eduEntered" : eduEntered
+					, "eduGraduated" : eduGraduated
+					, "eduStatus" : eduStatus
+					, "eduScore" : eduScore
+					, "eduStandard" : eduStandard
+					, "memId" : memId
+				}
+			),
 			dataType : "json",
 			success : function(resp) {
 				$eduList();

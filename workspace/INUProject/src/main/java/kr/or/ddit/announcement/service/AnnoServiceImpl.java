@@ -1,5 +1,10 @@
 package kr.or.ddit.announcement.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +17,7 @@ import kr.or.ddit.announcement.vo.AnnoVO;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.NotExistAnnoException;
 import kr.or.ddit.expert.dao.AttachDAO;
+import kr.or.ddit.process.vo.ProcessVO;
 import kr.or.ddit.vo.PagingVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -176,14 +182,78 @@ public class AnnoServiceImpl implements AnnoService {
 	@Override
 	public List<AnnoVO> retrieveMyAnnoList(String memId) {
 		List<AnnoVO> list = annoDAO.selectMyAnnoList(memId);
+		
+		String now = LocalDate.now().toString().replace("-", "");
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		try {
+			Date n = format.parse(now);
+			double nDays = n.getTime()/(1000*60*60*24);
+			for (AnnoVO vo : list) {
+				Date sd = format.parse(vo.getAnnoStartdate().replace("-", ""));
+				double sDays = sd.getTime()/(1000*60*60*24);
+				Date ed = format.parse(vo.getAnnoEnddate().replace("-", ""));
+				double eDays = ed.getTime()/(1000*60*60*24);
+				double percent = 0;
+				if (sDays <= nDays && nDays <= eDays) {
+					percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+				} else if (eDays < nDays) {
+					percent = 100;
+				} 
+				vo.setPercent(percent);
+			}
+		} catch ( Exception e) {
+			new RuntimeException(e);
+		}
+		
 		return list;
 	}
 	
 	//경수
 	@Override
 	public AnnoVO retrieveAnnoDetailProcess(String annoNo) {
-		AnnoVO list = annoDAO.selectAnnoDetailProcess(annoNo);
-		return list;
+		AnnoVO anno = annoDAO.selectAnnoDetailProcess(annoNo);
+		
+		String now = LocalDate.now().toString().replace("-", "");
+		// 선형진행도
+		try {
+			DateFormat format = new SimpleDateFormat("yyyyMMdd");
+			Date n = format.parse(now);
+			double nDays = n.getTime()/(1000*60*60*24);
+			List<AnnoDetailVO> detailList = anno.getDetailList();
+			for (AnnoDetailVO vo : detailList) {
+				List<ProcessVO> processList = vo.getProcessList();
+				double percent = 0;
+				if (processList.size() > 1){
+					int index = 0;
+					Date sd = null;
+					double sDays = 0;
+					Date ed = null;
+					double eDays = 0;
+					for (ProcessVO pvo : processList) {
+						if (index == 0) {
+							sd = format.parse(pvo.getProcessStartDate().replace("-", ""));
+							sDays = sd.getTime()/(1000*60*60*24);
+						} else if (index == processList.size() - 1) {
+							ed = format.parse(pvo.getProcessEndDate().replace("-", ""));
+							eDays = ed.getTime()/(1000*60*60*24);
+						}
+						index++;
+					}
+					if (sDays <= nDays && nDays <= eDays) {
+						percent = (double)(100/(eDays-sDays))*(nDays-sDays);
+					} else if (eDays < nDays) {
+						percent = 100;	
+					}
+					
+				}
+				vo.setPercent(percent);
+			}
+			
+		} catch (Exception e) {
+			new RuntimeException(e);
+		}
+		
+		return anno;
 	}
 
 	//경수
